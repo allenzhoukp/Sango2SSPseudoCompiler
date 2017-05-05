@@ -1,0 +1,2 @@
+string_table_start = 769
+magic_table_start = 454
