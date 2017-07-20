@@ -1,3 +1,7 @@
+// Creator: Allen Zhou
+// This "header file" contains all defaultly used functions. They are necessary for compiling.
+// e.g. To parse operator * and ->, function call GetInt() and SetInt() is necessary.
+
 // These pair of function is used for reading/writing memory values and was created by HenryShow.
 
 // NOTE: Although HenryShow claims that it works, sometimes only the last byte is correctly read.

@@ -1,5 +1,5 @@
 // --------------------
-// Sango2 Smart Script Pseudo Code Compiler v0.30
+// Sango2 Smart Script Pseudo Code Compiler v0.3
 // This project is written with the help of Sam Nipps' mini-c project.
 // The script code generated is according to the format created by Henryshow.
 // Copyright (c) 2017 Allen Zhou
@@ -11,6 +11,7 @@
 #include <cmath>
 #include <ctime>
 #include <string>
+#include <set>
 #include <map>
 #include <stack>
 #include <regex>
@@ -37,17 +38,23 @@ const string CONFIG_FILE = "CONFIG.txt";
 //====== Lexer ======
 
 //input_src keeps the origin file content
-//input points at the position to read
-char input_src[MAX_FILE_LEN], *input;
+char input_src[MAX_FILE_LEN];
 
-//current_line and current_char
-int curln;
-char curch;
+struct Lexer {
 
-//token read
-char* buffer;
-int buflength;
-int token_type;
+    //input points at the position to read
+    char *input;
+
+    int curln;
+    char curch;
+
+    //token read
+    //watch out for buffer. It has to be dealt properly.
+    char* buffer;
+    int buflength;
+    int token_type;
+
+} lexer;
 
 const int TOKEN_OTHER = 0;
 const int TOKEN_IDENT = 1;
@@ -56,37 +63,37 @@ const int TOKEN_CHAR = 3;
 const int TOKEN_STR = 4;
 
 char next_char () {
-    if (curch == '\n')
-        curln++;
+    if (lexer.curch == '\n')
+        lexer.curln++;
 
-    curch = *input;
-    input++;
-    return curch;
+    lexer.curch = *lexer.input;
+    lexer.input++;
+    return lexer.curch;
 }
 
 bool prev_char (char before) {
-    input--;
-    curch = before;
+    lexer.input--;
+    lexer.curch = before;
     return false;
 }
 
 void eat_char () {
     //The compiler is typeless, so as a compromise indexing is done
     //in word size jumps, and pointer arithmetic in byte jumps.
-    (buffer + buflength++)[0] = curch;
+    (lexer.buffer + lexer.buflength++)[0] = lexer.curch;
     next_char();
 }
 
 void next () {
     //Skip whitespace
-    while (curch == ' ' || curch == '\r' || curch == '\n' || curch == '\t')
+    while (lexer.curch == ' ' || lexer.curch == '\r' || lexer.curch == '\n' || lexer.curch == '\t')
         next_char();
 
     //Treat preprocessor lines as line comments
     //NOTE: /**/ is not supported
-    if (   curch == '#'
-        || (curch == '/' && (next_char() == '/' || prev_char('/')))) {
-        while (curch != '\n' && input != '\0')
+    if (   lexer.curch == '#'
+        || (lexer.curch == '/' && (next_char() == '/' || prev_char('/')))) {
+        while (lexer.curch != '\n' && lexer.input != '\0')
             next_char();
 
         //Restart the function (to skip subsequent whitespace, comments and pp)
@@ -94,31 +101,31 @@ void next () {
         return;
     }
 
-    buflength = 0;
-    token_type = TOKEN_OTHER;
+    lexer.buflength = 0;
+    lexer.token_type = TOKEN_OTHER;
 
     //Identifier, keyword or integer literal
-    if (isalpha(curch) || isdigit(curch) || curch == '_') {
-        token_type = isalpha(curch) ? TOKEN_IDENT : TOKEN_INT;
-        if(curch == '_')
-            token_type = TOKEN_IDENT;
+    if (isalpha(lexer.curch) || isdigit(lexer.curch) || lexer.curch == '_') {
+        lexer.token_type = isalpha(lexer.curch) ? TOKEN_IDENT : TOKEN_INT;
+        if(lexer.curch == '_')
+            lexer.token_type = TOKEN_IDENT;
 
-        while (token_type == TOKEN_IDENT ? (isalnum(curch) || curch == '_') && input != '\0'
-                                    : isalnum(curch) && input != '\0')
+        while (lexer.token_type == TOKEN_IDENT ? (isalnum(lexer.curch) || lexer.curch == '_') && lexer.input != '\0'
+                                    : isalnum(lexer.curch) && lexer.input != '\0')
             eat_char();
 
     //Character and String
     //The original mini-c does not support string.
     //However it is impossible since we use a lot of prompt() in System.so
     //So I try to add support for that.
-    } else if (curch == '\'' || curch == '"') {
-        token_type = curch == '"' ? TOKEN_STR : TOKEN_CHAR;
+    } else if (lexer.curch == '\'' || lexer.curch == '"') {
+        lexer.token_type = lexer.curch == '"' ? TOKEN_STR : TOKEN_CHAR;
 
-        char delimiter = curch;
+        char delimiter = lexer.curch;
         eat_char();
 
-        while (curch != delimiter && input != '\0') {
-            if (curch == '\\')
+        while (lexer.curch != delimiter && lexer.input != '\0') {
+            if (lexer.curch == '\\')
                 eat_char();
 
             eat_char();
@@ -126,68 +133,119 @@ void next () {
 
         eat_char();
 
+    //Operator -, --, -=, ->
+    } else if (lexer.curch == '-' ) {
+        eat_char();
+
+        if(lexer.curch == '>' || lexer.curch == '-' || lexer.curch == '=')
+            eat_char();
+
+    //Operator (, (*), ((*)), (->), ((->))
+    } else if (lexer.curch == '(') {
+        int token_len = 1;
+
+        if (strncmp(lexer.input, "(*)", 3) == 0)
+            token_len = 3;
+        else if (strncmp(lexer.input, "((*))", 5) == 0)
+            token_len = 5;
+        else if (strncmp(lexer.input, "(->)", 4) == 0)
+            token_len = 4;
+        else if (strncmp(lexer.input, "((->))", 6) == 0)
+            token_len = 6;
+
+        for(int i = 0; i < token_len; i++)
+            eat_char();
+
     //Two char operators
-    } else if (   curch == '+' || curch == '-' || curch == '|' || curch == '&'
-               || curch == '=' || curch == '!' || curch == '>' || curch == '<') {
+    } else if (   lexer.curch == '+' || lexer.curch == '|' || lexer.curch == '&'
+               || lexer.curch == '=' || lexer.curch == '!' || lexer.curch == '>' || lexer.curch == '<') {
         eat_char();
 
         // ++, --, ||, &&, ==, >>, << (No !!)
         // +=, -=, |=, &=, ==, !=, >=, <=
-        if ((curch == buffer[0] && curch != '!') || curch == '=')
+        if ((lexer.curch == lexer.buffer[0] && lexer.curch != '!') || lexer.curch == '=')
             eat_char();
 
     } else
         eat_char();
 
-    *(buffer + buflength++) = '\0';
+    *(lexer.buffer + lexer.buflength++) = '\0';
 }
 
-void preprocess_include () {
-    while(*input != '"')
-        input++;
-    input++; //skip first '"'
+set<string> included_file_list;
 
-    //copy filename
-    char* filename = new char[MAX_LINE_LEN];
-    char* q = filename;
-    while(*input != '"') {
-        *q = *input;
-        input++;
-        q++;
-    }
-    *q = '\0';
-    input++; //skip last '"'
+bool include_file (const char* filename) {
+    //prevent redundant include
+    string strFilename (filename);
+    if(included_file_list.find(strFilename) != included_file_list.end())
+        return false;
+    included_file_list.insert(strFilename);
 
     //input file
     char* remaining_input_backup = new char[MAX_FILE_LEN];
-    strcpy(remaining_input_backup, input);
+    strcpy(remaining_input_backup, lexer.input);
 
-    *(input++) = '\n'; //add a new line - avoid file included being skipped by lexer
+    *(lexer.input++) = '\n'; //add a new line - avoid file included being skipped by lexer
+
+    // backup the include. The next scan for #include preprocess starts right after the include macro
+    // (so that #include in the included files is supported.)
+    char* end_of_include_macro = lexer.input;
 
     FILE* file_included = fopen(filename, "r");
-    while((*input = (char) fgetc(file_included)) != EOF)
-        input++;
+    while((*lexer.input = (char) fgetc(file_included)) != EOF)
+        lexer.input++;
+    fclose(file_included);
 
-    strcpy(input, remaining_input_backup);
+    strcpy(lexer.input, remaining_input_backup);
+
+    // recover the input to the end of #include macro.
+    lexer.input = end_of_include_macro;
 
     delete[] remaining_input_backup;
+    return true;
+}
+
+void preprocess_include () {
+    while(*lexer.input != '"')
+        lexer.input++;
+    lexer.input++; //skip first '"'
+
+    //copy filename
+    char *filename = new char[MAX_LINE_LEN];
+    char *q = filename;
+    while(*lexer.input != '"') {
+        *q = *lexer.input;
+        lexer.input++;
+        q++;
+    }
+    *q = '\0';
+    lexer.input++; //skip last '"'
+
+    include_file(filename);
+
+    delete[] filename;
 }
 
 void lex_init (const char* filename) {
     //Read all file contents into input_src
     FILE *fin = fopen(filename, "r");
-    input = input_src;
-    while((*input = (char) fgetc(fin)) != EOF)
-        input++;
+    lexer.input = input_src;
+    while((*lexer.input = (char) fgetc(fin)) != EOF)
+        lexer.input++;
 
-    for(input = input_src; *input != '\0'; input++)
-        if(*input == '#')
+    //NOTE: Default include: sg2lang.h
+    lexer.input = input_src;
+    include_file("sg2lang.h");
+
+    //include files
+    for(lexer.input = input_src; *lexer.input != '\0'; lexer.input++)
+        if(*lexer.input == '#')
             preprocess_include();
 
     //Get the lexer into a usable state for the parser
-    input = input_src;
-    curln = 1;
-    buffer = new char[MAXLEN];
+    lexer.input = input_src;
+    lexer.curln = 1;
+    lexer.buffer = new char[MAXLEN];
     next_char();
     next();
 }
@@ -201,8 +259,8 @@ int error_count;
 
 //prompt error
 void error (const char* format) {
-    printf("%d: error: ", curln);
-    printf(format, buffer);
+    printf("%d: error: ", lexer.curln);
+    printf(format, lexer.buffer);
     error_count++;
     printf("\n");
 
@@ -217,19 +275,19 @@ void require (bool condition, const char* format) {
         error(format);
 }
 
-//see if buffer == required token
+//see if lexer.buffer == required token
 bool see (const char* look) {
-    return !strcmp(buffer, look);
+    return !strcmp(lexer.buffer, look);
 }
 
-//if buffer != required token, then we will be waiting for it.
+//if lexer.buffer != required token, then we will be waiting for it.
 bool waiting_for (const char* look) {
-    return !see(look) && input != '\0';
+    return !see(look) && lexer.input != '\0';
 }
 
 void match (const char* look) {
     if (!see(look)) {
-        printf("%d: error: expected '%s', found '%s'\n", curln, look, buffer);
+        printf("%d: error: expected '%s', found '%s'\n", lexer.curln, look, lexer.buffer);
         error_count++;
 
         // Prevent infinite loop
@@ -447,35 +505,35 @@ bool try_match_instruction () {
     if (see("GetGlobalVariable") ||
         see("GetINV")) {
 
-        string function_name (buffer);
+        string function_name (lexer.buffer);
         next();
 
         match("(");
 
-        require(token_type == TOKEN_INT || token_type == TOKEN_IDENT,
+        require(lexer.token_type == TOKEN_INT || lexer.token_type == TOKEN_IDENT,
             "'%s' is not an explicit integer index");
 
         output += sprintf(output,
               function_name == "GetGlobalVariable" ? "\tINST_09 %s\n" : "\tPUSHINV %s\n",
-              buffer);
+              lexer.buffer);
         next();
 
         match(")");
 
     } else if (see("SetGlobalVariable") || see("SetINV")) {
-        string function_name (buffer);
+        string function_name (lexer.buffer);
         next();
 
         match("(");
         expr(1);
         match(",");
 
-        require(token_type == TOKEN_INT || token_type == TOKEN_IDENT,
+        require(lexer.token_type == TOKEN_INT || lexer.token_type == TOKEN_IDENT,
             "'%s' is not an explicit integer index");
 
         output += sprintf(output,
             function_name == "SetGlobalVariable" ? "\tSETARG %s\n" : "\tSETINV %s\n",
-            buffer);
+            lexer.buffer);
         next();
 
         match(")");
@@ -490,7 +548,7 @@ bool try_match_instruction () {
     } else if (try_match("Wait")) {
         match("(");
 
-        string name (buffer);
+        string name (lexer.buffer);
         require(function_table.find(name) != function_table.end() &&
                 string_table.find(name) != string_table.end(),
             "'%s' is not a function name");
@@ -536,10 +594,10 @@ int backward_argument_list () {
 }
 
 bool try_match_syscall () {
-    if (token_type != TOKEN_IDENT)
+    if (lexer.token_type != TOKEN_IDENT)
         return false;
 
-    string name (buffer);
+    string name (lexer.buffer);
 
     if(syscall_table.find(name) == syscall_table.end())
         return false;
@@ -561,28 +619,25 @@ bool try_match_syscall () {
 }
 
 bool try_match_function () {
-    if (token_type != TOKEN_IDENT)
+    if (lexer.token_type != TOKEN_IDENT)
         return false;
 
-    string name (buffer);
+    string name (lexer.buffer);
 
-    // backup the input.
+    // backup the lexer.input.
     // A normal function call may point to a function not in the table
     //   (e.g. call for DownBrightness() is very common in Magic.asm)
     // It is necessary to see if there is a left brace.
-    char* input_backup = input;
-    char curch_backup = curch;
-    char curln_backup = curln;
+    Lexer lexer_backup = lexer;
 
     next();
     bool condition = function_table.find(name) != function_table.end() || see("(");
 
-    input = input_backup;
-    curch = curch_backup;
-    curln = curln_backup;
-    strcpy(buffer, name.c_str());
-    buflength = name.size();
-    token_type = TOKEN_IDENT;
+    lexer = lexer_backup;
+
+    strcpy(lexer.buffer, name.c_str());
+    lexer.buflength = name.size();
+    lexer.token_type = TOKEN_IDENT;
 
     if(condition) {
         next();
@@ -609,13 +664,13 @@ bool try_match_function () {
 // Locals, integers, strings and normal function calls.
 // This function is a mixture of function factor() and object() in mini-c.
 void object () {
-    string name (buffer);
+    string name (lexer.buffer);
 
     if(see("true") || see("false")) {
         output += sprintf(output, "\tPUSH %s\n", see("true") ? "1" : "0");
         next();
 
-    } else if (token_type == TOKEN_IDENT) {
+    } else if (lexer.token_type == TOKEN_IDENT) {
 
         // Local variable
         if (locals.find(name) != locals.end()) {
@@ -643,18 +698,18 @@ void object () {
 
         // Unknown constant (assume defined in predefine.inc or somewhere else)
         } else {
-            output += sprintf(output, "\tPUSH %s\n", buffer);
+            output += sprintf(output, "\tPUSH %s\n", lexer.buffer);
             next();
         }
 
     // Integers
-    } else if (token_type == TOKEN_INT) {
-        output += sprintf(output, "\tPUSH %s\n", buffer);
+    } else if (lexer.token_type == TOKEN_INT) {
+        output += sprintf(output, "\tPUSH %s\n", lexer.buffer);
         next();
 
     // "" and '' are treated equally.
     // Strings
-    } else if (token_type == TOKEN_CHAR || token_type == TOKEN_STR) {
+    } else if (lexer.token_type == TOKEN_CHAR || lexer.token_type == TOKEN_STR) {
         // Get rid of delimiter
         string content = name.substr(1, name.size() - 2);
 
@@ -680,20 +735,15 @@ void unary () {
         //Recurse to allow chains of unary operations, LIFO order
         unary();
 
-        output += sprintf(output, "\tPUSH 0\n"
-                                  "\tCMP\n");
+        output += sprintf(output, "\tZERO\n");
 
     } else if (try_match("-")) {
         unary();
         output += sprintf(output, "\tNEG\n");
 
     } else if (try_match("~")) {
-        //There is no such instruction I am familiar with.
-        //I use a more brute-force way.
         unary();
-        output += sprintf(output, "\tNEG\n"
-                                  "\tPUSH 1\n"
-                                  "\tSUB\n");
+        output += sprintf(output, "\tNOT\n");
 
     } else {
         //This function call compiles itself
@@ -753,16 +803,10 @@ void expr (int level) {
 
         bool is_and = see("&&");
 
-        output += sprintf(output, "\tPUSH 0\n"
-                                  "\tCMPZ\n");
-
         next();
         expr(level + 1);
 
-        output += sprintf(output, "\tPUSH 0\n"
-                                  "\tCMPZ\n");
-
-        output += sprintf(output, is_and ? "\tAND\n" : "\tOR\n");
+        output += sprintf(output, is_and ? "\tORNZ\n" : "\tORZ\n");
     }
 
 }
@@ -778,13 +822,10 @@ stack<char*> break_to_labels;
 // NOTE value assigment operation does not have a value.
 // This function deals mainly with assignments. User's label declaration is dealt as well.
 void normal_line () {
-    string name (buffer);
+    string name (lexer.buffer);
 
     // backup the input and output.
-    char* input_backup = input;
-    char curch_backup = curch;
-    int curln_backup = curln;
-    int token_type_backup = token_type;
+    Lexer lexer_backup = lexer;
     char* output_backup = output;
 
     bool local_exists = locals.find(name) != locals.end();
@@ -802,7 +843,7 @@ void normal_line () {
         expr(1);
         match("]");
 
-        // Restore to the input_backup.
+        // Restore to the output_backup.
         output = output_backup;
         is_array = true;
     }
@@ -823,14 +864,10 @@ void normal_line () {
             match(":");
 
         // not a label, then it will be an expression.
-        // restore the input and call expr() to handle this.
+        // restore the lexer.input and call expr() to handle this.
         } else {
-            input = input_backup;
-            curch = curch_backup;
-            curln = curln_backup;
-            strcpy(buffer, name.c_str());
-            buflength = name.size();
-            token_type = token_type_backup;
+            lexer = lexer_backup;
+            strcpy(lexer.buffer, name.c_str());
 
             expr(1);
         }
@@ -980,7 +1017,7 @@ void for_loop () {
 
 void async_call () {
 
-    string name (buffer);
+    string name (lexer.buffer);
 
     require(function_table.find(name) != function_table.end() &&
             string_table.find(name) != string_table.end(),
@@ -1018,14 +1055,14 @@ void async_call () {
 }
 
 void decl_local () {
-    int local = new_local(buffer);
+    int local = new_local(lexer.buffer);
     next();
 
     if(try_match("[")) {
-        require(token_type == TOKEN_INT,
+        require(lexer.token_type == TOKEN_INT,
                 "'%s' is not an explicit integer. note it cannot be a macro definition");
         int value;
-        sscanf(buffer, "%d", &value);
+        sscanf(lexer.buffer, "%d", &value);
         local_no += value - 1;
         next();
 
@@ -1049,14 +1086,14 @@ void match_asm () {
     //Will not check grammar
     while(waiting_for("}")) {
 
-        string token (buffer);
+        string token (lexer.buffer);
 
         // Strings: will be converted into string no. in string table
         //NOTE if there is a async_call, the user should write PUSHSTR "function_name",
         //     instead of PUSHSTR function_name.
         //     Function names will not be converted,
         //     because direct CALL uses them instead of numbers.
-        if(token_type == TOKEN_STR) {
+        if(lexer.token_type == TOKEN_STR) {
             // Get rid of delimiter
             string content = token.substr(1, token.size() - 2);
 
@@ -1080,14 +1117,14 @@ void match_asm () {
 
         // otherwise: not changed
         } else {
-            output += sprintf(output, "%s ", buffer);
+            output += sprintf(output, "%s ", lexer.buffer);
         }
 
         //output new line if there is new line in __asm block
-        int curln_backup = curln;
+        int curln_backup = lexer.curln;
         next();
 
-        if(curln != curln_backup)
+        if(lexer.curln != curln_backup)
             output += sprintf(output, "\n\t");
     }
 
@@ -1130,7 +1167,7 @@ void line () {
         match(";");
 
     } else if (try_match("goto")) {
-        output += sprintf(output, "\tJMP %s\n", buffer);
+        output += sprintf(output, "\tJMP %s\n", lexer.buffer);
         next();
         match(";");
 
@@ -1179,14 +1216,14 @@ void decl_function () {
         match("void");
 
     match("function");
-    string name (buffer);
-    output += sprintf(output, "%s:\n", buffer);
+    string name (lexer.buffer);
+    output += sprintf(output, "%s:\n", lexer.buffer);
     next();
 
     match("(");
 
     while (waiting_for(")")) {
-        new_param(buffer);
+        new_param(lexer.buffer);
         curfn_argument_count ++;
         next();
 
@@ -1198,9 +1235,9 @@ void decl_function () {
     int callsign = 0;
 
     if (try_match("callsign")) {
-        require(token_type == TOKEN_INT,
+        require(lexer.token_type == TOKEN_INT,
             "expect an explicit integer callsign, found '%s'");
-        sscanf(buffer, "%d", &callsign);
+        sscanf(lexer.buffer, "%d", &callsign);
         next();
     }
 
@@ -1292,7 +1329,7 @@ int main(int argc, char** argv) {
     init_symbols();
     error_count = 0;
 
-    while(curch != '\0')
+    while(lexer.curch != '\0')
         decl_function();
 
     output_header(fout);
