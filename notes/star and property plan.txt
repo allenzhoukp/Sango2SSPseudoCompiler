@@ -1,0 +1,108 @@
+let's see how complicated it is.
+
+Operator -> (Lvalue)
+pAttacker->0x84->0x40->0x48 = pEnemyGeneral;
+(Which means, 
+	PUSH pEnemyGeneral
+	PUSH pAttacker
+	PUSH 0x84
+	ADD
+	CALL GETINT
+	PUSH 0X40
+	ADD
+	CALL GETINT
+	PUSH 0x48
+	ADD
+	CALL SETINT )
+In here, the former -> serve the same as an Rvalue
+	(equivalent to ADD CALL GETINT)
+	but the last -> is different
+	(equivalent to ADD CALL SETINT).
+And the other problem is, the Rvalue has to be pushed first!
+(This can be changed by using an alternative SetInt_InverseOrder().)
+
+This may be more complicated since it can be changed like this.
+array[0]->0x48 = pEnemyGeneral;
+Therefore, the key concept is the LAST ->.  This is differenet, and 
+	hard to interpret.
+
+And it can be FAR MORE COMPLICATED!
+array[0]->0x48 += pEnemyGeneral;
+This is equivalent to 
+	PUSH 0
+	PUSHNR array
+	PUSH 0x48
+	ADD
+	CALL GetInt
+	PUSH pEnemyGeneral
+	ADD
+	PUSH 0
+	PUSHNR array
+	PUSH 0x48
+	ADD
+	CALL SetInt
+	(WTF???)
+	
+Operator * (Lvalue)
+*(pGeneral) = pEnemyGeneral;
+(Which means,
+	PUSH pEnemyGeneral
+	PUSH pGeneral
+	CALL SetInt)
+	
+Does not support -> / * as byte/short. Use a SAR to do so, and provide a function for that.
+
+F**K why should I support for +=? 
+	it's of no f**king use and make it extremely difficult! 
+	THERE IS type in the f**king memory!
+	
+The new PARAPHRASE idea for normal_line! (The old one should not be used AT all.)
+
+1) Scan for label declaration (first token is IDENT, and then followed by a : )
+2) Scan for assignment =, X=
+   If it does not exist: direct call for a expr(1).
+3) The assignment DOES exists!
+   a) check if the first token is *: match a SetInt.
+      expr(1) -> address
+      if there is +=: output address
+      if there is +=: CALL GetInt
+      expr(1)
+      if there is +=: ADD
+      output address
+      CALL SetInt
+   
+   else check the left token of =.
+   b) a local: match a direct assignment for a local. 
+      require(only 1 token is on the left of the equation)
+      if there is +=: PUSH local
+      expr(1) for the right side
+      if there is +=: ADD
+      POPN local
+   c) ]: match an assignment for an array.
+      match a local
+      match("[")
+      expr(1) -> index
+      match("]")
+      if there is +=: output index, PUSHNR local
+      expr(1) for the right side
+      output index
+      SETNR local
+   d) an integer: match a SetIntProperty.
+      find the left the integer and match("->")
+      find the left of ->; run an expr(1) on it and give it to address
+      output the integer to address
+      if there is +=: output address
+      if there is +=: ADD
+      if there is +=: CALL GetInt
+      expr(1) for the right side
+      if there is +=: ADD
+      output address
+      ADD
+      CALL SetInt
+      
+What should I do if i want to operate a byte, or short?
+...
+- use **, *** and -->, ---> instead?
+- use *b, *s instead? (That will affect lexer.)
+
+

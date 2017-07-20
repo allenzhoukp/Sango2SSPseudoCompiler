@@ -1,2 +1,4 @@
-string_table_start = 769
-magic_table_start = 454
+string_table_start = 0
+magic_table_start = 0
+769
+454

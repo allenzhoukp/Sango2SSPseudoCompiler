@@ -1,5 +1,5 @@
 // --------------------
-// Sango2 Smart Script Pseudo Code Compiler v0.1
+// Sango2 Smart Script Pseudo Code Compiler v0.30
 // This project is written with the help of Sam Nipps' mini-c project.
 // The script code generated is according to the format created by Henryshow.
 // Copyright (c) 2017 Allen Zhou
@@ -142,15 +142,50 @@ void next () {
     *(buffer + buflength++) = '\0';
 }
 
+void preprocess_include () {
+    while(*input != '"')
+        input++;
+    input++; //skip first '"'
+
+    //copy filename
+    char* filename = new char[MAX_LINE_LEN];
+    char* q = filename;
+    while(*input != '"') {
+        *q = *input;
+        input++;
+        q++;
+    }
+    *q = '\0';
+    input++; //skip last '"'
+
+    //input file
+    char* remaining_input_backup = new char[MAX_FILE_LEN];
+    strcpy(remaining_input_backup, input);
+
+    *(input++) = '\n'; //add a new line - avoid file included being skipped by lexer
+
+    FILE* file_included = fopen(filename, "r");
+    while((*input = (char) fgetc(file_included)) != EOF)
+        input++;
+
+    strcpy(input, remaining_input_backup);
+
+    delete[] remaining_input_backup;
+}
+
 void lex_init (const char* filename) {
     //Read all file contents into input_src
     FILE *fin = fopen(filename, "r");
     input = input_src;
     while((*input = (char) fgetc(fin)) != EOF)
         input++;
-    input = input_src;
+
+    for(input = input_src; *input != '\0'; input++)
+        if(*input == '#')
+            preprocess_include();
 
     //Get the lexer into a usable state for the parser
+    input = input_src;
     curln = 1;
     buffer = new char[MAXLEN];
     next_char();
@@ -309,11 +344,16 @@ void new_fn (const char* ident, bool has_return_value, int callsign = 0) {
     Function function;
     function.name = name;
     function.magic_id = magic_table_len ++;
-    function.string_id = string_table_len ++;
     function.callsign = callsign;
     function.has_return_value = has_return_value;
 
-    string_table[name] = function.string_id;
+    //Warning: the function name string may has been declared!
+    if (string_table.find(name) != string_table.end()) { //string exists
+        function.string_id = string_table[name];
+    } else {
+        function.string_id = string_table_len ++;
+        string_table[name] = function.string_id;
+    }
     function_table[name] = function;
 }
 
@@ -736,6 +776,7 @@ stack<char*> loop_to_labels;
 stack<char*> break_to_labels;
 
 // NOTE value assigment operation does not have a value.
+// This function deals mainly with assignments. User's label declaration is dealt as well.
 void normal_line () {
     string name (buffer);
 
@@ -743,6 +784,7 @@ void normal_line () {
     char* input_backup = input;
     char curch_backup = curch;
     int curln_backup = curln;
+    int token_type_backup = token_type;
     char* output_backup = output;
 
     bool local_exists = locals.find(name) != locals.end();
@@ -788,7 +830,7 @@ void normal_line () {
             curln = curln_backup;
             strcpy(buffer, name.c_str());
             buflength = name.size();
-            token_type = TOKEN_IDENT;
+            token_type = token_type_backup;
 
             expr(1);
         }
@@ -999,10 +1041,63 @@ void decl_local () {
     match(";");
 }
 
+void match_asm () {
+    match("__asm");
+    match("{");
+    output += sprintf(output, "\t");
+
+    //Will not check grammar
+    while(waiting_for("}")) {
+
+        string token (buffer);
+
+        // Strings: will be converted into string no. in string table
+        //NOTE if there is a async_call, the user should write PUSHSTR "function_name",
+        //     instead of PUSHSTR function_name.
+        //     Function names will not be converted,
+        //     because direct CALL uses them instead of numbers.
+        if(token_type == TOKEN_STR) {
+            // Get rid of delimiter
+            string content = token.substr(1, token.size() - 2);
+
+            if(string_table.find(content) == string_table.end())
+                string_table[content] = string_table_len ++;
+
+            output += sprintf(output, "%d", string_table[content]);
+
+        // Locals: change to local no.
+        } else if(locals.find(token) != locals.end()) {
+            output += sprintf(output, "%d ", locals[token]);
+
+        // Label decl (colon): delete extra space and add the colon
+        } else if(token == ":") {
+            output--;
+            output += sprintf(output, ":");
+
+        // Negative symbol: no extra space
+        } else if(token == "-") {
+            output += sprintf(output, "-");
+
+        // otherwise: not changed
+        } else {
+            output += sprintf(output, "%s ", buffer);
+        }
+
+        //output new line if there is new line in __asm block
+        int curln_backup = curln;
+        next();
+
+        if(curln != curln_backup)
+            output += sprintf(output, "\n\t");
+    }
+
+    match("}");
+}
+
 void output_return (bool has_return_value) {
     if(has_return_value) {
         expr(1);
-        output += sprintf(output, "\tPOPN -%d\n",
+        output += sprintf(output, "\tPOPN %d\n",
             curfn_argument_count == 0 ? -2 : -1 - curfn_argument_count);
     }
 
@@ -1039,28 +1134,8 @@ void line () {
         next();
         match(";");
 
-    } else if (try_match("__asm")) {
-        //Will not check grammar
-        match("{");
-        output += sprintf(output, "\t");
-
-        while(waiting_for("}")) {
-            //Replace local variable
-            string token (buffer);
-            if(locals.find(token) != locals.end())
-                output += sprintf(output, "%d ", locals[token]);
-            else
-                output += sprintf(output, "%s ", buffer);
-
-            //output new line if there is new line in __asm block
-            int curln_backup = curln;
-            next();
-
-            if(curln != curln_backup)
-                output += sprintf(output, "\n\t");
-        }
-
-        match("}");
+    } else if (see("__asm")) {
+        match_asm();
 
     } else if (try_match("{")) {
         while (waiting_for("}"))
@@ -1226,7 +1301,8 @@ int main(int argc, char** argv) {
 
     fputs("\n\n", fout);
 
-    fputs("include \"sg2lib.asm\"\n", fout);
+    // No longer required. Switch to sg2io.cpp
+    //fputs("include \"sg2lib.asm\"\n", fout);
 
     output_string_definitions(fout);
     output_magic_table(fout);
