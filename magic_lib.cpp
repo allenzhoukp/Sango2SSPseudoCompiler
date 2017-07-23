@@ -1,6 +1,6 @@
 int function GetObjectByHandle(handle) {
     var num = handle & 0xFFFF;
-    if(num < 0x800)
+    if(num <= 0x800)
         //return *POBJECT_LIST_ROOT + 0x0A8 * num;
         return GetInt(POBJECT_LIST_ROOT) + 0x0A8 * num;
 

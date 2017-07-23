@@ -306,6 +306,14 @@ SetByte:
 	CALL SetData_NotAligned
 	RETN 2
 
+Magic116:
+	STACK 0   
+	PUSHINV INTV_IS_LEFT
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
+	PUSHINV INTV_DEFENDER_MAJOR
+	SYSCALL 0x10E, (2 | (0 << 16)) ; SYSCALL_0x010E
+	RETN 0
+
 DelayAmbientSound:
 	STACK 0   
 	LOC_40:
@@ -728,7 +736,7 @@ Hurt:
 	JMP LOC_B54 
 	LOC_B30:
 	PUSHARG -3 
-	PUSHSTR 18
+	PUSHSTR 19
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	LOC_B54:
@@ -1200,7 +1208,7 @@ LockCamera:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN -5 
 	LOC_1730:
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG -5 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
 	PUSHARG -5 
@@ -1467,7 +1475,7 @@ Blood:
 	PUSH 32 
 	CMPL 
 	JZ LOC_1EA4 
-	PUSHSTR 27
+	PUSHSTR 28
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSHARG 2 
@@ -1487,7 +1495,7 @@ SmallFireBall:
 	STACK 0   
 	STACK 2 
 	PUSHARG -4 
-	PUSHSTR 30
+	PUSHSTR 31
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 0 
@@ -1539,7 +1547,7 @@ SmallFireBall2:
 	LOC_2034:
 	STACK 3 
 	PUSHARG -4 
-	PUSHSTR 30
+	PUSHSTR 31
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 0 
@@ -1594,7 +1602,7 @@ SmallFireBall3:
 	STACK 0   
 	STACK 2 
 	PUSHARG -4 
-	PUSHSTR 30
+	PUSHSTR 31
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 0 
@@ -1645,7 +1653,7 @@ SmallFireBall4:
 	STACK 0   
 	STACK 2 
 	PUSHARG -4 
-	PUSHSTR 30
+	PUSHSTR 31
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 0 
@@ -1817,7 +1825,7 @@ CreateDots:
 	PUSH 4 
 	CMPL 
 	JZ LOC_28A0 
-	PUSHSTR 36
+	PUSHSTR 37
 	PUSHARG -2 
 	PUSH 0 
 	PUSH 0 
@@ -1877,7 +1885,7 @@ CreateLines:
 	PUSH 20 
 	CMPL 
 	JZ LOC_2A20 
-	PUSHSTR 39
+	PUSHSTR 40
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHNR 2 
@@ -2138,7 +2146,7 @@ KeepPower:
 	PUSHARG 1 
 	PUSH 12 
 	SYSCALL 0x27 , ( 2 | ( 0 << 16 ) ) ; 0x0027 
-	PUSHSTR 37
+	PUSHSTR 38
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -2146,7 +2154,7 @@ KeepPower:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 38
+	PUSHSTR 39
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -2266,7 +2274,7 @@ HitGeneral:
 	POP 
 	JMP LOC_357C 
 	LOC_34E0:
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -7 
 	PUSHARG -6 
 	PUSH 8 
@@ -2274,7 +2282,7 @@ HitGeneral:
 	CALLBS 
 	JMP LOC_357C 
 	LOC_3514:
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -7 
 	PUSHARG -6 
 	PUSH 8 
@@ -2282,7 +2290,7 @@ HitGeneral:
 	CALLBS 
 	JMP LOC_357C 
 	LOC_3548:
-	PUSHSTR 33
+	PUSHSTR 34
 	PUSHARG -7 
 	PUSHARG -6 
 	PUSH 8 
@@ -2322,7 +2330,7 @@ DisableAttack:
 NoMoreSoldierCallback:
 	STACK 0   
 	STACK 2 
-	PUSHSTR 46
+	PUSHSTR 47
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -3 
@@ -2343,7 +2351,7 @@ NoMoreSoldierCallback:
 	PUSHARG 1 
 	PUSH 10752 
 	SYSCALL 0x1D , ( 2 | ( 0 << 16 ) ) ; 0x001D 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_372C 
@@ -2421,7 +2429,7 @@ HalfMoonAll:
 	PUSHARG 1 
 	PUSH 1001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
-	PUSHSTR 49
+	PUSHSTR 50
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -2476,13 +2484,13 @@ HalfMoonCallback:
 	CALL HitGeneral 
 	JMP LOC_3B08 
 	LOC_3AB0:
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 8 
@@ -2501,11 +2509,11 @@ ShowHalfMoonSmoke:
 	PUSHARG -2 
 	SYSCALL 0x12 , ( 1 | ( 1 << 16 ) ) ; IsObjectExist 
 	JZ LOC_3D08 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_3C14 
-	PUSHSTR 51
+	PUSHSTR 52
 	PUSHARG -2 
 	PUSH 7 
 	PUSH 8 
@@ -2531,7 +2539,7 @@ ShowHalfMoonSmoke:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_3CB8 
 	LOC_3C14:
-	PUSHSTR 51
+	PUSHSTR 52
 	PUSHARG -2 
 	PUSH 7 
 	PUSH 8 
@@ -2572,7 +2580,7 @@ ShowHalfMoonSmoke:
 CreateHalfMoonSmoke:
 	STACK 0   
 	STACK 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_3D70 
@@ -2642,9 +2650,9 @@ HalfMoon:
 	STACK 0   
 	LOC_3F04:
 	STACK 12 
-	PUSHSTR 53
-	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	PUSHSTR 54
+	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
+	PUSHSTR 55
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -2654,7 +2662,7 @@ HalfMoon:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSH 0 
 	POPN 11 
@@ -2744,7 +2752,7 @@ HalfMoon:
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSHARG 1 
-	PUSHSTR 55
+	PUSHSTR 56
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHARG 1 
@@ -2772,7 +2780,7 @@ HalfMoon:
 	PUSHARG 4 
 	PUSH 1001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
-	PUSHSTR 49
+	PUSHSTR 50
 	PUSHARG 4 
 	PUSH 0 
 	PUSH 0 
@@ -2785,7 +2793,7 @@ HalfMoon:
 	POP 
 	JMP LOC_45C0 
 	LOC_4368:
-	PUSHSTR 24
+	PUSHSTR 25
 	PUSHARG 4 
 	PUSH 180 
 	PUSHARG 9 
@@ -2794,7 +2802,7 @@ HalfMoon:
 	CALLBS 
 	JMP LOC_45C0 
 	LOC_43A0:
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2803,7 +2811,7 @@ HalfMoon:
 	PUSH 140 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2812,7 +2820,7 @@ HalfMoon:
 	PUSH 140 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 24
+	PUSHSTR 25
 	PUSHARG 4 
 	PUSH 180 
 	PUSHARG 9 
@@ -2821,7 +2829,7 @@ HalfMoon:
 	CALLBS 
 	JMP LOC_45C0 
 	LOC_4468:
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2830,7 +2838,7 @@ HalfMoon:
 	PUSHARG 12 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2839,7 +2847,7 @@ HalfMoon:
 	PUSHARG 12 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2848,7 +2856,7 @@ HalfMoon:
 	PUSHARG 12 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 48
+	PUSHSTR 49
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -2857,7 +2865,7 @@ HalfMoon:
 	PUSHARG 12 
 	MUL 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 24
+	PUSHSTR 25
 	PUSHARG 4 
 	PUSH 180 
 	PUSHARG 9 
@@ -2951,7 +2959,7 @@ ProduceSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -2968,7 +2976,7 @@ ProduceSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -2982,7 +2990,7 @@ ProduceSoldier:
 	JZ LOC_48E4 
 	RETN 2 
 	LOC_48E4:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_4944 
@@ -3026,7 +3034,7 @@ ProduceSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -3047,7 +3055,7 @@ ProduceSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -3078,9 +3086,9 @@ MoreSoldier:
 	STACK 0   
 	LOC_4B4C:
 	STACK 8 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 58
+	PUSHSTR 59
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -3088,7 +3096,7 @@ MoreSoldier:
 	CALL DownBrightness 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 1 
@@ -3155,7 +3163,7 @@ MoreSoldier:
 	PUSH 0 
 	CMPZ 
 	JZ LOC_4F44 
-	PUSHSTR 56
+	PUSHSTR 57
 	PUSHARG 3 
 	PUSHARG 7 
 	PUSH 0 
@@ -3174,13 +3182,13 @@ MoreSoldier:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 59
-	PUSH 255 
-	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHSTR 60
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHSTR 61
+	PUSH 255 
+	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	JZ LOC_4EAC 
@@ -3506,7 +3514,7 @@ ShootObjectCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -3699,7 +3707,7 @@ FireTail:
 	PUSHARG -4 
 	SYSCALL 0x12 , ( 1 | ( 1 << 16 ) ) ; IsObjectExist 
 	JZ LOC_5D34 
-	PUSHSTR 65
+	PUSHSTR 66
 	PUSHARG 1 
 	PUSH 13010 
 	PUSHARG -3 
@@ -3755,7 +3763,7 @@ FlyLight:
 	PUSH 49152 
 	PUSH 49152 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 66
+	PUSHSTR 67
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 16 
@@ -3791,7 +3799,7 @@ FlyLight:
 	PUSH 0 
 	PUSH 16 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_5FCC 
@@ -3809,7 +3817,7 @@ FlyLight:
 	PUSH 0 
 	SYSCALL 0x28 , ( 4 | ( 0 << 16 ) ) ; 0x0028 
 	LOC_5FFC:
-	PUSHSTR 64
+	PUSHSTR 65
 	PUSHARG 2 
 	PUSH 81920 
 	PUSH 0 
@@ -3866,9 +3874,9 @@ ShootObject:
 	STACK 0   
 	LOC_6164:
 	STACK 10 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 69
+	PUSHSTR 70
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -3878,7 +3886,7 @@ ShootObject:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSH 0 
 	POPN 10 
@@ -3946,7 +3954,7 @@ ShootObject:
 	PUSH 15 
 	DELAY 
 	PUSHARG 1 
-	PUSHSTR 70
+	PUSHSTR 71
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	JMP LOC_64D4 
@@ -3960,7 +3968,7 @@ ShootObject:
 	PUSH 15 
 	DELAY 
 	PUSHARG 1 
-	PUSHSTR 71
+	PUSHSTR 72
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	JMP LOC_64D4 
@@ -3974,7 +3982,7 @@ ShootObject:
 	PUSH 15 
 	DELAY 
 	PUSHARG 1 
-	PUSHSTR 72
+	PUSHSTR 73
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	LOC_64D4:
@@ -4038,7 +4046,7 @@ ShootObject:
 	PUSH 0 
 	CMP 
 	JZ LOC_6700 
-	PUSHSTR 67
+	PUSHSTR 68
 	PUSHARG 4 
 	PUSH 13002 
 	PUSHARG -3 
@@ -4051,7 +4059,7 @@ ShootObject:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_673C 
 	LOC_6700:
-	PUSHSTR 67
+	PUSHSTR 68
 	PUSHARG 4 
 	PUSH 13007 
 	PUSH 9999 
@@ -4059,7 +4067,7 @@ ShootObject:
 	PUSHARG -3 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	LOC_673C:
-	PUSHSTR 24
+	PUSHSTR 25
 	PUSHARG 4 
 	PUSH 180 
 	PUSH 120 
@@ -4109,7 +4117,7 @@ RushcartCallback:
 	PUSHARG -2 
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE 
 	CALL Hurt 
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -4153,14 +4161,14 @@ CreateRushCart:
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
 	PUSHARG -2 
 	JZ LOC_6A1C 
-	PUSHSTR 23
+	PUSHSTR 24
 	PUSHARG 1 
 	PUSH 2 
 	PUSHARG -2 
 	SUB 
 	PUSH 80 
 	MUL 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 280 
 	CALLBS 
 	LOC_6A1C:
@@ -4177,9 +4185,9 @@ RushCart:
 	STACK 0   
 	LOC_6A54:
 	STACK 17 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 76
+	PUSHSTR 77
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -4189,7 +4197,7 @@ RushCart:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHARG 1 
 	PUSH 1 
@@ -4218,7 +4226,7 @@ RushCart:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 30 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_6C08 
@@ -4234,7 +4242,7 @@ RushCart:
 	PUSH 128 
 	POPN 4 
 	LOC_6C28:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALL GetSoldierMaxX 
 	POPN 9 
 	PUSHARG 3 
@@ -4260,7 +4268,7 @@ RushCart:
 	PUSH 0 
 	CMP 
 	JZ LOC_6E58 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4273,7 +4281,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4284,7 +4292,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4297,7 +4305,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4312,7 +4320,7 @@ RushCart:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_7134 
 	LOC_6E58:
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4325,7 +4333,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4336,7 +4344,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4349,7 +4357,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4360,7 +4368,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4373,7 +4381,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4384,7 +4392,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4397,7 +4405,7 @@ RushCart:
 	PUSHARG 4 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 74
+	PUSHSTR 75
 	PUSHARG 9 
 	PUSH 1200 
 	PUSHARG 11 
@@ -4411,7 +4419,7 @@ RushCart:
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	LOC_7134:
-	PUSHSTR 74
+	PUSHSTR 75
 	INST_45 
 	PUSH 40 
 	DELAY 
@@ -4504,13 +4512,13 @@ LockGeneral:
 	PUSH 48 
 	SYSCALL 0x28 , ( 4 | ( 0 << 16 ) ) ; 0x0028 
 	LOC_73D8:
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG 1 
 	PUSH 15007 
 	PUSH 8 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG 1 
 	PUSH 20 
@@ -4570,19 +4578,19 @@ BigThunderCallback:
 	PUSH 48 
 	SYSCALL 0x28 , ( 4 | ( 0 << 16 ) ) ; 0x0028 
 	LOC_75B4:
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG 1 
 	PUSH 15007 
 	PUSH 8 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -4590,13 +4598,13 @@ BigThunderCallback:
 	CALLBS 
 	PUSH 8 
 	DELAY 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 14 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 10 
@@ -4604,13 +4612,13 @@ BigThunderCallback:
 	CALLBS 
 	PUSH 8 
 	DELAY 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 8 
@@ -4791,10 +4799,10 @@ ThunderAttach:
 	STACK 0   
 	STACK 6 
 	PUSHARG -2 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 1 
 	PUSHARG -2 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 2 
 	PUSHARG -2 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
@@ -4826,7 +4834,7 @@ ThunderAttach:
 	PUSH 0 
 	PUSH 14409 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
-	PUSHSTR 80
+	PUSHSTR 81
 	PUSHARG 3 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -4845,7 +4853,7 @@ ThunderAttach:
 	PUSH 0 
 	PUSH 14409 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
-	PUSHSTR 80
+	PUSHSTR 81
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSHARG 6 
@@ -4864,7 +4872,7 @@ ThunderCallback:
 	PUSH 1 
 	CMP 
 	JZ LOC_7EA0 
-	PUSHSTR 81
+	PUSHSTR 82
 	PUSHARG -2 
 	PUSH 0 
 	PUSH 0 
@@ -4890,7 +4898,7 @@ ThunderCallback:
 	CMP 
 	ORZ 
 	JZ LOC_7F54 
-	PUSHSTR 78
+	PUSHSTR 79
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 0 
@@ -4898,13 +4906,13 @@ ThunderCallback:
 	CALLBS 
 	JMP LOC_7FAC 
 	LOC_7F54:
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 15007 
 	PUSH 8 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 15 
@@ -5040,7 +5048,7 @@ CreateThunderSmoke:
 	PUSH 8192 
 	PUSH 8192 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 84
+	PUSHSTR 85
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 0 
@@ -5070,7 +5078,7 @@ LockThunder:
 	PUSH 1 
 	CMP 
 	JZ LOC_847C 
-	PUSHSTR 85
+	PUSHSTR 86
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 0 
@@ -5118,9 +5126,9 @@ Thunder:
 	STACK 0   
 	LOC_8598:
 	STACK 21 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 88
+	PUSHSTR 89
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	PUSHARG -2 
 	SETARG 4 
@@ -5134,7 +5142,7 @@ Thunder:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHARG 1 
 	PUSH 1 
@@ -5163,7 +5171,7 @@ Thunder:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 30 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_8758 
@@ -5174,7 +5182,7 @@ Thunder:
 	PUSH 128 
 	POPN 4 
 	LOC_8768:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -5207,7 +5215,7 @@ Thunder:
 	PUSH 0 
 	CMP 
 	JZ LOC_8924 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -5220,10 +5228,10 @@ Thunder:
 	POPN 6 
 	LOC_889C:
 	PUSHARG 6 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 12 
 	PUSHARG 6 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 13 
 	PUSHARG 6 
 	POPN 5 
@@ -5239,14 +5247,14 @@ Thunder:
 	PUSH 8 
 	CMPG 
 	JZ LOC_8970 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
 	POPN 5 
 	JMP LOC_8A84 
 	LOC_8970:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 12 
@@ -5255,7 +5263,7 @@ Thunder:
 	PUSH 4 
 	SYSCALL 0x12A , ( 5 | ( 1 << 16 ) ) ; 0x012A 
 	POPN 14 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 12 
@@ -5277,7 +5285,7 @@ Thunder:
 	CMP 
 	ORZ 
 	JZ LOC_8A84 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -5335,7 +5343,7 @@ Thunder:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 11 
 	LOC_8BF0:
-	PUSHSTR 83
+	PUSHSTR 84
 	PUSHARG 5 
 	PUSHARG 11 
 	PUSH 4 
@@ -5387,7 +5395,7 @@ Thunder:
 	PUSH 650 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 10 
-	PUSHSTR 86
+	PUSHSTR 87
 	PUSHARG 9 
 	PUSHARG 10 
 	PUSH 128 
@@ -5450,7 +5458,7 @@ BigThunder:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHARG 1 
 	PUSH 1 
@@ -5496,7 +5504,7 @@ BigThunder:
 	PUSHARG 2 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 6 
-	PUSHSTR 90
+	PUSHSTR 91
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 5 
@@ -5505,7 +5513,7 @@ BigThunder:
 	SUB 
 	PUSH 40 
 	CALL MoveCamera 
-	PUSHSTR 77
+	PUSHSTR 78
 	PUSHARG 2 
 	PUSH 15008 
 	PUSH 4 
@@ -5514,7 +5522,7 @@ BigThunder:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 77
+	PUSHSTR 78
 	PUSHARG 2 
 	PUSH 15009 
 	PUSH 4 
@@ -5628,7 +5636,7 @@ TraceArrow:
 	PUSH 49152 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
 	LOC_9450:
-	PUSHSTR 91
+	PUSHSTR 92
 	PUSHARG 4 
 	PUSHARG 7 
 	PUSH 0 
@@ -5708,7 +5716,7 @@ ArrowCallback2:
 	PUSH 2 
 	MUL 
 	SETARG 8 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -5721,7 +5729,7 @@ ArrowCallback2:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -5754,7 +5762,7 @@ FlyArrowLU:
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
 	PUSHARG 1 
-	PUSHSTR 96
+	PUSHSTR 97
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	INST_09 6 
@@ -5805,7 +5813,7 @@ FlyArrowRU:
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
 	PUSHARG 1 
-	PUSHSTR 96
+	PUSHSTR 97
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	INST_09 6 
@@ -5867,7 +5875,7 @@ FlyArrowLB2:
 	PUSHARG 1 
 	PUSH 251658240 
 	SYSCALL 0x2B , ( 2 | ( 0 << 16 ) ) ; 0x002B 
-	PUSHSTR 92
+	PUSHSTR 93
 	PUSHARG 1 
 	PUSHARG -3 
 	PUSH 0 
@@ -5941,7 +5949,7 @@ FlyArrowRB2:
 	PUSHARG 1 
 	PUSH 251658240 
 	SYSCALL 0x2B , ( 2 | ( 0 << 16 ) ) ; 0x002B 
-	PUSHSTR 92
+	PUSHSTR 93
 	PUSHARG 1 
 	PUSHARG -3 
 	PUSH 0 
@@ -6260,7 +6268,7 @@ ProduceArrowSoldier:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 3 
-	PUSHSTR 105
+	PUSHSTR 106
 	PUSH 240 
 	PUSH 96 
 	PUSH 7 
@@ -6307,7 +6315,7 @@ ProduceArrowSoldier:
 	ADD 
 	PUSH 14 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 103
+	PUSHSTR 104
 	PUSHARG 5 
 	PUSHARG 3 
 	PUSH 0 
@@ -6343,7 +6351,7 @@ ProduceArrowSoldier:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 3 
-	PUSHSTR 104
+	PUSHSTR 105
 	PUSHARG 6 
 	PUSH 96 
 	PUSH 7 
@@ -6390,7 +6398,7 @@ ProduceArrowSoldier:
 	ADD 
 	PUSH 14 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 102
+	PUSHSTR 103
 	PUSHARG 5 
 	PUSHARG 3 
 	PUSH 0 
@@ -6424,9 +6432,9 @@ ArrowSupport:
 	STACK 12 
 	PUSH 1 
 	SETARG 8 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 108
+	PUSHSTR 109
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -6467,15 +6475,15 @@ ArrowSupport:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 30 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -3 
 	PUSHARG -2 
 	CALL ProduceArrowSoldier 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_AC08 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSH 240 
 	PUSH 96 
 	PUSH 4 
@@ -6487,7 +6495,7 @@ ArrowSupport:
 	CALLBS 
 	JMP LOC_AC58 
 	LOC_AC08:
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG 6 
 	PUSH 96 
 	PUSH 4 
@@ -6500,11 +6508,11 @@ ArrowSupport:
 	PUSH 0 
 	CALLBS 
 	LOC_AC58:
-	PUSHSTR 19
+	PUSHSTR 20
 	INST_45 
 	PUSH 60 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -6537,7 +6545,7 @@ ArrowSupport:
 	PUSH 0 
 	CMPG 
 	JZ LOC_AF28 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -6574,11 +6582,11 @@ ArrowSupport:
 	PUSHARG 4 
 	POPN 12 
 	LOC_AE5C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_AECC 
-	PUSHSTR 101
+	PUSHSTR 102
 	PUSHARG 3 
 	PUSHARG 5 
 	PUSH 80 
@@ -6590,7 +6598,7 @@ ArrowSupport:
 	CALLBS 
 	JMP LOC_AF18 
 	LOC_AECC:
-	PUSHSTR 100
+	PUSHSTR 101
 	PUSHARG 3 
 	PUSHARG 5 
 	PUSH 80 
@@ -6618,7 +6626,7 @@ ArrowSupport:
 	PUSH 650 
 	CMPGE 
 	JZ LOC_AFB8 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_AFB0 
@@ -6634,7 +6642,7 @@ ArrowSupport:
 	DIV 
 	POPN 11 
 	LOC_AFE0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -6663,11 +6671,11 @@ ArrowSupport:
 	PUSH 650 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_B138 
-	PUSHSTR 99
+	PUSHSTR 100
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -6680,7 +6688,7 @@ ArrowSupport:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_B194 
 	LOC_B138:
-	PUSHSTR 98
+	PUSHSTR 99
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -6697,7 +6705,7 @@ ArrowSupport:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_B060 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -6778,11 +6786,11 @@ ArrowSupport:
 	ADD 
 	POPN 5 
 	LOC_B418:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_B498 
-	PUSHSTR 99
+	PUSHSTR 100
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -6795,7 +6803,7 @@ ArrowSupport:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_B4F4 
 	LOC_B498:
-	PUSHSTR 98
+	PUSHSTR 99
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -6812,7 +6820,7 @@ ArrowSupport:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_B2A4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -6834,9 +6842,9 @@ ArrowSupport:
 	PUSH 0 
 	PUSH 80 
 	CALL MoveCamera 
-	PUSHSTR 91
-	INST_45 
 	PUSHSTR 92
+	INST_45 
+	PUSHSTR 93
 	INST_45 
 	PUSH 110 
 	DELAY 
@@ -6910,7 +6918,7 @@ StoneEmitterCallback2:
 	PUSH 2 
 	MUL 
 	SETARG 10 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -6923,7 +6931,7 @@ StoneEmitterCallback2:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -7016,7 +7024,7 @@ StoneEmitterCmd3:
 StoneExplode:
 	STACK 0   
 	STACK 2 
-	PUSHSTR 113
+	PUSHSTR 114
 	PUSH 200 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -7057,7 +7065,7 @@ FallExplode1:
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x8 , ( 1 | ( 0 << 16 ) ) ; 0x0008 
-	PUSHSTR 112
+	PUSHSTR 113
 	PUSHARG 3 
 	PUSH 0 
 	PUSH 0 
@@ -7097,7 +7105,7 @@ FallExplode1:
 	PUSH 65536 
 	PUSH 65536 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 115
+	PUSHSTR 116
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -7170,7 +7178,7 @@ FireStoneExplode:
 	PUSH 0 
 	CMP 
 	JZ LOC_BF38 
-	PUSHSTR 117
+	PUSHSTR 118
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 1 
@@ -7220,7 +7228,7 @@ FallExplode2:
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x8 , ( 1 | ( 0 << 16 ) ) ; 0x0008 
-	PUSHSTR 116
+	PUSHSTR 117
 	PUSHARG 3 
 	PUSH 0 
 	PUSH 0 
@@ -7274,7 +7282,7 @@ FallExplode2:
 	PUSH 65536 
 	PUSH 65536 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 119
+	PUSHSTR 120
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -7335,7 +7343,7 @@ ProduceStoneEmitter:
 	STACK 2 
 	PUSHARG -4 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_C410 
@@ -7381,7 +7389,7 @@ ProduceStoneEmitter:
 	PUSH 0 
 	PUSHARG 2 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_C580 
@@ -7519,7 +7527,7 @@ FlyStoneLB1:
 	PUSHARG 2 
 	PUSH 4 
 	SYSCALL 0x27 , ( 2 | ( 0 << 16 ) ) ; 0x0027 
-	PUSHSTR 121
+	PUSHSTR 122
 	PUSHARG 2 
 	PUSHARG 1 
 	PUSH 32768 
@@ -7626,7 +7634,7 @@ FlyStoneRB1:
 	PUSHARG 2 
 	PUSH 4 
 	SYSCALL 0x27 , ( 2 | ( 0 << 16 ) ) ; 0x0027 
-	PUSHSTR 121
+	PUSHSTR 122
 	PUSHARG 2 
 	PUSHARG 1 
 	PUSH 32768 
@@ -7777,7 +7785,7 @@ FlyStoneLB2:
 	PUSHARG 3 
 	PUSH 4 
 	SYSCALL 0x27 , ( 2 | ( 0 << 16 ) ) ; 0x0027 
-	PUSHSTR 121
+	PUSHSTR 122
 	PUSHARG 3 
 	PUSHARG 1 
 	PUSH 32768 
@@ -7936,7 +7944,7 @@ FlyStoneRB2:
 	PUSHARG 3 
 	PUSH 4 
 	SYSCALL 0x27 , ( 2 | ( 0 << 16 ) ) ; 0x0027 
-	PUSHSTR 121
+	PUSHSTR 122
 	PUSHARG 3 
 	PUSHARG 1 
 	PUSH 32768 
@@ -7990,9 +7998,9 @@ StoneEmitter:
 	SETARG 10 
 	PUSH 0 
 	SETARG 11 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 127
+	PUSHSTR 128
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -8036,7 +8044,7 @@ StoneEmitter:
 	PUSH 7002 
 	POPN 7 
 	LOC_D8A8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_D8DC 
@@ -8066,13 +8074,13 @@ StoneEmitter:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 13 
-	PUSHSTR 120
+	PUSHSTR 121
 	PUSH 6576 
 	PUSH 96 
 	PUSH 7 
 	MUL 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	MUL 
@@ -8081,7 +8089,7 @@ StoneEmitter:
 	PUSH 7 
 	MUL 
 	SUB 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
@@ -8122,7 +8130,7 @@ StoneEmitter:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 13 
-	PUSHSTR 120
+	PUSHSTR 121
 	PUSH 6576 
 	PUSH 96 
 	PUSH 7 
@@ -8132,7 +8140,7 @@ StoneEmitter:
 	PUSH 2 
 	MUL 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	MUL 
@@ -8145,7 +8153,7 @@ StoneEmitter:
 	PUSH 2 
 	MUL 
 	SUB 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
@@ -8174,11 +8182,11 @@ StoneEmitter:
 	CMPG 
 	JNZ LOC_DACC 
 	LOC_DC3C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_DCB0 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSH 240 
 	PUSH 96 
 	PUSH 4 
@@ -8192,7 +8200,7 @@ StoneEmitter:
 	CALLBS 
 	JMP LOC_DD0C 
 	LOC_DCB0:
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSH 6576 
 	PUSH 96 
 	PUSH 4 
@@ -8207,11 +8215,11 @@ StoneEmitter:
 	PUSH 0 
 	CALLBS 
 	LOC_DD0C:
-	PUSHSTR 19
+	PUSHSTR 20
 	INST_45 
 	PUSH 92 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -8240,7 +8248,7 @@ StoneEmitter:
 	SUB 
 	POPN 1 
 	LOC_DDE8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -8277,11 +8285,11 @@ StoneEmitter:
 	PUSHARG 4 
 	POPN 12 
 	LOC_DEF4:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_DF74 
-	PUSHSTR 125
+	PUSHSTR 126
 	PUSHARG 3 
 	PUSHARG 5 
 	PUSH 80 
@@ -8294,7 +8302,7 @@ StoneEmitter:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_DFD0 
 	LOC_DF74:
-	PUSHSTR 124
+	PUSHSTR 125
 	PUSHARG 3 
 	PUSHARG 5 
 	PUSH 80 
@@ -8332,7 +8340,7 @@ StoneEmitter:
 	SUB 
 	POPN 12 
 	LOC_E07C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -8361,11 +8369,11 @@ StoneEmitter:
 	PUSH 650 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_E1D4 
-	PUSHSTR 123
+	PUSHSTR 124
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -8378,7 +8386,7 @@ StoneEmitter:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_E230 
 	LOC_E1D4:
-	PUSHSTR 122
+	PUSHSTR 123
 	PUSHARG 4 
 	PUSHARG 5 
 	PUSH 80 
@@ -8395,7 +8403,7 @@ StoneEmitter:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_E0FC 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -8417,9 +8425,9 @@ StoneEmitter:
 	PUSH 0 
 	PUSH 80 
 	CALL MoveCamera 
-	PUSHSTR 114
-	INST_45 
 	PUSHSTR 115
+	INST_45 
+	PUSHSTR 116
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -8456,7 +8464,7 @@ ExplodeRoundCallback:
 	PUSH 2 
 	MUL 
 	SETARG 12 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10016 
 	PUSH 60 
@@ -8469,7 +8477,7 @@ ExplodeRoundCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10016 
 	PUSH 60 
@@ -8573,7 +8581,7 @@ ProduceRound:
 	PUSHARG -3 
 	PUSH 0 
 	SYSCALL 0x15 , ( 5 | ( 0 << 16 ) ) ; 0x0015 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 1 
@@ -8581,7 +8589,7 @@ ProduceRound:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 2 
 	PUSH 3 
@@ -8589,7 +8597,7 @@ ProduceRound:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 4 
 	PUSH 5 
@@ -8597,7 +8605,7 @@ ProduceRound:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 5 
 	PUSH 6 
@@ -8605,7 +8613,7 @@ ProduceRound:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 7 
 	PUSH 8 
@@ -8613,7 +8621,7 @@ ProduceRound:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 131
+	PUSHSTR 132
 	PUSHARG 1 
 	PUSH 9 
 	PUSH 10 
@@ -8671,9 +8679,9 @@ ExplodeRound:
 	STACK 4 
 	PUSH 1 
 	SETARG 12 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 133
+	PUSHSTR 134
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -8729,7 +8737,7 @@ ExplodeRound:
 	PUSHARG -4 
 	CMPL 
 	JZ LOC_EC90 
-	PUSHSTR 130
+	PUSHSTR 131
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG -2 
 	PUSH 72 
@@ -8745,16 +8753,16 @@ ExplodeRound:
 	PUSH 0 
 	CMP 
 	JZ LOC_EC80 
-	PUSHSTR 134
+	PUSHSTR 135
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	LOC_EC80:
 	INCN 1 
 	JMP LOC_EBCC 
 	LOC_EC90:
-	PUSHSTR 130
-	INST_45 
 	PUSHSTR 131
+	INST_45 
+	PUSHSTR 132
 	INST_45 
 	PUSH 30 
 	DELAY 
@@ -8768,7 +8776,7 @@ ExplodeRound:
 EightWayFireCallback:
 	STACK 0   
 	STACK 1 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -8797,7 +8805,7 @@ EightWayFireCallback:
 	PUSH 2 
 	MUL 
 	SETARG 13 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -8810,7 +8818,7 @@ EightWayFireCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -8928,7 +8936,7 @@ EightWayFireMotion:
 	SUB 
 	CMPL 
 	JZ LOC_F174 
-	PUSHSTR 136
+	PUSHSTR 137
 	PUSHARG -6 
 	PUSHARG -5 
 	PUSHARG -4 
@@ -8947,9 +8955,9 @@ EightWayFire:
 	STACK 0   
 	LOC_F17C:
 	STACK 5 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 139
+	PUSHSTR 140
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -9019,7 +9027,7 @@ EightWayFire:
 	PUSH 14 
 	POPN 5 
 	LOC_F3CC:
-	PUSHSTR 137
+	PUSHSTR 138
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSHARG -2 
@@ -9036,10 +9044,10 @@ EightWayFire:
 	PUSH 0 
 	CMPGE 
 	JNZ LOC_F3CC 
-	PUSHSTR 140
+	PUSHSTR 141
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 136
+	PUSHSTR 137
 	INST_45 
 	PUSH 30 
 	DELAY 
@@ -9317,7 +9325,7 @@ BrokenStone:
 	PUSH 8 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 144
+	PUSHSTR 145
 	PUSHARG 1 
 	PUSHARG -2 
 	PUSH 0 
@@ -9369,7 +9377,7 @@ ProduceSomethingXY:
 	PUSH 20002 
 	CMP 
 	JZ LOC_101CC 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20011 
 	PUSH 7 
@@ -9381,7 +9389,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20012 
 	PUSH 6 
@@ -9391,7 +9399,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20011 
 	PUSH 7 
@@ -9403,7 +9411,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20012 
 	PUSH 6 
@@ -9413,7 +9421,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20014 
 	PUSH 11 
@@ -9425,7 +9433,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20013 
 	PUSH 10 
@@ -9435,7 +9443,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20011 
 	PUSH 9 
@@ -9447,7 +9455,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20014 
 	PUSH 11 
@@ -9457,7 +9465,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20012 
 	PUSH 10 
@@ -9469,7 +9477,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20013 
 	PUSH 11 
@@ -9481,7 +9489,7 @@ ProduceSomethingXY:
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
 	JMP LOC_104AC 
 	LOC_101CC:
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20011 
 	PUSH 7 
@@ -9493,7 +9501,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20012 
 	PUSH 6 
@@ -9503,7 +9511,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20014 
 	PUSH 8 
@@ -9515,7 +9523,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20013 
 	PUSH 7 
@@ -9525,7 +9533,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20011 
 	PUSH 6 
@@ -9537,7 +9545,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20014 
 	PUSH 8 
@@ -9547,7 +9555,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20012 
 	PUSH 6 
@@ -9559,7 +9567,7 @@ ProduceSomethingXY:
 	PUSH 0 
 	PUSH 128 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 145
+	PUSHSTR 146
 	PUSHARG 1 
 	PUSH 20013 
 	PUSH 7 
@@ -9575,7 +9583,7 @@ ProduceSomethingXY:
 	PUSHARG 1 
 	PUSH 128 
 	SYSCALL 0x29 , ( 2 | ( 0 << 16 ) ) ; SetObjectFlags 
-	PUSHSTR 145
+	PUSHSTR 146
 	INST_45 
 	PUSHARG 1 
 	SYSCALL 0x13 , ( 1 | ( 0 << 16 ) ) ; FreeObjectByHandle 
@@ -9597,9 +9605,9 @@ ConvexStone:
 	STACK 14 
 	PUSH 10002 
 	POPN 9 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 148
+	PUSHSTR 149
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -9632,7 +9640,7 @@ ConvexStone:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 30 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_106B4 
@@ -9693,7 +9701,7 @@ ConvexStone:
 	PUSHARG 8 
 	POPN 12 
 	LOC_10834:
-	PUSHSTR 146
+	PUSHSTR 147
 	PUSHARG 5 
 	PUSHARG 7 
 	ADD 
@@ -9709,7 +9717,7 @@ ConvexStone:
 	PUSHARG 9 
 	PUSH 1 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 146
+	PUSHSTR 147
 	PUSHARG 5 
 	PUSHARG 7 
 	ADD 
@@ -9725,7 +9733,7 @@ ConvexStone:
 	PUSHARG 9 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 5 
 	PUSHARG 7 
 	ADD 
@@ -9788,7 +9796,7 @@ ConvexStone:
 	DIV 
 	ADD 
 	POPN 13 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 13 
 	PUSHARG 14 
 	PUSH 2501 
@@ -9865,7 +9873,7 @@ ConvexStone:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_10834 
-	PUSHSTR 136
+	PUSHSTR 137
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -10069,7 +10077,7 @@ TornadoStone:
 	PUSH 49152 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 151
+	PUSHSTR 152
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSH 0 
@@ -10139,7 +10147,7 @@ BottomMotion:
 	PUSH 0 
 	CMP 
 	JZ LOC_114B0 
-	PUSHSTR 152
+	PUSHSTR 153
 	PUSHARG -2 
 	PUSH 0 
 	PUSH 0 
@@ -10169,7 +10177,7 @@ ProduceTornado:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 1 
-	PUSHSTR 154
+	PUSHSTR 155
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSH 0 
@@ -10206,7 +10214,7 @@ ProduceTornado:
 	MUL 
 	ADD 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 150
+	PUSHSTR 151
 	PUSHARG -2 
 	PUSHARG 14 
 	PUSHNR 2 
@@ -10267,7 +10275,7 @@ DummyMotion:
 	PUSH 4 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -10663,9 +10671,9 @@ Tornado:
 	STACK 0   
 	LOC_12178:
 	STACK 16 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 162
+	PUSHSTR 163
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -10698,7 +10706,7 @@ Tornado:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_122E8 
@@ -10709,7 +10717,7 @@ Tornado:
 	PUSH 128 
 	POPN 3 
 	LOC_122F8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -10718,7 +10726,7 @@ Tornado:
 	PUSH 0 
 	CMP 
 	JZ LOC_12390 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -10745,10 +10753,10 @@ Tornado:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	ADD 
 	SYSCALL 0x1F , ( 2 | ( 0 << 16 ) ) ; 0x001F 
-	PUSHSTR 163
+	PUSHSTR 164
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 20
+	PUSHSTR 21
 	PUSHARG 9 
 	PUSH 320 
 	NEG 
@@ -10788,14 +10796,14 @@ Tornado:
 	CALL CreateDummyRef 
 	PUSHARG 7 
 	SETNR 4 
-	PUSHSTR 155
+	PUSHSTR 156
 	PUSHARG 7 
 	PUSHNR 4 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 156
+	PUSHSTR 157
 	PUSHARG 7 
 	PUSHNR 4 
 	PUSHARG 9 
@@ -10813,7 +10821,7 @@ Tornado:
 	PUSH 0 
 	CMP 
 	JZ LOC_12624 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -10822,16 +10830,16 @@ Tornado:
 	PUSHARG 8 
 	JZ LOC_127E0 
 	PUSHARG 8 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 1 
 	PUSHARG 8 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 2 
 	PUSH 4 
 	PUSH 8 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 11 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 1 
@@ -10846,7 +10854,7 @@ Tornado:
 	PUSH 1 
 	CMPG 
 	JZ LOC_12768 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 1 
@@ -10863,7 +10871,7 @@ Tornado:
 	PUSH 0 
 	CMP 
 	JZ LOC_127D8 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -10877,7 +10885,7 @@ Tornado:
 	LOC_127D8:
 	JMP LOC_12834 
 	LOC_127E0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -10921,17 +10929,17 @@ Tornado:
 	PUSHARG 12 
 	PUSHARG 16 
 	SYSCALL 0x19 , ( 3 | ( 0 << 16 ) ) ; 0x0019 
-	PUSHSTR 158
+	PUSHSTR 159
 	PUSHARG 9 
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 158
+	PUSHSTR 159
 	INST_45 
 	JMP LOC_125B8 
 	LOC_12984:
-	PUSHSTR 155
+	PUSHSTR 156
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -10957,7 +10965,7 @@ DuplicatorCallback:
 	CMP 
 	OR 
 	JZ LOC_12B38 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -10965,7 +10973,7 @@ DuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -10973,7 +10981,7 @@ DuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -10981,7 +10989,7 @@ DuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -10989,7 +10997,7 @@ DuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -10997,7 +11005,7 @@ DuplicatorCallback:
 	CALLBS 
 	JMP LOC_12B64 
 	LOC_12B38:
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -11133,7 +11141,7 @@ ProduceDuplicator:
 	PUSHARG -5 
 	SYSCALL 0x12 , ( 1 | ( 1 << 16 ) ) ; IsObjectExist 
 	JZ LOC_12F0C 
-	PUSHSTR 168
+	PUSHSTR 169
 	PUSHARG -5 
 	PUSHARG -4 
 	PUSHARG -3 
@@ -11223,9 +11231,9 @@ Duplicator:
 	STACK 0   
 	LOC_13104:
 	STACK 10 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 170
+	PUSHSTR 171
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -11246,13 +11254,13 @@ Duplicator:
 	LOC_131BC:
 	PUSH 1 
 	PUSH 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
 	SUB 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_13224 
@@ -11289,7 +11297,7 @@ Duplicator:
 	PUSH 16384 
 	SYSCALL 0x120 , ( 2 | ( 0 << 16 ) ) ; SetObjectAnimate 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 171
+	PUSHSTR 172
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -11316,26 +11324,26 @@ Duplicator:
 	PUSHARG 2 
 	PUSH 12001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
-	PUSHSTR 12
+	PUSHSTR 13
 	PUSHARG 2 
 	PUSH 9999 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 166
+	PUSHSTR 167
 	PUSHARG 2 
 	PUSH 22001 
 	PUSH 9999 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 24
+	PUSHSTR 25
 	PUSHARG 2 
 	PUSH 180 
 	PUSH 120 
 	NEG 
 	PUSHARG 10 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALLBS 
 	PUSH 16 
 	POPN 5 
@@ -11343,7 +11351,7 @@ Duplicator:
 	POPN 4 
 	PUSH 0 
 	POPN 3 
-	PUSHSTR 165
+	PUSHSTR 166
 	PUSHARG 2 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	PUSH 0 
@@ -11383,13 +11391,13 @@ Duplicator:
 	CMPL 
 	JZ LOC_135E4 
 	PUSHARG 2 
-	PUSHSTR 172
+	PUSHSTR 173
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	JMP LOC_13608 
 	LOC_135E4:
 	PUSHARG 2 
-	PUSHSTR 172
+	PUSHSTR 173
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	LOC_13608:
@@ -11560,13 +11568,13 @@ ProduceSomethingXY2:
 	PUSHARG -4 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 174
+	PUSHSTR 175
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 174
+	PUSHSTR 175
 	INST_45 
 	PUSHARG 1 
 	PUSH 16 
@@ -11579,9 +11587,9 @@ Frozen:
 	STACK 0   
 	LOC_13AF0:
 	STACK 7 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 177
+	PUSHSTR 178
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -11614,7 +11622,7 @@ Frozen:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 30 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_13C60 
@@ -11625,7 +11633,7 @@ Frozen:
 	PUSH 128 
 	POPN 6 
 	LOC_13C70:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -11640,7 +11648,7 @@ Frozen:
 	PUSH 1 
 	ADD 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -11649,7 +11657,7 @@ Frozen:
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
 	POPN 5 
 	LOC_13D20:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -11657,7 +11665,7 @@ Frozen:
 	PUSHARG 2 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
 	POPN 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_13DB4 
@@ -11684,7 +11692,7 @@ Frozen:
 	JNZ LOC_13D20 
 	JMP LOC_13EA0 
 	LOC_13E0C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_13E68 
@@ -11705,7 +11713,7 @@ Frozen:
 	ADD 
 	POPN 5 
 	LOC_13EA0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_13EFC 
@@ -11728,14 +11736,14 @@ Frozen:
 	LOC_13F34:
 	PUSH 15 
 	DELAY 
-	PUSHSTR 178
+	PUSHSTR 179
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_141A0 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	SUB 
@@ -11745,7 +11753,7 @@ Frozen:
 	PUSH 23009 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	SUB 
@@ -11755,7 +11763,7 @@ Frozen:
 	PUSH 23010 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	ADD 
@@ -11765,7 +11773,7 @@ Frozen:
 	PUSH 23011 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	ADD 
@@ -11775,7 +11783,7 @@ Frozen:
 	PUSH 23012 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	SUB 
@@ -11785,7 +11793,7 @@ Frozen:
 	PUSH 23013 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	SUB 
@@ -11795,7 +11803,7 @@ Frozen:
 	PUSH 23014 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	ADD 
@@ -11805,7 +11813,7 @@ Frozen:
 	PUSH 23015 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	ADD 
@@ -11817,7 +11825,7 @@ Frozen:
 	CALLBS 
 	JMP LOC_143C0 
 	LOC_141A0:
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	SUB 
@@ -11827,7 +11835,7 @@ Frozen:
 	PUSH 23001 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	SUB 
@@ -11837,7 +11845,7 @@ Frozen:
 	PUSH 23002 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	ADD 
@@ -11847,7 +11855,7 @@ Frozen:
 	PUSH 23003 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	ADD 
@@ -11857,7 +11865,7 @@ Frozen:
 	PUSH 23004 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	SUB 
@@ -11867,7 +11875,7 @@ Frozen:
 	PUSH 23005 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	SUB 
@@ -11877,7 +11885,7 @@ Frozen:
 	PUSH 23006 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 80 
 	ADD 
@@ -11887,7 +11895,7 @@ Frozen:
 	PUSH 23007 
 	PUSHARG 6 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	PUSHARG 5 
 	PUSH 240 
 	ADD 
@@ -11898,15 +11906,15 @@ Frozen:
 	PUSHARG 6 
 	CALLBS 
 	LOC_143C0:
-	PUSHSTR 173
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHSTR 174
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSH 25 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 175
+	PUSHSTR 176
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -11981,9 +11989,9 @@ DemonDancing:
 	STACK 0   
 	LOC_145B4:
 	STACK 7 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 182
+	PUSHSTR 183
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -12003,7 +12011,7 @@ DemonDancing:
 	PUSH 120 
 	SUB 
 	SYSCALL 0x100 , ( 2 | ( 0 << 16 ) ) ; SetViewCamera 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_146F0 
@@ -12041,7 +12049,7 @@ DemonDancing:
 	PUSH 0 
 	POPN 6 
 	LOC_1477C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_147B0 
@@ -12063,7 +12071,7 @@ DemonDancing:
 	PUSH 120 
 	SUB 
 	SYSCALL 0x100 , ( 2 | ( 0 << 16 ) ) ; SetViewCamera 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	JZ LOC_1488C 
@@ -12108,11 +12116,11 @@ DemonDancing:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 171
+	PUSHSTR 172
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 183
+	PUSHSTR 184
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -12138,11 +12146,11 @@ DemonDancing:
 	LOC_14A54:
 	PUSH 2 
 	SETARG 16 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_14AFC 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	ADD 
@@ -12159,7 +12167,7 @@ DemonDancing:
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
 	JMP LOC_14B70 
 	LOC_14AFC:
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	SUB 
@@ -12199,7 +12207,7 @@ DemonDancing:
 	PUSH 16 
 	PUSH 1 
 	SYSCALL 0x26 , ( 3 | ( 0 << 16 ) ) ; 0x0026 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG 3 
 	PUSHARG 3 
 	PUSH 10 
@@ -12215,7 +12223,7 @@ DemonDancing:
 	PUSH 10 
 	DELAY 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 171
+	PUSHSTR 172
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -12223,11 +12231,11 @@ DemonDancing:
 	CALL CreateLastAttack 
 	PUSH 20 
 	SETARG 16 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_14D8C 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	ADD 
@@ -12244,7 +12252,7 @@ DemonDancing:
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
 	JMP LOC_14E00 
 	LOC_14D8C:
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	SUB 
@@ -12273,11 +12281,11 @@ DemonDancing:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 171
+	PUSHSTR 172
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 183
+	PUSHSTR 184
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -12300,11 +12308,11 @@ DemonDancing:
 	SYSCALL 0x26 , ( 3 | ( 0 << 16 ) ) ; 0x0026 
 	PUSH 2 
 	SETARG 16 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_14FE8 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	ADD 
@@ -12321,7 +12329,7 @@ DemonDancing:
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
 	JMP LOC_1505C 
 	LOC_14FE8:
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 4 
 	PUSH 96 
 	SUB 
@@ -12448,13 +12456,13 @@ Func15009:
 	PUSHARG -3 
 	PUSHARG -2 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG 1 
 	PUSH 25008 
 	PUSH 8 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 185
+	PUSHSTR 186
 	PUSHARG 1 
 	PUSHARG 1 
 	PUSH 0 
@@ -12546,12 +12554,12 @@ CreateSmallSwords:
 	PUSH 0 
 	POPN 6 
 	PUSHARG -4 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 4 
 	PUSHARG -4 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 4 
@@ -12567,7 +12575,7 @@ CreateSmallSwords:
 	PUSHARG 7 
 	CMPL 
 	JZ LOC_15894 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 4 
@@ -12605,10 +12613,10 @@ CreateSmallSwords:
 	PUSH 15001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
 	PUSHARG 1 
-	PUSHSTR 189
+	PUSHSTR 190
 	PUSH 128 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
-	PUSHSTR 187
+	PUSHSTR 188
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -12657,10 +12665,10 @@ CreateSmallSwords:
 	PUSH 16 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
 	PUSHARG 1 
-	PUSHSTR 189
+	PUSHSTR 190
 	PUSH 128 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
-	PUSHSTR 187
+	PUSHSTR 188
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -12675,7 +12683,7 @@ CreateSmallSwords:
 SwordBomb:
 	STACK 0   
 	STACK 6 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	ADD 
@@ -12690,7 +12698,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	SUB 
@@ -12705,7 +12713,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 72 
@@ -12720,7 +12728,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 72 
@@ -12735,7 +12743,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	ADD 
@@ -12752,7 +12760,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	ADD 
@@ -12769,7 +12777,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	SUB 
@@ -12786,7 +12794,7 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 96 
 	SUB 
@@ -12803,10 +12811,10 @@ SwordBomb:
 	PUSH 33554432 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 0 
@@ -12814,10 +12822,10 @@ SwordBomb:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 16 
@@ -12825,10 +12833,10 @@ SwordBomb:
 	CALLBS 
 	PUSH 8 
 	DELAY 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 32 
@@ -12836,10 +12844,10 @@ SwordBomb:
 	CALLBS 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 48 
@@ -12847,10 +12855,10 @@ SwordBomb:
 	CALLBS 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 64 
@@ -12858,10 +12866,10 @@ SwordBomb:
 	CALLBS 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 191
+	PUSHSTR 192
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 186
+	PUSHSTR 187
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 80 
@@ -13022,7 +13030,7 @@ CreateBigSword:
 	PUSHARG 3 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHSTR 190
+	PUSHSTR 191
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSHARG -2 
@@ -13038,7 +13046,7 @@ CreateBigSword:
 SwordAttack:
 	STACK 0   
 	STACK 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -13051,7 +13059,7 @@ SwordAttack:
 	JZ LOC_16588 
 	PUSHARG -2 
 	JZ LOC_1653C 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -13061,7 +13069,7 @@ SwordAttack:
 	PUSH 0 
 	CMP 
 	JZ LOC_16580 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -13084,7 +13092,7 @@ SwordAttack:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 192
+	PUSHSTR 193
 	PUSHARG 2 
 	PUSHARG -3 
 	PUSH 0 
@@ -13092,7 +13100,7 @@ SwordAttack:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 188
+	PUSHSTR 189
 	PUSHARG 2 
 	PUSH 0 
 	PUSH 63 
@@ -13187,7 +13195,7 @@ LargerSword:
 	PUSH 64 
 	PUSH 16 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 194
+	PUSHSTR 195
 	PUSHARG 5 
 	PUSH 16 
 	PUSH 1 
@@ -13223,7 +13231,7 @@ PrepareSword:
 	PUSH 256 
 	PUSH 256 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 195
+	PUSHSTR 196
 	PUSHARG 1 
 	PUSH 65536 
 	PUSH 65536 
@@ -13238,9 +13246,9 @@ FlyingSword:
 	STACK 9 
 	PUSH 1 
 	SETARG 17 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 198
+	PUSHSTR 199
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -13271,7 +13279,7 @@ FlyingSword:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_16B60 
@@ -13299,21 +13307,21 @@ FlyingSword:
 	LOC_16BE8:
 	PUSH 4 
 	POPN 8 
-	PUSHSTR 199
+	PUSHSTR 200
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_16C84 
 	LOC_16C1C:
 	PUSH 8 
 	POPN 8 
-	PUSHSTR 199
+	PUSHSTR 200
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_16C84 
 	LOC_16C50:
 	PUSH 16 
 	POPN 8 
-	PUSHSTR 200
+	PUSHSTR 201
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_16C84 
@@ -13333,7 +13341,7 @@ FlyingSword:
 	PUSHARG 8 
 	CMPL 
 	JZ LOC_16D50 
-	PUSHSTR 196
+	PUSHSTR 197
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 9 
 	PUSHARG 1 
@@ -13357,7 +13365,7 @@ FlyingSword:
 	PUSHARG -2 
 	CMPLE 
 	JZ LOC_16DE8 
-	PUSHSTR 193
+	PUSHSTR 194
 	PUSHARG 7 
 	PUSH 2 
 	PUSHARG 1 
@@ -13372,9 +13380,9 @@ FlyingSword:
 	INCN 1 
 	JMP LOC_16D6C 
 	LOC_16DE8:
-	PUSHSTR 190
+	PUSHSTR 191
 	INST_45 
-	PUSHSTR 187
+	PUSHSTR 188
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -13495,7 +13503,7 @@ RoundHolyBall:
 IncreaseHP:
 	STACK 0   
 	STACK 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	SYSCALL 0x117 , ( 1 | ( 1 << 16 ) ) ; GetMajorHP 
 	POPN 1 
 	PUSH 1 
@@ -13505,7 +13513,7 @@ IncreaseHP:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE 
 	CMPLE 
 	JZ LOC_17210 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG 1 
 	PUSHARG 2 
 	ADD 
@@ -13547,7 +13555,7 @@ CreateHolyLight:
 	POPN 6 
 	JMP LOC_172D0 
 	LOC_172D0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_17304 
@@ -13590,7 +13598,7 @@ CreateHolyLight:
 	PUSH 30 
 	CMPL 
 	JZ LOC_17478 
-	PUSHSTR 202
+	PUSHSTR 203
 	PUSHARG -3 
 	PUSH 240 
 	PUSHARG 2 
@@ -13607,13 +13615,13 @@ CreateHolyLight:
 	LOC_17478:
 	PUSH 40 
 	DELAY 
-	PUSHSTR 205
+	PUSHSTR 206
 	PUSHARG 1 
 	PUSH 2048 
 	PUSH 69632 
 	PUSH 32 
 	CALLBS 
-	PUSHSTR 203
+	PUSHSTR 204
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
@@ -13633,7 +13641,7 @@ CreateHolyLight:
 	PUSH 10 
 	CMPL 
 	JZ LOC_1759C 
-	PUSHSTR 201
+	PUSHSTR 202
 	PUSHARG -3 
 	PUSH 5 
 	PUSH 40 
@@ -13655,7 +13663,7 @@ CreateHolyLight:
 	INCN 3 
 	JMP LOC_174EC 
 	LOC_175CC:
-	PUSHSTR 205
+	PUSHSTR 206
 	INST_45 
 	RETN 2 
 		RETN 2
@@ -13709,9 +13717,9 @@ Heal:
 	STACK 0   
 	LOC_17704:
 	STACK 3 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 207
+	PUSHSTR 208
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -13741,7 +13749,7 @@ Heal:
 	SYSCALL 0x120 , ( 2 | ( 0 << 16 ) ) ; SetObjectAnimate 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 208
+	PUSHSTR 209
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -13773,7 +13781,7 @@ FireDragonCallback:
 	CALL Hurt 
 	PUSH 2 
 	SETARG 18 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -13785,7 +13793,7 @@ FireDragonCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -13845,7 +13853,7 @@ sc4501:
 	POPN 4 
 	PUSH 0 
 	POPN 5 
-	PUSHSTR 210
+	PUSHSTR 211
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 0 
@@ -13875,7 +13883,7 @@ sc4501:
 	POPN 4 
 	PUSH 0 
 	POPN 5 
-	PUSHSTR 212
+	PUSHSTR 213
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	LOC_17BF0:
@@ -13937,7 +13945,7 @@ sc4501:
 	CMPL 
 	JZ LOC_17DBC 
 	PUSHARG 2 
-	PUSHSTR 213
+	PUSHSTR 214
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17DBC:
@@ -13946,7 +13954,7 @@ sc4501:
 	CMPL 
 	JZ LOC_17DFC 
 	PUSHARG 2 
-	PUSHSTR 214
+	PUSHSTR 215
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17DFC:
@@ -13955,7 +13963,7 @@ sc4501:
 	CMPL 
 	JZ LOC_17E3C 
 	PUSHARG 2 
-	PUSHSTR 214
+	PUSHSTR 215
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17E3C:
@@ -13964,7 +13972,7 @@ sc4501:
 	CMPL 
 	JZ LOC_17E7C 
 	PUSHARG 2 
-	PUSHSTR 215
+	PUSHSTR 216
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17E7C:
@@ -13973,7 +13981,7 @@ sc4501:
 	CMPL 
 	JZ LOC_17EBC 
 	PUSHARG 2 
-	PUSHSTR 215
+	PUSHSTR 216
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17EBC:
@@ -13982,12 +13990,12 @@ sc4501:
 	CMPL 
 	JZ LOC_17EFC 
 	PUSHARG 2 
-	PUSHSTR 216
+	PUSHSTR 217
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_17F18 
 	LOC_17EFC:
 	PUSHARG 2 
-	PUSHSTR 216
+	PUSHSTR 217
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_17F18:
 	PUSHARG 4 
@@ -14003,7 +14011,7 @@ sc4501:
 	ORNZ 
 	JZ LOC_17F84 
 	PUSHARG 2 
-	PUSHSTR 213
+	PUSHSTR 214
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_17F84:
 	PUSHARG 3 
@@ -14015,10 +14023,10 @@ sc4501:
 	ORNZ 
 	JZ LOC_17FD4 
 	PUSHARG 2 
-	PUSHSTR 217
+	PUSHSTR 218
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_17FD4:
-	PUSHSTR 218
+	PUSHSTR 219
 	PUSHARG 2 
 	PUSHARG 4 
 	PUSHARG 5 
@@ -14118,7 +14126,7 @@ sc4502:
 	CMPL 
 	JZ LOC_182A4 
 	PUSHARG 2 
-	PUSHSTR 219
+	PUSHSTR 220
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_182A4:
@@ -14127,7 +14135,7 @@ sc4502:
 	CMPL 
 	JZ LOC_182E4 
 	PUSHARG 2 
-	PUSHSTR 220
+	PUSHSTR 221
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_182E4:
@@ -14136,7 +14144,7 @@ sc4502:
 	CMPL 
 	JZ LOC_18324 
 	PUSHARG 2 
-	PUSHSTR 220
+	PUSHSTR 221
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_18324:
@@ -14145,7 +14153,7 @@ sc4502:
 	CMPL 
 	JZ LOC_18364 
 	PUSHARG 2 
-	PUSHSTR 221
+	PUSHSTR 222
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_18364:
@@ -14154,7 +14162,7 @@ sc4502:
 	CMPL 
 	JZ LOC_183A4 
 	PUSHARG 2 
-	PUSHSTR 221
+	PUSHSTR 222
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_183A4:
@@ -14163,12 +14171,12 @@ sc4502:
 	CMPL 
 	JZ LOC_183E4 
 	PUSHARG 2 
-	PUSHSTR 222
+	PUSHSTR 223
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	JMP LOC_18400 
 	LOC_183E4:
 	PUSHARG 2 
-	PUSHSTR 223
+	PUSHSTR 224
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_18400:
 	PUSHARG -3 
@@ -14184,7 +14192,7 @@ sc4502:
 	ORNZ 
 	JZ LOC_1846C 
 	PUSHARG 2 
-	PUSHSTR 219
+	PUSHSTR 220
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_1846C:
 	PUSHARG 5 
@@ -14196,7 +14204,7 @@ sc4502:
 	ORNZ 
 	JZ LOC_184BC 
 	PUSHARG 2 
-	PUSHSTR 224
+	PUSHSTR 225
 	SYSCALL 0x1C , ( 2 | ( 0 << 16 ) ) ; 0x001C 
 	LOC_184BC:
 	PUSHARG 2 
@@ -14277,9 +14285,9 @@ FireDragon:
 	STACK 11 
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE 
 	SETARG 18 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 226
+	PUSHSTR 227
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -14316,7 +14324,7 @@ FireDragon:
 	SETARG 19 
 	PUSH 0 
 	SETARG 20 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_18838 
@@ -14327,7 +14335,7 @@ FireDragon:
 	PUSH 128 
 	POPN 11 
 	LOC_18848:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -14357,7 +14365,7 @@ FireDragon:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 2 
-	PUSHSTR 227
+	PUSHSTR 228
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 2 
@@ -14369,7 +14377,7 @@ FireDragon:
 	ADD 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 211
+	PUSHSTR 212
 	PUSHARG 2 
 	PUSHARG 11 
 	PUSH 16 
@@ -14387,7 +14395,7 @@ FireDragon:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 6 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -14420,7 +14428,7 @@ FireDragon:
 	ADD 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 211
+	PUSHSTR 212
 	PUSHARG 6 
 	PUSHARG 11 
 	PUSH 16 
@@ -14439,7 +14447,7 @@ FireDragon:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 7 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -14472,7 +14480,7 @@ FireDragon:
 	ADD 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 211
+	PUSHSTR 212
 	PUSHARG 7 
 	PUSHARG 11 
 	PUSH 16 
@@ -14491,7 +14499,7 @@ FireDragon:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -14524,7 +14532,7 @@ FireDragon:
 	ADD 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 211
+	PUSHSTR 212
 	PUSHARG 9 
 	PUSHARG 11 
 	PUSH 16 
@@ -14543,7 +14551,7 @@ FireDragon:
 	PUSH 0 
 	SYSCALL 0x11 , ( 4 | ( 1 << 16 ) ) ; CreateObjectBelongTo 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -14576,7 +14584,7 @@ FireDragon:
 	ADD 
 	PUSH 0 
 	SYSCALL 0x14 , ( 4 | ( 0 << 16 ) ) ; 0x0014 
-	PUSHSTR 211
+	PUSHSTR 212
 	PUSHARG 10 
 	PUSHARG 11 
 	PUSH 16 
@@ -14624,7 +14632,7 @@ CallDragonCallback:
 	CALL Hurt 
 	PUSH 1 
 	SETARG 22 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -14636,7 +14644,7 @@ CallDragonCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -14680,7 +14688,7 @@ sc3601:
 	LOC_19260:
 	PUSH 30 
 	DELAY 
-	PUSHSTR 230
+	PUSHSTR 231
 	PUSHARG -6 
 	PUSHARG -4 
 	PUSHARG -3 
@@ -14797,7 +14805,7 @@ sc3602:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x17 , ( 3 | ( 0 << 16 ) ) ; 0x0017 
-	PUSHSTR 231
+	PUSHSTR 232
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -14923,28 +14931,28 @@ sc3604:
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x8 , ( 1 | ( 0 << 16 ) ) ; 0x0008 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 21 
 	PUSH 28011 
 	PUSH 0 
 	PUSH 18001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 21 
 	PUSH 28011 
 	PUSH 128 
 	PUSH 18001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 21 
 	PUSH 28011 
 	PUSH 64 
 	PUSH 18001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 21 
 	PUSH 28011 
@@ -14977,7 +14985,7 @@ sc3604:
 	PUSH 16384 
 	PUSH 16384 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 233
+	PUSHSTR 234
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -14987,7 +14995,7 @@ sc3604:
 	JMP LOC_19A4C 
 	LOC_19B10:
 	PUSHARG 1 
-	PUSHSTR 235
+	PUSHSTR 236
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	RETN 0 
@@ -14999,9 +15007,9 @@ CallDragon:
 	STACK 13 
 	PUSH 0 
 	SETARG 22 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 237
+	PUSHSTR 238
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -15034,7 +15042,7 @@ CallDragon:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_19CBC 
@@ -15054,7 +15062,7 @@ CallDragon:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x107 , ( 1 | ( 1 << 16 ) ) ; 0x0107 
 	POPN 3 
-	PUSHSTR 238
+	PUSHSTR 239
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -15063,7 +15071,7 @@ CallDragon:
 	POP 
 	JMP LOC_19E10 
 	LOC_19D68:
-	PUSHSTR 230
+	PUSHSTR 231
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -15075,7 +15083,7 @@ CallDragon:
 	SETARG 21 
 	JMP LOC_19E78 
 	LOC_19DBC:
-	PUSHSTR 230
+	PUSHSTR 231
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -15087,7 +15095,7 @@ CallDragon:
 	SETARG 21 
 	JMP LOC_19E78 
 	LOC_19E10:
-	PUSHSTR 229
+	PUSHSTR 230
 	PUSHARG -2 
 	PUSHARG 10 
 	PUSHARG 1 
@@ -15223,17 +15231,17 @@ CallDragon:
 	POP 
 	JMP LOC_1A284 
 	LOC_1A218:
-	PUSHSTR 239
+	PUSHSTR 240
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_1A284 
 	LOC_1A23C:
-	PUSHSTR 238
+	PUSHSTR 239
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_1A284 
 	LOC_1A260:
-	PUSHSTR 239
+	PUSHSTR 240
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_1A284 
@@ -15245,14 +15253,14 @@ CallDragon:
 	PUSH 1 
 	CMPG 
 	JZ LOC_1A2C4 
-	PUSHSTR 229
+	PUSHSTR 230
 	INST_45 
 	JMP LOC_1A2D0 
 	LOC_1A2C4:
-	PUSHSTR 230
+	PUSHSTR 231
 	INST_45 
 	LOC_1A2D0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -15277,7 +15285,7 @@ CallDragon:
 	PUSH 240 
 	CMPG 
 	JZ LOC_1A3D4 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 240 
@@ -15287,21 +15295,21 @@ CallDragon:
 	CALLBS 
 	JMP LOC_1A400 
 	LOC_1A3D4:
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 20 
 	PUSH 0 
 	CALLBS 
 	LOC_1A400:
-	PUSHSTR 19
+	PUSHSTR 20
 	INST_45 
 	PUSHARG 13 
 	SYSCALL 0x12 , ( 1 | ( 1 << 16 ) ) ; IsObjectExist 
 	PUSH 0 
 	CMP 
 	JZ LOC_1A488 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -15322,13 +15330,13 @@ CallDragon:
 	PUSHARG 13 
 	SYSCALL 0x107 , ( 1 | ( 1 << 16 ) ) ; 0x0107 
 	POPN 3 
-	PUSHSTR 232
+	PUSHSTR 233
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSHARG 3 
 	CALLBS 
-	PUSHSTR 232
+	PUSHSTR 233
 	INST_45 
 	PUSH 65 
 	DELAY 
@@ -15392,7 +15400,7 @@ RunningBowCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -15485,7 +15493,7 @@ TraceBow:
 	PUSH 0 
 	PUSH 16 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 241
+	PUSHSTR 242
 	PUSHARG -3 
 	PUSH 29002 
 	PUSHARG -2 
@@ -15525,9 +15533,9 @@ RunningBow:
 	SETARG 23 
 	PUSHARG -2 
 	SETARG 24 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 245
+	PUSHSTR 246
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -15548,7 +15556,7 @@ RunningBow:
 	PUSH 0 
 	POPN 5 
 	LOC_1AAFC:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1AB44 
@@ -15615,7 +15623,7 @@ RunningBow:
 	PUSH 15 
 	DELAY 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 246
+	PUSHSTR 247
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -15643,7 +15651,7 @@ RunningBow:
 	PUSHARG 16 
 	CMPL 
 	JZ LOC_1AE30 
-	PUSHSTR 243
+	PUSHSTR 244
 	PUSHARG 6 
 	PUSHNR 7 
 	PUSHARG 4 
@@ -15666,7 +15674,7 @@ RunningBow:
 	INCN 6 
 	JMP LOC_1AD88 
 	LOC_1AE30:
-	PUSHSTR 25
+	PUSHSTR 26
 	PUSH 0 
 	PUSHNR 7 
 	PUSH 180 
@@ -15674,13 +15682,13 @@ RunningBow:
 	NEG 
 	PUSHARG 5 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG 16 
 	PUSH 1 
 	SUB 
 	PUSHNR 7 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 243
+	PUSHSTR 244
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -15778,7 +15786,7 @@ KillMan:
 	PUSHARG -3 
 	SYSCALL 0x134 , ( 1 | ( 1 << 16 ) ) ; KillSoldier 
 	POP 
-	PUSHSTR 247
+	PUSHSTR 248
 	PUSHARG -2 
 	PUSHARG -3 
 	PUSH 0 
@@ -15824,7 +15832,7 @@ Engulf:
 	PUSHARG 243 
 	CMPL 
 	JZ LOC_1B5B8 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 236 
@@ -15844,7 +15852,7 @@ Engulf:
 	PUSHARG 232 
 	CMPL 
 	JZ LOC_1B36C 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 236 
@@ -15918,7 +15926,7 @@ Engulf:
 	CMPZ 
 	ORNZ 
 	JZ LOC_1B54C 
-	PUSHSTR 248
+	PUSHSTR 249
 	PUSHARG 233 
 	PUSHNR 1 
 	PUSHARG -5 
@@ -16018,7 +16026,7 @@ CreateBlackHoleBall:
 
 CreateBlackHoleStars:
 	STACK 0   
-	PUSHSTR 250
+	PUSHSTR 251
 	PUSHARG -2 
 	PUSH 0 
 	PUSH 0 
@@ -16027,7 +16035,7 @@ CreateBlackHoleStars:
 	LOC_1B7D8:
 	INST_09 25 
 	JZ LOC_1B928 
-	PUSHSTR 252
+	PUSHSTR 253
 	PUSHARG -2 
 	PUSH 30003 
 	PUSH 30011 
@@ -16042,7 +16050,7 @@ CreateBlackHoleStars:
 	PUSH 8 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 252
+	PUSHSTR 253
 	PUSHARG -2 
 	PUSH 30003 
 	PUSH 30011 
@@ -16135,7 +16143,7 @@ CreateBlackHole:
 	PUSHARG -3 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALL GetSoldierMaxX2 
 	POPN 11 
 	PUSHARG 11 
@@ -16151,7 +16159,7 @@ CreateBlackHole:
 	POPN 2 
 	JMP LOC_1BBEC 
 	LOC_1BB90:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1BBD0 
@@ -16295,19 +16303,19 @@ CreateBlackHole:
 	PUSH 94208 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
 	LOC_1BF84:
-	PUSHSTR 251
+	PUSHSTR 252
 	PUSHARG 7 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 249
+	PUSHSTR 250
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSHARG 4 
 	PUSHARG -2 
 	CALLBS 
-	PUSHSTR 249
+	PUSHSTR 250
 	INST_45 
 	PUSH 150 
 	DELAY 
@@ -16358,9 +16366,9 @@ BlackHole:
 	STACK 0   
 	LOC_1C128:
 	STACK 2 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 255
+	PUSHSTR 256
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -16397,12 +16405,12 @@ BlackHole:
 	PUSH 0 
 	CMP 
 	JZ LOC_1C2A4 
-	PUSHSTR 256
+	PUSHSTR 257
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_1C2C0 
 	LOC_1C2A4:
-	PUSHSTR 257
+	PUSHSTR 258
 	PUSH 210 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	LOC_1C2C0:
@@ -16453,7 +16461,7 @@ FireRingCallback:
 	MUL 
 	PUSHARG 2 
 	INST_52 26 
-	PUSHSTR 43
+	PUSHSTR 44
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 11002 
@@ -16468,7 +16476,7 @@ FireRingCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -16491,7 +16499,7 @@ CreateFire:
 	PUSH 65536 
 	PUSH 81920 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 1 
 	PUSH 8 
 	PUSH 0 
@@ -16693,7 +16701,7 @@ CreateFireRing:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x29 , ( 2 | ( 0 << 16 ) ) ; SetObjectFlags 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1CA90 
@@ -16708,13 +16716,13 @@ CreateFireRing:
 	PUSH 1 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
 	LOC_1CAB4:
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 1 
 	PUSH 8 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 259
+	PUSHSTR 260
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -16724,7 +16732,7 @@ CreateFireRing:
 	PUSH 0 
 	CMP 
 	JZ LOC_1CC48 
-	PUSHSTR 261
+	PUSHSTR 262
 	PUSHARG 1 
 	PUSHARG -8 
 	PUSHARG -7 
@@ -16766,7 +16774,7 @@ CreateFireRing:
 	LOC_1CC40:
 	JMP LOC_1CD58 
 	LOC_1CC48:
-	PUSHSTR 260
+	PUSHSTR 261
 	PUSHARG 1 
 	PUSHARG -8 
 	PUSHARG -7 
@@ -16814,7 +16822,7 @@ FireRing:
 	STACK 6 
 	PUSH 0 
 	POPN 6 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1CE08 
@@ -16836,7 +16844,7 @@ FireRing:
 	LOC_1CE00:
 	JMP LOC_1CE90 
 	LOC_1CE08:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	JZ LOC_1CE90 
@@ -16858,9 +16866,9 @@ FireRing:
 	LOC_1CE90:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE 
 	SETARG 30 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 264
+	PUSHSTR 265
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -16892,7 +16900,7 @@ FireRing:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 32768 
 	SYSCALL 0x120 , ( 2 | ( 0 << 16 ) ) ; SetObjectAnimate 
-	PUSHSTR 265
+	PUSHSTR 266
 	PUSH 200 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 20 
@@ -16917,7 +16925,7 @@ FireRing:
 	PUSHARG 5 
 	CMPL 
 	JZ LOC_1D12C 
-	PUSHSTR 262
+	PUSHSTR 263
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 3 
 	PUSH 256 
@@ -16938,7 +16946,7 @@ FireRing:
 	MUL 
 	ADD 
 	PUSHARG -2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	SYSCALL 0x312 , ( 8 | ( 0 << 16 ) ) ; 0x0312 
 	INCN 3 
 	JMP LOC_1D060 
@@ -16971,7 +16979,7 @@ FireRing:
 	PUSHARG 5 
 	CMPL 
 	JZ LOC_1D284 
-	PUSHSTR 262
+	PUSHSTR 263
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 32 
 	PUSHARG 3 
@@ -16990,14 +16998,14 @@ FireRing:
 	ADD 
 	PUSH 2 
 	PUSHARG -2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	SYSCALL 0x312 , ( 8 | ( 0 << 16 ) ) ; 0x0312 
 	INCN 3 
 	JMP LOC_1D1C4 
 	LOC_1D284:
 	JMP LOC_1D2E0 
 	LOC_1D28C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1D2C8 
@@ -17104,7 +17112,7 @@ CreateIceShatter:
 
 CreateIceFog:
 	STACK 0   
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 2 
 	NEG 
@@ -17126,7 +17134,7 @@ CreateIceFog:
 	PUSH 14 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 32 
 	ADD 
@@ -17150,7 +17158,7 @@ CreateIceFog:
 	PUSH 14 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 32 
 	SUB 
@@ -17176,7 +17184,7 @@ CreateIceFog:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	PUSH 16 
 	DELAY 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 4 
 	NEG 
@@ -17198,7 +17206,7 @@ CreateIceFog:
 	PUSH 17 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 30 
 	ADD 
@@ -17222,7 +17230,7 @@ CreateIceFog:
 	PUSH 17 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 30 
 	SUB 
@@ -17248,7 +17256,7 @@ CreateIceFog:
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	PUSH 18 
 	DELAY 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 8 
 	NEG 
@@ -17270,7 +17278,7 @@ CreateIceFog:
 	PUSH 20 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 28 
 	ADD 
@@ -17294,7 +17302,7 @@ CreateIceFog:
 	PUSH 20 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -3 
 	PUSH 28 
 	SUB 
@@ -17348,7 +17356,7 @@ CreateIce:
 	PUSH 22001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
 	LOC_1DD2C:
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -7 
 	PUSH 2 
 	NEG 
@@ -17370,7 +17378,7 @@ CreateIce:
 	PUSH 20 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -7 
 	PUSH 32 
 	ADD 
@@ -17394,7 +17402,7 @@ CreateIce:
 	PUSH 20 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 269
+	PUSHSTR 270
 	PUSHARG -7 
 	PUSH 32 
 	SUB 
@@ -17425,7 +17433,7 @@ CreateIce:
 	PUSH 8 
 	CMPL 
 	JZ LOC_1E070 
-	PUSHSTR 267
+	PUSHSTR 268
 	PUSHARG 1 
 	PUSHARG -4 
 	PUSHARG 2 
@@ -17453,7 +17461,7 @@ CreateIce:
 	INCN 2 
 	JMP LOC_1DF88 
 	LOC_1E070:
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -7 
 	PUSH 54 
 	ADD 
@@ -17466,80 +17474,22 @@ CreateIce:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -7 
-	PUSH 54 
-	SUB 
-	PUSHARG -6 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 4 
-	PUSH 22001 
-	PUSH 0 
-	PUSH 0 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -7 
-	PUSHARG -6 
-	PUSH 45 
-	ADD 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 4 
-	PUSH 22001 
-	PUSH 0 
-	PUSH 0 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -7 
-	PUSHARG -6 
-	PUSH 45 
-	ADD 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 4 
-	PUSH 22001 
-	PUSH 0 
-	PUSH 0 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -7 
-	PUSH 54 
-	ADD 
-	PUSHARG -6 
-	PUSH 45 
-	ADD 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 4 
-	PUSH 22001 
-	PUSH 0 
-	PUSH 0 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -7 
-	PUSH 54 
-	ADD 
-	PUSHARG -6 
-	PUSH 45 
-	SUB 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 4 
-	PUSH 22001 
-	PUSH 0 
-	PUSH 0 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -7 
 	PUSH 54 
 	SUB 
 	PUSHARG -6 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 4 
+	PUSH 22001 
+	PUSH 0 
+	PUSH 0 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -7 
+	PUSHARG -6 
 	PUSH 45 
 	ADD 
 	PUSH 2501 
@@ -17550,7 +17500,65 @@ CreateIce:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
+	PUSHARG -7 
+	PUSHARG -6 
+	PUSH 45 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 4 
+	PUSH 22001 
+	PUSH 0 
+	PUSH 0 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -7 
+	PUSH 54 
+	ADD 
+	PUSHARG -6 
+	PUSH 45 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 4 
+	PUSH 22001 
+	PUSH 0 
+	PUSH 0 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -7 
+	PUSH 54 
+	ADD 
+	PUSHARG -6 
+	PUSH 45 
+	SUB 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 4 
+	PUSH 22001 
+	PUSH 0 
+	PUSH 0 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -7 
+	PUSH 54 
+	SUB 
+	PUSHARG -6 
+	PUSH 45 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 4 
+	PUSH 22001 
+	PUSH 0 
+	PUSH 0 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
 	PUSHARG -7 
 	PUSH 54 
 	SUB 
@@ -17616,9 +17624,9 @@ Ice:
 	STACK 9 
 	PUSH 1 
 	SETARG 31 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 272
+	PUSHSTR 273
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -17664,14 +17672,14 @@ Ice:
 	PUSHARG -2 
 	CMP 
 	JZ LOC_1E6F4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
 	POPN 3 
 	JMP LOC_1E71C 
 	LOC_1E6F4:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -17696,10 +17704,10 @@ Ice:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 273
+	PUSHSTR 274
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 65536 
@@ -17707,7 +17715,7 @@ Ice:
 	PUSH 0 
 	PUSH 1 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 1 
 	PUSH 44 
 	ADD 
@@ -17721,7 +17729,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 1 
 	PUSH 44 
 	SUB 
@@ -17735,7 +17743,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 1 
 	PUSH 4 
 	NEG 
@@ -17787,7 +17795,7 @@ Ice:
 	PUSHARG 6 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 8 
@@ -17800,7 +17808,7 @@ Ice:
 	PUSH 0 
 	CMPG 
 	JZ LOC_1EBB0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 8 
@@ -17825,10 +17833,10 @@ Ice:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 6 
 	LOC_1EBB0:
-	PUSHSTR 273
+	PUSHSTR 274
 	PUSH 200 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSHARG 6 
 	PUSH 65536 
@@ -17836,7 +17844,7 @@ Ice:
 	PUSH 0 
 	PUSH 1 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 44 
 	ADD 
@@ -17850,7 +17858,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 44 
 	SUB 
@@ -17864,7 +17872,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 4 
 	NEG 
@@ -17916,7 +17924,7 @@ Ice:
 	PUSHARG 6 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 8 
@@ -17929,7 +17937,7 @@ Ice:
 	PUSH 0 
 	CMPG 
 	JZ LOC_1EFB4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 8 
@@ -17954,10 +17962,10 @@ Ice:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 6 
 	LOC_1EFB4:
-	PUSHSTR 273
+	PUSHSTR 274
 	PUSH 220 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSHARG 6 
 	PUSH 65536 
@@ -17965,7 +17973,7 @@ Ice:
 	PUSH 0 
 	PUSH 1 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 44 
 	ADD 
@@ -17979,7 +17987,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 44 
 	SUB 
@@ -17993,7 +18001,7 @@ Ice:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 270
+	PUSHSTR 271
 	PUSHARG 5 
 	PUSH 4 
 	NEG 
@@ -18015,7 +18023,7 @@ Ice:
 	INCN 4 
 	JMP LOC_1E680 
 	LOC_1F198:
-	PUSHSTR 270
+	PUSHSTR 271
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -18064,7 +18072,7 @@ OnFireCallback:
 	MUL 
 	PUSHARG 2 
 	INST_52 32 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -18073,7 +18081,7 @@ OnFireCallback:
 	LOC_1F30C:
 	JMP LOC_1F360 
 	LOC_1F314:
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -18163,7 +18171,7 @@ CreateOnFireFire:
 	PUSHARG 1 
 	PUSH 23001 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1F5C8 
@@ -18199,7 +18207,7 @@ CreateOnFireFire:
 	LOC_1F66C:
 	PUSH 150 
 	DELAY 
-	PUSHSTR 277
+	PUSHSTR 278
 	PUSH 128 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 250 
@@ -18218,7 +18226,7 @@ CreateOnFireFire:
 CreateOnFire:
 	STACK 0   
 	STACK 5 
-	PUSHSTR 277
+	PUSHSTR 278
 	PUSH 224 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -18228,7 +18236,7 @@ CreateOnFire:
 	PUSH 80 
 	CMPL 
 	JZ LOC_1F85C 
-	PUSHSTR 275
+	PUSHSTR 276
 	PUSHARG -3 
 	PUSH 4 
 	NEG 
@@ -18263,7 +18271,7 @@ CreateOnFire:
 	INCN 1 
 	JMP LOC_1F724 
 	LOC_1F85C:
-	PUSHSTR 279
+	PUSHSTR 280
 	PUSH 224 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -18273,7 +18281,7 @@ CreateOnFire:
 	PUSH 2501 
 	SYSCALL 0x10 , ( 5 | ( 1 << 16 ) ) ; CreateObjectRaw 
 	POPN 3 
-	PUSHSTR 276
+	PUSHSTR 277
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSHARG 3 
@@ -18320,7 +18328,7 @@ CreateOnFire:
 	ADD 
 	POPN 5 
 	LOC_1F9EC:
-	PUSHSTR 275
+	PUSHSTR 276
 	PUSHARG -3 
 	PUSHARG 4 
 	ADD 
@@ -18356,7 +18364,7 @@ CreateOnFire:
 
 TraceOnFire:
 	STACK 0   
-	PUSHSTR 278
+	PUSHSTR 279
 	INST_45 
 	PUSHARG -2 
 	PUSH 1 
@@ -18382,11 +18390,11 @@ OnFire:
 	POPN 3 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 5 
 	PUSH 0 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_1FC24 
@@ -18408,7 +18416,7 @@ OnFire:
 	LOC_1FC1C:
 	JMP LOC_1FCAC 
 	LOC_1FC24:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	JZ LOC_1FCAC 
@@ -18430,9 +18438,9 @@ OnFire:
 	LOC_1FCAC:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE 
 	SETARG 34 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 282
+	PUSHSTR 283
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	PUSHARG -2 
 	JCOND 0 , LOC_1FD10 
@@ -18564,7 +18572,7 @@ OnFire:
 	PUSH 30 
 	CALL MoveCamera 
 	LOC_200B4:
-	PUSHSTR 278
+	PUSHSTR 279
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -18577,15 +18585,15 @@ OnFire:
 	INCN 8 
 	JMP LOC_1FE88 
 	LOC_20110:
-	PUSHSTR 280
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHSTR 281
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
 	JMP LOC_20198 
 	LOC_20144:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_20180 
@@ -18660,7 +18668,7 @@ ProduceBackSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -18673,7 +18681,7 @@ ProduceBackSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -18687,7 +18695,7 @@ ProduceBackSoldier:
 	JZ LOC_203F4 
 	RETN 2 
 	LOC_203F4:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2046C 
@@ -18735,7 +18743,7 @@ ProduceBackSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -18752,7 +18760,7 @@ ProduceBackSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -18783,9 +18791,9 @@ BackSoldier:
 	STACK 0   
 	LOC_2065C:
 	STACK 8 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 285
+	PUSHSTR 286
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -18793,7 +18801,7 @@ BackSoldier:
 	CALL DownBrightness 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 1 
@@ -18860,7 +18868,7 @@ BackSoldier:
 	PUSH 0 
 	CMPZ 
 	JZ LOC_20A78 
-	PUSHSTR 283
+	PUSHSTR 284
 	PUSHARG 3 
 	PUSHARG 7 
 	PUSH 0 
@@ -18879,17 +18887,17 @@ BackSoldier:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 59
-	PUSH 255 
-	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHSTR 60
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHSTR 61
+	PUSH 255 
+	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_209C8 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSH 6576 
 	PUSH 0 
 	PUSH 40 
@@ -18897,14 +18905,14 @@ BackSoldier:
 	CALLBS 
 	JMP LOC_209F4 
 	LOC_209C8:
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSH 240 
 	PUSH 0 
 	PUSH 40 
 	PUSH 0 
 	CALLBS 
 	LOC_209F4:
-	PUSHSTR 19
+	PUSHSTR 20
 	INST_45 
 	PUSH 100 
 	DELAY 
@@ -19009,7 +19017,7 @@ CreateTaiChiBomb:
 	PUSHARG 1 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 3 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -19022,7 +19030,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -19035,7 +19043,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 50 
@@ -19048,7 +19056,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 50 
@@ -19061,7 +19069,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -19076,7 +19084,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -19091,7 +19099,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -19106,7 +19114,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -19121,7 +19129,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -19134,7 +19142,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -19147,7 +19155,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 100 
@@ -19160,7 +19168,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 100 
@@ -19173,7 +19181,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -19188,7 +19196,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -19203,7 +19211,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -19218,7 +19226,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -19233,7 +19241,7 @@ CreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 150 
@@ -19287,7 +19295,7 @@ CreateTaichi:
 	INCN 2 
 	JMP LOC_214D4 
 	LOC_21528:
-	PUSHSTR 289
+	PUSHSTR 290
 	PUSH 220 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -19297,7 +19305,7 @@ CreateTaichi:
 	PUSH 3 
 	CMPL 
 	JZ LOC_215D0 
-	PUSHSTR 287
+	PUSHSTR 288
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -19340,9 +19348,9 @@ TaiChi:
 	STACK 15 
 	PUSH 1 
 	SETARG 37 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 291
+	PUSHSTR 292
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -19395,7 +19403,7 @@ TaiChi:
 	PUSH 0 
 	CMP 
 	JZ LOC_21908 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -19460,7 +19468,7 @@ TaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -19482,7 +19490,7 @@ TaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_21C30 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -19568,7 +19576,7 @@ TaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -19590,7 +19598,7 @@ TaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_21F44 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -19643,7 +19651,7 @@ TaiChi:
 	INCN 12 
 	JMP LOC_21DA0 
 	LOC_21F44:
-	PUSHSTR 288
+	PUSHSTR 289
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -19661,7 +19669,7 @@ TaiChi:
 	INCN 4 
 	JMP LOC_217B8 
 	LOC_21FBC:
-	PUSHSTR 288
+	PUSHSTR 289
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -19825,7 +19833,7 @@ SpoutKillEdge:
 	PUSHARG 5 
 	PUSHNR 1 
 	SYSCALL 0x115 , ( 1 | ( 1 << 16 ) ) ; GetSoldierSide 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CMP 
 	JZ LOC_22474 
 	PUSH 0 
@@ -19953,7 +19961,7 @@ CreateStoneBomb:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	PUSH 6 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 294
+	PUSHSTR 295
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -19972,7 +19980,7 @@ CreateStoneBomb:
 CreateSpout:
 	STACK 0   
 	STACK 6 
-	PUSHSTR 295
+	PUSHSTR 296
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 0 
@@ -20004,7 +20012,7 @@ CreateSpout:
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
 	PUSHARG -2 
 	JZ LOC_2296C 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 240 
@@ -20102,7 +20110,7 @@ CreateSpoutAround:
 	STACK 0   
 	LOC_22BE4:
 	STACK 52 
-	PUSHSTR 298
+	PUSHSTR 299
 	PUSH 200 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -4 
@@ -20111,7 +20119,7 @@ CreateSpoutAround:
 	PUSHARG -3 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 1 
@@ -20129,7 +20137,7 @@ CreateSpoutAround:
 	PUSHARG 6 
 	CMPL 
 	JZ LOC_22D58 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 1 
@@ -20201,23 +20209,23 @@ CreateSpoutAround:
 	PUSHNR 7 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHSTR 293
+	PUSHSTR 294
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 292
+	PUSHSTR 293
 	PUSHARG 4 
 	PUSHNR 7 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 298
+	PUSHSTR 299
 	PUSH 230 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 296
+	PUSHSTR 297
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -20240,7 +20248,7 @@ CreateSpoutAround:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	ADD 
 	POPN 2 
-	PUSHSTR 296
+	PUSHSTR 297
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -20259,9 +20267,9 @@ Spout:
 	STACK 4 
 	PUSH 1 
 	SETARG 38 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 300
+	PUSHSTR 301
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -20301,7 +20309,7 @@ Spout:
 	PUSH 3 
 	CMPL 
 	JZ LOC_23374 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -20314,13 +20322,13 @@ Spout:
 	PUSHARG 4 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHSTR 293
+	PUSHSTR 294
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 292
+	PUSHSTR 293
 	PUSHARG 4 
 	PUSH 0 
 	PUSH 0 
@@ -20345,7 +20353,7 @@ Spout:
 	ADD 
 	POPN 2 
 	LOC_23300:
-	PUSHSTR 296
+	PUSHSTR 297
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 1 
@@ -20362,7 +20370,7 @@ Spout:
 	INCN 3 
 	JMP LOC_23194 
 	LOC_23374:
-	PUSHSTR 296
+	PUSHSTR 297
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -20411,7 +20419,7 @@ FireCowCallback:
 	MUL 
 	PUSHARG 3 
 	INST_52 39 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -20424,13 +20432,13 @@ FireCowCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -20612,7 +20620,7 @@ CreateFireCow:
 	PUSH 1 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
 	LOC_23AB4:
-	PUSHSTR 302
+	PUSHSTR 303
 	PUSHARG 1 
 	PUSHARG -4 
 	PUSH 128 
@@ -20622,7 +20630,7 @@ CreateFireCow:
 	CALLBS 
 	PUSHARG -2 
 	JZ LOC_23B40 
-	PUSHSTR 22
+	PUSHSTR 23
 	PUSHARG 1 
 	PUSH 3 
 	PUSHARG -2 
@@ -20697,7 +20705,7 @@ FireCow:
 	STACK 0   
 	LOC_23CDC:
 	STACK 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_23D20 
@@ -20710,9 +20718,9 @@ FireCow:
 	PUSH 1 
 	INST_52 39 
 	LOC_23D38:
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 305
+	PUSHSTR 306
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -20747,7 +20755,7 @@ FireCow:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 10 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_23EC0 
@@ -20763,10 +20771,10 @@ FireCow:
 	PUSH 128 
 	POPN 3 
 	LOC_23EE0:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALL GetSoldierMaxX 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_23F44 
@@ -20785,17 +20793,17 @@ FireCow:
 	LOC_23F6C:
 	PUSH 15 
 	DELAY 
-	PUSHSTR 306
+	PUSHSTR 307
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 307
+	PUSHSTR 308
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
 	PUSH 0 
 	CMP 
 	JZ LOC_24160 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20805,10 +20813,10 @@ FireCow:
 	PUSH 75 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20818,10 +20826,10 @@ FireCow:
 	PUSH 75 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20831,12 +20839,12 @@ FireCow:
 	PUSH 225 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20846,7 +20854,7 @@ FireCow:
 	PUSH 225 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_24784 
@@ -20855,7 +20863,7 @@ FireCow:
 	PUSH 1 
 	CMP 
 	JZ LOC_24424 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20865,10 +20873,10 @@ FireCow:
 	PUSH 350 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20878,10 +20886,10 @@ FireCow:
 	PUSH 250 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20891,10 +20899,10 @@ FireCow:
 	PUSH 150 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20902,12 +20910,12 @@ FireCow:
 	ADD 
 	PUSH 562 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20917,10 +20925,10 @@ FireCow:
 	PUSH 150 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20930,10 +20938,10 @@ FireCow:
 	PUSH 250 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20943,12 +20951,12 @@ FireCow:
 	PUSH 350 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_24784 
 	LOC_24424:
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20958,10 +20966,10 @@ FireCow:
 	PUSH 400 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20971,10 +20979,10 @@ FireCow:
 	PUSH 300 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20984,10 +20992,10 @@ FireCow:
 	PUSH 200 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -20997,10 +21005,10 @@ FireCow:
 	PUSH 100 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -21008,12 +21016,12 @@ FireCow:
 	ADD 
 	PUSH 562 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -21023,10 +21031,10 @@ FireCow:
 	PUSH 100 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -21036,10 +21044,10 @@ FireCow:
 	PUSH 200 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -21049,10 +21057,10 @@ FireCow:
 	PUSH 300 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 303
+	PUSHSTR 304
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -21062,7 +21070,7 @@ FireCow:
 	PUSH 400 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	LOC_24784:
@@ -21070,15 +21078,15 @@ FireCow:
 	PUSH 160 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	DELAY 
-	PUSHSTR 307
+	PUSHSTR 308
 	PUSH 210 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 306
+	PUSHSTR 307
 	PUSH 160 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 22
+	PUSHSTR 23
 	INST_45 
 	PUSH 20 
 	DELAY 
@@ -21151,7 +21159,7 @@ RollDownCallback:
 	PUSH 0 
 	CMP 
 	JZ LOC_24A08 
-	PUSHSTR 309
+	PUSHSTR 310
 	PUSH 255 
 	PUSH 10 
 	CALL DelayAmbientSound 
@@ -21163,7 +21171,7 @@ RollDownCallback:
 	PUSH 3 
 	CMPL 
 	JZ LOC_24B44 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 10 
 	PUSH 20 
@@ -21171,7 +21179,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 25 
 	PUSH 35 
@@ -21179,7 +21187,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 40 
 	PUSH 50 
@@ -21187,7 +21195,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 55 
 	PUSH 65 
@@ -21316,7 +21324,7 @@ RollDownCallback:
 	PUSH 0 
 	CMP 
 	JZ LOC_24F2C 
-	PUSHSTR 309
+	PUSHSTR 310
 	PUSH 255 
 	PUSH 10 
 	CALL DelayAmbientSound 
@@ -21328,7 +21336,7 @@ RollDownCallback:
 	PUSH 3 
 	CMPL 
 	JZ LOC_25068 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 10 
 	PUSH 20 
@@ -21336,7 +21344,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 25 
 	PUSH 35 
@@ -21344,7 +21352,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 40 
 	PUSH 50 
@@ -21352,7 +21360,7 @@ RollDownCallback:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 310
+	PUSHSTR 311
 	PUSHARG -3 
 	PUSH 55 
 	PUSH 65 
@@ -21641,9 +21649,9 @@ RollDown:
 	SETARG 1 
 	PUSH 1 
 	SETARG 41 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 314
+	PUSHSTR 315
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -21699,7 +21707,7 @@ RollDown:
 	PUSH 8 
 	POPN 9 
 	LOC_25AB8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -21711,7 +21719,7 @@ RollDown:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 3 
 	LOC_25B0C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_25BD0 
@@ -21775,11 +21783,11 @@ RollDown:
 	PUSH 1 
 	ADD 
 	POPN 7 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_25D5C 
-	PUSHSTR 312
+	PUSHSTR 313
 	PUSHARG 4 
 	PUSHARG 7 
 	PUSH 250 
@@ -21794,11 +21802,11 @@ RollDown:
 	SUB 
 	PUSHARG 8 
 	PUSH 0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_25DD4 
 	LOC_25D5C:
-	PUSHSTR 312
+	PUSHSTR 313
 	PUSHARG 4 
 	PUSHARG 7 
 	PUSH 250 
@@ -21813,7 +21821,7 @@ RollDown:
 	ADD 
 	PUSHARG 8 
 	PUSH 0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	LOC_25DD4:
 	PUSH 0 
@@ -21823,10 +21831,10 @@ RollDown:
 	PUSHARG 7 
 	CMPL 
 	JZ LOC_25ED0 
-	PUSHSTR 315
+	PUSHSTR 316
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 311
+	PUSHSTR 312
 	PUSHARG 4 
 	SYSCALL 0x133 , ( 0 | ( 1 << 16 ) ) ; 0x0133 
 	PUSH 200 
@@ -21836,7 +21844,7 @@ RollDown:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_25EA4 
@@ -21854,9 +21862,9 @@ RollDown:
 	INCN 6 
 	JMP LOC_25DE4 
 	LOC_25ED0:
-	PUSHSTR 312
+	PUSHSTR 313
 	INST_45 
-	PUSHSTR 311
+	PUSHSTR 312
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -21996,7 +22004,7 @@ CreatePaBomb:
 	PUSHARG 1 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 3 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 20 
 	ADD 
@@ -22011,7 +22019,7 @@ CreatePaBomb:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 20 
@@ -22026,7 +22034,7 @@ CreatePaBomb:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 20 
 	SUB 
@@ -22041,7 +22049,7 @@ CreatePaBomb:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 20 
@@ -22127,7 +22135,7 @@ BigPaBombHurt:
 	PUSH 16 
 	CMPL 
 	JZ LOC_26764 
-	PUSHSTR 14
+	PUSHSTR 15
 	PUSHARG -2 
 	PUSH 16018 
 	PUSHARG 6 
@@ -22169,7 +22177,7 @@ CreateBigPaBomb:
 	STACK 0   
 	LOC_2676C:
 	STACK 2 
-	PUSHSTR 321
+	PUSHSTR 322
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -22193,7 +22201,7 @@ CreateBigPaBomb:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_267EC 
-	PUSHSTR 319
+	PUSHSTR 320
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -22203,7 +22211,7 @@ CreateBigPaBomb:
 	PUSH 8 
 	PUSH 1 
 	SYSCALL 0x26 , ( 3 | ( 0 << 16 ) ) ; 0x0026 
-	PUSHSTR 318
+	PUSHSTR 319
 	PUSHARG -2 
 	PUSH 39013 
 	PUSH 0 
@@ -22211,7 +22219,7 @@ CreateBigPaBomb:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 318
+	PUSHSTR 319
 	PUSHARG -2 
 	PUSH 39014 
 	PUSH 0 
@@ -22219,7 +22227,7 @@ CreateBigPaBomb:
 	CALLBS 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 318
+	PUSHSTR 319
 	PUSHARG -2 
 	PUSH 39013 
 	PUSH 0 
@@ -22398,7 +22406,7 @@ CreatePaLight:
 	PUSH 0 
 	PUSH 16 
 	SYSCALL 0x17 , ( 3 | ( 0 << 16 ) ) ; 0x0017 
-	PUSHSTR 12
+	PUSHSTR 13
 	PUSHARG 1 
 	PUSH 9999 
 	PUSH 0 
@@ -22414,7 +22422,7 @@ CreatePaLight:
 CreatePa:
 	STACK 0   
 	STACK 11 
-	PUSHSTR 326
+	PUSHSTR 327
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -3 
@@ -22479,7 +22487,7 @@ CreatePa:
 	PUSH 4 
 	CMPL 
 	JZ LOC_27144 
-	PUSHSTR 324
+	PUSHSTR 325
 	PUSHARG 1 
 	PUSH 39003 
 	PUSHARG 2 
@@ -22490,7 +22498,7 @@ CreatePa:
 	PUSHARG 2 
 	PUSHNR 4 
 	CALLBS 
-	PUSHSTR 324
+	PUSHSTR 325
 	PUSHARG 1 
 	PUSH 39003 
 	PUSHARG 2 
@@ -22512,13 +22520,13 @@ CreatePa:
 	INCN 2 
 	JMP LOC_27050 
 	LOC_27144:
-	PUSHSTR 324
+	PUSHSTR 325
 	INST_45 
 	PUSH 20 
 	DELAY 
 	PUSHARG 1 
 	CALL CreateBigPaBomb 
-	PUSHSTR 327
+	PUSHSTR 328
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -22535,7 +22543,7 @@ CreatePa:
 	PUSH 6 
 	CMPL 
 	JZ LOC_27260 
-	PUSHSTR 317
+	PUSHSTR 318
 	PUSHARG 1 
 	PUSH 130 
 	PUSH 60 
@@ -22561,7 +22569,7 @@ CreatePa:
 	INCN 3 
 	JMP LOC_27198 
 	LOC_27290:
-	PUSHSTR 317
+	PUSHSTR 318
 	INST_45 
 	PUSH 10 
 	DELAY 
@@ -22589,9 +22597,9 @@ Pa:
 	STACK 3 
 	PUSH 1 
 	SETARG 42 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 329
+	PUSHSTR 330
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -22624,7 +22632,7 @@ Pa:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -22642,7 +22650,7 @@ Pa:
 	PUSHARG 3 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHSTR 11
+	PUSHSTR 12
 	PUSH 8 
 	PUSH 6 
 	PUSH 12 
@@ -22658,13 +22666,13 @@ Pa:
 	SUB 
 	PUSH 40 
 	CALL MoveCamera 
-	PUSHSTR 325
+	PUSHSTR 326
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 325
+	PUSHSTR 326
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -22713,7 +22721,7 @@ HalfMoonNewCallback:
 	CALL HitGeneral 
 	JMP LOC_2771C 
 	LOC_276D0:
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10016 
 	PUSH 60 
@@ -22739,7 +22747,7 @@ CheckHalfMoonNew:
 	PUSHARG -3 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_277DC 
@@ -23032,7 +23040,7 @@ CreateHalfMoonNew:
 	SYSCALL 0x15 , ( 5 | ( 0 << 16 ) ) ; 0x0015 
 	CALL GetGeneralWidth 
 	POPN 4 
-	PUSHSTR 331
+	PUSHSTR 332
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -23040,7 +23048,7 @@ CreateHalfMoonNew:
 	CALLBS 
 	PUSHARG -3 
 	JZ LOC_27FE8 
-	PUSHSTR 20
+	PUSHSTR 21
 	PUSHARG 1 
 	PUSH 330 
 	NEG 
@@ -23062,7 +23070,7 @@ CreateHalfMoonNew:
 	SYSCALL 0x19 , ( 3 | ( 0 << 16 ) ) ; 0x0019 
 	JMP LOC_28080 
 	LOC_28054:
-	PUSHSTR 332
+	PUSHSTR 333
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSHARG -4 
@@ -23078,9 +23086,9 @@ HalfMoonNew:
 	STACK 12 
 	PUSH 2 
 	SETARG 43 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 336
+	PUSHSTR 337
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -23090,7 +23098,7 @@ HalfMoonNew:
 	POPN 1 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSH 0 
 	POPN 11 
@@ -23180,12 +23188,12 @@ HalfMoonNew:
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSHARG 1 
-	PUSHSTR 55
+	PUSHSTR 56
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHARG -2 
 	JZ LOC_2852C 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 64 
@@ -23193,7 +23201,7 @@ HalfMoonNew:
 	PUSH 1 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 64 
@@ -23201,7 +23209,7 @@ HalfMoonNew:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 64 
@@ -23209,7 +23217,7 @@ HalfMoonNew:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 192 
@@ -23217,7 +23225,7 @@ HalfMoonNew:
 	PUSH 0 
 	PUSH 1 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 192 
@@ -23227,7 +23235,7 @@ HalfMoonNew:
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
 	JMP LOC_285F8 
 	LOC_2852C:
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 64 
@@ -23235,7 +23243,7 @@ HalfMoonNew:
 	PUSH 1 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 64 
@@ -23243,7 +23251,7 @@ HalfMoonNew:
 	PUSH 0 
 	PUSH 0 
 	SYSCALL 0x311 , ( 7 | ( 0 << 16 ) ) ; 0x0311 
-	PUSHSTR 334
+	PUSHSTR 335
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSHARG 5 
 	PUSH 192 
@@ -23254,7 +23262,7 @@ HalfMoonNew:
 	LOC_285F8:
 	PUSH 8 
 	DELAY 
-	PUSHSTR 331
+	PUSHSTR 332
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -23305,7 +23313,7 @@ FirePillarCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -23330,7 +23338,7 @@ CreateFirePillarSource:
 	PUSHARG -3 
 	PUSH 8 
 	SYSCALL 0x15 , ( 5 | ( 0 << 16 ) ) ; 0x0015 
-	PUSHSTR 339
+	PUSHSTR 340
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 8 
@@ -23533,7 +23541,7 @@ CreateFirePillar:
 	PUSH 4 
 	CMPL 
 	JZ LOC_28E34 
-	PUSHSTR 338
+	PUSHSTR 339
 	PUSHARG 1 
 	PUSH 320 
 	PUSHARG 3 
@@ -23548,11 +23556,11 @@ CreateFirePillar:
 	INCN 2 
 	JMP LOC_28DB4 
 	LOC_28E34:
-	PUSHSTR 338
+	PUSHSTR 339
 	INST_45 
 	PUSH 8 
 	DELAY 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 2501 
@@ -23565,7 +23573,7 @@ CreateFirePillar:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -23578,7 +23586,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -23591,7 +23599,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 50 
@@ -23604,7 +23612,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 50 
@@ -23617,7 +23625,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -23632,7 +23640,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -23647,7 +23655,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -23662,7 +23670,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -23677,7 +23685,7 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
 	ADD 
@@ -23690,80 +23698,22 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	SUB 
-	PUSHARG -2 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 31001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 31001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 31001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	ADD 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 31001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	ADD 
-	PUSHARG -2 
-	PUSH 100 
-	SUB 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 31001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
 	SUB 
 	PUSHARG -2 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 31001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSHARG -2 
 	PUSH 100 
 	ADD 
 	PUSH 2501 
@@ -23774,10 +23724,38 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 31001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
-	SUB 
+	ADD 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 31001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	ADD 
 	PUSHARG -2 
 	PUSH 100 
 	SUB 
@@ -23789,7 +23767,37 @@ CreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 343
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	SUB 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 31001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	SUB 
+	PUSHARG -2 
+	PUSH 100 
+	SUB 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 31001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 344
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -23841,28 +23849,28 @@ CreateFirePillar:
 	LOC_296EC:
 	PUSH 40 
 	DELAY 
-	PUSHSTR 344
+	PUSHSTR 345
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 341
+	PUSHSTR 342
 	PUSHARG 4 
 	PUSH 32 
 	PUSH 10 
 	PUSH 68 
 	CALLBS 
-	PUSHSTR 341
+	PUSHSTR 342
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 10 
 	PUSH 68 
 	CALLBS 
-	PUSHSTR 341
+	PUSHSTR 342
 	PUSHARG 4 
 	PUSH 160 
 	PUSH 10 
 	PUSH 68 
 	CALLBS 
-	PUSHSTR 341
+	PUSHSTR 342
 	PUSHARG 4 
 	PUSH 224 
 	PUSH 10 
@@ -23886,9 +23894,9 @@ FirePillar:
 	STACK 3 
 	PUSH 1 
 	SETARG 44 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 346
+	PUSHSTR 347
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -23921,7 +23929,7 @@ FirePillar:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -23979,7 +23987,7 @@ SparkCallback:
 	PUSHARG -2 
 	PUSHARG 2 
 	CALL Hurt 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 20 
@@ -24085,7 +24093,7 @@ CreateSparkle:
 	STACK 0   
 	LOC_29DC4:
 	STACK 4 
-	PUSHSTR 351
+	PUSHSTR 352
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -24132,7 +24140,7 @@ CreateSparkle:
 	PUSH 98304 
 	PUSH 98304 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 349
+	PUSHSTR 350
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 1 
@@ -24140,7 +24148,23 @@ CreateSparkle:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 349
+	PUSHSTR 350
+	PUSHARG 1 
+	PUSH 20 
+	PUSH 48 
+	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
+	PUSH 0 
+	PUSH 0 
+	CALLBS 
+	PUSHSTR 350
+	PUSHARG 1 
+	PUSH 20 
+	PUSH 48 
+	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
+	PUSH 0 
+	PUSH 0 
+	CALLBS 
+	PUSHSTR 350
 	PUSHARG 1 
 	PUSH 20 
 	PUSH 48 
@@ -24149,30 +24173,14 @@ CreateSparkle:
 	PUSH 0 
 	CALLBS 
 	PUSHSTR 349
-	PUSHARG 1 
-	PUSH 20 
-	PUSH 48 
-	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-	PUSHSTR 349
-	PUSHARG 1 
-	PUSH 20 
-	PUSH 48 
-	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-	PUSHSTR 348
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 349
+	PUSHSTR 350
 	INST_45 
-	PUSHSTR 352
+	PUSHSTR 353
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 1 
@@ -24192,7 +24200,7 @@ CreateSparkle:
 	PUSH 256 
 	CMPL 
 	JZ LOC_2A1A8 
-	PUSHSTR 14
+	PUSHSTR 15
 	PUSHARG -2 
 	PUSH 2501 
 	PUSHARG 4 
@@ -24214,7 +24222,7 @@ CreateSparkle:
 	PUSH 256 
 	CMPL 
 	JZ LOC_2A244 
-	PUSHSTR 14
+	PUSHSTR 15
 	PUSHARG -2 
 	PUSH 2501 
 	PUSHARG 4 
@@ -24258,9 +24266,9 @@ Sparkle:
 	STACK 0   
 	LOC_2A2F0:
 	STACK 3 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 354
+	PUSHSTR 355
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -24361,7 +24369,7 @@ FireWorkCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -24491,7 +24499,7 @@ CreateCannonFlash:
 	PUSHARG 1 
 	PUSHARG -2 
 	SYSCALL 0x1D , ( 2 | ( 0 << 16 ) ) ; 0x001D 
-	PUSHSTR 356
+	PUSHSTR 357
 	PUSHARG 1 
 	PUSHARG 3 
 	PUSH 5 
@@ -24533,7 +24541,7 @@ CannonExplode:
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 357
+	PUSHSTR 358
 	PUSHARG 1 
 	PUSH 30720 
 	PUSH 36864 
@@ -24569,7 +24577,7 @@ TraceCannon:
 	PUSHARG -2 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHSTR 358
+	PUSHSTR 359
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -24688,7 +24696,7 @@ FlyCannonLB1:
 	NEG 
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 359
+	PUSHSTR 360
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -24721,7 +24729,7 @@ FlyCannonRB1:
 	NEG 
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 359
+	PUSHSTR 360
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -24783,7 +24791,7 @@ FlyCannonLB2:
 	NEG 
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 359
+	PUSHSTR 360
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -24846,7 +24854,7 @@ FlyCannonRB2:
 	NEG 
 	PUSH 32 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
-	PUSHSTR 359
+	PUSHSTR 360
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -24860,7 +24868,7 @@ ProduceCannonEmitter:
 	STACK 1 
 	PUSHARG -3 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2B424 
@@ -24897,9 +24905,9 @@ FireWork:
 	STACK 15 
 	PUSH 1 
 	SETARG 45 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 368
+	PUSHSTR 369
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -24932,7 +24940,7 @@ FireWork:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2B630 
@@ -24976,13 +24984,13 @@ FireWork:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 7 
-	PUSHSTR 366
+	PUSHSTR 367
 	PUSH 6576 
 	PUSH 96 
 	PUSH 7 
 	MUL 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	MUL 
@@ -24991,7 +24999,7 @@ FireWork:
 	PUSH 7 
 	MUL 
 	SUB 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
@@ -25031,7 +25039,7 @@ FireWork:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 7 
-	PUSHSTR 366
+	PUSHSTR 367
 	PUSH 6576 
 	PUSH 96 
 	PUSH 7 
@@ -25041,7 +25049,7 @@ FireWork:
 	PUSH 2 
 	MUL 
 	ADD 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	MUL 
@@ -25054,7 +25062,7 @@ FireWork:
 	PUSH 2 
 	MUL 
 	SUB 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
@@ -25082,7 +25090,7 @@ FireWork:
 	CMPG 
 	JNZ LOC_2B878 
 	LOC_2B9D8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2BA40 
@@ -25113,7 +25121,7 @@ FireWork:
 	LOC_2BA90:
 	PUSH 80 
 	DELAY 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -25142,7 +25150,7 @@ FireWork:
 	SUB 
 	POPN 4 
 	LOC_2BB60:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -25179,11 +25187,11 @@ FireWork:
 	PUSHARG 14 
 	POPN 13 
 	LOC_2BC6C:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2BCDC 
-	PUSHSTR 365
+	PUSHSTR 366
 	PUSHARG 9 
 	PUSHARG 15 
 	PUSH 80 
@@ -25195,7 +25203,7 @@ FireWork:
 	CALLBS 
 	JMP LOC_2BD28 
 	LOC_2BCDC:
-	PUSHSTR 364
+	PUSHSTR 365
 	PUSHARG 9 
 	PUSHARG 15 
 	PUSH 80 
@@ -25232,7 +25240,7 @@ FireWork:
 	SUB 
 	POPN 13 
 	LOC_2BDD4:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -25261,11 +25269,11 @@ FireWork:
 	PUSH 650 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	POPN 15 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2BF1C 
-	PUSHSTR 363
+	PUSHSTR 364
 	PUSHARG 14 
 	PUSHARG 15 
 	PUSH 80 
@@ -25277,7 +25285,7 @@ FireWork:
 	CALLBS 
 	JMP LOC_2BF68 
 	LOC_2BF1C:
-	PUSHSTR 362
+	PUSHSTR 363
 	PUSHARG 14 
 	PUSHARG 15 
 	PUSH 80 
@@ -25293,7 +25301,7 @@ FireWork:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_2BE54 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -25315,7 +25323,7 @@ FireWork:
 	PUSH 0 
 	PUSH 80 
 	CALL MoveCamera 
-	PUSHSTR 356
+	PUSHSTR 357
 	INST_45 
 	PUSH 180 
 	DELAY 
@@ -25370,7 +25378,7 @@ PowderCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -25511,7 +25519,7 @@ CreatePowderBreak:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x18 , ( 4 | ( 0 << 16 ) ) ; 0x0018 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
-	PUSHSTR 373
+	PUSHSTR 374
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 8 
@@ -25563,7 +25571,7 @@ CreatePower:
 	PUSH 10 
 	CMPL 
 	JZ LOC_2C778 
-	PUSHSTR 372
+	PUSHSTR 373
 	PUSHARG 1 
 	PUSH 1 
 	PUSH 3 
@@ -25574,7 +25582,7 @@ CreatePower:
 	INCN 2 
 	JMP LOC_2C70C 
 	LOC_2C778:
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 2501 
@@ -25585,65 +25593,11 @@ CreatePower:
 	PUSH 3 
 	PUSH 251658240 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -4 
-	PUSH 60 
-	ADD 
-	PUSHARG -3 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 2 
-	PUSH 34001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 251658240 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -4 
-	PUSH 60 
-	SUB 
-	PUSHARG -3 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 2 
-	PUSH 34001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 251658240 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -4 
-	PUSHARG -3 
-	PUSH 48 
-	ADD 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 2 
-	PUSH 34001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 251658240 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -4 
-	PUSHARG -3 
-	PUSH 48 
-	ADD 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 2 
-	PUSH 34001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 251658240 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 60 
 	ADD 
 	PUSHARG -3 
-	PUSH 48 
-	ADD 
 	PUSH 2501 
 	PUSH 0 
 	PUSH 2 
@@ -25652,26 +25606,22 @@ CreatePower:
 	PUSH 3 
 	PUSH 251658240 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -4 
-	PUSH 60 
-	ADD 
-	PUSHARG -3 
-	PUSH 48 
-	SUB 
-	PUSH 2501 
-	PUSH 0 
-	PUSH 2 
-	PUSH 34001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 251658240 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 60 
 	SUB 
 	PUSHARG -3 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 2 
+	PUSH 34001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 251658240 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -4 
+	PUSHARG -3 
 	PUSH 48 
 	ADD 
 	PUSH 2501 
@@ -25682,7 +25632,65 @@ CreatePower:
 	PUSH 3 
 	PUSH 251658240 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
+	PUSHARG -4 
+	PUSHARG -3 
+	PUSH 48 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 2 
+	PUSH 34001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 251658240 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -4 
+	PUSH 60 
+	ADD 
+	PUSHARG -3 
+	PUSH 48 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 2 
+	PUSH 34001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 251658240 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -4 
+	PUSH 60 
+	ADD 
+	PUSHARG -3 
+	PUSH 48 
+	SUB 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 2 
+	PUSH 34001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 251658240 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -4 
+	PUSH 60 
+	SUB 
+	PUSHARG -3 
+	PUSH 48 
+	ADD 
+	PUSH 2501 
+	PUSH 0 
+	PUSH 2 
+	PUSH 34001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 251658240 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
 	PUSHARG -4 
 	PUSH 60 
 	SUB 
@@ -25704,7 +25712,7 @@ CreatePower:
 	PUSH 12 
 	CMPL 
 	JZ LOC_2CD80 
-	PUSHSTR 371
+	PUSHSTR 372
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 20 
@@ -25725,7 +25733,7 @@ CreatePower:
 	PUSH 0 
 	CMP 
 	JZ LOC_2CCA8 
-	PUSHSTR 371
+	PUSHSTR 372
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 20 
@@ -25747,7 +25755,7 @@ CreatePower:
 	PUSH 8 
 	CMPL 
 	JZ LOC_2CD50 
-	PUSHSTR 370
+	PUSHSTR 371
 	PUSHARG -4 
 	PUSHARG -3 
 	PUSH 20 
@@ -25780,9 +25788,9 @@ Powder:
 	STACK 5 
 	PUSH 1 
 	SETARG 46 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 376
+	PUSHSTR 377
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -25839,7 +25847,7 @@ Powder:
 	PUSHARG 5 
 	CMPL 
 	JZ LOC_2D314 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -25885,7 +25893,7 @@ Powder:
 	PUSH 0 
 	CMP 
 	JZ LOC_2D114 
-	PUSHSTR 19
+	PUSHSTR 20
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 140 
@@ -25894,7 +25902,7 @@ Powder:
 	PUSH 0 
 	CALLBS 
 	LOC_2D114:
-	PUSHSTR 374
+	PUSHSTR 375
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 40 
@@ -25954,7 +25962,7 @@ Powder:
 	PUSH 200 
 	POPN 2 
 	LOC_2D2C4:
-	PUSHSTR 374
+	PUSHSTR 375
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 80 
@@ -25965,9 +25973,9 @@ Powder:
 	INCN 4 
 	JMP LOC_2CF64 
 	LOC_2D314:
-	PUSHSTR 374
+	PUSHSTR 375
 	INST_45 
-	PUSHSTR 371
+	PUSHSTR 372
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -26012,7 +26020,7 @@ SpearCallback:
 	PUSH 0 
 	CALL Hurt 
 	LOC_2D434:
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -26058,7 +26066,7 @@ CreateSpears:
 	PUSHARG 4 
 	CMPLE 
 	JZ LOC_2D5AC 
-	PUSHSTR 379
+	PUSHSTR 380
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -26127,9 +26135,9 @@ Spear:
 	STACK 4 
 	PUSH 1 
 	SETARG 47 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 381
+	PUSHSTR 382
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -26171,7 +26179,7 @@ Spear:
 	ADD 
 	CMPL 
 	JZ LOC_2DBD0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -26223,10 +26231,10 @@ Spear:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 382
+	PUSHSTR 383
 	PUSH 230 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 378
+	PUSHSTR 379
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -26262,10 +26270,10 @@ Spear:
 	SYSCALL 0x201 , ( 2 | ( 1 << 16 ) ) ; 0x0201 
 	ADD 
 	POPN 2 
-	PUSHSTR 382
+	PUSHSTR 383
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 378
+	PUSHSTR 379
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -26276,7 +26284,7 @@ Spear:
 	INCN 4 
 	JMP LOC_2D85C 
 	LOC_2DBD0:
-	PUSHSTR 379
+	PUSHSTR 380
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -26327,7 +26335,7 @@ SlashCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 8 
@@ -26400,7 +26408,7 @@ CreateSlashByTarget:
 	SYSCALL 0x2B , ( 2 | ( 0 << 16 ) ) ; 0x002B 
 	PUSH 24 
 	DELAY 
-	PUSHSTR 385
+	PUSHSTR 386
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 1 
@@ -26482,7 +26490,7 @@ CreateSlash:
 	SYSCALL 0x2B , ( 2 | ( 0 << 16 ) ) ; 0x002B 
 	PUSH 24 
 	DELAY 
-	PUSHSTR 385
+	PUSHSTR 386
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 1 
@@ -26519,9 +26527,9 @@ Slash:
 	STACK 0   
 	LOC_2E270:
 	STACK 8 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 388
+	PUSHSTR 389
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -26556,14 +26564,14 @@ Slash:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 1 
 	SETARG 48 
-	PUSHSTR 389
+	PUSHSTR 390
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
 	PUSH 0 
 	CMP 
 	JZ LOC_2E800 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -26582,10 +26590,10 @@ Slash:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
 	PUSHARG 3 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 7 
 	PUSHARG 3 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 8 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -26593,7 +26601,7 @@ Slash:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 384
+	PUSHSTR 385
 	PUSHARG 3 
 	PUSH 40 
 	PUSH 0 
@@ -26608,7 +26616,7 @@ Slash:
 	PUSH 4 
 	CMPL 
 	JZ LOC_2E71C 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 7 
@@ -26621,7 +26629,7 @@ Slash:
 	PUSH 2 
 	CMPG 
 	JZ LOC_2E66C 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 7 
@@ -26635,7 +26643,7 @@ Slash:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x12B , ( 6 | ( 1 << 16 ) ) ; 0x012B 
 	POPN 3 
-	PUSHSTR 384
+	PUSHSTR 385
 	PUSHARG 3 
 	PUSH 40 
 	PUSH 0 
@@ -26645,7 +26653,7 @@ Slash:
 	CALLBS 
 	JMP LOC_2E70C 
 	LOC_2E66C:
-	PUSHSTR 386
+	PUSHSTR 387
 	PUSHARG 1 
 	PUSH 250 
 	NEG 
@@ -26676,7 +26684,7 @@ Slash:
 	PUSH 3 
 	CMPL 
 	JZ LOC_2E7F8 
-	PUSHSTR 386
+	PUSHSTR 387
 	PUSHARG 1 
 	PUSH 250 
 	NEG 
@@ -26712,14 +26720,14 @@ Slash:
 	PUSH 0 
 	CMP 
 	JZ LOC_2E878 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
 	POPN 3 
 	JMP LOC_2E8A0 
 	LOC_2E878:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -26739,10 +26747,10 @@ Slash:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
 	PUSHARG 3 
-	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectXY 
+	SYSCALL 0x101 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleX 
 	POPN 7 
 	PUSHARG 3 
-	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; 0x0102 
+	SYSCALL 0x102 , ( 1 | ( 1 << 16 ) ) ; GetObjectBattleY 
 	POPN 8 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -26750,7 +26758,7 @@ Slash:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 384
+	PUSHSTR 385
 	PUSHARG 3 
 	PUSH 40 
 	PUSH 0 
@@ -26765,7 +26773,7 @@ Slash:
 	PUSH 5 
 	CMPL 
 	JZ LOC_2EBA0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 7 
@@ -26778,7 +26786,7 @@ Slash:
 	PUSH 2 
 	CMPG 
 	JZ LOC_2EAF0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 7 
@@ -26792,7 +26800,7 @@ Slash:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x12B , ( 6 | ( 1 << 16 ) ) ; 0x012B 
 	POPN 3 
-	PUSHSTR 384
+	PUSHSTR 385
 	PUSHARG 3 
 	PUSH 40 
 	PUSH 0 
@@ -26802,7 +26810,7 @@ Slash:
 	CALLBS 
 	JMP LOC_2EB90 
 	LOC_2EAF0:
-	PUSHSTR 386
+	PUSHSTR 387
 	PUSHARG 1 
 	PUSH 250 
 	NEG 
@@ -26833,7 +26841,7 @@ Slash:
 	PUSH 4 
 	CMPL 
 	JZ LOC_2EC7C 
-	PUSHSTR 386
+	PUSHSTR 387
 	PUSHARG 1 
 	PUSH 250 
 	NEG 
@@ -26863,7 +26871,7 @@ Slash:
 	INCN 5 
 	JMP LOC_2E810 
 	LOC_2ECAC:
-	PUSHSTR 386
+	PUSHSTR 387
 	INST_45 
 	PUSH 78 
 	DELAY 
@@ -26907,7 +26915,7 @@ WallCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -27014,7 +27022,7 @@ CreateFireWall:
 	PUSH 2501 
 	SYSCALL 0x10 , ( 5 | ( 1 << 16 ) ) ; CreateObjectRaw 
 	POPN 1 
-	PUSHSTR 391
+	PUSHSTR 392
 	PUSHARG -4 
 	PUSHARG -2 
 	PUSH 0 
@@ -27092,9 +27100,9 @@ Wall:
 	STACK 4 
 	PUSH 1 
 	SETARG 50 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 394
+	PUSHSTR 395
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -27127,7 +27135,7 @@ Wall:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALL GetSoldierMaxX2 
 	POPN 4 
 	PUSH 0 
@@ -27137,7 +27145,7 @@ Wall:
 	NEG 
 	CMP 
 	JZ LOC_2F464 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2F444 
@@ -27156,10 +27164,10 @@ Wall:
 	PUSH 0 
 	CMP 
 	JZ LOC_2F6E8 
-	PUSHSTR 395
+	PUSHSTR 396
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2F5D0 
@@ -27182,7 +27190,7 @@ Wall:
 	PUSH 200 
 	CMPGE 
 	JZ LOC_2F5C8 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27225,7 +27233,7 @@ Wall:
 	PUSH 200 
 	CMPGE 
 	JZ LOC_2F6E0 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27249,10 +27257,10 @@ Wall:
 	LOC_2F6E0:
 	JMP LOC_2FA40 
 	LOC_2F6E8:
-	PUSHSTR 395
+	PUSHSTR 396
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_2F8B4 
@@ -27275,7 +27283,7 @@ Wall:
 	PUSH 200 
 	CMPGE 
 	JZ LOC_2F8AC 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27291,7 +27299,7 @@ Wall:
 	PUSH 1 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	DELAY 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27336,7 +27344,7 @@ Wall:
 	PUSH 200 
 	CMPGE 
 	JZ LOC_2FA40 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27352,7 +27360,7 @@ Wall:
 	PUSH 1 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	DELAY 
-	PUSHSTR 392
+	PUSHSTR 393
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 3 
@@ -27376,7 +27384,7 @@ Wall:
 	POPN 3 
 	JMP LOC_2F914 
 	LOC_2FA40:
-	PUSHSTR 392
+	PUSHSTR 393
 	INST_45 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
@@ -27438,7 +27446,7 @@ TwisterSwordCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 8 
@@ -27722,7 +27730,7 @@ CreateTwisterSword:
 	PUSH 90 
 	CMP 
 	JZ LOC_30388 
-	PUSHSTR 397
+	PUSHSTR 398
 	PUSHARG 1 
 	PUSHARG -2 
 	PUSH 0 
@@ -27747,7 +27755,7 @@ CreateTwisterSword:
 	INCN 66 
 	JMP LOC_303B4 
 	LOC_303FC:
-	PUSHSTR 399
+	PUSHSTR 400
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -27844,9 +27852,9 @@ TwisterSword:
 	STACK 3 
 	PUSH 1 
 	SETARG 51 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 401
+	PUSHSTR 402
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -27879,7 +27887,7 @@ TwisterSword:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -27903,7 +27911,7 @@ TwisterSword:
 	SUB 
 	PUSH 20 
 	CALL MoveCamera 
-	PUSHSTR 402
+	PUSHSTR 403
 	PUSH 200 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 1 
@@ -27926,7 +27934,7 @@ RollTubCallback:
 	PUSH 0 
 	CMP 
 	JZ LOC_30950 
-	PUSHSTR 404
+	PUSHSTR 405
 	PUSH 255 
 	PUSH 20 
 	CALL DelayAmbientSound 
@@ -27938,7 +27946,7 @@ RollTubCallback:
 	PUSH 8 
 	CMPL 
 	JZ LOC_309B8 
-	PUSHSTR 405
+	PUSHSTR 406
 	PUSHARG -3 
 	PUSH 0 
 	PUSH 0 
@@ -28105,9 +28113,9 @@ RollTub:
 	SETARG 1 
 	PUSH 0 
 	SETARG 52 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 408
+	PUSHSTR 409
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -28140,7 +28148,7 @@ RollTub:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -28192,7 +28200,7 @@ RollTub:
 	PUSH 0 
 	CMP 
 	JZ LOC_31128 
-	PUSHSTR 406
+	PUSHSTR 407
 	PUSHARG 5 
 	PUSHARG 7 
 	PUSH 52 
@@ -28202,7 +28210,7 @@ RollTub:
 	CALLBS 
 	JMP LOC_31168 
 	LOC_31128:
-	PUSHSTR 406
+	PUSHSTR 407
 	PUSHARG 5 
 	PUSHARG 7 
 	PUSH 2 
@@ -28240,7 +28248,7 @@ RollTub:
 	SUB 
 	PUSH 40 
 	CALL MoveCamera 
-	PUSHSTR 409
+	PUSHSTR 410
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_31288 
@@ -28249,7 +28257,7 @@ RollTub:
 	PUSH 2 
 	CMP 
 	JZ LOC_31288 
-	PUSHSTR 409
+	PUSHSTR 410
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	LOC_31288:
@@ -28260,9 +28268,9 @@ RollTub:
 	INCN 4 
 	JMP LOC_31058 
 	LOC_312B8:
-	PUSHSTR 406
+	PUSHSTR 407
 	INST_45 
-	PUSHSTR 405
+	PUSHSTR 406
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -28321,7 +28329,7 @@ CreateQuakeStone:
 	PUSH 4 
 	CMPL 
 	JZ LOC_31518 
-	PUSHSTR 411
+	PUSHSTR 412
 	PUSHARG -4 
 	PUSH 30 
 	NEG 
@@ -28381,7 +28389,7 @@ CreateQuakeStone:
 	PUSH 1 
 	CMP 
 	JZ LOC_316C8 
-	PUSHSTR 411
+	PUSHSTR 412
 	PUSHARG -4 
 	PUSH 30 
 	NEG 
@@ -28466,7 +28474,7 @@ QuakeSound:
 	STACK 1 
 	PUSH 0 
 	POPN 1 
-	PUSHSTR 415
+	PUSHSTR 416
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	LOC_3184C:
@@ -28483,7 +28491,7 @@ QuakeSound:
 	SUB 
 	CMPG 
 	JZ LOC_318D0 
-	PUSHSTR 415
+	PUSHSTR 416
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -28498,9 +28506,9 @@ Earthquake:
 	STACK 0   
 	LOC_318E0:
 	STACK 4 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 417
+	PUSHSTR 418
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -28533,7 +28541,7 @@ Earthquake:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -28561,13 +28569,13 @@ Earthquake:
 	DELAY 
 	PUSH 0 
 	SETARG 53 
-	PUSHSTR 414
+	PUSHSTR 415
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 413
+	PUSHSTR 414
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 120 
@@ -28575,7 +28583,7 @@ Earthquake:
 	PUSH 9999 
 	PUSH 0 
 	CALLBS 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10C , ( 1 | ( 1 << 16 ) ) ; GetSoldierCount 
@@ -28597,14 +28605,14 @@ Earthquake:
 	PUSH 0 
 	CMP 
 	JZ LOC_31C20 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
 	POPN 3 
 	JMP LOC_31C48 
 	LOC_31C20:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -28647,7 +28655,7 @@ Earthquake:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
 	LOC_31D54:
-	PUSHSTR 412
+	PUSHSTR 413
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 2 
@@ -28660,7 +28668,7 @@ Earthquake:
 	PUSH 0 
 	CMPG 
 	JNZ LOC_31BA8 
-	PUSHSTR 412
+	PUSHSTR 413
 	INST_45 
 	PUSH 28 
 	DELAY 
@@ -28678,7 +28686,7 @@ Earthquake:
 InterceptorCallback:
 	STACK 0   
 	STACK 3 
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -28799,7 +28807,7 @@ MakeInterceptorSound:
 	PUSH 5 
 	CMPL 
 	JZ LOC_321B8 
-	PUSHSTR 421
+	PUSHSTR 422
 	PUSH 128 
 	PUSHARG 1 
 	PUSH 15 
@@ -28820,9 +28828,9 @@ Interceptor:
 	STACK 5 
 	PUSH 1 
 	SETARG 54 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 423
+	PUSHSTR 424
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 12 
@@ -28851,7 +28859,7 @@ Interceptor:
 	PUSH 32768 
 	SYSCALL 0x120 , ( 2 | ( 0 << 16 ) ) ; SetObjectAnimate 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 424
+	PUSHSTR 425
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSH 20 
@@ -28861,7 +28869,7 @@ Interceptor:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	SYSCALL 0x12D , ( 0 | ( 1 << 16 ) ) ; GetBattleWidth 
 	POPN 4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_326B0 
@@ -28939,7 +28947,7 @@ Interceptor:
 	LOC_32538:
 	JMP LOC_32640 
 	LOC_32540:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x138 , ( 1 | ( 0 << 16 ) ) ; 0x0138 
@@ -28977,7 +28985,7 @@ Interceptor:
 	INCN 3 
 	JMP LOC_325D4 
 	LOC_32640:
-	PUSHSTR 420
+	PUSHSTR 421
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
@@ -29065,7 +29073,7 @@ Interceptor:
 	LOC_3287C:
 	JMP LOC_3298C 
 	LOC_32884:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x138 , ( 1 | ( 0 << 16 ) ) ; 0x0138 
@@ -29105,7 +29113,7 @@ Interceptor:
 	INCN 3 
 	JMP LOC_32928 
 	LOC_3298C:
-	PUSHSTR 420
+	PUSHSTR 421
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
@@ -29156,7 +29164,7 @@ XCallDragonCallback:
 	CALL Hurt 
 	PUSH 1 
 	SETARG 116 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -29168,7 +29176,7 @@ XCallDragonCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -29212,7 +29220,7 @@ Xsc3601:
 	LOC_32C54:
 	PUSH 30 
 	DELAY 
-	PUSHSTR 427
+	PUSHSTR 428
 	PUSHARG -6 
 	PUSHARG -4 
 	PUSHARG -3 
@@ -29329,7 +29337,7 @@ Xsc3602:
 	PUSH 30 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	SYSCALL 0x17 , ( 3 | ( 0 << 16 ) ) ; 0x0017 
-	PUSHSTR 231
+	PUSHSTR 232
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -29455,28 +29463,28 @@ Xsc3604:
 	POPN 3 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x8 , ( 1 | ( 0 << 16 ) ) ; 0x0008 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 115 
 	PUSH 28011 
 	PUSH 0 
 	PUSH 42001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 115 
 	PUSH 28011 
 	PUSH 128 
 	PUSH 42001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 115 
 	PUSH 28011 
 	PUSH 64 
 	PUSH 42001 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 13
+	PUSHSTR 14
 	PUSHARG 3 
 	INST_09 115 
 	PUSH 28011 
@@ -29509,7 +29517,7 @@ Xsc3604:
 	PUSH 16384 
 	PUSH 16384 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 429
+	PUSHSTR 430
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 0 
@@ -29519,7 +29527,7 @@ Xsc3604:
 	JMP LOC_33440 
 	LOC_33504:
 	PUSHARG 1 
-	PUSHSTR 235
+	PUSHSTR 236
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	RETN 0 
@@ -29536,7 +29544,7 @@ XCallDragon:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_335B4 
@@ -29556,7 +29564,7 @@ XCallDragon:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x107 , ( 1 | ( 1 << 16 ) ) ; 0x0107 
 	POPN 3 
-	PUSHSTR 238
+	PUSHSTR 239
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -29565,7 +29573,7 @@ XCallDragon:
 	POP 
 	JMP LOC_33708 
 	LOC_33660:
-	PUSHSTR 427
+	PUSHSTR 428
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -29577,7 +29585,7 @@ XCallDragon:
 	SETARG 115 
 	JMP LOC_33770 
 	LOC_336B4:
-	PUSHSTR 427
+	PUSHSTR 428
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
@@ -29589,7 +29597,7 @@ XCallDragon:
 	SETARG 115 
 	JMP LOC_33770 
 	LOC_33708:
-	PUSHSTR 426
+	PUSHSTR 427
 	PUSHARG -2 
 	PUSHARG 10 
 	PUSHARG 1 
@@ -29725,17 +29733,17 @@ XCallDragon:
 	POP 
 	JMP LOC_33B7C 
 	LOC_33B10:
-	PUSHSTR 239
+	PUSHSTR 240
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_33B7C 
 	LOC_33B34:
-	PUSHSTR 238
+	PUSHSTR 239
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_33B7C 
 	LOC_33B58:
-	PUSHSTR 239
+	PUSHSTR 240
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	JMP LOC_33B7C 
@@ -29747,14 +29755,14 @@ XCallDragon:
 	PUSH 1 
 	CMPG 
 	JZ LOC_33BBC 
-	PUSHSTR 426
+	PUSHSTR 427
 	INST_45 
 	JMP LOC_33BC8 
 	LOC_33BBC:
-	PUSHSTR 427
+	PUSHSTR 428
 	INST_45 
 	LOC_33BC8:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -29797,7 +29805,7 @@ XCallDragon:
 	PUSH 0 
 	CMP 
 	JZ LOC_33D5C 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -29818,13 +29826,13 @@ XCallDragon:
 	PUSHARG 13 
 	SYSCALL 0x107 , ( 1 | ( 1 << 16 ) ) ; 0x0107 
 	POPN 3 
-	PUSHSTR 428
+	PUSHSTR 429
 	PUSHARG -2 
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSHARG 3 
 	CALLBS 
-	PUSHSTR 428
+	PUSHSTR 429
 	INST_45 
 	PUSH 65 
 	DELAY 
@@ -29861,7 +29869,7 @@ XFireCowCallback:
 	PUSH 2 
 	MUL 
 	SETARG 117 
-	PUSHSTR 16
+	PUSHSTR 17
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -29874,13 +29882,13 @@ XFireCowCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -30047,7 +30055,7 @@ XCreateFireCow:
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	ADD 
 	SYSCALL 0x2E , ( 3 | ( 0 << 16 ) ) ; SetCallbackContext 
-	PUSHSTR 433
+	PUSHSTR 434
 	PUSHARG 1 
 	PUSHARG -4 
 	PUSH 128 
@@ -30138,7 +30146,7 @@ XFireCow:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_34708 
@@ -30154,10 +30162,10 @@ XFireCow:
 	PUSH 128 
 	POPN 3 
 	LOC_34728:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	CALL GetSoldierMaxX 
 	POPN 5 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_34764 
@@ -30165,17 +30173,17 @@ XFireCow:
 	LOC_34764:
 	PUSH 15 
 	DELAY 
-	PUSHSTR 306
+	PUSHSTR 307
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 307
+	PUSHSTR 308
 	PUSH 180 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
 	PUSH 0 
 	CMP 
 	JZ LOC_34958 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30185,10 +30193,10 @@ XFireCow:
 	PUSH 75 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30198,10 +30206,10 @@ XFireCow:
 	PUSH 75 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30211,12 +30219,12 @@ XFireCow:
 	PUSH 225 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30226,7 +30234,7 @@ XFireCow:
 	PUSH 225 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_3503C 
@@ -30235,7 +30243,7 @@ XFireCow:
 	PUSH 1 
 	CMP 
 	JZ LOC_34C1C 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30245,10 +30253,10 @@ XFireCow:
 	PUSH 350 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30258,10 +30266,10 @@ XFireCow:
 	PUSH 250 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30271,10 +30279,10 @@ XFireCow:
 	PUSH 150 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30282,12 +30290,12 @@ XFireCow:
 	ADD 
 	PUSH 562 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30297,10 +30305,10 @@ XFireCow:
 	PUSH 150 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30310,10 +30318,10 @@ XFireCow:
 	PUSH 250 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30323,12 +30331,12 @@ XFireCow:
 	PUSH 350 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	JMP LOC_3503C 
 	LOC_34C1C:
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30338,10 +30346,10 @@ XFireCow:
 	PUSH 400 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30351,10 +30359,10 @@ XFireCow:
 	PUSH 320 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30364,10 +30372,10 @@ XFireCow:
 	PUSH 240 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30377,10 +30385,10 @@ XFireCow:
 	PUSH 160 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30390,10 +30398,10 @@ XFireCow:
 	PUSH 80 
 	ADD 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30401,12 +30409,12 @@ XFireCow:
 	ADD 
 	PUSH 562 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSHARG -2 
 	PUSH 1 
 	ADD 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30416,10 +30424,10 @@ XFireCow:
 	PUSH 80 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30429,10 +30437,10 @@ XFireCow:
 	PUSH 160 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30442,10 +30450,10 @@ XFireCow:
 	PUSH 240 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30455,10 +30463,10 @@ XFireCow:
 	PUSH 320 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
-	PUSHSTR 434
+	PUSHSTR 435
 	PUSHARG 5 
 	PUSH 1200 
 	PUSHARG 4 
@@ -30468,7 +30476,7 @@ XFireCow:
 	PUSH 400 
 	SUB 
 	PUSHARG 3 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	SYSCALL 0x310 , ( 6 | ( 0 << 16 ) ) ; 0x0310 
 	LOC_3503C:
@@ -30476,15 +30484,15 @@ XFireCow:
 	PUSH 160 
 	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
 	DELAY 
-	PUSHSTR 307
+	PUSHSTR 308
 	PUSH 210 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 10 
 	DELAY 
-	PUSHSTR 306
+	PUSHSTR 307
 	PUSH 160 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 434
+	PUSHSTR 435
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -30513,7 +30521,7 @@ XSparkCallback:
 	PUSHARG -2 
 	PUSHARG 2 
 	CALL Hurt 
-	PUSHSTR 32
+	PUSHSTR 33
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 20 
@@ -30619,7 +30627,7 @@ XCreateSparkle:
 	STACK 0   
 	LOC_35410:
 	STACK 4 
-	PUSHSTR 351
+	PUSHSTR 352
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG -2 
@@ -30666,7 +30674,7 @@ XCreateSparkle:
 	PUSH 98304 
 	PUSH 98304 
 	SYSCALL 0x1B , ( 3 | ( 0 << 16 ) ) ; 0x001B 
-	PUSHSTR 438
+	PUSHSTR 439
 	PUSHARG 1 
 	PUSH 0 
 	PUSH 1 
@@ -30674,7 +30682,23 @@ XCreateSparkle:
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 438
+	PUSHSTR 439
+	PUSHARG 1 
+	PUSH 20 
+	PUSH 48 
+	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
+	PUSH 0 
+	PUSH 0 
+	CALLBS 
+	PUSHSTR 439
+	PUSHARG 1 
+	PUSH 20 
+	PUSH 48 
+	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
+	PUSH 0 
+	PUSH 0 
+	CALLBS 
+	PUSHSTR 439
 	PUSHARG 1 
 	PUSH 20 
 	PUSH 48 
@@ -30683,30 +30707,14 @@ XCreateSparkle:
 	PUSH 0 
 	CALLBS 
 	PUSHSTR 438
-	PUSHARG 1 
-	PUSH 20 
-	PUSH 48 
-	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-	PUSHSTR 438
-	PUSHARG 1 
-	PUSH 20 
-	PUSH 48 
-	SYSCALL 0x303 , ( 2 | ( 1 << 16 ) ) ; Rand 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-	PUSHSTR 437
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 438
+	PUSHSTR 439
 	INST_45 
-	PUSHSTR 352
+	PUSHSTR 353
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHARG 1 
@@ -30726,7 +30734,7 @@ XCreateSparkle:
 	PUSH 256 
 	CMPL 
 	JZ LOC_357F4 
-	PUSHSTR 14
+	PUSHSTR 15
 	PUSHARG -2 
 	PUSH 2501 
 	PUSHARG 4 
@@ -30748,7 +30756,7 @@ XCreateSparkle:
 	PUSH 256 
 	CMPL 
 	JZ LOC_35890 
-	PUSHSTR 14
+	PUSHSTR 15
 	PUSHARG -2 
 	PUSH 2501 
 	PUSHARG 4 
@@ -30839,13 +30847,13 @@ FinalX1:
 	STACK 0   
 	LOC_35A84:
 	STACK 2 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 354
+	PUSHSTR 355
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 305
+	PUSHSTR 306
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 237
+	PUSHSTR 238
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -30878,35 +30886,35 @@ FinalX1:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHSTR 431
+	PUSHSTR 432
 	PUSH 2 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 435
+	PUSHSTR 436
 	PUSH 2 
-	PUSH 0 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-	PUSHSTR 440
-	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
 	PUSHSTR 441
+	PUSH 0 
+	PUSH 0 
+	PUSH 0 
+	PUSH 0 
+	CALLBS 
+	PUSHSTR 442
 	PUSH 40 
 	PUSH 300 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 431
+	PUSHSTR 432
 	INST_45 
-	PUSHSTR 435
+	PUSHSTR 436
 	INST_45 
-	PUSHSTR 440
+	PUSHSTR 441
 	INST_45 
 	PUSH 20 
 	DELAY 
@@ -30957,7 +30965,7 @@ XFirePillarCallback:
 	PUSHARG -2 
 	PUSH 0 
 	CALL Hurt 
-	PUSHSTR 26
+	PUSHSTR 27
 	PUSHARG -2 
 	PUSH 10015 
 	PUSH 60 
@@ -30982,7 +30990,7 @@ XCreateFirePillarSource:
 	PUSHARG -3 
 	PUSH 8 
 	SYSCALL 0x15 , ( 5 | ( 0 << 16 ) ) ; 0x0015 
-	PUSHSTR 339
+	PUSHSTR 340
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 8 
@@ -31185,7 +31193,7 @@ XCreateFirePillar:
 	PUSH 4 
 	CMPL 
 	JZ LOC_364E0 
-	PUSHSTR 444
+	PUSHSTR 445
 	PUSHARG 1 
 	PUSH 320 
 	PUSHARG 3 
@@ -31200,11 +31208,11 @@ XCreateFirePillar:
 	INCN 2 
 	JMP LOC_36460 
 	LOC_364E0:
-	PUSHSTR 444
+	PUSHSTR 445
 	INST_45 
 	PUSH 8 
 	DELAY 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 2501 
@@ -31217,7 +31225,7 @@ XCreateFirePillar:
 	PUSH 16777216 
 	ADD 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -31230,7 +31238,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -31243,7 +31251,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 50 
@@ -31256,7 +31264,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 50 
@@ -31269,7 +31277,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -31284,7 +31292,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	ADD 
@@ -31299,7 +31307,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -31314,7 +31322,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 60 
 	SUB 
@@ -31329,7 +31337,7 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
 	ADD 
@@ -31342,80 +31350,22 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	SUB 
-	PUSHARG -2 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 43001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 43001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 43001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	ADD 
-	PUSHARG -2 
-	PUSH 100 
-	ADD 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 43001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
-	PUSHARG -3 
-	PUSH 120 
-	ADD 
-	PUSHARG -2 
-	PUSH 100 
-	SUB 
-	PUSH 2501 
-	PUSH 60 
-	PUSH 2 
-	PUSH 43001 
-	PUSH 2 
-	PUSH 3 
-	PUSH 33554432 
-	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
 	SUB 
 	PUSHARG -2 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 43001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSHARG -2 
 	PUSH 100 
 	ADD 
 	PUSH 2501 
@@ -31426,10 +31376,38 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 43001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
 	PUSHARG -3 
 	PUSH 120 
-	SUB 
+	ADD 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 43001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	ADD 
 	PUSHARG -2 
 	PUSH 100 
 	SUB 
@@ -31441,7 +31419,37 @@ XCreateFirePillar:
 	PUSH 3 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 343
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	SUB 
+	PUSHARG -2 
+	PUSH 100 
+	ADD 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 43001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 16
+	PUSHARG -3 
+	PUSH 120 
+	SUB 
+	PUSHARG -2 
+	PUSH 100 
+	SUB 
+	PUSH 2501 
+	PUSH 60 
+	PUSH 2 
+	PUSH 43001 
+	PUSH 2 
+	PUSH 3 
+	PUSH 33554432 
+	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
+	PUSHSTR 344
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -31493,28 +31501,28 @@ XCreateFirePillar:
 	LOC_36D98:
 	PUSH 40 
 	DELAY 
-	PUSHSTR 344
+	PUSHSTR 345
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHSTR 446
+	PUSHSTR 447
 	PUSHARG 4 
 	PUSH 32 
 	PUSH 10 
 	PUSH 70 
 	CALLBS 
-	PUSHSTR 446
+	PUSHSTR 447
 	PUSHARG 4 
 	PUSH 96 
 	PUSH 10 
 	PUSH 70 
 	CALLBS 
-	PUSHSTR 446
+	PUSHSTR 447
 	PUSHARG 4 
 	PUSH 160 
 	PUSH 10 
 	PUSH 70 
 	CALLBS 
-	PUSHSTR 446
+	PUSHSTR 447
 	PUSHARG 4 
 	PUSH 224 
 	PUSH 10 
@@ -31543,7 +31551,7 @@ XFirePillar:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x129 , ( 1 | ( 1 << 16 ) ) ; 0x0129 
@@ -31570,7 +31578,7 @@ XFirePillar:
 	PUSHARG 1 
 	PUSHARG 2 
 	CALL XCreateFirePillar 
-	PUSHSTR 446
+	PUSHSTR 447
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -31651,7 +31659,7 @@ XCreateTaiChiBomb:
 	PUSHARG 1 
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 3 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -31664,7 +31672,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -31677,7 +31685,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 50 
@@ -31690,7 +31698,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 50 
@@ -31703,7 +31711,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -31718,7 +31726,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	ADD 
@@ -31733,7 +31741,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -31748,7 +31756,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 64 
 	SUB 
@@ -31763,7 +31771,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -31776,7 +31784,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -31789,7 +31797,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 100 
@@ -31802,7 +31810,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 100 
@@ -31815,7 +31823,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -31830,7 +31838,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	ADD 
@@ -31845,7 +31853,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -31860,7 +31868,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSH 128 
 	SUB 
@@ -31875,7 +31883,7 @@ XCreateTaiChiBomb:
 	PUSH 0 
 	PUSH 33554432 
 	SYSCALL 0x314 , ( 10 | ( 0 << 16 ) ) ; 0x0314 
-	PUSHSTR 15
+	PUSHSTR 16
 	PUSHARG 2 
 	PUSHARG 3 
 	PUSH 150 
@@ -31929,7 +31937,7 @@ XCreateTaichi:
 	INCN 2 
 	JMP LOC_37A18 
 	LOC_37A6C:
-	PUSHSTR 289
+	PUSHSTR 290
 	PUSH 220 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSH 0 
@@ -31939,7 +31947,7 @@ XCreateTaichi:
 	PUSH 3 
 	CMPL 
 	JZ LOC_37B14 
-	PUSHSTR 450
+	PUSHSTR 451
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -32007,7 +32015,7 @@ XTaiChi:
 	PUSH 0 
 	CMP 
 	JZ LOC_37D24 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	SYSCALL 0x10D , ( 1 | ( 1 << 16 ) ) ; GetRandomSoldierHandleFromAlive 
@@ -32053,7 +32061,7 @@ XTaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32075,7 +32083,7 @@ XTaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_37FF0 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32152,7 +32160,7 @@ XTaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32174,7 +32182,7 @@ XTaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_382C4 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32251,7 +32259,7 @@ XTaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32273,7 +32281,7 @@ XTaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_38598 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32346,7 +32354,7 @@ XTaiChi:
 	PUSHARG 2 
 	SYSCALL 0x108 , ( 1 | ( 1 << 16 ) ) ; ScreenXToBattleX 
 	POPN 10 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32368,7 +32376,7 @@ XTaiChi:
 	DIV 
 	CMPL 
 	JZ LOC_38850 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	XOR 
 	PUSHARG 9 
@@ -32421,7 +32429,7 @@ XTaiChi:
 	INCN 12 
 	JMP LOC_386AC 
 	LOC_38850:
-	PUSHSTR 451
+	PUSHSTR 452
 	PUSHARG 1 
 	PUSHARG 2 
 	PUSH 0 
@@ -32439,7 +32447,7 @@ XTaiChi:
 	INCN 4 
 	JMP LOC_37C00 
 	LOC_388C8:
-	PUSHSTR 451
+	PUSHSTR 452
 	INST_45 
 	PUSH 60 
 	DELAY 
@@ -32461,7 +32469,7 @@ XDuplicatorCallback:
 	CMP 
 	ORZ 
 	JZ LOC_38A58 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -32469,7 +32477,7 @@ XDuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -32477,7 +32485,7 @@ XDuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -32485,7 +32493,7 @@ XDuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -32493,7 +32501,7 @@ XDuplicatorCallback:
 	CALLBS 
 	PUSH 4 
 	DELAY 
-	PUSHSTR 29
+	PUSHSTR 30
 	PUSHARG -3 
 	PUSHARG -2 
 	PUSH 12 
@@ -32501,7 +32509,7 @@ XDuplicatorCallback:
 	CALLBS 
 	JMP LOC_38A84 
 	LOC_38A58:
-	PUSHSTR 28
+	PUSHSTR 29
 	PUSHARG -2 
 	PUSH 16 
 	PUSH 0 
@@ -32637,7 +32645,7 @@ XProduceDuplicator:
 	PUSHARG -5 
 	SYSCALL 0x12 , ( 1 | ( 1 << 16 ) ) ; IsObjectExist 
 	JZ LOC_38E2C 
-	PUSHSTR 457
+	PUSHSTR 458
 	PUSHARG -5 
 	PUSHARG -4 
 	PUSHARG -3 
@@ -32741,13 +32749,13 @@ XDuplicator:
 	LOC_39090:
 	PUSH 1 
 	PUSH 2 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMPZ 
 	MUL 
 	SUB 
 	POPN 9 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_390F8 
@@ -32765,7 +32773,7 @@ XDuplicator:
 	SYSCALL 0x106 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenY 
 	POPN 7 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
-	PUSHSTR 171
+	PUSHSTR 172
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
@@ -32787,13 +32795,13 @@ XDuplicator:
 	PUSHARG 2 
 	PUSH 43003 
 	SYSCALL 0x2C , ( 2 | ( 0 << 16 ) ) ; SetCallbackProcedure 
-	PUSHSTR 12
+	PUSHSTR 13
 	PUSHARG 2 
 	PUSH 9999 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 455
+	PUSHSTR 456
 	PUSHARG 2 
 	PUSH 22001 
 	PUSH 9999 
@@ -32805,7 +32813,7 @@ XDuplicator:
 	POPN 4 
 	PUSH 0 
 	POPN 3 
-	PUSHSTR 454
+	PUSHSTR 455
 	PUSHARG 2 
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR 
 	PUSH 0 
@@ -32845,13 +32853,13 @@ XDuplicator:
 	CMPL 
 	JZ LOC_393C4 
 	PUSHARG 2 
-	PUSHSTR 172
+	PUSHSTR 173
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	JMP LOC_393E8 
 	LOC_393C4:
 	PUSHARG 2 
-	PUSHSTR 172
+	PUSHSTR 173
 	PUSH 255 
 	SYSCALL 0x300 , ( 3 | ( 0 << 16 ) ) ; PlaySound 
 	LOC_393E8:
@@ -32888,13 +32896,13 @@ FinalX2:
 	STACK 0   
 	LOC_394B0:
 	STACK 2 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 170
+	PUSHSTR 171
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 291
+	PUSHSTR 292
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 346
+	PUSHSTR 347
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -32927,7 +32935,7 @@ FinalX2:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	PUSH 0 
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
-	PUSHSTR 458
+	PUSHSTR 459
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
@@ -32935,23 +32943,23 @@ FinalX2:
 	CALLBS 
 	PUSH 20 
 	DELAY 
-	PUSHSTR 448
+	PUSHSTR 449
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 452
+	PUSHSTR 453
 	PUSH 2 
 	PUSH 0 
 	PUSH 0 
 	PUSH 0 
 	CALLBS 
-	PUSHSTR 458
+	PUSHSTR 459
 	INST_45 
-	PUSHSTR 448
+	PUSHSTR 449
 	INST_45 
-	PUSHSTR 452
+	PUSHSTR 453
 	INST_45 
 	PUSH 10 
 	DELAY 
@@ -33011,7 +33019,7 @@ XProduceSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -33028,7 +33036,7 @@ XProduceSoldier:
 	PUSHARG 2 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -33042,7 +33050,7 @@ XProduceSoldier:
 	JZ LOC_39924 
 	RETN 2 
 	LOC_39924:
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 1 
 	CMP 
 	JZ LOC_39984 
@@ -33086,7 +33094,7 @@ XProduceSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -33107,7 +33115,7 @@ XProduceSoldier:
 	SUB 
 	SYSCALL 0x119 , ( 3 | ( 1 << 16 ) ) ; 0x0119 
 	POPN 5 
-	PUSHSTR 42
+	PUSHSTR 43
 	PUSHARG 5 
 	PUSH 10 
 	PUSH 0 
@@ -33138,9 +33146,9 @@ XMoreSoldier:
 	STACK 0   
 	LOC_39B8C:
 	STACK 8 
-	PUSHSTR 53
+	PUSHSTR 54
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
-	PUSHSTR 58
+	PUSHSTR 59
 	SYSCALL 0x7 , ( 1 | ( 0 << 16 ) ) ; BatchLoadShape 
 	SYSCALL 0x131 , ( 0 | ( 0 << 16 ) ) ; DisablePlayMagic 
 	PUSH 8 
@@ -33148,7 +33156,7 @@ XMoreSoldier:
 	CALL DownBrightness 
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR 
 	POPN 1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	POPN 3 
 	PUSHARG 1 
 	SYSCALL 0x105 , ( 1 | ( 1 << 16 ) ) ; GetObjectScreenX 
@@ -33200,7 +33208,7 @@ XMoreSoldier:
 	PUSH 0 
 	CMPZ 
 	JZ LOC_39F0C 
-	PUSHSTR 460
+	PUSHSTR 461
 	PUSHARG 3 
 	PUSHARG 7 
 	PUSH 0 
@@ -33219,13 +33227,13 @@ XMoreSoldier:
 	SYSCALL 0x128 , ( 2 | ( 0 << 16 ) ) ; SetOverehelming ? 
 	PUSH 6 
 	DELAY 
-	PUSHSTR 59
-	PUSH 255 
-	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
 	PUSHSTR 60
 	PUSH 255 
 	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT 
+	PUSHSTR 61
+	PUSH 255 
+	SYSCALL 0x301 , ( 2 | ( 0 << 16 ) ) ; PlaySound1 
+	PUSHINV 5 ; INTV_IS_LEFT 
 	PUSH 0 
 	CMP 
 	JZ LOC_39E7C 
@@ -34219,616 +34227,6 @@ Magic200:
 	RETN 0 
 		RETN 0
 
-GetObjectByHandle:
-	STACK 1   
-	PUSHARG -2
-	PUSH 0xFFFF
-	AND
-	POPN 1
-	PUSHARG 1
-	PUSH 0x800
-	CMPL
-	JZ t59707bd3_1_ELSE
-t59707bd3_0_IF:
-	PUSH POBJECT_LIST_ROOT
-	CALL GetInt
-	PUSH 0x0A8
-	PUSHARG 1
-	MUL
-	ADD
-	POPN -2
-	RETN 0
-	JMP t59707bd3_2_IF_END
-t59707bd3_1_ELSE:
-t59707bd3_2_IF_END:
-	PUSH 0
-	POPN -2
-	RETN 0
-
-IsFriendly:
-	STACK 0   
-	PUSHARG -2
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSHARG -3
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	CMP
-	POPN -3
-	RETN 1
-
-IsFriendly_ByHandle:
-	STACK 0   
-	PUSHARG -3
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSHARG -2
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	CALL IsFriendly
-	POPN -3
-	RETN 1
-
-IsChivary:
-	STACK 0   
-	PUSHARG -2
-	PUSH 0x2C
-	ADD
-	CALL GetInt
-	PUSH 0x4
-	AND
-	JZ t59707bd3_4_ELSE
-t59707bd3_3_IF:
-	PUSH 1
-	POPN -2
-	RETN 0
-	JMP t59707bd3_5_IF_END
-t59707bd3_4_ELSE:
-t59707bd3_5_IF_END:
-	PUSH 0
-	POPN -2
-	RETN 0
-
-IsChivary_ByHandle:
-	STACK 0   
-	PUSHARG -2
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	CALL IsChivary
-	POPN -2
-	RETN 0
-
-IsMajor:
-	STACK 0   
-	PUSHARG -2
-	PUSH 0x2C
-	ADD
-	CALL GetInt
-	PUSH 0x1
-	AND
-	JZ t59707bd3_7_ELSE
-t59707bd3_6_IF:
-	PUSH 1
-	POPN -2
-	RETN 0
-	JMP t59707bd3_8_IF_END
-t59707bd3_7_ELSE:
-t59707bd3_8_IF_END:
-	PUSH 0
-	POPN -2
-	RETN 0
-
-IsMajor_ByHandle:
-	STACK 0   
-	PUSHARG -2
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	CALL IsMajor
-	POPN -2
-	RETN 0
-
-isSolAtkValid_AttackPoint:
-	STACK 1   
-	PUSHARG -3
-	PUSH 0x08
-	ADD
-	CALL GetInt
-	PUSHARG -3
-	PUSH 0x10
-	ADD
-	CALL GetInt
-	CMP
-	PUSHARG -3
-	PUSH 0x0C
-	ADD
-	CALL GetInt
-	PUSHARG -3
-	PUSH 0x14
-	ADD
-	CALL GetInt
-	CMP
-	ORNZ
-	JZ t59707bd3_10_ELSE
-t59707bd3_9_IF:
-	PUSHARG -2
-	PUSH 2
-	MUL
-	PUSH 3
-	DIV
-	POPN -2
-	JMP t59707bd3_11_IF_END
-t59707bd3_10_ELSE:
-t59707bd3_11_IF_END:
-	PUSH 0
-	PUSH 299
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
-	POPN 1
-	PUSHARG 1
-	PUSHARG -2
-	CMPGE
-	JZ t59707bd3_13_ELSE
-t59707bd3_12_IF:
-	PUSHARG -4
-	CALL IsChivary
-	JZ t59707bd3_16_ELSE
-t59707bd3_15_IF:
-	PUSHARG -2
-	PUSH 2
-	MUL
-	PUSH 3
-	DIV
-	POPN -2
-	PUSH 0
-	PUSH 299
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
-	POPN 1
-	PUSHARG 1
-	PUSHARG -2
-	CMPGE
-	JZ t59707bd3_19_ELSE
-t59707bd3_18_IF:
-	PUSH 0
-	POPN -4
-	RETN 2
-	JMP t59707bd3_20_IF_END
-t59707bd3_19_ELSE:
-	PUSH 1
-	POPN -4
-	RETN 2
-t59707bd3_20_IF_END:
-	JMP t59707bd3_17_IF_END
-t59707bd3_16_ELSE:
-t59707bd3_17_IF_END:
-	PUSH 0
-	POPN -4
-	RETN 2
-	JMP t59707bd3_14_IF_END
-t59707bd3_13_ELSE:
-t59707bd3_14_IF_END:
-	PUSH 1
-	POPN -4
-	RETN 2
-
-IsSolAtkToSolValid:
-	STACK 0   
-	PUSHARG -2
-	CALL IsMajor
-	JZ t59707bd3_22_ELSE
-t59707bd3_21_IF:
-	PUSH 0
-	POPN -3
-	RETN 1
-	JMP t59707bd3_23_IF_END
-t59707bd3_22_ELSE:
-t59707bd3_23_IF_END:
-	PUSHARG -3
-	PUSHARG -2
-	CALL IsFriendly
-	JZ t59707bd3_25_ELSE
-t59707bd3_24_IF:
-	PUSH 0
-	POPN -3
-	RETN 1
-	JMP t59707bd3_26_IF_END
-t59707bd3_25_ELSE:
-t59707bd3_26_IF_END:
-	PUSHARG -3
-	PUSHARG -2
-	PUSHARG -3
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSH 0x70
-	ADD
-	CALL GetInt
-	CALL isSolAtkValid_AttackPoint
-	POPN -3
-	RETN 1
-
-IsSolAtkToSolValid_ByHandle:
-	STACK 0   
-	PUSHARG -3
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSHARG -2
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	CALL IsSolAtkToSolValid
-	POPN -3
-	RETN 1
-
-GetSolHarmToMajor:
-	STACK 3   
-	PUSHARG -2
-	CALL IsMajor
-	ZERO
-	JZ t59707bd3_28_ELSE
-t59707bd3_27_IF:
-	PUSH 0
-	POPN -3
-	RETN 1
-	JMP t59707bd3_29_IF_END
-t59707bd3_28_ELSE:
-t59707bd3_29_IF_END:
-	PUSHARG -3
-	PUSHARG -2
-	CALL IsFriendly
-	JZ t59707bd3_31_ELSE
-t59707bd3_30_IF:
-	PUSH 0
-	POPN -3
-	RETN 1
-	JMP t59707bd3_32_IF_END
-t59707bd3_31_ELSE:
-t59707bd3_32_IF_END:
-	PUSHARG -2
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSH 0x48
-	ADD
-	CALL GetInt
-	PUSH OFFSET_GENERAL_STR
-	ADD
-	CALL GetShort
-	POPN 1
-	PUSH 150
-	PUSHARG 1
-	PUSH 20
-	MUL
-	PUSH 100
-	DIV
-	SUB
-	POPN 2
-	PUSHARG -3
-	PUSHARG -2
-	PUSHARG 2
-	CALL isSolAtkValid_AttackPoint
-	ZERO
-	JZ t59707bd3_34_ELSE
-t59707bd3_33_IF:
-	PUSH 0
-	POPN -3
-	RETN 1
-	JMP t59707bd3_35_IF_END
-t59707bd3_34_ELSE:
-t59707bd3_35_IF_END:
-	PUSHARG -3
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSH 0x70
-	ADD
-	CALL GetInt
-	POPN 3
-	PUSHARG -3
-	CALL IsChivary
-	JZ t59707bd3_37_ELSE
-t59707bd3_36_IF:
-	PUSHARG 3
-	PUSH 120
-	MUL
-	PUSH 100
-	DIV
-	POPN 3
-	JMP t59707bd3_38_IF_END
-t59707bd3_37_ELSE:
-t59707bd3_38_IF_END:
-	PUSHARG 3
-	PUSH 4
-	MUL
-	PUSH 192
-	DIV
-	POPN -3
-	RETN 1
-
-GetSolHarmToMajor_ByHandle:
-	STACK 0   
-	PUSHARG -3
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSHARG -2
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	CALL GetSolHarmToMajor
-	POPN -3
-	RETN 1
-
-Sol13LongSpcSmokeFade:
-	STACK 1   
-	PUSHARG -2
-	PUSHSTR 592
-	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
-	PUSH 80
-	DELAY
-	PUSHARG -2
-	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
-	PUSHARG -2
-	PUSH 16
-	SYSCALL 0x27, (2 | (0 << 16)) ; SetObjectBrightness
-	PUSH 16
-	POPN 1
-t59707bd3_39_FOR:
-	PUSHARG 1
-	PUSH 0
-	CMPG
-	JZ t59707bd3_41_FOR_END
-	PUSH 3
-	DELAY
-	PUSHARG -2
-	PUSHARG 1
-	SYSCALL 0x27, (2 | (0 << 16)) ; SetObjectBrightness
-t59707bd3_40_FOR_CONTINUE:
-	PUSHARG 1
-	PUSH 1
-	SUB
-	POPN 1
-	JMP t59707bd3_39_FOR
-t59707bd3_41_FOR_END:
-	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	RETN 1
-
-Sol13LongSpcAttack:
-	STACK 21  
-	SYSCALL 0xB, (0 | (1 << 16)) ; GetScriptLinkedObject
-	POPN 1
-	PUSHARG 1
-	SYSCALL 0x1A, (1 | (1 << 16)) ; GetObjectDir
-	POPN 2
-	PUSHARG 2
-	PUSH 0
-	CMP
-	JZ t59707bd3_43_ELSE
-t59707bd3_42_IF:
-	PUSH 1
-	POPN 2
-	JMP t59707bd3_44_IF_END
-t59707bd3_43_ELSE:
-	PUSH 1
-	NEG
-	POPN 2
-t59707bd3_44_IF_END:
-	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
-	POPN 3
-	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
-	POPN 4
-	PUSH 1
-	POPN 10
-t59707bd3_45_WHILE:
-	PUSHARG 10
-	PUSH 5
-	CMPLE
-	JZ t59707bd3_46_WHILE_END
-	PUSHARG 3
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
-	PUSHARG 2
-	PUSHARG 10
-	MUL
-	ADD
-	PUSHARG 4
-	SYSCALL 0x109, (1 | (1 << 16)) ; ScreenYToBattleY
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
-	POPN 11
-	PUSHARG 11
-	PUSH 0
-	CMP
-	JZ t59707bd3_48_ELSE
-t59707bd3_47_IF:
-	PUSH 1
-	PUSHARG 10
-	ADD
-	POPN 10
-	PUSH 0
-	PUSHARG 10
-	PUSH 1
-	SUB
-	SETNR 5
-	JMP t59707bd3_45_WHILE
-	JMP t59707bd3_49_IF_END
-t59707bd3_48_ELSE:
-t59707bd3_49_IF_END:
-	PUSH 1
-	PUSHARG 10
-	PUSH 1
-	SUB
-	SETNR 5
-	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
-	POPN 12
-	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
-	POPN 13
-	PUSHARG 12
-	PUSHARG 13
-	PUSH 0
-	PUSH 0
-	PUSH 504
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
-	POPN 14
-	PUSHSTR 591
-	PUSHARG 14 
-	PUSH 0 
-	PUSH 0 
-	PUSH 0 
-	CALLBS 
-		PUSHARG 1
-	PUSHARG 11
-	CALL IsSolAtkToSolValid_ByHandle
-	JZ t59707bd3_51_ELSE
-t59707bd3_50_IF:
-	JMP t59707bd3_46_WHILE_END
-	JMP t59707bd3_52_IF_END
-t59707bd3_51_ELSE:
-	RETN 0
-t59707bd3_52_IF_END:
-	JMP t59707bd3_45_WHILE
-t59707bd3_46_WHILE_END:
-	PUSHARG 11
-	PUSH 0
-	CMP
-	JZ t59707bd3_54_ELSE
-t59707bd3_53_IF:
-	RETN 0
-	JMP t59707bd3_55_IF_END
-t59707bd3_54_ELSE:
-t59707bd3_55_IF_END:
-	PUSHARG 11
-	SYSCALL 0x1A, (1 | (1 << 16)) ; GetObjectDir
-	POPN 15
-	PUSHARG 11
-	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier
-	PUSHARG 1
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
-	POPN 16
-	PUSHARG 16
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
-	PUSH 200
-	CMP
-	ZERO
-	JZ t59707bd3_57_ELSE
-t59707bd3_56_IF:
-	PUSHARG 1
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSH 0x48
-	ADD
-	CALL GetInt
-	POPN 17
-	PUSHARG 11
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSH 0x40
-	ADD
-	CALL GetInt
-	PUSH 0x48
-	ADD
-	CALL GetInt
-	POPN 18
-	PUSHARG 17
-	PUSH 0x8B
-	ADD
-	CALL GetInt
-	POPN 19
-	PUSHARG 18
-	PUSH 0x8B
-	ADD
-	CALL GetInt
-	POPN 20
-	PUSHARG 11
-	SYSCALL 0x2D, (1 | (1 << 16)) ; GetObjectSequence
-	SETINV 20
-	PUSH 1
-	SETINV 19
-	PUSHARG 17
-	PUSH 0x8B
-	ADD
-	PUSHARG 20
-	CALL SetInt
-	PUSHARG 11
-	CALL GetObjectByHandle
-	PUSH 0x84
-	ADD
-	CALL GetInt
-	PUSH 0x2C
-	ADD
-	CALL GetInt
-	PUSH 4
-	AND
-	JZ t59707bd3_60_ELSE
-t59707bd3_59_IF:
-	PUSHARG 16
-	PUSHARG 12
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
-	PUSH 10000
-	ADD
-	PUSHARG 13
-	SYSCALL 0x109, (1 | (1 << 16)) ; ScreenYToBattleY
-	SYSCALL 0x119, (3 | (1 << 16)) ; CreateSoldier
-	POPN 21
-	JMP t59707bd3_61_IF_END
-t59707bd3_60_ELSE:
-	PUSHARG 16
-	PUSHARG 12
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
-	PUSHARG 13
-	SYSCALL 0x109, (1 | (1 << 16)) ; ScreenYToBattleY
-	SYSCALL 0x119, (3 | (1 << 16)) ; CreateSoldier
-	POPN 21
-t59707bd3_61_IF_END:
-	PUSHARG 21
-	PUSHARG 12
-	PUSHARG 13
-	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; SetObjectCoordinate
-	PUSHARG 21
-	PUSHARG 15
-	SYSCALL 0x30, (2 | (0 << 16)) ; SetObjectDir
-	PUSHARG 17
-	PUSH 0x8B
-	ADD
-	PUSHARG 19
-	CALL SetInt
-	PUSH 0
-	SETINV 20
-	PUSH 0
-	SETINV 19
-	PUSHARG 11
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	JMP t59707bd3_58_IF_END
-t59707bd3_57_ELSE:
-t59707bd3_58_IF_END:
-	RETN 0
-
 
 
 STRING_0: DB "GetData_NotAligned"
@@ -34839,592 +34237,578 @@ STRING_4: DB "GetShort"
 STRING_5: DB "SetInt"
 STRING_6: DB "SetShort"
 STRING_7: DB "SetByte"
-STRING_8: DB "DelayAmbientSound"
-STRING_9: DB "GetSoldierMaxX2"
-STRING_10: DB "GetSoldierMaxX"
-STRING_11: DB "HoldAllDelay"
-STRING_12: DB "ProduceShadowTime"
-STRING_13: DB "MovingShadow"
-STRING_14: DB "LockByCenter"
-STRING_15: DB "LockTargetXY"
-STRING_16: DB "LockTargetTime2"
-STRING_17: DB "Hurt"
-STRING_18: DB "Hit01"
-STRING_19: DB "MoveCamera"
-STRING_20: DB "LockCameraSimple"
-STRING_21: DB "LockCameraSimple2"
-STRING_22: DB "LockCameraLine"
-STRING_23: DB "LockCameraLineDelay"
-STRING_24: DB "LockCamera"
-STRING_25: DB "LockCamera2"
-STRING_26: DB "FireMan"
-STRING_27: DB "CreateBlood"
-STRING_28: DB "Blood"
-STRING_29: DB "SmallFireBall"
-STRING_30: DB "hit01"
-STRING_31: DB "SmallFireBall2"
-STRING_32: DB "SmallFireBall3"
-STRING_33: DB "SmallFireBall4"
-STRING_34: DB "DownBrightness"
-STRING_35: DB "RaiseBrightness"
-STRING_36: DB "CreateDot"
-STRING_37: DB "CreateDots"
-STRING_38: DB "CreateLines"
-STRING_39: DB "CreateLine"
-STRING_40: DB "PowerExplode"
-STRING_41: DB "KeepPower"
-STRING_42: DB "StepShow"
-STRING_43: DB "HitGeneral"
-STRING_44: DB "DisableAttack"
-STRING_45: DB "NoMoreSoldierCallback"
-STRING_46: DB "m000snd01"
-STRING_47: DB "CastFail"
-STRING_48: DB "HalfMoonAll"
-STRING_49: DB "ShowHalfMoonSmoke"
-STRING_50: DB "HalfMoonCallback"
-STRING_51: DB "CreateHalfMoonSmoke"
-STRING_52: DB "HalfMoon"
-STRING_53: DB "magic\\000\\*"
-STRING_54: DB "magic\\001\\*"
-STRING_55: DB "m001snd01"
-STRING_56: DB "ProduceSoldier"
-STRING_57: DB "MoreSoldier"
-STRING_58: DB "magic\\002\\*"
-STRING_59: DB "m002snd01"
-STRING_60: DB "m002snd03"
-STRING_61: DB "BombLight"
-STRING_62: DB "ShootObjectCallback"
-STRING_63: DB "ZoomFreq"
-STRING_64: DB "CosZoomY"
-STRING_65: DB "ScaleShadow"
-STRING_66: DB "FireTail"
-STRING_67: DB "FlyLight"
-STRING_68: DB "ShootObject"
-STRING_69: DB "magic\\003\\*"
-STRING_70: DB "m003snd01"
-STRING_71: DB "m003snd02"
-STRING_72: DB "m003snd03"
-STRING_73: DB "RushcartCallback"
-STRING_74: DB "CreateRushCart"
-STRING_75: DB "RushCart"
-STRING_76: DB "magic\\004\\*"
-STRING_77: DB "LockTargetTime3"
-STRING_78: DB "LockGeneral"
-STRING_79: DB "BigThunderCallback"
-STRING_80: DB "ThunderAttachAttack"
-STRING_81: DB "ThunderAttach"
-STRING_82: DB "ThunderCallback"
-STRING_83: DB "LockTargetTime"
-STRING_84: DB "CreateThunderSparkle"
-STRING_85: DB "CreateThunderSmoke"
-STRING_86: DB "LockThunder"
-STRING_87: DB "Thunder"
-STRING_88: DB "magic\\005\\*"
-STRING_89: DB "BigThunder"
-STRING_90: DB "m005snd01"
-STRING_91: DB "HideArrow"
-STRING_92: DB "TraceArrow"
-STRING_93: DB "ArrowCallback1"
-STRING_94: DB "ArrowCallback2"
-STRING_95: DB "FlyArrowLU"
-STRING_96: DB "arrow"
-STRING_97: DB "FlyArrowRU"
-STRING_98: DB "FlyArrowLB2"
-STRING_99: DB "FlyArrowRB2"
-STRING_100: DB "FlyArrowLB1"
-STRING_101: DB "FlyArrowRB1"
-STRING_102: DB "ChangeRightFirePos"
-STRING_103: DB "ChangeLeftFirePos"
-STRING_104: DB "AddSoldierRight"
-STRING_105: DB "AddSoldierLeft"
-STRING_106: DB "ProduceArrowSoldier"
-STRING_107: DB "ArrowSupport"
-STRING_108: DB "magic\\006\\*"
-STRING_109: DB "StoneEmitterCallback1"
-STRING_110: DB "StoneEmitterCallback2"
-STRING_111: DB "StoneEmitterCmd3"
-STRING_112: DB "StoneExplode"
-STRING_113: DB "m007snd03"
-STRING_114: DB "FallExplode1"
-STRING_115: DB "Func7005"
-STRING_116: DB "FireStoneExplode"
-STRING_117: DB "m007snd02"
-STRING_118: DB "FallExplode2"
-STRING_119: DB "Func7006"
-STRING_120: DB "ProduceStoneEmitter"
-STRING_121: DB "TraceStoneShadow"
-STRING_122: DB "FlyStoneLB1"
-STRING_123: DB "FlyStoneRB1"
-STRING_124: DB "FlyStoneLB2"
-STRING_125: DB "FlyStoneRB2"
-STRING_126: DB "StoneEmitter"
-STRING_127: DB "magic\\007\\*"
-STRING_128: DB "ExplodeRoundCallback"
-STRING_129: DB "ProduceAirCircle"
-STRING_130: DB "ProduceRound"
-STRING_131: DB "CreateExplodeRound"
-STRING_132: DB "ExplodeRound"
-STRING_133: DB "magic\\008\\*"
-STRING_134: DB "m008snd01"
-STRING_135: DB "EightWayFireCallback"
-STRING_136: DB "CreateEightWay"
-STRING_137: DB "EightWayFireMotion"
-STRING_138: DB "EightWayFire"
-STRING_139: DB "magic\\009\\*"
-STRING_140: DB "m009snd01"
-STRING_141: DB "ConvexStoneCallback"
-STRING_142: DB "Func10002"
-STRING_143: DB "Func10003"
-STRING_144: DB "TraceStone"
-STRING_145: DB "BrokenStone"
-STRING_146: DB "ProduceSomethingXY"
-STRING_147: DB "ConvexStone"
-STRING_148: DB "magic\\010\\*"
-STRING_149: DB "TornadorCallback"
-STRING_150: DB "TornadoMotion"
-STRING_151: DB "TornadoStoneMotion"
-STRING_152: DB "TornadoStone"
-STRING_153: DB "BottomSmoke"
-STRING_154: DB "BottomMotion"
-STRING_155: DB "ProduceTornado"
-STRING_156: DB "DummyMotion"
-STRING_157: DB "CreateDummyRef"
-STRING_158: DB "WaitTarget"
-STRING_159: DB "GetSpeed"
-STRING_160: DB "GetDir"
-STRING_161: DB "Tornado"
-STRING_162: DB "magic\\011\\*"
-STRING_163: DB "m011snd01"
-STRING_164: DB "DuplicatorCallback"
-STRING_165: DB "TraceDuplicator"
-STRING_166: DB "MoveDuplicator"
-STRING_167: DB "ProduceDuplicator"
-STRING_168: DB "DuplicatorShadow"
-STRING_169: DB "Duplicator"
-STRING_170: DB "magic\\012\\*"
-STRING_171: DB "att07"
-STRING_172: DB "m012snd01"
-STRING_173: DB "StopAllSoldier"
-STRING_174: DB "Func13001"
-STRING_175: DB "ProduceSomethingXY2"
-STRING_176: DB "Frozen"
-STRING_177: DB "magic\\013\\*"
-STRING_178: DB "m013snd01"
-STRING_179: DB "DemonDancingCallback"
-STRING_180: DB "CreateLastAttack"
-STRING_181: DB "DemonDancing"
-STRING_182: DB "magic\\014\\*"
-STRING_183: DB "yell01"
-STRING_184: DB "FlyingSwordCallback"
-STRING_185: DB "Func15010"
-STRING_186: DB "Func15009"
-STRING_187: DB "TraceSmallSword"
-STRING_188: DB "CreateSmallSwords"
-STRING_189: DB "att04"
-STRING_190: DB "SwordBomb"
-STRING_191: DB "m015snd02"
-STRING_192: DB "CreateBigSword"
-STRING_193: DB "SwordAttack"
-STRING_194: DB "ProduceSwordShadow"
-STRING_195: DB "LargerSword"
-STRING_196: DB "PrepareSword"
-STRING_197: DB "FlyingSword"
-STRING_198: DB "magic\\015\\*"
-STRING_199: DB "m015snd01"
-STRING_200: DB "m015snd03"
-STRING_201: DB "CreateHolyBall"
-STRING_202: DB "RoundHolyBall"
-STRING_203: DB "IncreaseHP"
-STRING_204: DB "CreateHolyLight"
-STRING_205: DB "TraceHolyLight"
-STRING_206: DB "Heal"
-STRING_207: DB "magic\\016\\*"
-STRING_208: DB "m016snd01"
-STRING_209: DB "FireDragonCallback"
-STRING_210: DB "CreateStart"
-STRING_211: DB "sc4501"
-STRING_212: DB "m017snd01"
-STRING_213: DB "MAGIC\\017\\m017a40001"
-STRING_214: DB "MAGIC\\017\\m017a20001"
-STRING_215: DB "MAGIC\\017\\m017a10001"
-STRING_216: DB "MAGIC\\017\\m017a30001"
-STRING_217: DB "MAGIC\\017\\m017a60001"
-STRING_218: DB "sc4502"
-STRING_219: DB "MAGIC\\017\\m017c50001"
-STRING_220: DB "MAGIC\\017\\m017c30001"
-STRING_221: DB "MAGIC\\017\\m017c10001"
-STRING_222: DB "MAGIC\\017\\m017c20001"
-STRING_223: DB "MAGIC\\017\\m017c40001"
-STRING_224: DB "MAGIC\\017\\m017c70001"
-STRING_225: DB "FireDragon"
-STRING_226: DB "magic\\017\\*"
-STRING_227: DB "m017snd02"
-STRING_228: DB "CallDragonCallback"
-STRING_229: DB "sc3601"
-STRING_230: DB "sc3602"
-STRING_231: DB "m016a"
-STRING_232: DB "sc3603"
-STRING_233: DB "sc2512"
-STRING_234: DB "sc3604"
-STRING_235: DB "m018snd03"
-STRING_236: DB "CallDragon"
-STRING_237: DB "magic\\018\\*"
-STRING_238: DB "m018snd01"
-STRING_239: DB "m018snd02"
-STRING_240: DB "RunningBowCallback"
-STRING_241: DB "CreateBowLight"
-STRING_242: DB "CreateBow"
-STRING_243: DB "TraceBow"
-STRING_244: DB "RunningBow"
-STRING_245: DB "magic\\019\\*"
-STRING_246: DB "m019snd01"
-STRING_247: DB "BlackHoleCallback"
-STRING_248: DB "KillMan"
-STRING_249: DB "Engulf"
-STRING_250: DB "CreateBlackHoleBall"
-STRING_251: DB "CreateBlackHoleStars"
-STRING_252: DB "CreateBlackHoleStar"
-STRING_253: DB "CreateBlackHole"
-STRING_254: DB "BlackHole"
-STRING_255: DB "magic\\020\\*"
-STRING_256: DB "m020snd01"
-STRING_257: DB "m020snd02"
-STRING_258: DB "FireRingCallback"
-STRING_259: DB "CreateFire"
-STRING_260: DB "FireRingMotion2"
-STRING_261: DB "FireRingMotion"
-STRING_262: DB "CreateFireRing"
-STRING_263: DB "FireRing"
-STRING_264: DB "magic\\021\\*"
-STRING_265: DB "m021snd01"
-STRING_266: DB "IceCallback"
-STRING_267: DB "CreateIceShatter"
-STRING_268: DB "CreateIceFog"
-STRING_269: DB "CreateFogSpeed"
-STRING_270: DB "CreateIce"
-STRING_271: DB "Ice"
-STRING_272: DB "magic\\022\\*"
-STRING_273: DB "m022snd01"
-STRING_274: DB "OnFireCallback"
-STRING_275: DB "CreateOnFireSmoke"
-STRING_276: DB "CreateOnFireFire"
-STRING_277: DB "m023snd01"
-STRING_278: DB "CreateOnFire"
-STRING_279: DB "m023snd02"
-STRING_280: DB "TraceOnFire"
-STRING_281: DB "OnFire"
-STRING_282: DB "magic\\023\\*"
-STRING_283: DB "ProduceBackSoldier"
-STRING_284: DB "BackSoldier"
-STRING_285: DB "magic\\024\\*"
-STRING_286: DB "TaiChiCallback"
-STRING_287: DB "CreateTaiChiBomb"
-STRING_288: DB "CreateTaichi"
-STRING_289: DB "m025snd01"
-STRING_290: DB "TaiChi"
-STRING_291: DB "magic\\025\\*"
-STRING_292: DB "SpoutCallback"
-STRING_293: DB "SpoutKillEdge"
-STRING_294: DB "TraceStoneBomb"
-STRING_295: DB "CreateStoneBomb"
-STRING_296: DB "CreateSpout"
-STRING_297: DB "CreateSpoutAround"
-STRING_298: DB "m026snd01"
-STRING_299: DB "Spout"
-STRING_300: DB "magic\\026\\*"
-STRING_301: DB "FireCowCallback"
-STRING_302: DB "AttachFireToCow"
-STRING_303: DB "CreateFireCow"
-STRING_304: DB "FireCow"
-STRING_305: DB "magic\\027\\*"
-STRING_306: DB "m027snd01"
-STRING_307: DB "m027snd02"
-STRING_308: DB "RollDownCallback"
-STRING_309: DB "m028snd02"
-STRING_310: DB "CreateRollStoneBreak"
-STRING_311: DB "CreateRollStone"
-STRING_312: DB "TracingCamera"
-STRING_313: DB "RollDown"
-STRING_314: DB "magic\\028\\*"
-STRING_315: DB "m028snd01"
-STRING_316: DB "PaCallback"
-STRING_317: DB "CreatePaBomb"
-STRING_318: DB "BigBombCircle"
-STRING_319: DB "BigPaBombHurt"
-STRING_320: DB "CreateBigPaBomb"
-STRING_321: DB "m029snd02"
-STRING_322: DB "CreateRotateLight"
-STRING_323: DB "CreateRotateBomb"
-STRING_324: DB "CreatePaLight"
-STRING_325: DB "CreatePa"
-STRING_326: DB "m029snd01"
-STRING_327: DB "m029snd03"
-STRING_328: DB "Pa"
-STRING_329: DB "magic\\029\\*"
-STRING_330: DB "HalfMoonNewCallback"
-STRING_331: DB "CheckHalfMoonNew"
-STRING_332: DB "HalfMoonNewMotion"
-STRING_333: DB "GetGeneralWidth"
-STRING_334: DB "CreateHalfMoonNew"
-STRING_335: DB "HalfMoonNew"
-STRING_336: DB "magic\\030\\*"
-STRING_337: DB "FirePillarCallback"
-STRING_338: DB "CreateFirePillarSource"
-STRING_339: DB "m031snd03"
-STRING_340: DB "CreateFirePillarLight"
-STRING_341: DB "CreateFirePillarBomb"
-STRING_342: DB "CreateFirePillar"
-STRING_343: DB "m031snd01"
-STRING_344: DB "m031snd02"
-STRING_345: DB "FirePillar"
-STRING_346: DB "magic\\031\\*"
-STRING_347: DB "SparkCallback"
-STRING_348: DB "DecreaseHP"
-STRING_349: DB "CreateSparkleCenter"
-STRING_350: DB "CreateSparkle"
-STRING_351: DB "m032snd01"
-STRING_352: DB "m032snd02"
-STRING_353: DB "Sparkle"
-STRING_354: DB "magic\\032\\*"
-STRING_355: DB "FireWorkCallback"
-STRING_356: DB "TraceFlash"
-STRING_357: DB "CreateCannonFlash"
-STRING_358: DB "CannonExplode"
-STRING_359: DB "TraceCannon"
-STRING_360: DB "ShootCannon"
-STRING_361: DB "TraceCannonShadow"
-STRING_362: DB "FlyCannonLB1"
-STRING_363: DB "FlyCannonRB1"
-STRING_364: DB "FlyCannonLB2"
-STRING_365: DB "FlyCannonRB2"
-STRING_366: DB "ProduceCannonEmitter"
-STRING_367: DB "FireWork"
-STRING_368: DB "magic\\033\\*"
-STRING_369: DB "PowderCallback"
-STRING_370: DB "CreatePowerExplode"
-STRING_371: DB "CreatePowerSmoke"
-STRING_372: DB "CreatePowderBreak"
-STRING_373: DB "m034snd01"
-STRING_374: DB "CreatePower"
-STRING_375: DB "Powder"
-STRING_376: DB "magic\\034\\*"
-STRING_377: DB "SpearCallback"
-STRING_378: DB "CreateSpears"
-STRING_379: DB "CreateSpear"
-STRING_380: DB "Spear"
-STRING_381: DB "magic\\035\\*"
-STRING_382: DB "m035snd01"
-STRING_383: DB "SlashCallback"
-STRING_384: DB "CreateSlashByTarget"
-STRING_385: DB "m036snd02"
-STRING_386: DB "CreateSlash"
-STRING_387: DB "Slash"
-STRING_388: DB "magic\\036\\*"
-STRING_389: DB "m036snd01"
-STRING_390: DB "WallCallback"
-STRING_391: DB "CreateFireWallAttack"
-STRING_392: DB "CreateFireWall"
-STRING_393: DB "Wall"
-STRING_394: DB "magic\\037\\*"
-STRING_395: DB "m037snd01"
-STRING_396: DB "TwisterSwordCallback"
-STRING_397: DB "CreateTwisterSwordAttack"
-STRING_398: DB "CreateTwisterSword"
-STRING_399: DB "m038snd01"
-STRING_400: DB "TwisterSword"
-STRING_401: DB "magic\\038\\*"
-STRING_402: DB "m038snd02"
-STRING_403: DB "RollTubCallback"
-STRING_404: DB "m039snd02"
-STRING_405: DB "CreateRollTubBreak"
-STRING_406: DB "CreateRollTub"
-STRING_407: DB "RollTub"
-STRING_408: DB "magic\\039\\*"
-STRING_409: DB "m039snd01"
-STRING_410: DB "EarthquakeCallback"
-STRING_411: DB "CreateQuakeSmoke"
-STRING_412: DB "CreateQuakeStone"
-STRING_413: DB "ShakeCamera"
-STRING_414: DB "QuakeSound"
-STRING_415: DB "m040snd01"
-STRING_416: DB "Earthquake"
-STRING_417: DB "magic\\040\\*"
-STRING_418: DB "InterceptorCallback"
-STRING_419: DB "CreateInterceptor"
-STRING_420: DB "MakeInterceptorSound"
-STRING_421: DB "m041snd01"
-STRING_422: DB "Interceptor"
-STRING_423: DB "magic\\041\\*"
-STRING_424: DB "m041snd02"
-STRING_425: DB "XCallDragonCallback"
-STRING_426: DB "Xsc3601"
-STRING_427: DB "Xsc3602"
-STRING_428: DB "Xsc3603"
-STRING_429: DB "Xsc2512"
-STRING_430: DB "Xsc3604"
-STRING_431: DB "XCallDragon"
-STRING_432: DB "XFireCowCallback"
-STRING_433: DB "XAttachFireToCow"
-STRING_434: DB "XCreateFireCow"
-STRING_435: DB "XFireCow"
-STRING_436: DB "XSparkCallback"
-STRING_437: DB "XDecreaseHP"
-STRING_438: DB "XCreateSparkleCenter"
-STRING_439: DB "XCreateSparkle"
-STRING_440: DB "XSparkle"
-STRING_441: DB "MoveEnemyDelay"
-STRING_442: DB "FinalX1"
-STRING_443: DB "XFirePillarCallback"
-STRING_444: DB "XCreateFirePillarSource"
-STRING_445: DB "XCreateFirePillarLight"
-STRING_446: DB "XCreateFirePillarBomb"
-STRING_447: DB "XCreateFirePillar"
-STRING_448: DB "XFirePillar"
-STRING_449: DB "XTaiChiCallback"
-STRING_450: DB "XCreateTaiChiBomb"
-STRING_451: DB "XCreateTaichi"
-STRING_452: DB "XTaiChi"
-STRING_453: DB "XDuplicatorCallback"
-STRING_454: DB "XTraceDuplicator"
-STRING_455: DB "XMoveDuplicator"
-STRING_456: DB "XProduceDuplicator"
-STRING_457: DB "XDuplicatorShadow"
-STRING_458: DB "XDuplicator"
-STRING_459: DB "FinalX2"
-STRING_460: DB "XProduceSoldier"
-STRING_461: DB "XMoreSoldier"
-STRING_462: DB "F103"
-STRING_463: DB "F104"
-STRING_464: DB "F100"
-STRING_465: DB "F200"
-STRING_466: DB "F9999"
-STRING_467: DB "InitializeBattle"
-STRING_468: DB "Magic1"
-STRING_469: DB "Magic2"
-STRING_470: DB "Magic3"
-STRING_471: DB "Magic4"
-STRING_472: DB "Magic5"
-STRING_473: DB "Magic6"
-STRING_474: DB "Magic7"
-STRING_475: DB "Magic8"
-STRING_476: DB "Magic9"
-STRING_477: DB "Magic10"
-STRING_478: DB "Magic11"
-STRING_479: DB "Magic12"
-STRING_480: DB "Magic13"
-STRING_481: DB "Magic14"
-STRING_482: DB "Magic15"
-STRING_483: DB "Magic16"
-STRING_484: DB "Magic17"
-STRING_485: DB "Magic18"
-STRING_486: DB "Magic19"
-STRING_487: DB "Magic20"
-STRING_488: DB "Magic21"
-STRING_489: DB "Magic22"
-STRING_490: DB "Magic23"
-STRING_491: DB "Magic24"
-STRING_492: DB "Magic25"
-STRING_493: DB "Magic26"
-STRING_494: DB "Magic27"
-STRING_495: DB "Magic28"
-STRING_496: DB "Magic29"
-STRING_497: DB "Magic30"
-STRING_498: DB "Magic31"
-STRING_499: DB "Magic32"
-STRING_500: DB "Magic33"
-STRING_501: DB "Magic34"
-STRING_502: DB "Magic35"
-STRING_503: DB "Magic36"
-STRING_504: DB "Magic37"
-STRING_505: DB "Magic38"
-STRING_506: DB "Magic39"
-STRING_507: DB "Magic40"
-STRING_508: DB "Magic41"
-STRING_509: DB "Magic42"
-STRING_510: DB "Magic43"
-STRING_511: DB "Magic44"
-STRING_512: DB "Magic45"
-STRING_513: DB "Magic46"
-STRING_514: DB "Magic47"
-STRING_515: DB "Magic48"
-STRING_516: DB "Magic49"
-STRING_517: DB "Magic50"
-STRING_518: DB "Magic51"
-STRING_519: DB "Magic52"
-STRING_520: DB "Magic53"
-STRING_521: DB "Magic54"
-STRING_522: DB "Magic55"
-STRING_523: DB "Magic56"
-STRING_524: DB "Magic57"
-STRING_525: DB "Magic58"
-STRING_526: DB "Magic59"
-STRING_527: DB "Magic60"
-STRING_528: DB "Magic61"
-STRING_529: DB "Magic62"
-STRING_530: DB "Magic63"
-STRING_531: DB "Magic64"
-STRING_532: DB "Magic65"
-STRING_533: DB "Magic66"
-STRING_534: DB "Magic67"
-STRING_535: DB "Magic68"
-STRING_536: DB "Magic69"
-STRING_537: DB "Magic70"
-STRING_538: DB "Magic71"
-STRING_539: DB "Magic72"
-STRING_540: DB "Magic73"
-STRING_541: DB "Magic74"
-STRING_542: DB "Magic75"
-STRING_543: DB "Magic76"
-STRING_544: DB "Magic77"
-STRING_545: DB "Magic78"
-STRING_546: DB "Magic79"
-STRING_547: DB "Magic80"
-STRING_548: DB "Magic81"
-STRING_549: DB "Magic82"
-STRING_550: DB "Magic83"
-STRING_551: DB "Magic84"
-STRING_552: DB "Magic85"
-STRING_553: DB "Magic86"
-STRING_554: DB "Magic87"
-STRING_555: DB "Magic88"
-STRING_556: DB "Magic89"
-STRING_557: DB "Magic90"
-STRING_558: DB "Magic91"
-STRING_559: DB "Magic92"
-STRING_560: DB "Magic93"
-STRING_561: DB "Magic94"
-STRING_562: DB "Magic95"
-STRING_563: DB "Magic96"
-STRING_564: DB "Magic97"
-STRING_565: DB "Magic98"
-STRING_566: DB "Magic99"
-STRING_567: DB "Magic100"
-STRING_568: DB "Magic101"
-STRING_569: DB "Magic102"
-STRING_570: DB "Magic103"
-STRING_571: DB "Magic104"
-STRING_572: DB "Magic105"
-STRING_573: DB "Magic106"
-STRING_574: DB "Magic107"
-STRING_575: DB "Magic108"
-STRING_576: DB "Magic109"
-STRING_577: DB "Magic110"
-STRING_578: DB "Magic200"
-STRING_579: DB "GetObjectByHandle"
-STRING_580: DB "IsFriendly"
-STRING_581: DB "IsFriendly_ByHandle"
-STRING_582: DB "IsChivary"
-STRING_583: DB "IsChivary_ByHandle"
-STRING_584: DB "IsMajor"
-STRING_585: DB "IsMajor_ByHandle"
-STRING_586: DB "isSolAtkValid_AttackPoint"
-STRING_587: DB "IsSolAtkToSolValid"
-STRING_588: DB "IsSolAtkToSolValid_ByHandle"
-STRING_589: DB "GetSolHarmToMajor"
-STRING_590: DB "GetSolHarmToMajor_ByHandle"
-STRING_591: DB "Sol13LongSpcSmokeFade"
-STRING_592: DB "S013SND01"
-STRING_593: DB "Sol13LongSpcAttack"
+STRING_8: DB "Magic116"
+STRING_9: DB "DelayAmbientSound"
+STRING_10: DB "GetSoldierMaxX2"
+STRING_11: DB "GetSoldierMaxX"
+STRING_12: DB "HoldAllDelay"
+STRING_13: DB "ProduceShadowTime"
+STRING_14: DB "MovingShadow"
+STRING_15: DB "LockByCenter"
+STRING_16: DB "LockTargetXY"
+STRING_17: DB "LockTargetTime2"
+STRING_18: DB "Hurt"
+STRING_19: DB "Hit01"
+STRING_20: DB "MoveCamera"
+STRING_21: DB "LockCameraSimple"
+STRING_22: DB "LockCameraSimple2"
+STRING_23: DB "LockCameraLine"
+STRING_24: DB "LockCameraLineDelay"
+STRING_25: DB "LockCamera"
+STRING_26: DB "LockCamera2"
+STRING_27: DB "FireMan"
+STRING_28: DB "CreateBlood"
+STRING_29: DB "Blood"
+STRING_30: DB "SmallFireBall"
+STRING_31: DB "hit01"
+STRING_32: DB "SmallFireBall2"
+STRING_33: DB "SmallFireBall3"
+STRING_34: DB "SmallFireBall4"
+STRING_35: DB "DownBrightness"
+STRING_36: DB "RaiseBrightness"
+STRING_37: DB "CreateDot"
+STRING_38: DB "CreateDots"
+STRING_39: DB "CreateLines"
+STRING_40: DB "CreateLine"
+STRING_41: DB "PowerExplode"
+STRING_42: DB "KeepPower"
+STRING_43: DB "StepShow"
+STRING_44: DB "HitGeneral"
+STRING_45: DB "DisableAttack"
+STRING_46: DB "NoMoreSoldierCallback"
+STRING_47: DB "m000snd01"
+STRING_48: DB "CastFail"
+STRING_49: DB "HalfMoonAll"
+STRING_50: DB "ShowHalfMoonSmoke"
+STRING_51: DB "HalfMoonCallback"
+STRING_52: DB "CreateHalfMoonSmoke"
+STRING_53: DB "HalfMoon"
+STRING_54: DB "magic\\000\\*"
+STRING_55: DB "magic\\001\\*"
+STRING_56: DB "m001snd01"
+STRING_57: DB "ProduceSoldier"
+STRING_58: DB "MoreSoldier"
+STRING_59: DB "magic\\002\\*"
+STRING_60: DB "m002snd01"
+STRING_61: DB "m002snd03"
+STRING_62: DB "BombLight"
+STRING_63: DB "ShootObjectCallback"
+STRING_64: DB "ZoomFreq"
+STRING_65: DB "CosZoomY"
+STRING_66: DB "ScaleShadow"
+STRING_67: DB "FireTail"
+STRING_68: DB "FlyLight"
+STRING_69: DB "ShootObject"
+STRING_70: DB "magic\\003\\*"
+STRING_71: DB "m003snd01"
+STRING_72: DB "m003snd02"
+STRING_73: DB "m003snd03"
+STRING_74: DB "RushcartCallback"
+STRING_75: DB "CreateRushCart"
+STRING_76: DB "RushCart"
+STRING_77: DB "magic\\004\\*"
+STRING_78: DB "LockTargetTime3"
+STRING_79: DB "LockGeneral"
+STRING_80: DB "BigThunderCallback"
+STRING_81: DB "ThunderAttachAttack"
+STRING_82: DB "ThunderAttach"
+STRING_83: DB "ThunderCallback"
+STRING_84: DB "LockTargetTime"
+STRING_85: DB "CreateThunderSparkle"
+STRING_86: DB "CreateThunderSmoke"
+STRING_87: DB "LockThunder"
+STRING_88: DB "Thunder"
+STRING_89: DB "magic\\005\\*"
+STRING_90: DB "BigThunder"
+STRING_91: DB "m005snd01"
+STRING_92: DB "HideArrow"
+STRING_93: DB "TraceArrow"
+STRING_94: DB "ArrowCallback1"
+STRING_95: DB "ArrowCallback2"
+STRING_96: DB "FlyArrowLU"
+STRING_97: DB "arrow"
+STRING_98: DB "FlyArrowRU"
+STRING_99: DB "FlyArrowLB2"
+STRING_100: DB "FlyArrowRB2"
+STRING_101: DB "FlyArrowLB1"
+STRING_102: DB "FlyArrowRB1"
+STRING_103: DB "ChangeRightFirePos"
+STRING_104: DB "ChangeLeftFirePos"
+STRING_105: DB "AddSoldierRight"
+STRING_106: DB "AddSoldierLeft"
+STRING_107: DB "ProduceArrowSoldier"
+STRING_108: DB "ArrowSupport"
+STRING_109: DB "magic\\006\\*"
+STRING_110: DB "StoneEmitterCallback1"
+STRING_111: DB "StoneEmitterCallback2"
+STRING_112: DB "StoneEmitterCmd3"
+STRING_113: DB "StoneExplode"
+STRING_114: DB "m007snd03"
+STRING_115: DB "FallExplode1"
+STRING_116: DB "Func7005"
+STRING_117: DB "FireStoneExplode"
+STRING_118: DB "m007snd02"
+STRING_119: DB "FallExplode2"
+STRING_120: DB "Func7006"
+STRING_121: DB "ProduceStoneEmitter"
+STRING_122: DB "TraceStoneShadow"
+STRING_123: DB "FlyStoneLB1"
+STRING_124: DB "FlyStoneRB1"
+STRING_125: DB "FlyStoneLB2"
+STRING_126: DB "FlyStoneRB2"
+STRING_127: DB "StoneEmitter"
+STRING_128: DB "magic\\007\\*"
+STRING_129: DB "ExplodeRoundCallback"
+STRING_130: DB "ProduceAirCircle"
+STRING_131: DB "ProduceRound"
+STRING_132: DB "CreateExplodeRound"
+STRING_133: DB "ExplodeRound"
+STRING_134: DB "magic\\008\\*"
+STRING_135: DB "m008snd01"
+STRING_136: DB "EightWayFireCallback"
+STRING_137: DB "CreateEightWay"
+STRING_138: DB "EightWayFireMotion"
+STRING_139: DB "EightWayFire"
+STRING_140: DB "magic\\009\\*"
+STRING_141: DB "m009snd01"
+STRING_142: DB "ConvexStoneCallback"
+STRING_143: DB "Func10002"
+STRING_144: DB "Func10003"
+STRING_145: DB "TraceStone"
+STRING_146: DB "BrokenStone"
+STRING_147: DB "ProduceSomethingXY"
+STRING_148: DB "ConvexStone"
+STRING_149: DB "magic\\010\\*"
+STRING_150: DB "TornadorCallback"
+STRING_151: DB "TornadoMotion"
+STRING_152: DB "TornadoStoneMotion"
+STRING_153: DB "TornadoStone"
+STRING_154: DB "BottomSmoke"
+STRING_155: DB "BottomMotion"
+STRING_156: DB "ProduceTornado"
+STRING_157: DB "DummyMotion"
+STRING_158: DB "CreateDummyRef"
+STRING_159: DB "WaitTarget"
+STRING_160: DB "GetSpeed"
+STRING_161: DB "GetDir"
+STRING_162: DB "Tornado"
+STRING_163: DB "magic\\011\\*"
+STRING_164: DB "m011snd01"
+STRING_165: DB "DuplicatorCallback"
+STRING_166: DB "TraceDuplicator"
+STRING_167: DB "MoveDuplicator"
+STRING_168: DB "ProduceDuplicator"
+STRING_169: DB "DuplicatorShadow"
+STRING_170: DB "Duplicator"
+STRING_171: DB "magic\\012\\*"
+STRING_172: DB "att07"
+STRING_173: DB "m012snd01"
+STRING_174: DB "StopAllSoldier"
+STRING_175: DB "Func13001"
+STRING_176: DB "ProduceSomethingXY2"
+STRING_177: DB "Frozen"
+STRING_178: DB "magic\\013\\*"
+STRING_179: DB "m013snd01"
+STRING_180: DB "DemonDancingCallback"
+STRING_181: DB "CreateLastAttack"
+STRING_182: DB "DemonDancing"
+STRING_183: DB "magic\\014\\*"
+STRING_184: DB "yell01"
+STRING_185: DB "FlyingSwordCallback"
+STRING_186: DB "Func15010"
+STRING_187: DB "Func15009"
+STRING_188: DB "TraceSmallSword"
+STRING_189: DB "CreateSmallSwords"
+STRING_190: DB "att04"
+STRING_191: DB "SwordBomb"
+STRING_192: DB "m015snd02"
+STRING_193: DB "CreateBigSword"
+STRING_194: DB "SwordAttack"
+STRING_195: DB "ProduceSwordShadow"
+STRING_196: DB "LargerSword"
+STRING_197: DB "PrepareSword"
+STRING_198: DB "FlyingSword"
+STRING_199: DB "magic\\015\\*"
+STRING_200: DB "m015snd01"
+STRING_201: DB "m015snd03"
+STRING_202: DB "CreateHolyBall"
+STRING_203: DB "RoundHolyBall"
+STRING_204: DB "IncreaseHP"
+STRING_205: DB "CreateHolyLight"
+STRING_206: DB "TraceHolyLight"
+STRING_207: DB "Heal"
+STRING_208: DB "magic\\016\\*"
+STRING_209: DB "m016snd01"
+STRING_210: DB "FireDragonCallback"
+STRING_211: DB "CreateStart"
+STRING_212: DB "sc4501"
+STRING_213: DB "m017snd01"
+STRING_214: DB "MAGIC\\017\\m017a40001"
+STRING_215: DB "MAGIC\\017\\m017a20001"
+STRING_216: DB "MAGIC\\017\\m017a10001"
+STRING_217: DB "MAGIC\\017\\m017a30001"
+STRING_218: DB "MAGIC\\017\\m017a60001"
+STRING_219: DB "sc4502"
+STRING_220: DB "MAGIC\\017\\m017c50001"
+STRING_221: DB "MAGIC\\017\\m017c30001"
+STRING_222: DB "MAGIC\\017\\m017c10001"
+STRING_223: DB "MAGIC\\017\\m017c20001"
+STRING_224: DB "MAGIC\\017\\m017c40001"
+STRING_225: DB "MAGIC\\017\\m017c70001"
+STRING_226: DB "FireDragon"
+STRING_227: DB "magic\\017\\*"
+STRING_228: DB "m017snd02"
+STRING_229: DB "CallDragonCallback"
+STRING_230: DB "sc3601"
+STRING_231: DB "sc3602"
+STRING_232: DB "m016a"
+STRING_233: DB "sc3603"
+STRING_234: DB "sc2512"
+STRING_235: DB "sc3604"
+STRING_236: DB "m018snd03"
+STRING_237: DB "CallDragon"
+STRING_238: DB "magic\\018\\*"
+STRING_239: DB "m018snd01"
+STRING_240: DB "m018snd02"
+STRING_241: DB "RunningBowCallback"
+STRING_242: DB "CreateBowLight"
+STRING_243: DB "CreateBow"
+STRING_244: DB "TraceBow"
+STRING_245: DB "RunningBow"
+STRING_246: DB "magic\\019\\*"
+STRING_247: DB "m019snd01"
+STRING_248: DB "BlackHoleCallback"
+STRING_249: DB "KillMan"
+STRING_250: DB "Engulf"
+STRING_251: DB "CreateBlackHoleBall"
+STRING_252: DB "CreateBlackHoleStars"
+STRING_253: DB "CreateBlackHoleStar"
+STRING_254: DB "CreateBlackHole"
+STRING_255: DB "BlackHole"
+STRING_256: DB "magic\\020\\*"
+STRING_257: DB "m020snd01"
+STRING_258: DB "m020snd02"
+STRING_259: DB "FireRingCallback"
+STRING_260: DB "CreateFire"
+STRING_261: DB "FireRingMotion2"
+STRING_262: DB "FireRingMotion"
+STRING_263: DB "CreateFireRing"
+STRING_264: DB "FireRing"
+STRING_265: DB "magic\\021\\*"
+STRING_266: DB "m021snd01"
+STRING_267: DB "IceCallback"
+STRING_268: DB "CreateIceShatter"
+STRING_269: DB "CreateIceFog"
+STRING_270: DB "CreateFogSpeed"
+STRING_271: DB "CreateIce"
+STRING_272: DB "Ice"
+STRING_273: DB "magic\\022\\*"
+STRING_274: DB "m022snd01"
+STRING_275: DB "OnFireCallback"
+STRING_276: DB "CreateOnFireSmoke"
+STRING_277: DB "CreateOnFireFire"
+STRING_278: DB "m023snd01"
+STRING_279: DB "CreateOnFire"
+STRING_280: DB "m023snd02"
+STRING_281: DB "TraceOnFire"
+STRING_282: DB "OnFire"
+STRING_283: DB "magic\\023\\*"
+STRING_284: DB "ProduceBackSoldier"
+STRING_285: DB "BackSoldier"
+STRING_286: DB "magic\\024\\*"
+STRING_287: DB "TaiChiCallback"
+STRING_288: DB "CreateTaiChiBomb"
+STRING_289: DB "CreateTaichi"
+STRING_290: DB "m025snd01"
+STRING_291: DB "TaiChi"
+STRING_292: DB "magic\\025\\*"
+STRING_293: DB "SpoutCallback"
+STRING_294: DB "SpoutKillEdge"
+STRING_295: DB "TraceStoneBomb"
+STRING_296: DB "CreateStoneBomb"
+STRING_297: DB "CreateSpout"
+STRING_298: DB "CreateSpoutAround"
+STRING_299: DB "m026snd01"
+STRING_300: DB "Spout"
+STRING_301: DB "magic\\026\\*"
+STRING_302: DB "FireCowCallback"
+STRING_303: DB "AttachFireToCow"
+STRING_304: DB "CreateFireCow"
+STRING_305: DB "FireCow"
+STRING_306: DB "magic\\027\\*"
+STRING_307: DB "m027snd01"
+STRING_308: DB "m027snd02"
+STRING_309: DB "RollDownCallback"
+STRING_310: DB "m028snd02"
+STRING_311: DB "CreateRollStoneBreak"
+STRING_312: DB "CreateRollStone"
+STRING_313: DB "TracingCamera"
+STRING_314: DB "RollDown"
+STRING_315: DB "magic\\028\\*"
+STRING_316: DB "m028snd01"
+STRING_317: DB "PaCallback"
+STRING_318: DB "CreatePaBomb"
+STRING_319: DB "BigBombCircle"
+STRING_320: DB "BigPaBombHurt"
+STRING_321: DB "CreateBigPaBomb"
+STRING_322: DB "m029snd02"
+STRING_323: DB "CreateRotateLight"
+STRING_324: DB "CreateRotateBomb"
+STRING_325: DB "CreatePaLight"
+STRING_326: DB "CreatePa"
+STRING_327: DB "m029snd01"
+STRING_328: DB "m029snd03"
+STRING_329: DB "Pa"
+STRING_330: DB "magic\\029\\*"
+STRING_331: DB "HalfMoonNewCallback"
+STRING_332: DB "CheckHalfMoonNew"
+STRING_333: DB "HalfMoonNewMotion"
+STRING_334: DB "GetGeneralWidth"
+STRING_335: DB "CreateHalfMoonNew"
+STRING_336: DB "HalfMoonNew"
+STRING_337: DB "magic\\030\\*"
+STRING_338: DB "FirePillarCallback"
+STRING_339: DB "CreateFirePillarSource"
+STRING_340: DB "m031snd03"
+STRING_341: DB "CreateFirePillarLight"
+STRING_342: DB "CreateFirePillarBomb"
+STRING_343: DB "CreateFirePillar"
+STRING_344: DB "m031snd01"
+STRING_345: DB "m031snd02"
+STRING_346: DB "FirePillar"
+STRING_347: DB "magic\\031\\*"
+STRING_348: DB "SparkCallback"
+STRING_349: DB "DecreaseHP"
+STRING_350: DB "CreateSparkleCenter"
+STRING_351: DB "CreateSparkle"
+STRING_352: DB "m032snd01"
+STRING_353: DB "m032snd02"
+STRING_354: DB "Sparkle"
+STRING_355: DB "magic\\032\\*"
+STRING_356: DB "FireWorkCallback"
+STRING_357: DB "TraceFlash"
+STRING_358: DB "CreateCannonFlash"
+STRING_359: DB "CannonExplode"
+STRING_360: DB "TraceCannon"
+STRING_361: DB "ShootCannon"
+STRING_362: DB "TraceCannonShadow"
+STRING_363: DB "FlyCannonLB1"
+STRING_364: DB "FlyCannonRB1"
+STRING_365: DB "FlyCannonLB2"
+STRING_366: DB "FlyCannonRB2"
+STRING_367: DB "ProduceCannonEmitter"
+STRING_368: DB "FireWork"
+STRING_369: DB "magic\\033\\*"
+STRING_370: DB "PowderCallback"
+STRING_371: DB "CreatePowerExplode"
+STRING_372: DB "CreatePowerSmoke"
+STRING_373: DB "CreatePowderBreak"
+STRING_374: DB "m034snd01"
+STRING_375: DB "CreatePower"
+STRING_376: DB "Powder"
+STRING_377: DB "magic\\034\\*"
+STRING_378: DB "SpearCallback"
+STRING_379: DB "CreateSpears"
+STRING_380: DB "CreateSpear"
+STRING_381: DB "Spear"
+STRING_382: DB "magic\\035\\*"
+STRING_383: DB "m035snd01"
+STRING_384: DB "SlashCallback"
+STRING_385: DB "CreateSlashByTarget"
+STRING_386: DB "m036snd02"
+STRING_387: DB "CreateSlash"
+STRING_388: DB "Slash"
+STRING_389: DB "magic\\036\\*"
+STRING_390: DB "m036snd01"
+STRING_391: DB "WallCallback"
+STRING_392: DB "CreateFireWallAttack"
+STRING_393: DB "CreateFireWall"
+STRING_394: DB "Wall"
+STRING_395: DB "magic\\037\\*"
+STRING_396: DB "m037snd01"
+STRING_397: DB "TwisterSwordCallback"
+STRING_398: DB "CreateTwisterSwordAttack"
+STRING_399: DB "CreateTwisterSword"
+STRING_400: DB "m038snd01"
+STRING_401: DB "TwisterSword"
+STRING_402: DB "magic\\038\\*"
+STRING_403: DB "m038snd02"
+STRING_404: DB "RollTubCallback"
+STRING_405: DB "m039snd02"
+STRING_406: DB "CreateRollTubBreak"
+STRING_407: DB "CreateRollTub"
+STRING_408: DB "RollTub"
+STRING_409: DB "magic\\039\\*"
+STRING_410: DB "m039snd01"
+STRING_411: DB "EarthquakeCallback"
+STRING_412: DB "CreateQuakeSmoke"
+STRING_413: DB "CreateQuakeStone"
+STRING_414: DB "ShakeCamera"
+STRING_415: DB "QuakeSound"
+STRING_416: DB "m040snd01"
+STRING_417: DB "Earthquake"
+STRING_418: DB "magic\\040\\*"
+STRING_419: DB "InterceptorCallback"
+STRING_420: DB "CreateInterceptor"
+STRING_421: DB "MakeInterceptorSound"
+STRING_422: DB "m041snd01"
+STRING_423: DB "Interceptor"
+STRING_424: DB "magic\\041\\*"
+STRING_425: DB "m041snd02"
+STRING_426: DB "XCallDragonCallback"
+STRING_427: DB "Xsc3601"
+STRING_428: DB "Xsc3602"
+STRING_429: DB "Xsc3603"
+STRING_430: DB "Xsc2512"
+STRING_431: DB "Xsc3604"
+STRING_432: DB "XCallDragon"
+STRING_433: DB "XFireCowCallback"
+STRING_434: DB "XAttachFireToCow"
+STRING_435: DB "XCreateFireCow"
+STRING_436: DB "XFireCow"
+STRING_437: DB "XSparkCallback"
+STRING_438: DB "XDecreaseHP"
+STRING_439: DB "XCreateSparkleCenter"
+STRING_440: DB "XCreateSparkle"
+STRING_441: DB "XSparkle"
+STRING_442: DB "MoveEnemyDelay"
+STRING_443: DB "FinalX1"
+STRING_444: DB "XFirePillarCallback"
+STRING_445: DB "XCreateFirePillarSource"
+STRING_446: DB "XCreateFirePillarLight"
+STRING_447: DB "XCreateFirePillarBomb"
+STRING_448: DB "XCreateFirePillar"
+STRING_449: DB "XFirePillar"
+STRING_450: DB "XTaiChiCallback"
+STRING_451: DB "XCreateTaiChiBomb"
+STRING_452: DB "XCreateTaichi"
+STRING_453: DB "XTaiChi"
+STRING_454: DB "XDuplicatorCallback"
+STRING_455: DB "XTraceDuplicator"
+STRING_456: DB "XMoveDuplicator"
+STRING_457: DB "XProduceDuplicator"
+STRING_458: DB "XDuplicatorShadow"
+STRING_459: DB "XDuplicator"
+STRING_460: DB "FinalX2"
+STRING_461: DB "XProduceSoldier"
+STRING_462: DB "XMoreSoldier"
+STRING_463: DB "F103"
+STRING_464: DB "F104"
+STRING_465: DB "F100"
+STRING_466: DB "F200"
+STRING_467: DB "F9999"
+STRING_468: DB "InitializeBattle"
+STRING_469: DB "Magic1"
+STRING_470: DB "Magic2"
+STRING_471: DB "Magic3"
+STRING_472: DB "Magic4"
+STRING_473: DB "Magic5"
+STRING_474: DB "Magic6"
+STRING_475: DB "Magic7"
+STRING_476: DB "Magic8"
+STRING_477: DB "Magic9"
+STRING_478: DB "Magic10"
+STRING_479: DB "Magic11"
+STRING_480: DB "Magic12"
+STRING_481: DB "Magic13"
+STRING_482: DB "Magic14"
+STRING_483: DB "Magic15"
+STRING_484: DB "Magic16"
+STRING_485: DB "Magic17"
+STRING_486: DB "Magic18"
+STRING_487: DB "Magic19"
+STRING_488: DB "Magic20"
+STRING_489: DB "Magic21"
+STRING_490: DB "Magic22"
+STRING_491: DB "Magic23"
+STRING_492: DB "Magic24"
+STRING_493: DB "Magic25"
+STRING_494: DB "Magic26"
+STRING_495: DB "Magic27"
+STRING_496: DB "Magic28"
+STRING_497: DB "Magic29"
+STRING_498: DB "Magic30"
+STRING_499: DB "Magic31"
+STRING_500: DB "Magic32"
+STRING_501: DB "Magic33"
+STRING_502: DB "Magic34"
+STRING_503: DB "Magic35"
+STRING_504: DB "Magic36"
+STRING_505: DB "Magic37"
+STRING_506: DB "Magic38"
+STRING_507: DB "Magic39"
+STRING_508: DB "Magic40"
+STRING_509: DB "Magic41"
+STRING_510: DB "Magic42"
+STRING_511: DB "Magic43"
+STRING_512: DB "Magic44"
+STRING_513: DB "Magic45"
+STRING_514: DB "Magic46"
+STRING_515: DB "Magic47"
+STRING_516: DB "Magic48"
+STRING_517: DB "Magic49"
+STRING_518: DB "Magic50"
+STRING_519: DB "Magic51"
+STRING_520: DB "Magic52"
+STRING_521: DB "Magic53"
+STRING_522: DB "Magic54"
+STRING_523: DB "Magic55"
+STRING_524: DB "Magic56"
+STRING_525: DB "Magic57"
+STRING_526: DB "Magic58"
+STRING_527: DB "Magic59"
+STRING_528: DB "Magic60"
+STRING_529: DB "Magic61"
+STRING_530: DB "Magic62"
+STRING_531: DB "Magic63"
+STRING_532: DB "Magic64"
+STRING_533: DB "Magic65"
+STRING_534: DB "Magic66"
+STRING_535: DB "Magic67"
+STRING_536: DB "Magic68"
+STRING_537: DB "Magic69"
+STRING_538: DB "Magic70"
+STRING_539: DB "Magic71"
+STRING_540: DB "Magic72"
+STRING_541: DB "Magic73"
+STRING_542: DB "Magic74"
+STRING_543: DB "Magic75"
+STRING_544: DB "Magic76"
+STRING_545: DB "Magic77"
+STRING_546: DB "Magic78"
+STRING_547: DB "Magic79"
+STRING_548: DB "Magic80"
+STRING_549: DB "Magic81"
+STRING_550: DB "Magic82"
+STRING_551: DB "Magic83"
+STRING_552: DB "Magic84"
+STRING_553: DB "Magic85"
+STRING_554: DB "Magic86"
+STRING_555: DB "Magic87"
+STRING_556: DB "Magic88"
+STRING_557: DB "Magic89"
+STRING_558: DB "Magic90"
+STRING_559: DB "Magic91"
+STRING_560: DB "Magic92"
+STRING_561: DB "Magic93"
+STRING_562: DB "Magic94"
+STRING_563: DB "Magic95"
+STRING_564: DB "Magic96"
+STRING_565: DB "Magic97"
+STRING_566: DB "Magic98"
+STRING_567: DB "Magic99"
+STRING_568: DB "Magic100"
+STRING_569: DB "Magic101"
+STRING_570: DB "Magic102"
+STRING_571: DB "Magic103"
+STRING_572: DB "Magic104"
+STRING_573: DB "Magic105"
+STRING_574: DB "Magic106"
+STRING_575: DB "Magic107"
+STRING_576: DB "Magic108"
+STRING_577: DB "Magic109"
+STRING_578: DB "Magic110"
+STRING_579: DB "Magic200"
 
 magic_table_addr:
 MAGIC_0 : procedure GetData_NotAligned 1 STRING_0 0
@@ -35435,474 +34819,461 @@ MAGIC_4 : procedure GetShort 1 STRING_4 0
 MAGIC_5 : procedure SetInt 2 STRING_5 0
 MAGIC_6 : procedure SetShort 2 STRING_6 0
 MAGIC_7 : procedure SetByte 2 STRING_7 0
-MAGIC_8 : procedure DelayAmbientSound 3 STRING_8 0
-MAGIC_9 : procedure GetSoldierMaxX2 1 STRING_9 0
-MAGIC_10 : procedure GetSoldierMaxX 1 STRING_10 0
-MAGIC_11 : procedure HoldAllDelay 1 STRING_11 0
-MAGIC_12 : procedure ProduceShadowTime 2 STRING_12 0
-MAGIC_13 : procedure MovingShadow 5 STRING_13 0
-MAGIC_14 : procedure LockByCenter 7 STRING_14 0
-MAGIC_15 : procedure LockTargetXY 9 STRING_15 0
-MAGIC_16 : procedure LockTargetTime2 3 STRING_16 0
-MAGIC_17 : procedure Hurt 3 STRING_17 0
-MAGIC_18 : procedure MoveCamera 3 STRING_19 0
-MAGIC_19 : procedure LockCameraSimple 2 STRING_20 0
-MAGIC_20 : procedure LockCameraSimple2 2 STRING_21 0
-MAGIC_21 : procedure LockCameraLine 4 STRING_22 0
-MAGIC_22 : procedure LockCameraLineDelay 4 STRING_23 0
-MAGIC_23 : procedure LockCamera 4 STRING_24 0
-MAGIC_24 : procedure LockCamera2 5 STRING_25 0
-MAGIC_25 : procedure FireMan 3 STRING_26 0
-MAGIC_26 : procedure CreateBlood 3 STRING_27 0
-MAGIC_27 : procedure Blood 2 STRING_28 0
-MAGIC_28 : procedure SmallFireBall 4 STRING_29 0
-MAGIC_29 : procedure SmallFireBall2 4 STRING_31 0
-MAGIC_30 : procedure SmallFireBall3 4 STRING_32 0
-MAGIC_31 : procedure SmallFireBall4 4 STRING_33 0
-MAGIC_32 : procedure DownBrightness 2 STRING_34 0
-MAGIC_33 : procedure RaiseBrightness 2 STRING_35 0
-MAGIC_34 : procedure CreateDot 1 STRING_36 0
-MAGIC_35 : procedure CreateDots 1 STRING_37 0
-MAGIC_36 : procedure CreateLines 1 STRING_38 0
-MAGIC_37 : procedure CreateLine 2 STRING_39 0
-MAGIC_38 : procedure PowerExplode 2 STRING_40 0
-MAGIC_39 : procedure KeepPower 2 STRING_41 0
-MAGIC_40 : procedure StepShow 2 STRING_42 0
-MAGIC_41 : procedure HitGeneral 6 STRING_43 0
-MAGIC_42 : procedure DisableAttack 3 STRING_44 0
-MAGIC_43 : procedure NoMoreSoldierCallback 2 STRING_45 1000
-MAGIC_44 : procedure CastFail 2 STRING_47 0
-MAGIC_45 : procedure HalfMoonAll 5 STRING_48 0
-MAGIC_46 : procedure HalfMoonCallback 2 STRING_50 1001
-MAGIC_47 : procedure ShowHalfMoonSmoke 1 STRING_49 0
-MAGIC_48 : procedure CreateHalfMoonSmoke 5 STRING_51 0
-MAGIC_49 : procedure HalfMoon 1 STRING_52 0
-MAGIC_50 : procedure ProduceSoldier 2 STRING_56 0
-MAGIC_51 : procedure MoreSoldier 2 STRING_57 0
-MAGIC_52 : procedure BombLight 2 STRING_61 0
-MAGIC_53 : procedure ShootObjectCallback 2 STRING_62 3001
-MAGIC_54 : procedure ZoomFreq 2 STRING_63 0
-MAGIC_55 : procedure CosZoomY 2 STRING_64 0
-MAGIC_56 : procedure ScaleShadow 6 STRING_65 0
-MAGIC_57 : procedure FireTail 3 STRING_66 0
-MAGIC_58 : procedure FlyLight 5 STRING_67 0
-MAGIC_59 : procedure ShootObject 2 STRING_68 0
-MAGIC_60 : procedure RushcartCallback 2 STRING_73 4001
-MAGIC_61 : procedure CreateRushCart 5 STRING_74 0
-MAGIC_62 : procedure RushCart 1 STRING_75 0
-MAGIC_63 : procedure LockTargetTime3 5 STRING_77 0
-MAGIC_64 : procedure LockGeneral 2 STRING_78 0
-MAGIC_65 : procedure BigThunderCallback 2 STRING_79 5002
-MAGIC_66 : procedure ThunderAttachAttack 3 STRING_80 0
-MAGIC_67 : procedure ThunderAttach 1 STRING_81 0
-MAGIC_68 : procedure ThunderCallback 2 STRING_82 5001
-MAGIC_69 : procedure LockTargetTime 3 STRING_83 0
-MAGIC_70 : procedure CreateThunderSparkle 3 STRING_84 0
-MAGIC_71 : procedure CreateThunderSmoke 2 STRING_85 0
-MAGIC_72 : procedure LockThunder 3 STRING_86 0
-MAGIC_73 : procedure Thunder 2 STRING_87 0
-MAGIC_74 : procedure BigThunder 0 STRING_89 0
-MAGIC_75 : procedure HideArrow 2 STRING_91 0
-MAGIC_76 : procedure TraceArrow 2 STRING_92 0
-MAGIC_77 : procedure ArrowCallback1 2 STRING_93 6001
-MAGIC_78 : procedure ArrowCallback2 2 STRING_94 6002
-MAGIC_79 : procedure FlyArrowLU 0 STRING_95 6003
-MAGIC_80 : procedure FlyArrowRU 0 STRING_97 6004
-MAGIC_81 : procedure FlyArrowLB2 5 STRING_98 0
-MAGIC_82 : procedure FlyArrowRB2 5 STRING_99 0
-MAGIC_83 : procedure FlyArrowLB1 4 STRING_100 0
-MAGIC_84 : procedure FlyArrowRB1 4 STRING_101 0
-MAGIC_85 : procedure ChangeRightFirePos 2 STRING_102 0
-MAGIC_86 : procedure ChangeLeftFirePos 2 STRING_103 0
-MAGIC_87 : procedure AddSoldierRight 3 STRING_104 0
-MAGIC_88 : procedure AddSoldierLeft 3 STRING_105 0
-MAGIC_89 : procedure ProduceArrowSoldier 3 STRING_106 0
-MAGIC_90 : procedure ArrowSupport 2 STRING_107 0
-MAGIC_91 : procedure StoneEmitterCallback1 2 STRING_109 7001
-MAGIC_92 : procedure StoneEmitterCallback2 2 STRING_110 7002
-MAGIC_93 : procedure StoneEmitterCmd3 0 STRING_111 7005
-MAGIC_94 : procedure StoneExplode 1 STRING_112 0
-MAGIC_95 : procedure FallExplode1 0 STRING_114 7003
-MAGIC_96 : procedure Func7005 1 STRING_115 0
-MAGIC_97 : procedure FireStoneExplode 1 STRING_116 0
-MAGIC_98 : procedure FallExplode2 0 STRING_118 7004
-MAGIC_99 : procedure Func7006 1 STRING_119 0
-MAGIC_100 : procedure ProduceStoneEmitter 5 STRING_120 0
-MAGIC_101 : procedure TraceStoneShadow 4 STRING_121 0
-MAGIC_102 : procedure FlyStoneLB1 5 STRING_122 0
-MAGIC_103 : procedure FlyStoneRB1 5 STRING_123 0
-MAGIC_104 : procedure FlyStoneLB2 5 STRING_124 0
-MAGIC_105 : procedure FlyStoneRB2 5 STRING_125 0
-MAGIC_106 : procedure StoneEmitter 3 STRING_126 0
-MAGIC_107 : procedure ExplodeRoundCallback 2 STRING_128 8001
-MAGIC_108 : procedure ProduceAirCircle 3 STRING_129 0
-MAGIC_109 : procedure ProduceRound 4 STRING_130 0
-MAGIC_110 : procedure CreateExplodeRound 2 STRING_131 0
-MAGIC_111 : procedure ExplodeRound 3 STRING_132 0
-MAGIC_112 : procedure EightWayFireCallback 2 STRING_135 9001
-MAGIC_113 : procedure CreateEightWay 5 STRING_136 0
-MAGIC_114 : procedure EightWayFireMotion 5 STRING_137 0
-MAGIC_115 : procedure EightWayFire 3 STRING_138 0
-MAGIC_116 : procedure ConvexStoneCallback 2 STRING_141 10001
-MAGIC_117 : procedure Func10002 2 STRING_142 10002
-MAGIC_118 : procedure Func10003 2 STRING_143 10003
-MAGIC_119 : procedure TraceStone 2 STRING_144 0
-MAGIC_120 : procedure BrokenStone 6 STRING_145 0
-MAGIC_121 : procedure ProduceSomethingXY 6 STRING_146 0
-MAGIC_122 : procedure ConvexStone 1 STRING_147 0
-MAGIC_123 : procedure TornadorCallback 2 STRING_149 11001
-MAGIC_124 : procedure TornadoMotion 7 STRING_150 0
-MAGIC_125 : procedure TornadoStoneMotion 2 STRING_151 0
-MAGIC_126 : procedure TornadoStone 1 STRING_152 0
-MAGIC_127 : procedure BottomSmoke 1 STRING_153 0
-MAGIC_128 : procedure BottomMotion 2 STRING_154 0
-MAGIC_129 : procedure ProduceTornado 1 STRING_155 0
-MAGIC_130 : procedure DummyMotion 4 STRING_156 0
-MAGIC_131 : procedure CreateDummyRef 3 STRING_157 0
-MAGIC_132 : procedure WaitTarget 3 STRING_158 0
-MAGIC_133 : procedure GetSpeed 4 STRING_159 0
-MAGIC_134 : procedure GetDir 4 STRING_160 0
-MAGIC_135 : procedure Tornado 1 STRING_161 0
-MAGIC_136 : procedure DuplicatorCallback 2 STRING_164 12001
-MAGIC_137 : procedure TraceDuplicator 2 STRING_165 0
-MAGIC_138 : procedure MoveDuplicator 3 STRING_166 0
-MAGIC_139 : procedure ProduceDuplicator 4 STRING_167 0
-MAGIC_140 : procedure DuplicatorShadow 5 STRING_168 0
-MAGIC_141 : procedure Duplicator 1 STRING_169 0
-MAGIC_142 : procedure StopAllSoldier 2 STRING_173 0
-MAGIC_143 : procedure Func13001 1 STRING_174 0
-MAGIC_144 : procedure ProduceSomethingXY2 4 STRING_175 0
-MAGIC_145 : procedure Frozen 0 STRING_176 0
-MAGIC_146 : procedure DemonDancingCallback 2 STRING_179 14001
-MAGIC_147 : procedure CreateLastAttack 2 STRING_180 0
-MAGIC_148 : procedure DemonDancing 0 STRING_181 0
-MAGIC_149 : procedure FlyingSwordCallback 2 STRING_184 15001
-MAGIC_150 : procedure Func15010 2 STRING_185 0
-MAGIC_151 : procedure Func15009 3 STRING_186 0
-MAGIC_152 : procedure TraceSmallSword 1 STRING_187 0
-MAGIC_153 : procedure CreateSmallSwords 3 STRING_188 0
-MAGIC_154 : procedure SwordBomb 3 STRING_190 0
-MAGIC_155 : procedure CreateBigSword 2 STRING_192 0
-MAGIC_156 : procedure SwordAttack 2 STRING_193 0
-MAGIC_157 : procedure ProduceSwordShadow 3 STRING_194 0
-MAGIC_158 : procedure LargerSword 4 STRING_195 0
-MAGIC_159 : procedure PrepareSword 3 STRING_196 0
-MAGIC_160 : procedure FlyingSword 1 STRING_197 0
-MAGIC_161 : procedure CreateHolyBall 3 STRING_201 0
-MAGIC_162 : procedure RoundHolyBall 4 STRING_202 0
-MAGIC_163 : procedure IncreaseHP 0 STRING_203 0
-MAGIC_164 : procedure CreateHolyLight 2 STRING_204 0
-MAGIC_165 : procedure TraceHolyLight 4 STRING_205 0
-MAGIC_166 : procedure Heal 1 STRING_206 0
-MAGIC_167 : procedure FireDragonCallback 2 STRING_209 17001
-MAGIC_168 : procedure CreateStart 2 STRING_210 0
-MAGIC_169 : procedure sc4501 2 STRING_211 0
-MAGIC_170 : procedure sc4502 3 STRING_218 0
-MAGIC_171 : procedure FireDragon 1 STRING_225 0
-MAGIC_172 : procedure CallDragonCallback 2 STRING_228 18001
-MAGIC_173 : procedure sc3601 5 STRING_229 0
-MAGIC_174 : procedure sc3602 4 STRING_230 0
-MAGIC_175 : procedure sc3603 4 STRING_232 0
-MAGIC_176 : procedure sc2512 1 STRING_233 0
-MAGIC_177 : procedure sc3604 0 STRING_234 18002
-MAGIC_178 : procedure CallDragon 1 STRING_236 0
-MAGIC_179 : procedure RunningBowCallback 2 STRING_240 19001
-MAGIC_180 : procedure CreateBowLight 4 STRING_241 0
-MAGIC_181 : procedure CreateBow 2 STRING_242 0
-MAGIC_182 : procedure TraceBow 2 STRING_243 0
-MAGIC_183 : procedure RunningBow 1 STRING_244 0
-MAGIC_184 : procedure BlackHoleCallback 2 STRING_247 0
-MAGIC_185 : procedure KillMan 2 STRING_248 0
-MAGIC_186 : procedure Engulf 4 STRING_249 0
-MAGIC_187 : procedure CreateBlackHoleBall 1 STRING_250 0
-MAGIC_188 : procedure CreateBlackHoleStars 1 STRING_251 0
-MAGIC_189 : procedure CreateBlackHoleStar 5 STRING_252 0
-MAGIC_190 : procedure CreateBlackHole 3 STRING_253 0
-MAGIC_191 : procedure BlackHole 1 STRING_254 0
-MAGIC_192 : procedure FireRingCallback 2 STRING_258 20001
-MAGIC_193 : procedure CreateFire 1 STRING_259 0
-MAGIC_194 : procedure FireRingMotion2 5 STRING_260 0
-MAGIC_195 : procedure FireRingMotion 6 STRING_261 0
-MAGIC_196 : procedure CreateFireRing 7 STRING_262 0
-MAGIC_197 : procedure FireRing 2 STRING_263 0
-MAGIC_198 : procedure IceCallback 2 STRING_266 22001
-MAGIC_199 : procedure CreateIceShatter 4 STRING_267 0
-MAGIC_200 : procedure CreateIceFog 3 STRING_268 0
-MAGIC_201 : procedure CreateIce 6 STRING_270 0
-MAGIC_202 : procedure CreateFogSpeed 5 STRING_269 0
-MAGIC_203 : procedure Ice 1 STRING_271 0
-MAGIC_204 : procedure OnFireCallback 2 STRING_274 23001
-MAGIC_205 : procedure CreateOnFireSmoke 8 STRING_275 0
-MAGIC_206 : procedure CreateOnFireFire 3 STRING_276 0
-MAGIC_207 : procedure CreateOnFire 2 STRING_278 0
-MAGIC_208 : procedure TraceOnFire 1 STRING_280 0
-MAGIC_209 : procedure OnFire 1 STRING_281 0
-MAGIC_210 : procedure ProduceBackSoldier 2 STRING_283 0
-MAGIC_211 : procedure BackSoldier 2 STRING_284 0
-MAGIC_212 : procedure TaiChiCallback 2 STRING_286 25001
-MAGIC_213 : procedure CreateTaiChiBomb 2 STRING_287 0
-MAGIC_214 : procedure CreateTaichi 2 STRING_288 0
-MAGIC_215 : procedure TaiChi 1 STRING_290 0
-MAGIC_216 : procedure SpoutCallback 1 STRING_292 26001
-MAGIC_217 : procedure SpoutKillEdge 2 STRING_293 0
-MAGIC_218 : procedure TraceStoneBomb 1 STRING_294 0
-MAGIC_219 : procedure CreateStoneBomb 2 STRING_295 0
-MAGIC_220 : procedure CreateSpout 3 STRING_296 0
-MAGIC_221 : procedure CreateSpoutAround 3 STRING_297 0
-MAGIC_222 : procedure Spout 1 STRING_299 0
-MAGIC_223 : procedure FireCowCallback 2 STRING_301 27001
-MAGIC_224 : procedure AttachFireToCow 2 STRING_302 0
-MAGIC_225 : procedure CreateFireCow 5 STRING_303 0
-MAGIC_226 : procedure FireCow 1 STRING_304 0
-MAGIC_227 : procedure RollDownCallback 2 STRING_308 28001
-MAGIC_228 : procedure CreateRollStoneBreak 2 STRING_310 0
-MAGIC_229 : procedure CreateRollStone 3 STRING_311 0
-MAGIC_230 : procedure TracingCamera 5 STRING_312 0
-MAGIC_231 : procedure RollDown 1 STRING_313 0
-MAGIC_232 : procedure PaCallback 2 STRING_316 29001
-MAGIC_233 : procedure CreatePaBomb 3 STRING_317 0
-MAGIC_234 : procedure BigBombCircle 2 STRING_318 0
-MAGIC_235 : procedure BigPaBombHurt 1 STRING_319 0
-MAGIC_236 : procedure CreateBigPaBomb 1 STRING_320 0
-MAGIC_237 : procedure CreateRotateLight 4 STRING_322 0
-MAGIC_238 : procedure CreateRotateBomb 3 STRING_323 0
-MAGIC_239 : procedure CreatePaLight 4 STRING_324 0
-MAGIC_240 : procedure CreatePa 2 STRING_325 0
-MAGIC_241 : procedure Pa 1 STRING_328 0
-MAGIC_242 : procedure HalfMoonNewCallback 2 STRING_330 30001
-MAGIC_243 : procedure CheckHalfMoonNew 2 STRING_331 0
-MAGIC_244 : procedure HalfMoonNewMotion 4 STRING_332 0
-MAGIC_245 : procedure GetGeneralWidth 0 STRING_333 0
-MAGIC_246 : procedure CreateHalfMoonNew 6 STRING_334 0
-MAGIC_247 : procedure HalfMoonNew 1 STRING_335 0
-MAGIC_248 : procedure FirePillarCallback 2 STRING_337 31001
-MAGIC_249 : procedure CreateFirePillarSource 3 STRING_338 0
-MAGIC_250 : procedure CreateFirePillarLight 5 STRING_340 0
-MAGIC_251 : procedure CreateFirePillarBomb 4 STRING_341 0
-MAGIC_252 : procedure CreateFirePillar 2 STRING_342 0
-MAGIC_253 : procedure FirePillar 1 STRING_345 0
-MAGIC_254 : procedure SparkCallback 2 STRING_347 32001
-MAGIC_255 : procedure DecreaseHP 0 STRING_348 0
-MAGIC_256 : procedure CreateSparkleCenter 2 STRING_349 0
-MAGIC_257 : procedure CreateSparkle 1 STRING_350 0
-MAGIC_258 : procedure Sparkle 1 STRING_353 0
-MAGIC_259 : procedure FireWorkCallback 2 STRING_355 33001
-MAGIC_260 : procedure TraceFlash 3 STRING_356 0
-MAGIC_261 : procedure CreateCannonFlash 2 STRING_357 0
-MAGIC_262 : procedure CannonExplode 2 STRING_358 0
-MAGIC_263 : procedure TraceCannon 1 STRING_359 0
-MAGIC_264 : procedure ShootCannon 0 STRING_360 33002
-MAGIC_265 : procedure TraceCannonShadow 4 STRING_361 0
-MAGIC_266 : procedure FlyCannonLB1 3 STRING_362 0
-MAGIC_267 : procedure FlyCannonRB1 3 STRING_363 0
-MAGIC_268 : procedure FlyCannonLB2 3 STRING_364 0
-MAGIC_269 : procedure FlyCannonRB2 3 STRING_365 0
-MAGIC_270 : procedure ProduceCannonEmitter 4 STRING_366 0
-MAGIC_271 : procedure FireWork 1 STRING_367 0
-MAGIC_272 : procedure PowderCallback 2 STRING_369 34001
-MAGIC_273 : procedure CreatePowerExplode 6 STRING_370 0
-MAGIC_274 : procedure CreatePowerSmoke 7 STRING_371 0
-MAGIC_275 : procedure CreatePowderBreak 2 STRING_372 0
-MAGIC_276 : procedure CreatePower 3 STRING_374 0
-MAGIC_277 : procedure Powder 1 STRING_375 0
-MAGIC_278 : procedure SpearCallback 2 STRING_377 35001
-MAGIC_279 : procedure CreateSpears 2 STRING_378 0
-MAGIC_280 : procedure CreateSpear 3 STRING_379 0
-MAGIC_281 : procedure Spear 1 STRING_380 0
-MAGIC_282 : procedure SlashCallback 2 STRING_383 36001
-MAGIC_283 : procedure CreateSlashByTarget 4 STRING_384 0
-MAGIC_284 : procedure CreateSlash 6 STRING_386 0
-MAGIC_285 : procedure Slash 1 STRING_387 0
-MAGIC_286 : procedure WallCallback 2 STRING_390 37001
-MAGIC_287 : procedure CreateFireWallAttack 2 STRING_391 0
-MAGIC_288 : procedure CreateFireWall 3 STRING_392 0
-MAGIC_289 : procedure Wall 1 STRING_393 0
-MAGIC_290 : procedure TwisterSwordCallback 2 STRING_396 38001
-MAGIC_291 : procedure CreateTwisterSwordAttack 2 STRING_397 0
-MAGIC_292 : procedure CreateTwisterSword 3 STRING_398 0
-MAGIC_293 : procedure TwisterSword 0 STRING_400 0
-MAGIC_294 : procedure RollTubCallback 2 STRING_403 39001
-MAGIC_295 : procedure CreateRollTubBreak 1 STRING_405 0
-MAGIC_296 : procedure CreateRollTub 3 STRING_406 0
-MAGIC_297 : procedure RollTub 1 STRING_407 0
-MAGIC_298 : procedure EarthquakeCallback 2 STRING_410 40001
-MAGIC_299 : procedure CreateQuakeSmoke 5 STRING_411 0
-MAGIC_300 : procedure CreateQuakeStone 3 STRING_412 0
-MAGIC_301 : procedure ShakeCamera 3 STRING_413 0
-MAGIC_302 : procedure QuakeSound 0 STRING_414 0
-MAGIC_303 : procedure Earthquake 0 STRING_416 0
-MAGIC_304 : procedure InterceptorCallback 2 STRING_418 41001
-MAGIC_305 : procedure CreateInterceptor 4 STRING_419 0
-MAGIC_306 : procedure MakeInterceptorSound 0 STRING_420 0
-MAGIC_307 : procedure Interceptor 1 STRING_422 0
-MAGIC_308 : procedure XCallDragonCallback 2 STRING_425 42001
-MAGIC_309 : procedure Xsc3601 5 STRING_426 0
-MAGIC_310 : procedure Xsc3602 4 STRING_427 0
-MAGIC_311 : procedure Xsc3603 4 STRING_428 0
-MAGIC_312 : procedure Xsc2512 1 STRING_429 0
-MAGIC_313 : procedure Xsc3604 0 STRING_430 42002
-MAGIC_314 : procedure XCallDragon 1 STRING_431 0
-MAGIC_315 : procedure XFireCowCallback 2 STRING_432 42003
-MAGIC_316 : procedure XAttachFireToCow 2 STRING_433 0
-MAGIC_317 : procedure XCreateFireCow 5 STRING_434 0
-MAGIC_318 : procedure XFireCow 1 STRING_435 0
-MAGIC_319 : procedure XSparkCallback 2 STRING_436 42004
-MAGIC_320 : procedure XDecreaseHP 0 STRING_437 0
-MAGIC_321 : procedure XCreateSparkleCenter 2 STRING_438 0
-MAGIC_322 : procedure XCreateSparkle 1 STRING_439 0
-MAGIC_323 : procedure XSparkle 1 STRING_440 0
-MAGIC_324 : procedure MoveEnemyDelay 2 STRING_441 0
-MAGIC_325 : procedure FinalX1 0 STRING_442 0
-MAGIC_326 : procedure XFirePillarCallback 2 STRING_443 43001
-MAGIC_327 : procedure XCreateFirePillarSource 3 STRING_444 0
-MAGIC_328 : procedure XCreateFirePillarLight 5 STRING_445 0
-MAGIC_329 : procedure XCreateFirePillarBomb 4 STRING_446 0
-MAGIC_330 : procedure XCreateFirePillar 2 STRING_447 0
-MAGIC_331 : procedure XFirePillar 1 STRING_448 0
-MAGIC_332 : procedure XTaiChiCallback 2 STRING_449 43002
-MAGIC_333 : procedure XCreateTaiChiBomb 2 STRING_450 0
-MAGIC_334 : procedure XCreateTaichi 2 STRING_451 0
-MAGIC_335 : procedure XTaiChi 1 STRING_452 0
-MAGIC_336 : procedure XDuplicatorCallback 2 STRING_453 43003
-MAGIC_337 : procedure XTraceDuplicator 2 STRING_454 0
-MAGIC_338 : procedure XMoveDuplicator 3 STRING_455 0
-MAGIC_339 : procedure XProduceDuplicator 4 STRING_456 0
-MAGIC_340 : procedure XDuplicatorShadow 5 STRING_457 0
-MAGIC_341 : procedure XDuplicator 1 STRING_458 0
-MAGIC_342 : procedure FinalX2 0 STRING_459 0
-MAGIC_343 : procedure XProduceSoldier 2 STRING_460 0
-MAGIC_344 : procedure XMoreSoldier 1 STRING_461 0
-MAGIC_345 : procedure F103 0 STRING_462 103
-MAGIC_346 : procedure F104 0 STRING_463 104
-MAGIC_347 : procedure F100 0 STRING_464 100
-MAGIC_348 : procedure F200 0 STRING_465 200
-MAGIC_349 : procedure F9999 2 STRING_466 9999
-MAGIC_350 : procedure InitializeBattle 0 STRING_467 0
-MAGIC_351 : procedure Magic1 0 STRING_468 501
-MAGIC_352 : procedure Magic2 0 STRING_469 502
-MAGIC_353 : procedure Magic3 0 STRING_470 503
-MAGIC_354 : procedure Magic4 0 STRING_471 504
-MAGIC_355 : procedure Magic5 0 STRING_472 505
-MAGIC_356 : procedure Magic6 0 STRING_473 506
-MAGIC_357 : procedure Magic7 0 STRING_474 507
-MAGIC_358 : procedure Magic8 0 STRING_475 508
-MAGIC_359 : procedure Magic9 0 STRING_476 509
-MAGIC_360 : procedure Magic10 0 STRING_477 510
-MAGIC_361 : procedure Magic11 0 STRING_478 511
-MAGIC_362 : procedure Magic12 0 STRING_479 512
-MAGIC_363 : procedure Magic13 0 STRING_480 513
-MAGIC_364 : procedure Magic14 0 STRING_481 514
-MAGIC_365 : procedure Magic15 0 STRING_482 515
-MAGIC_366 : procedure Magic16 0 STRING_483 516
-MAGIC_367 : procedure Magic17 0 STRING_484 517
-MAGIC_368 : procedure Magic18 0 STRING_485 518
-MAGIC_369 : procedure Magic19 0 STRING_486 519
-MAGIC_370 : procedure Magic20 0 STRING_487 520
-MAGIC_371 : procedure Magic21 0 STRING_488 521
-MAGIC_372 : procedure Magic22 0 STRING_489 522
-MAGIC_373 : procedure Magic23 0 STRING_490 523
-MAGIC_374 : procedure Magic24 0 STRING_491 524
-MAGIC_375 : procedure Magic25 0 STRING_492 525
-MAGIC_376 : procedure Magic26 0 STRING_493 526
-MAGIC_377 : procedure Magic27 0 STRING_494 527
-MAGIC_378 : procedure Magic28 0 STRING_495 528
-MAGIC_379 : procedure Magic29 0 STRING_496 529
-MAGIC_380 : procedure Magic30 0 STRING_497 530
-MAGIC_381 : procedure Magic31 0 STRING_498 531
-MAGIC_382 : procedure Magic32 0 STRING_499 532
-MAGIC_383 : procedure Magic33 0 STRING_500 533
-MAGIC_384 : procedure Magic34 0 STRING_501 534
-MAGIC_385 : procedure Magic35 0 STRING_502 535
-MAGIC_386 : procedure Magic36 0 STRING_503 536
-MAGIC_387 : procedure Magic37 0 STRING_504 537
-MAGIC_388 : procedure Magic38 0 STRING_505 538
-MAGIC_389 : procedure Magic39 0 STRING_506 539
-MAGIC_390 : procedure Magic40 0 STRING_507 540
-MAGIC_391 : procedure Magic41 0 STRING_508 541
-MAGIC_392 : procedure Magic42 0 STRING_509 542
-MAGIC_393 : procedure Magic43 0 STRING_510 543
-MAGIC_394 : procedure Magic44 0 STRING_511 544
-MAGIC_395 : procedure Magic45 0 STRING_512 545
-MAGIC_396 : procedure Magic46 0 STRING_513 546
-MAGIC_397 : procedure Magic47 0 STRING_514 547
-MAGIC_398 : procedure Magic48 0 STRING_515 548
-MAGIC_399 : procedure Magic49 0 STRING_516 549
-MAGIC_400 : procedure Magic50 0 STRING_517 550
-MAGIC_401 : procedure Magic51 0 STRING_518 551
-MAGIC_402 : procedure Magic52 0 STRING_519 552
-MAGIC_403 : procedure Magic53 0 STRING_520 553
-MAGIC_404 : procedure Magic54 0 STRING_521 554
-MAGIC_405 : procedure Magic55 0 STRING_522 555
-MAGIC_406 : procedure Magic56 0 STRING_523 556
-MAGIC_407 : procedure Magic57 0 STRING_524 557
-MAGIC_408 : procedure Magic58 0 STRING_525 558
-MAGIC_409 : procedure Magic59 0 STRING_526 559
-MAGIC_410 : procedure Magic60 0 STRING_527 560
-MAGIC_411 : procedure Magic61 0 STRING_528 561
-MAGIC_412 : procedure Magic62 0 STRING_529 562
-MAGIC_413 : procedure Magic63 0 STRING_530 563
-MAGIC_414 : procedure Magic64 0 STRING_531 564
-MAGIC_415 : procedure Magic65 0 STRING_532 565
-MAGIC_416 : procedure Magic66 0 STRING_533 566
-MAGIC_417 : procedure Magic67 0 STRING_534 567
-MAGIC_418 : procedure Magic68 0 STRING_535 568
-MAGIC_419 : procedure Magic69 0 STRING_536 569
-MAGIC_420 : procedure Magic70 0 STRING_537 570
-MAGIC_421 : procedure Magic71 0 STRING_538 571
-MAGIC_422 : procedure Magic72 0 STRING_539 572
-MAGIC_423 : procedure Magic73 0 STRING_540 573
-MAGIC_424 : procedure Magic74 0 STRING_541 574
-MAGIC_425 : procedure Magic75 0 STRING_542 575
-MAGIC_426 : procedure Magic76 0 STRING_543 576
-MAGIC_427 : procedure Magic77 0 STRING_544 577
-MAGIC_428 : procedure Magic78 0 STRING_545 578
-MAGIC_429 : procedure Magic79 0 STRING_546 579
-MAGIC_430 : procedure Magic80 0 STRING_547 580
-MAGIC_431 : procedure Magic81 0 STRING_548 581
-MAGIC_432 : procedure Magic82 0 STRING_549 582
-MAGIC_433 : procedure Magic83 0 STRING_550 583
-MAGIC_434 : procedure Magic84 0 STRING_551 584
-MAGIC_435 : procedure Magic85 0 STRING_552 585
-MAGIC_436 : procedure Magic86 0 STRING_553 586
-MAGIC_437 : procedure Magic87 0 STRING_554 587
-MAGIC_438 : procedure Magic88 0 STRING_555 588
-MAGIC_439 : procedure Magic89 0 STRING_556 589
-MAGIC_440 : procedure Magic90 0 STRING_557 590
-MAGIC_441 : procedure Magic91 0 STRING_558 591
-MAGIC_442 : procedure Magic92 0 STRING_559 592
-MAGIC_443 : procedure Magic93 0 STRING_560 593
-MAGIC_444 : procedure Magic94 0 STRING_561 594
-MAGIC_445 : procedure Magic95 0 STRING_562 595
-MAGIC_446 : procedure Magic96 0 STRING_563 596
-MAGIC_447 : procedure Magic97 0 STRING_564 597
-MAGIC_448 : procedure Magic98 0 STRING_565 598
-MAGIC_449 : procedure Magic99 0 STRING_566 599
-MAGIC_450 : procedure Magic100 0 STRING_567 600
-MAGIC_451 : procedure Magic101 0 STRING_568 601
-MAGIC_452 : procedure Magic102 0 STRING_569 602
-MAGIC_453 : procedure Magic103 0 STRING_570 603
-MAGIC_454 : procedure Magic104 0 STRING_571 604
-MAGIC_455 : procedure Magic105 0 STRING_572 605
-MAGIC_456 : procedure Magic106 0 STRING_573 606
-MAGIC_457 : procedure Magic107 0 STRING_574 607
-MAGIC_458 : procedure Magic108 0 STRING_575 608
-MAGIC_459 : procedure Magic109 0 STRING_576 609
-MAGIC_460 : procedure Magic110 0 STRING_577 610
-MAGIC_461 : procedure Magic200 0 STRING_578 700
-MAGIC_462 : procedure GetObjectByHandle 1 STRING_579 0
-MAGIC_463 : procedure IsFriendly 2 STRING_580 0
-MAGIC_464 : procedure IsFriendly_ByHandle 2 STRING_581 0
-MAGIC_465 : procedure IsChivary 1 STRING_582 0
-MAGIC_466 : procedure IsChivary_ByHandle 1 STRING_583 0
-MAGIC_467 : procedure IsMajor 1 STRING_584 0
-MAGIC_468 : procedure IsMajor_ByHandle 1 STRING_585 0
-MAGIC_469 : procedure isSolAtkValid_AttackPoint 3 STRING_586 0
-MAGIC_470 : procedure IsSolAtkToSolValid 2 STRING_587 0
-MAGIC_471 : procedure IsSolAtkToSolValid_ByHandle 2 STRING_588 0
-MAGIC_472 : procedure GetSolHarmToMajor 2 STRING_589 0
-MAGIC_473 : procedure GetSolHarmToMajor_ByHandle 2 STRING_590 0
-MAGIC_474 : procedure Sol13LongSpcSmokeFade 1 STRING_591 0
-MAGIC_475 : procedure Sol13LongSpcAttack 0 STRING_593 29013
+MAGIC_8 : procedure Magic116 0 STRING_8 710
+MAGIC_9 : procedure DelayAmbientSound 3 STRING_9 0
+MAGIC_10 : procedure GetSoldierMaxX2 1 STRING_10 0
+MAGIC_11 : procedure GetSoldierMaxX 1 STRING_11 0
+MAGIC_12 : procedure HoldAllDelay 1 STRING_12 0
+MAGIC_13 : procedure ProduceShadowTime 2 STRING_13 0
+MAGIC_14 : procedure MovingShadow 5 STRING_14 0
+MAGIC_15 : procedure LockByCenter 7 STRING_15 0
+MAGIC_16 : procedure LockTargetXY 9 STRING_16 0
+MAGIC_17 : procedure LockTargetTime2 3 STRING_17 0
+MAGIC_18 : procedure Hurt 3 STRING_18 0
+MAGIC_19 : procedure MoveCamera 3 STRING_20 0
+MAGIC_20 : procedure LockCameraSimple 2 STRING_21 0
+MAGIC_21 : procedure LockCameraSimple2 2 STRING_22 0
+MAGIC_22 : procedure LockCameraLine 4 STRING_23 0
+MAGIC_23 : procedure LockCameraLineDelay 4 STRING_24 0
+MAGIC_24 : procedure LockCamera 4 STRING_25 0
+MAGIC_25 : procedure LockCamera2 5 STRING_26 0
+MAGIC_26 : procedure FireMan 3 STRING_27 0
+MAGIC_27 : procedure CreateBlood 3 STRING_28 0
+MAGIC_28 : procedure Blood 2 STRING_29 0
+MAGIC_29 : procedure SmallFireBall 4 STRING_30 0
+MAGIC_30 : procedure SmallFireBall2 4 STRING_32 0
+MAGIC_31 : procedure SmallFireBall3 4 STRING_33 0
+MAGIC_32 : procedure SmallFireBall4 4 STRING_34 0
+MAGIC_33 : procedure DownBrightness 2 STRING_35 0
+MAGIC_34 : procedure RaiseBrightness 2 STRING_36 0
+MAGIC_35 : procedure CreateDot 1 STRING_37 0
+MAGIC_36 : procedure CreateDots 1 STRING_38 0
+MAGIC_37 : procedure CreateLines 1 STRING_39 0
+MAGIC_38 : procedure CreateLine 2 STRING_40 0
+MAGIC_39 : procedure PowerExplode 2 STRING_41 0
+MAGIC_40 : procedure KeepPower 2 STRING_42 0
+MAGIC_41 : procedure StepShow 2 STRING_43 0
+MAGIC_42 : procedure HitGeneral 6 STRING_44 0
+MAGIC_43 : procedure DisableAttack 3 STRING_45 0
+MAGIC_44 : procedure NoMoreSoldierCallback 2 STRING_46 1000
+MAGIC_45 : procedure CastFail 2 STRING_48 0
+MAGIC_46 : procedure HalfMoonAll 5 STRING_49 0
+MAGIC_47 : procedure HalfMoonCallback 2 STRING_51 1001
+MAGIC_48 : procedure ShowHalfMoonSmoke 1 STRING_50 0
+MAGIC_49 : procedure CreateHalfMoonSmoke 5 STRING_52 0
+MAGIC_50 : procedure HalfMoon 1 STRING_53 0
+MAGIC_51 : procedure ProduceSoldier 2 STRING_57 0
+MAGIC_52 : procedure MoreSoldier 2 STRING_58 0
+MAGIC_53 : procedure BombLight 2 STRING_62 0
+MAGIC_54 : procedure ShootObjectCallback 2 STRING_63 3001
+MAGIC_55 : procedure ZoomFreq 2 STRING_64 0
+MAGIC_56 : procedure CosZoomY 2 STRING_65 0
+MAGIC_57 : procedure ScaleShadow 6 STRING_66 0
+MAGIC_58 : procedure FireTail 3 STRING_67 0
+MAGIC_59 : procedure FlyLight 5 STRING_68 0
+MAGIC_60 : procedure ShootObject 2 STRING_69 0
+MAGIC_61 : procedure RushcartCallback 2 STRING_74 4001
+MAGIC_62 : procedure CreateRushCart 5 STRING_75 0
+MAGIC_63 : procedure RushCart 1 STRING_76 0
+MAGIC_64 : procedure LockTargetTime3 5 STRING_78 0
+MAGIC_65 : procedure LockGeneral 2 STRING_79 0
+MAGIC_66 : procedure BigThunderCallback 2 STRING_80 5002
+MAGIC_67 : procedure ThunderAttachAttack 3 STRING_81 0
+MAGIC_68 : procedure ThunderAttach 1 STRING_82 0
+MAGIC_69 : procedure ThunderCallback 2 STRING_83 5001
+MAGIC_70 : procedure LockTargetTime 3 STRING_84 0
+MAGIC_71 : procedure CreateThunderSparkle 3 STRING_85 0
+MAGIC_72 : procedure CreateThunderSmoke 2 STRING_86 0
+MAGIC_73 : procedure LockThunder 3 STRING_87 0
+MAGIC_74 : procedure Thunder 2 STRING_88 0
+MAGIC_75 : procedure BigThunder 0 STRING_90 0
+MAGIC_76 : procedure HideArrow 2 STRING_92 0
+MAGIC_77 : procedure TraceArrow 2 STRING_93 0
+MAGIC_78 : procedure ArrowCallback1 2 STRING_94 6001
+MAGIC_79 : procedure ArrowCallback2 2 STRING_95 6002
+MAGIC_80 : procedure FlyArrowLU 0 STRING_96 6003
+MAGIC_81 : procedure FlyArrowRU 0 STRING_98 6004
+MAGIC_82 : procedure FlyArrowLB2 5 STRING_99 0
+MAGIC_83 : procedure FlyArrowRB2 5 STRING_100 0
+MAGIC_84 : procedure FlyArrowLB1 4 STRING_101 0
+MAGIC_85 : procedure FlyArrowRB1 4 STRING_102 0
+MAGIC_86 : procedure ChangeRightFirePos 2 STRING_103 0
+MAGIC_87 : procedure ChangeLeftFirePos 2 STRING_104 0
+MAGIC_88 : procedure AddSoldierRight 3 STRING_105 0
+MAGIC_89 : procedure AddSoldierLeft 3 STRING_106 0
+MAGIC_90 : procedure ProduceArrowSoldier 3 STRING_107 0
+MAGIC_91 : procedure ArrowSupport 2 STRING_108 0
+MAGIC_92 : procedure StoneEmitterCallback1 2 STRING_110 7001
+MAGIC_93 : procedure StoneEmitterCallback2 2 STRING_111 7002
+MAGIC_94 : procedure StoneEmitterCmd3 0 STRING_112 7005
+MAGIC_95 : procedure StoneExplode 1 STRING_113 0
+MAGIC_96 : procedure FallExplode1 0 STRING_115 7003
+MAGIC_97 : procedure Func7005 1 STRING_116 0
+MAGIC_98 : procedure FireStoneExplode 1 STRING_117 0
+MAGIC_99 : procedure FallExplode2 0 STRING_119 7004
+MAGIC_100 : procedure Func7006 1 STRING_120 0
+MAGIC_101 : procedure ProduceStoneEmitter 5 STRING_121 0
+MAGIC_102 : procedure TraceStoneShadow 4 STRING_122 0
+MAGIC_103 : procedure FlyStoneLB1 5 STRING_123 0
+MAGIC_104 : procedure FlyStoneRB1 5 STRING_124 0
+MAGIC_105 : procedure FlyStoneLB2 5 STRING_125 0
+MAGIC_106 : procedure FlyStoneRB2 5 STRING_126 0
+MAGIC_107 : procedure StoneEmitter 3 STRING_127 0
+MAGIC_108 : procedure ExplodeRoundCallback 2 STRING_129 8001
+MAGIC_109 : procedure ProduceAirCircle 3 STRING_130 0
+MAGIC_110 : procedure ProduceRound 4 STRING_131 0
+MAGIC_111 : procedure CreateExplodeRound 2 STRING_132 0
+MAGIC_112 : procedure ExplodeRound 3 STRING_133 0
+MAGIC_113 : procedure EightWayFireCallback 2 STRING_136 9001
+MAGIC_114 : procedure CreateEightWay 5 STRING_137 0
+MAGIC_115 : procedure EightWayFireMotion 5 STRING_138 0
+MAGIC_116 : procedure EightWayFire 3 STRING_139 0
+MAGIC_117 : procedure ConvexStoneCallback 2 STRING_142 10001
+MAGIC_118 : procedure Func10002 2 STRING_143 10002
+MAGIC_119 : procedure Func10003 2 STRING_144 10003
+MAGIC_120 : procedure TraceStone 2 STRING_145 0
+MAGIC_121 : procedure BrokenStone 6 STRING_146 0
+MAGIC_122 : procedure ProduceSomethingXY 6 STRING_147 0
+MAGIC_123 : procedure ConvexStone 1 STRING_148 0
+MAGIC_124 : procedure TornadorCallback 2 STRING_150 11001
+MAGIC_125 : procedure TornadoMotion 7 STRING_151 0
+MAGIC_126 : procedure TornadoStoneMotion 2 STRING_152 0
+MAGIC_127 : procedure TornadoStone 1 STRING_153 0
+MAGIC_128 : procedure BottomSmoke 1 STRING_154 0
+MAGIC_129 : procedure BottomMotion 2 STRING_155 0
+MAGIC_130 : procedure ProduceTornado 1 STRING_156 0
+MAGIC_131 : procedure DummyMotion 4 STRING_157 0
+MAGIC_132 : procedure CreateDummyRef 3 STRING_158 0
+MAGIC_133 : procedure WaitTarget 3 STRING_159 0
+MAGIC_134 : procedure GetSpeed 4 STRING_160 0
+MAGIC_135 : procedure GetDir 4 STRING_161 0
+MAGIC_136 : procedure Tornado 1 STRING_162 0
+MAGIC_137 : procedure DuplicatorCallback 2 STRING_165 12001
+MAGIC_138 : procedure TraceDuplicator 2 STRING_166 0
+MAGIC_139 : procedure MoveDuplicator 3 STRING_167 0
+MAGIC_140 : procedure ProduceDuplicator 4 STRING_168 0
+MAGIC_141 : procedure DuplicatorShadow 5 STRING_169 0
+MAGIC_142 : procedure Duplicator 1 STRING_170 0
+MAGIC_143 : procedure StopAllSoldier 2 STRING_174 0
+MAGIC_144 : procedure Func13001 1 STRING_175 0
+MAGIC_145 : procedure ProduceSomethingXY2 4 STRING_176 0
+MAGIC_146 : procedure Frozen 0 STRING_177 0
+MAGIC_147 : procedure DemonDancingCallback 2 STRING_180 14001
+MAGIC_148 : procedure CreateLastAttack 2 STRING_181 0
+MAGIC_149 : procedure DemonDancing 0 STRING_182 0
+MAGIC_150 : procedure FlyingSwordCallback 2 STRING_185 15001
+MAGIC_151 : procedure Func15010 2 STRING_186 0
+MAGIC_152 : procedure Func15009 3 STRING_187 0
+MAGIC_153 : procedure TraceSmallSword 1 STRING_188 0
+MAGIC_154 : procedure CreateSmallSwords 3 STRING_189 0
+MAGIC_155 : procedure SwordBomb 3 STRING_191 0
+MAGIC_156 : procedure CreateBigSword 2 STRING_193 0
+MAGIC_157 : procedure SwordAttack 2 STRING_194 0
+MAGIC_158 : procedure ProduceSwordShadow 3 STRING_195 0
+MAGIC_159 : procedure LargerSword 4 STRING_196 0
+MAGIC_160 : procedure PrepareSword 3 STRING_197 0
+MAGIC_161 : procedure FlyingSword 1 STRING_198 0
+MAGIC_162 : procedure CreateHolyBall 3 STRING_202 0
+MAGIC_163 : procedure RoundHolyBall 4 STRING_203 0
+MAGIC_164 : procedure IncreaseHP 0 STRING_204 0
+MAGIC_165 : procedure CreateHolyLight 2 STRING_205 0
+MAGIC_166 : procedure TraceHolyLight 4 STRING_206 0
+MAGIC_167 : procedure Heal 1 STRING_207 0
+MAGIC_168 : procedure FireDragonCallback 2 STRING_210 17001
+MAGIC_169 : procedure CreateStart 2 STRING_211 0
+MAGIC_170 : procedure sc4501 2 STRING_212 0
+MAGIC_171 : procedure sc4502 3 STRING_219 0
+MAGIC_172 : procedure FireDragon 1 STRING_226 0
+MAGIC_173 : procedure CallDragonCallback 2 STRING_229 18001
+MAGIC_174 : procedure sc3601 5 STRING_230 0
+MAGIC_175 : procedure sc3602 4 STRING_231 0
+MAGIC_176 : procedure sc3603 4 STRING_233 0
+MAGIC_177 : procedure sc2512 1 STRING_234 0
+MAGIC_178 : procedure sc3604 0 STRING_235 18002
+MAGIC_179 : procedure CallDragon 1 STRING_237 0
+MAGIC_180 : procedure RunningBowCallback 2 STRING_241 19001
+MAGIC_181 : procedure CreateBowLight 4 STRING_242 0
+MAGIC_182 : procedure CreateBow 2 STRING_243 0
+MAGIC_183 : procedure TraceBow 2 STRING_244 0
+MAGIC_184 : procedure RunningBow 1 STRING_245 0
+MAGIC_185 : procedure BlackHoleCallback 2 STRING_248 0
+MAGIC_186 : procedure KillMan 2 STRING_249 0
+MAGIC_187 : procedure Engulf 4 STRING_250 0
+MAGIC_188 : procedure CreateBlackHoleBall 1 STRING_251 0
+MAGIC_189 : procedure CreateBlackHoleStars 1 STRING_252 0
+MAGIC_190 : procedure CreateBlackHoleStar 5 STRING_253 0
+MAGIC_191 : procedure CreateBlackHole 3 STRING_254 0
+MAGIC_192 : procedure BlackHole 1 STRING_255 0
+MAGIC_193 : procedure FireRingCallback 2 STRING_259 20001
+MAGIC_194 : procedure CreateFire 1 STRING_260 0
+MAGIC_195 : procedure FireRingMotion2 5 STRING_261 0
+MAGIC_196 : procedure FireRingMotion 6 STRING_262 0
+MAGIC_197 : procedure CreateFireRing 7 STRING_263 0
+MAGIC_198 : procedure FireRing 2 STRING_264 0
+MAGIC_199 : procedure IceCallback 2 STRING_267 22001
+MAGIC_200 : procedure CreateIceShatter 4 STRING_268 0
+MAGIC_201 : procedure CreateIceFog 3 STRING_269 0
+MAGIC_202 : procedure CreateIce 6 STRING_271 0
+MAGIC_203 : procedure CreateFogSpeed 5 STRING_270 0
+MAGIC_204 : procedure Ice 1 STRING_272 0
+MAGIC_205 : procedure OnFireCallback 2 STRING_275 23001
+MAGIC_206 : procedure CreateOnFireSmoke 8 STRING_276 0
+MAGIC_207 : procedure CreateOnFireFire 3 STRING_277 0
+MAGIC_208 : procedure CreateOnFire 2 STRING_279 0
+MAGIC_209 : procedure TraceOnFire 1 STRING_281 0
+MAGIC_210 : procedure OnFire 1 STRING_282 0
+MAGIC_211 : procedure ProduceBackSoldier 2 STRING_284 0
+MAGIC_212 : procedure BackSoldier 2 STRING_285 0
+MAGIC_213 : procedure TaiChiCallback 2 STRING_287 25001
+MAGIC_214 : procedure CreateTaiChiBomb 2 STRING_288 0
+MAGIC_215 : procedure CreateTaichi 2 STRING_289 0
+MAGIC_216 : procedure TaiChi 1 STRING_291 0
+MAGIC_217 : procedure SpoutCallback 1 STRING_293 26001
+MAGIC_218 : procedure SpoutKillEdge 2 STRING_294 0
+MAGIC_219 : procedure TraceStoneBomb 1 STRING_295 0
+MAGIC_220 : procedure CreateStoneBomb 2 STRING_296 0
+MAGIC_221 : procedure CreateSpout 3 STRING_297 0
+MAGIC_222 : procedure CreateSpoutAround 3 STRING_298 0
+MAGIC_223 : procedure Spout 1 STRING_300 0
+MAGIC_224 : procedure FireCowCallback 2 STRING_302 27001
+MAGIC_225 : procedure AttachFireToCow 2 STRING_303 0
+MAGIC_226 : procedure CreateFireCow 5 STRING_304 0
+MAGIC_227 : procedure FireCow 1 STRING_305 0
+MAGIC_228 : procedure RollDownCallback 2 STRING_309 28001
+MAGIC_229 : procedure CreateRollStoneBreak 2 STRING_311 0
+MAGIC_230 : procedure CreateRollStone 3 STRING_312 0
+MAGIC_231 : procedure TracingCamera 5 STRING_313 0
+MAGIC_232 : procedure RollDown 1 STRING_314 0
+MAGIC_233 : procedure PaCallback 2 STRING_317 29001
+MAGIC_234 : procedure CreatePaBomb 3 STRING_318 0
+MAGIC_235 : procedure BigBombCircle 2 STRING_319 0
+MAGIC_236 : procedure BigPaBombHurt 1 STRING_320 0
+MAGIC_237 : procedure CreateBigPaBomb 1 STRING_321 0
+MAGIC_238 : procedure CreateRotateLight 4 STRING_323 0
+MAGIC_239 : procedure CreateRotateBomb 3 STRING_324 0
+MAGIC_240 : procedure CreatePaLight 4 STRING_325 0
+MAGIC_241 : procedure CreatePa 2 STRING_326 0
+MAGIC_242 : procedure Pa 1 STRING_329 0
+MAGIC_243 : procedure HalfMoonNewCallback 2 STRING_331 30001
+MAGIC_244 : procedure CheckHalfMoonNew 2 STRING_332 0
+MAGIC_245 : procedure HalfMoonNewMotion 4 STRING_333 0
+MAGIC_246 : procedure GetGeneralWidth 0 STRING_334 0
+MAGIC_247 : procedure CreateHalfMoonNew 6 STRING_335 0
+MAGIC_248 : procedure HalfMoonNew 1 STRING_336 0
+MAGIC_249 : procedure FirePillarCallback 2 STRING_338 31001
+MAGIC_250 : procedure CreateFirePillarSource 3 STRING_339 0
+MAGIC_251 : procedure CreateFirePillarLight 5 STRING_341 0
+MAGIC_252 : procedure CreateFirePillarBomb 4 STRING_342 0
+MAGIC_253 : procedure CreateFirePillar 2 STRING_343 0
+MAGIC_254 : procedure FirePillar 1 STRING_346 0
+MAGIC_255 : procedure SparkCallback 2 STRING_348 32001
+MAGIC_256 : procedure DecreaseHP 0 STRING_349 0
+MAGIC_257 : procedure CreateSparkleCenter 2 STRING_350 0
+MAGIC_258 : procedure CreateSparkle 1 STRING_351 0
+MAGIC_259 : procedure Sparkle 1 STRING_354 0
+MAGIC_260 : procedure FireWorkCallback 2 STRING_356 33001
+MAGIC_261 : procedure TraceFlash 3 STRING_357 0
+MAGIC_262 : procedure CreateCannonFlash 2 STRING_358 0
+MAGIC_263 : procedure CannonExplode 2 STRING_359 0
+MAGIC_264 : procedure TraceCannon 1 STRING_360 0
+MAGIC_265 : procedure ShootCannon 0 STRING_361 33002
+MAGIC_266 : procedure TraceCannonShadow 4 STRING_362 0
+MAGIC_267 : procedure FlyCannonLB1 3 STRING_363 0
+MAGIC_268 : procedure FlyCannonRB1 3 STRING_364 0
+MAGIC_269 : procedure FlyCannonLB2 3 STRING_365 0
+MAGIC_270 : procedure FlyCannonRB2 3 STRING_366 0
+MAGIC_271 : procedure ProduceCannonEmitter 4 STRING_367 0
+MAGIC_272 : procedure FireWork 1 STRING_368 0
+MAGIC_273 : procedure PowderCallback 2 STRING_370 34001
+MAGIC_274 : procedure CreatePowerExplode 6 STRING_371 0
+MAGIC_275 : procedure CreatePowerSmoke 7 STRING_372 0
+MAGIC_276 : procedure CreatePowderBreak 2 STRING_373 0
+MAGIC_277 : procedure CreatePower 3 STRING_375 0
+MAGIC_278 : procedure Powder 1 STRING_376 0
+MAGIC_279 : procedure SpearCallback 2 STRING_378 35001
+MAGIC_280 : procedure CreateSpears 2 STRING_379 0
+MAGIC_281 : procedure CreateSpear 3 STRING_380 0
+MAGIC_282 : procedure Spear 1 STRING_381 0
+MAGIC_283 : procedure SlashCallback 2 STRING_384 36001
+MAGIC_284 : procedure CreateSlashByTarget 4 STRING_385 0
+MAGIC_285 : procedure CreateSlash 6 STRING_387 0
+MAGIC_286 : procedure Slash 1 STRING_388 0
+MAGIC_287 : procedure WallCallback 2 STRING_391 37001
+MAGIC_288 : procedure CreateFireWallAttack 2 STRING_392 0
+MAGIC_289 : procedure CreateFireWall 3 STRING_393 0
+MAGIC_290 : procedure Wall 1 STRING_394 0
+MAGIC_291 : procedure TwisterSwordCallback 2 STRING_397 38001
+MAGIC_292 : procedure CreateTwisterSwordAttack 2 STRING_398 0
+MAGIC_293 : procedure CreateTwisterSword 3 STRING_399 0
+MAGIC_294 : procedure TwisterSword 0 STRING_401 0
+MAGIC_295 : procedure RollTubCallback 2 STRING_404 39001
+MAGIC_296 : procedure CreateRollTubBreak 1 STRING_406 0
+MAGIC_297 : procedure CreateRollTub 3 STRING_407 0
+MAGIC_298 : procedure RollTub 1 STRING_408 0
+MAGIC_299 : procedure EarthquakeCallback 2 STRING_411 40001
+MAGIC_300 : procedure CreateQuakeSmoke 5 STRING_412 0
+MAGIC_301 : procedure CreateQuakeStone 3 STRING_413 0
+MAGIC_302 : procedure ShakeCamera 3 STRING_414 0
+MAGIC_303 : procedure QuakeSound 0 STRING_415 0
+MAGIC_304 : procedure Earthquake 0 STRING_417 0
+MAGIC_305 : procedure InterceptorCallback 2 STRING_419 41001
+MAGIC_306 : procedure CreateInterceptor 4 STRING_420 0
+MAGIC_307 : procedure MakeInterceptorSound 0 STRING_421 0
+MAGIC_308 : procedure Interceptor 1 STRING_423 0
+MAGIC_309 : procedure XCallDragonCallback 2 STRING_426 42001
+MAGIC_310 : procedure Xsc3601 5 STRING_427 0
+MAGIC_311 : procedure Xsc3602 4 STRING_428 0
+MAGIC_312 : procedure Xsc3603 4 STRING_429 0
+MAGIC_313 : procedure Xsc2512 1 STRING_430 0
+MAGIC_314 : procedure Xsc3604 0 STRING_431 42002
+MAGIC_315 : procedure XCallDragon 1 STRING_432 0
+MAGIC_316 : procedure XFireCowCallback 2 STRING_433 42003
+MAGIC_317 : procedure XAttachFireToCow 2 STRING_434 0
+MAGIC_318 : procedure XCreateFireCow 5 STRING_435 0
+MAGIC_319 : procedure XFireCow 1 STRING_436 0
+MAGIC_320 : procedure XSparkCallback 2 STRING_437 42004
+MAGIC_321 : procedure XDecreaseHP 0 STRING_438 0
+MAGIC_322 : procedure XCreateSparkleCenter 2 STRING_439 0
+MAGIC_323 : procedure XCreateSparkle 1 STRING_440 0
+MAGIC_324 : procedure XSparkle 1 STRING_441 0
+MAGIC_325 : procedure MoveEnemyDelay 2 STRING_442 0
+MAGIC_326 : procedure FinalX1 0 STRING_443 0
+MAGIC_327 : procedure XFirePillarCallback 2 STRING_444 43001
+MAGIC_328 : procedure XCreateFirePillarSource 3 STRING_445 0
+MAGIC_329 : procedure XCreateFirePillarLight 5 STRING_446 0
+MAGIC_330 : procedure XCreateFirePillarBomb 4 STRING_447 0
+MAGIC_331 : procedure XCreateFirePillar 2 STRING_448 0
+MAGIC_332 : procedure XFirePillar 1 STRING_449 0
+MAGIC_333 : procedure XTaiChiCallback 2 STRING_450 43002
+MAGIC_334 : procedure XCreateTaiChiBomb 2 STRING_451 0
+MAGIC_335 : procedure XCreateTaichi 2 STRING_452 0
+MAGIC_336 : procedure XTaiChi 1 STRING_453 0
+MAGIC_337 : procedure XDuplicatorCallback 2 STRING_454 43003
+MAGIC_338 : procedure XTraceDuplicator 2 STRING_455 0
+MAGIC_339 : procedure XMoveDuplicator 3 STRING_456 0
+MAGIC_340 : procedure XProduceDuplicator 4 STRING_457 0
+MAGIC_341 : procedure XDuplicatorShadow 5 STRING_458 0
+MAGIC_342 : procedure XDuplicator 1 STRING_459 0
+MAGIC_343 : procedure FinalX2 0 STRING_460 0
+MAGIC_344 : procedure XProduceSoldier 2 STRING_461 0
+MAGIC_345 : procedure XMoreSoldier 1 STRING_462 0
+MAGIC_346 : procedure F103 0 STRING_463 103
+MAGIC_347 : procedure F104 0 STRING_464 104
+MAGIC_348 : procedure F100 0 STRING_465 100
+MAGIC_349 : procedure F200 0 STRING_466 200
+MAGIC_350 : procedure F9999 2 STRING_467 9999
+MAGIC_351 : procedure InitializeBattle 0 STRING_468 0
+MAGIC_352 : procedure Magic1 0 STRING_469 501
+MAGIC_353 : procedure Magic2 0 STRING_470 502
+MAGIC_354 : procedure Magic3 0 STRING_471 503
+MAGIC_355 : procedure Magic4 0 STRING_472 504
+MAGIC_356 : procedure Magic5 0 STRING_473 505
+MAGIC_357 : procedure Magic6 0 STRING_474 506
+MAGIC_358 : procedure Magic7 0 STRING_475 507
+MAGIC_359 : procedure Magic8 0 STRING_476 508
+MAGIC_360 : procedure Magic9 0 STRING_477 509
+MAGIC_361 : procedure Magic10 0 STRING_478 510
+MAGIC_362 : procedure Magic11 0 STRING_479 511
+MAGIC_363 : procedure Magic12 0 STRING_480 512
+MAGIC_364 : procedure Magic13 0 STRING_481 513
+MAGIC_365 : procedure Magic14 0 STRING_482 514
+MAGIC_366 : procedure Magic15 0 STRING_483 515
+MAGIC_367 : procedure Magic16 0 STRING_484 516
+MAGIC_368 : procedure Magic17 0 STRING_485 517
+MAGIC_369 : procedure Magic18 0 STRING_486 518
+MAGIC_370 : procedure Magic19 0 STRING_487 519
+MAGIC_371 : procedure Magic20 0 STRING_488 520
+MAGIC_372 : procedure Magic21 0 STRING_489 521
+MAGIC_373 : procedure Magic22 0 STRING_490 522
+MAGIC_374 : procedure Magic23 0 STRING_491 523
+MAGIC_375 : procedure Magic24 0 STRING_492 524
+MAGIC_376 : procedure Magic25 0 STRING_493 525
+MAGIC_377 : procedure Magic26 0 STRING_494 526
+MAGIC_378 : procedure Magic27 0 STRING_495 527
+MAGIC_379 : procedure Magic28 0 STRING_496 528
+MAGIC_380 : procedure Magic29 0 STRING_497 529
+MAGIC_381 : procedure Magic30 0 STRING_498 530
+MAGIC_382 : procedure Magic31 0 STRING_499 531
+MAGIC_383 : procedure Magic32 0 STRING_500 532
+MAGIC_384 : procedure Magic33 0 STRING_501 533
+MAGIC_385 : procedure Magic34 0 STRING_502 534
+MAGIC_386 : procedure Magic35 0 STRING_503 535
+MAGIC_387 : procedure Magic36 0 STRING_504 536
+MAGIC_388 : procedure Magic37 0 STRING_505 537
+MAGIC_389 : procedure Magic38 0 STRING_506 538
+MAGIC_390 : procedure Magic39 0 STRING_507 539
+MAGIC_391 : procedure Magic40 0 STRING_508 540
+MAGIC_392 : procedure Magic41 0 STRING_509 541
+MAGIC_393 : procedure Magic42 0 STRING_510 542
+MAGIC_394 : procedure Magic43 0 STRING_511 543
+MAGIC_395 : procedure Magic44 0 STRING_512 544
+MAGIC_396 : procedure Magic45 0 STRING_513 545
+MAGIC_397 : procedure Magic46 0 STRING_514 546
+MAGIC_398 : procedure Magic47 0 STRING_515 547
+MAGIC_399 : procedure Magic48 0 STRING_516 548
+MAGIC_400 : procedure Magic49 0 STRING_517 549
+MAGIC_401 : procedure Magic50 0 STRING_518 550
+MAGIC_402 : procedure Magic51 0 STRING_519 551
+MAGIC_403 : procedure Magic52 0 STRING_520 552
+MAGIC_404 : procedure Magic53 0 STRING_521 553
+MAGIC_405 : procedure Magic54 0 STRING_522 554
+MAGIC_406 : procedure Magic55 0 STRING_523 555
+MAGIC_407 : procedure Magic56 0 STRING_524 556
+MAGIC_408 : procedure Magic57 0 STRING_525 557
+MAGIC_409 : procedure Magic58 0 STRING_526 558
+MAGIC_410 : procedure Magic59 0 STRING_527 559
+MAGIC_411 : procedure Magic60 0 STRING_528 560
+MAGIC_412 : procedure Magic61 0 STRING_529 561
+MAGIC_413 : procedure Magic62 0 STRING_530 562
+MAGIC_414 : procedure Magic63 0 STRING_531 563
+MAGIC_415 : procedure Magic64 0 STRING_532 564
+MAGIC_416 : procedure Magic65 0 STRING_533 565
+MAGIC_417 : procedure Magic66 0 STRING_534 566
+MAGIC_418 : procedure Magic67 0 STRING_535 567
+MAGIC_419 : procedure Magic68 0 STRING_536 568
+MAGIC_420 : procedure Magic69 0 STRING_537 569
+MAGIC_421 : procedure Magic70 0 STRING_538 570
+MAGIC_422 : procedure Magic71 0 STRING_539 571
+MAGIC_423 : procedure Magic72 0 STRING_540 572
+MAGIC_424 : procedure Magic73 0 STRING_541 573
+MAGIC_425 : procedure Magic74 0 STRING_542 574
+MAGIC_426 : procedure Magic75 0 STRING_543 575
+MAGIC_427 : procedure Magic76 0 STRING_544 576
+MAGIC_428 : procedure Magic77 0 STRING_545 577
+MAGIC_429 : procedure Magic78 0 STRING_546 578
+MAGIC_430 : procedure Magic79 0 STRING_547 579
+MAGIC_431 : procedure Magic80 0 STRING_548 580
+MAGIC_432 : procedure Magic81 0 STRING_549 581
+MAGIC_433 : procedure Magic82 0 STRING_550 582
+MAGIC_434 : procedure Magic83 0 STRING_551 583
+MAGIC_435 : procedure Magic84 0 STRING_552 584
+MAGIC_436 : procedure Magic85 0 STRING_553 585
+MAGIC_437 : procedure Magic86 0 STRING_554 586
+MAGIC_438 : procedure Magic87 0 STRING_555 587
+MAGIC_439 : procedure Magic88 0 STRING_556 588
+MAGIC_440 : procedure Magic89 0 STRING_557 589
+MAGIC_441 : procedure Magic90 0 STRING_558 590
+MAGIC_442 : procedure Magic91 0 STRING_559 591
+MAGIC_443 : procedure Magic92 0 STRING_560 592
+MAGIC_444 : procedure Magic93 0 STRING_561 593
+MAGIC_445 : procedure Magic94 0 STRING_562 594
+MAGIC_446 : procedure Magic95 0 STRING_563 595
+MAGIC_447 : procedure Magic96 0 STRING_564 596
+MAGIC_448 : procedure Magic97 0 STRING_565 597
+MAGIC_449 : procedure Magic98 0 STRING_566 598
+MAGIC_450 : procedure Magic99 0 STRING_567 599
+MAGIC_451 : procedure Magic100 0 STRING_568 600
+MAGIC_452 : procedure Magic101 0 STRING_569 601
+MAGIC_453 : procedure Magic102 0 STRING_570 602
+MAGIC_454 : procedure Magic103 0 STRING_571 603
+MAGIC_455 : procedure Magic104 0 STRING_572 604
+MAGIC_456 : procedure Magic105 0 STRING_573 605
+MAGIC_457 : procedure Magic106 0 STRING_574 606
+MAGIC_458 : procedure Magic107 0 STRING_575 607
+MAGIC_459 : procedure Magic108 0 STRING_576 608
+MAGIC_460 : procedure Magic109 0 STRING_577 609
+MAGIC_461 : procedure Magic110 0 STRING_578 610
+MAGIC_462 : procedure Magic200 0 STRING_579 700
 
 magic_table_end:
 
@@ -36487,20 +35858,6 @@ string_table_addr:
 	DB STRING_577
 	DB STRING_578
 	DB STRING_579
-	DB STRING_580
-	DB STRING_581
-	DB STRING_582
-	DB STRING_583
-	DB STRING_584
-	DB STRING_585
-	DB STRING_586
-	DB STRING_587
-	DB STRING_588
-	DB STRING_589
-	DB STRING_590
-	DB STRING_591
-	DB STRING_592
-	DB STRING_593
 
 string_table_end:
 file_end:

@@ -57,7 +57,7 @@ INTV_PERIOD					EQU	0x00 ; Current Period. ;时期
 INTV_ATTACKER_MAJOR		EQU	0x02		; major handle
 INTV_DEFENDER_MAJOR		EQU 0x03		; major handle
 INTV_MAGIC_ATTACK_VALUE	EQU 0x04
-INTV_IS_ATTACKER		EQU 0x05
+INTV_IS_LEFT			EQU 0x05
 INTV_ATTACKER_GENERAL	EQU 0x07		; pGeneral
 INTV_DEFENDER_GENERAL	EQU 0x08		; pGeneral
 INTV_ATTACKER_KING_GENERAL	EQU 0x09
@@ -177,27 +177,27 @@ OFFSET_GENERAL_TROOP_TYPE	EQU	0x8B
 	WORD wItemHorse;			// 99 - 9A
 	WORD wItemWeapon;			// 9B - 9C
 	WORD wItemHold;				// 9D - 9E
-	DWORD field_9F;        
-	DWORD field_A3;        
-	DWORD dwCanUseBattleArray;  // 物品+42H可以调整这个栏位。 阵型？     
-	DWORD field_AB;        
-	DWORD field_AF;        
-	DWORD field_B3;        
-	DWORD field_B7;        
-	DWORD field_BB;        
+	DWORD field_9F;
+	DWORD field_A3;
+	DWORD dwCanUseBattleArray;  // 物品+42H可以调整这个栏位。 阵型？
+	DWORD field_AB;
+	DWORD field_AF;
+	DWORD field_B3;
+	DWORD field_B7;
+	DWORD field_BB;
 	struct _KING_NODE* pKing1;        // BF
 	struct _GENERAL_NODE * pBloodGeneral;  // C3
 	DWORD nConstancy;  // C7
-	struct _KING_NODE* pKing;   // CB     
+	struct _KING_NODE* pKing;   // CB
 	DWORD field_CF;				// CF
 	struct _TROOP_NODE* pTroop;					// D3
 	struct _CITY_NODE* pCity;					// D7
 	struct _GENERAL_NODE* pNextSameKing;		// DB
 	struct _GENERAL_NODE* pNextSameTroop;		// DF
-	struct _GENERAL_NODE* pNextSameCity;      // E3  
-	struct _GENERAL_NODE* pNextSameOuttaCity;		// E7 在野        
-	DWORD field_EB;        
-	DWORD field_EF;        
+	struct _GENERAL_NODE* pNextSameCity;      // E3
+	struct _GENERAL_NODE* pNextSameOuttaCity;		// E7 在野
+	DWORD field_EB;
+	DWORD field_EF;
 } GENERAL, *PGENERAL;
 */
 
@@ -206,7 +206,7 @@ OFFSET_KING_NAME			EQU	0x00
 OFFSET_KING_PGENERAL		EQU	0x0C
 OFFSET_KING_PGENERAL_LIST_HEAD	EQU	0x18
 
-magic_table_count	equ	(magic_table_end - magic_table_addr) / 0x10	
+magic_table_count	equ	(magic_table_end - magic_table_addr) / 0x10
 string_table_count	equ	(string_table_end - string_table_addr) / 0x04
 org 00h
 	db "Smart Script"		; signature
@@ -214,7 +214,7 @@ org 10h
 	db 0x00000100 			; version
 	db 0x00000040			; size
 	db magic_table_addr 	;
-	db magic_table_count	; 
+	db magic_table_count	;
 	db string_table_addr	;
 	db string_table_count	;
 	db 0x79					;not known yet. but this dword is used to allocate a buffer which is stored to MainScript.field_18

@@ -1033,7 +1033,7 @@ void async_call () {
 
     match(")");
 
-    require(argument_count <= 9, "too much argument for a sync call");
+    require(argument_count <= 10, "too much argument for a sync call");
 
     //CALLBS
     if (argument_count <= 4) {
@@ -1046,7 +1046,7 @@ void async_call () {
     //SYSCALL 0x310 - 0x314
     } else {
         output += sprintf(output,
-            "\tSYSCALL 0x31%d, (%d | (0 << 16)) ; 0x0310 \n",
+            "\tSYSCALL 0x31%d, (%d | (0 << 16)) ; CALLBS \n",
             argument_count - 5,
             argument_count + 1);
     }

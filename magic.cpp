@@ -5,7 +5,7 @@ LOC_40:
 	SETARG 1
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	DELAY
 	PUSH 0
@@ -21,7 +21,7 @@ LOC_90:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -36,19 +36,19 @@ LOC_90:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 4
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 LOC_148:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 4
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG -2
 	PUSH 1
@@ -82,10 +82,10 @@ LOC_234:
 	INST_01 1
 LOC_248:
 	PUSHARG 3
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX 
+	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX
 	POPN 3
 	PUSHARG 3
 	INST_01 1
@@ -99,7 +99,7 @@ LOC_290:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -114,19 +114,19 @@ LOC_290:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 4
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 LOC_348:
 	PUSHARG -2
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 4
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG -2
 	PUSH 1
@@ -160,7 +160,7 @@ LOC_434:
 	CMP
 	JZ LOC_490
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 5
 	PUSH 320
@@ -169,7 +169,7 @@ LOC_434:
 	JMP LOC_4C8
 LOC_490:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 5
 	PUSH 320
@@ -183,10 +183,10 @@ LOC_4C8:
 
 void function HoldAllDelay (arg_0) {
 __asm{
-	SYSCALL 0x122, (0 | (0 << 16)) ; SetAttackCounterTo9999 or DisableAttack 
+	SYSCALL 0x122, (0 | (0 << 16)) ; SetAttackCounterTo9999 or DisableAttack
 	PUSHARG -2
 	DELAY
-	SYSCALL 0x123, (0 | (0 << 16)) ; RestoreAttackCounter 
+	SYSCALL 0x123, (0 | (0 << 16)) ; RestoreAttackCounter
 	RETN 1
 
 }}
@@ -200,10 +200,10 @@ LOC_51C:
 	PUSHARG -3
 	PUSH 12
 	PUSH 1
-	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow 
+	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow
 	POP
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_56C
 	JMP LOC_59C
@@ -227,14 +227,14 @@ __asm{
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 1
 	POPN 1
 LOC_628:
@@ -242,7 +242,7 @@ LOC_628:
 	PUSH 4
 	PUSH 1
 	PUSH 8192
-	SYSCALL 0x24, (4 | (1 << 16)) ; CreateObject_Shadow1 
+	SYSCALL 0x24, (4 | (1 << 16)) ; CreateObject_Shadow1
 	POP
 	PUSHARG 2
 	PUSHARG -6
@@ -251,7 +251,7 @@ LOC_628:
 	PUSH 16
 	MUL
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	INCN 1
@@ -262,7 +262,7 @@ LOC_628:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -275,24 +275,24 @@ LOC_6F4:
 	PUSHARG -7
 	PUSHARG -6
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -8
 	PUSHARG -6
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSHARG -3
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -4
 	DELAY
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 7
 
 }}
@@ -302,31 +302,31 @@ __asm{
 	STACK 1
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG -8
 	PUSHARG -7
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -10
 	PUSHARG -9
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -5
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -6
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 9
 
 }}
@@ -343,8 +343,8 @@ __asm{
 	ORZ
 	JZ LOC_95C
 	PUSHARG -4
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide 
-	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP 
+	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
+	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP
 	PUSH 0
 	CMPZ
 	JZ LOC_944
@@ -361,19 +361,19 @@ LOC_95C:
 	POPN 4
 LOC_96C:
 	PUSHARG -4
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG -2
 	POPN 1
 LOC_9CC:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_9F4
 	JMP LOC_A58
@@ -383,7 +383,7 @@ LOC_9F4:
 	PUSH 0
 	PUSH 0
 	PUSHARG 4
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	DECN 1
@@ -395,7 +395,7 @@ LOC_A58:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -415,7 +415,7 @@ LOC_A84:
 	PUSH 67108864
 	PUSH 16777216
 	ADD
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -2
 	PUSH 0
 	CMPLE
@@ -425,13 +425,13 @@ LOC_B04:
 	PUSHARG -3
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125 
+	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125
 	JMP LOC_B54
 LOC_B30:
 	PUSHARG -3
 	PUSHSTR "Hit01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 LOC_B54:
 	RETN 3
 
@@ -441,11 +441,11 @@ void function MoveCamera (arg_0, arg_1, arg_2) {
 __asm{
 LOC_B5C:
 	STACK 5
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	PUSH 1000
 	MUL
 	POPN 2
-	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112 
+	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112
 	PUSH 1000
 	MUL
 	POPN 3
@@ -494,7 +494,7 @@ LOC_C5C:
 	PUSHARG 3
 	PUSH 1000
 	DIV
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 2
 	PUSH 100
 	DIV
@@ -526,14 +526,14 @@ LOC_D74:
 void function LockCameraSimple (arg_0, arg_1) {
 __asm{
 	STACK 2
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 LOC_D98:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_E78
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
@@ -549,14 +549,14 @@ LOC_D98:
 	JZ LOC_E50
 	PUSHARG 1
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSHARG -2
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_E50:
 	PUSH 1
 	DELAY
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 	JMP LOC_D98
 LOC_E78:
@@ -568,14 +568,14 @@ void function LockCameraSimple2 (arg_0, arg_1) {
 __asm{
 LOC_E80:
 	STACK 2
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 LOC_E9C:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_F7C
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
@@ -591,14 +591,14 @@ LOC_E9C:
 	JZ LOC_F54
 	PUSHARG 1
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSHARG -2
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_F54:
 	PUSH 1
 	DELAY
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 	JMP LOC_E9C
 LOC_F7C:
@@ -611,9 +611,9 @@ __asm{
 	STACK 5
 	PUSH 0
 	POPN 5
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
-	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112 
+	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112
 	POPN 3
 	PUSHARG -3
 	PUSH 1
@@ -628,7 +628,7 @@ LOC_FF8:
 	POPN 4
 LOC_100C:
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 LOC_1028:
 	PUSH 1
@@ -642,7 +642,7 @@ LOC_1028:
 	ADD
 	POPN 1
 	PUSHARG 1
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	PUSH 270
 	SUB
 	CMPG
@@ -679,11 +679,11 @@ LOC_10EC:
 	PUSHARG 3
 	PUSHARG -4
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_116C:
 	PUSH 1
 	DELAY
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 	INCN 5
 	PUSHARG 5
@@ -701,9 +701,9 @@ LOC_11C0:
 void function LockCameraLineDelay (arg_0, arg_1, arg_2, arg_3) {
 __asm{
 	STACK 4
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
-	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112 
+	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112
 	POPN 3
 	PUSHARG -3
 	PUSH 1
@@ -718,10 +718,10 @@ LOC_122C:
 	POPN 4
 LOC_1240:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_13D0
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -3
 	PUSH 1
@@ -729,7 +729,7 @@ LOC_1240:
 	JZ LOC_12CC
 	PUSHARG 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPG
 	JZ LOC_12C4
 	JMP LOC_13D0
@@ -738,7 +738,7 @@ LOC_12C4:
 LOC_12CC:
 	PUSHARG 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPL
 	JZ LOC_12FC
 	JMP LOC_13D0
@@ -761,7 +761,7 @@ LOC_12FC:
 	PUSHARG 3
 	PUSHARG -4
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_137C:
 	PUSH 1
 	DELAY
@@ -772,7 +772,7 @@ LOC_137C:
 	JZ LOC_13B4
 	JMP LOC_13D0
 LOC_13B4:
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 2
 	JMP LOC_1240
 LOC_13D0:
@@ -786,12 +786,12 @@ __asm{
 	PUSH 0
 	POPN 6
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSH 0
 	POPN 1
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 3
 LOC_1438:
 	PUSHARG 3
@@ -799,9 +799,9 @@ LOC_1438:
 	CMP
 	JZ LOC_16D0
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 4
 	PUSHARG -2
 	PUSH 0
@@ -851,14 +851,14 @@ LOC_1598:
 	PUSHARG 6
 	ADD
 	PUSHARG -5
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSHARG -3
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 1
 	DELAY
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 3
 	PUSHARG 1
 	PUSH 1
@@ -874,7 +874,7 @@ LOC_1634:
 	JZ LOC_1690
 	PUSHARG 4
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPLE
 	JZ LOC_1688
 	PUSH 0
@@ -884,7 +884,7 @@ LOC_1688:
 LOC_1690:
 	PUSHARG 4
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPGE
 	JZ LOC_16C8
 	PUSH 0
@@ -909,9 +909,9 @@ LOC_1720:
 LOC_1730:
 	PUSHSTR "MoveCamera"
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG -5
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 120
 	SUB
 	PUSH 30
@@ -928,12 +928,12 @@ __asm{
 	PUSH 0
 	POPN 6
 	PUSHARG -6
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSH 0
 	POPN 1
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 3
 LOC_17E8:
 	PUSHARG 3
@@ -941,9 +941,9 @@ LOC_17E8:
 	CMP
 	JZ LOC_1A80
 	PUSHARG -6
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 4
 	PUSHARG -3
 	PUSH 0
@@ -993,14 +993,14 @@ LOC_1948:
 	PUSHARG 6
 	ADD
 	PUSHARG -6
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSHARG -4
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 1
 	DELAY
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 3
 	PUSHARG 1
 	PUSH 1
@@ -1016,7 +1016,7 @@ LOC_19E4:
 	JZ LOC_1A40
 	PUSHARG 4
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPLE
 	JZ LOC_1A38
 	PUSH 0
@@ -1026,7 +1026,7 @@ LOC_1A38:
 LOC_1A40:
 	PUSHARG 4
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	CMPGE
 	JZ LOC_1A78
 	PUSH 0
@@ -1034,16 +1034,16 @@ LOC_1A40:
 LOC_1A78:
 	JMP LOC_17E8
 LOC_1A80:
-	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111 
+	SYSCALL 0x111, (0 | (1 << 16)) ; 0x0111
 	POPN 7
-	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112 
+	SYSCALL 0x112, (0 | (1 << 16)) ; 0x0112
 	POPN 8
 LOC_1AA8:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1B78
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -3
 	PUSH 1
@@ -1073,11 +1073,11 @@ LOC_1B64:
 LOC_1B78:
 	PUSHARG 8
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	SUB
 	POPN 8
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1BD4
 	PUSHARG -2
 	PUSHARG 8
@@ -1091,13 +1091,13 @@ void function FireMan (arg_0, arg_1, arg_2) {
 __asm{
 	STACK 3
 	PUSHARG -4
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 2
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG 2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSH 0
 	POPN 1
@@ -1111,11 +1111,11 @@ LOC_1C44:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_1CD0
@@ -1127,7 +1127,7 @@ LOC_1CE0:
 	PUSHARG 3
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -1139,25 +1139,25 @@ __asm{
 	PUSH 10012
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 24
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 7
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -1168,7 +1168,7 @@ __asm{
 	PUSH 128
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	POPN 2
 	PUSH 0
@@ -1186,7 +1186,7 @@ LOC_1E2C:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_1E2C
@@ -1201,7 +1201,7 @@ __asm{
 	PUSHARG -4
 	PUSHSTR "hit01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 0
 	POPN 2
 LOC_1EE8:
@@ -1213,33 +1213,33 @@ LOC_1EE8:
 	PUSH 10003
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 12288
 	PUSH 12288
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_1EE8
 LOC_202C:
@@ -1254,7 +1254,7 @@ LOC_2034:
 	PUSHARG -4
 	PUSHSTR "hit01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 0
 	POPN 2
 LOC_2070:
@@ -1266,37 +1266,37 @@ LOC_2070:
 	PUSH 10003
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSH 8192
 	PUSH 12288
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSHARG 1
 	PUSHARG 3
 	PUSHARG 3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 3
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	NEG
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_2070
 LOC_21D8:
@@ -1310,7 +1310,7 @@ __asm{
 	PUSHARG -4
 	PUSHSTR "hit01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 0
 	POPN 2
 LOC_221C:
@@ -1322,33 +1322,33 @@ LOC_221C:
 	PUSH 10013
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 12288
 	PUSH 12288
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_221C
 LOC_2360:
@@ -1362,7 +1362,7 @@ __asm{
 	PUSHARG -4
 	PUSHSTR "hit01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 0
 	POPN 2
 LOC_23A4:
@@ -1374,33 +1374,33 @@ LOC_23A4:
 	PUSH 10014
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 12288
 	PUSH 12288
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_23A4
 LOC_24E8:
@@ -1412,7 +1412,7 @@ void function DownBrightness (arg_0, arg_1) {
 __asm{
 LOC_24F0:
 	STACK 1
-	SYSCALL 0x130, (0 | (1 << 16)) ; GetBackgroundBrightness 
+	SYSCALL 0x130, (0 | (1 << 16)) ; GetBackgroundBrightness
 	POPN 1
 LOC_250C:
 	PUSHARG 1
@@ -1423,13 +1423,13 @@ LOC_250C:
 	DELAY
 	DECN 1
 	PUSHARG 1
-	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness 
+	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness
 	JMP LOC_250C
 LOC_2558:
 	PUSH 16
-	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness 
+	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness
 	PUSHARG -3
-	SYSCALL 0x135, (1 | (0 << 16)) ; 0x0135 
+	SYSCALL 0x135, (1 | (0 << 16)) ; 0x0135
 	PUSHARG -3
 	SETARG 2
 	RETN 2
@@ -1440,11 +1440,11 @@ void function RaiseBrightness (arg_0, arg_1) {
 __asm{
 LOC_2598:
 	STACK 1
-	SYSCALL 0x136, (0 | (0 << 16)) ; 0x0136 
+	SYSCALL 0x136, (0 | (0 << 16)) ; 0x0136
 	INST_09 2
 	POPN 1
 	PUSHARG 1
-	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness 
+	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness
 LOC_25D0:
 	PUSHARG 1
 	PUSHARG -3
@@ -1454,11 +1454,11 @@ LOC_25D0:
 	DELAY
 	INCN 1
 	PUSHARG 1
-	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness 
+	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness
 	JMP LOC_25D0
 LOC_261C:
 	PUSHARG -3
-	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness 
+	SYSCALL 0x12F, (1 | (0 << 16)) ; SetBackgroundBrightness
 	RETN 2
 
 }}
@@ -1467,54 +1467,54 @@ void function CreateDot (arg_0) {
 __asm{
 	STACK 4
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 3
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 4
 	PUSH 2
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -2
 	PUSH 10004
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 60
 	NEG
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 3
 	PUSH 60
 	NEG
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 4
 	PUSH 60
 	NEG
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 3
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 1
 
 }}
@@ -1544,7 +1544,7 @@ LOC_2828:
 	CALLBS
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_2828
@@ -1568,7 +1568,7 @@ LOC_28D0:
 	JZ LOC_2990
 	PUSH 0
 	PUSH 1023
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 7
 	AND
 	PUSHARG 1
@@ -1606,7 +1606,7 @@ LOC_29A0:
 	CALLBS
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_29A0
@@ -1619,17 +1619,17 @@ void function CreateLine (arg_0, arg_1) {
 __asm{
 	STACK 6
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 3
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 4
 	PUSH 2
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -2
 	JCOND 0, LOC_2B18
@@ -1649,7 +1649,7 @@ LOC_2B18:
 	POPN -2
 	PUSH 51
 	PUSH 72
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1663,7 +1663,7 @@ LOC_2B80:
 	POPN -2
 	PUSH 52
 	PUSH 77
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1681,7 +1681,7 @@ LOC_2C04:
 	POPN -2
 	PUSH 50
 	PUSH 71
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
@@ -1695,7 +1695,7 @@ LOC_2C6C:
 	POPN -2
 	PUSH 50
 	PUSH 70
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1713,7 +1713,7 @@ LOC_2CF0:
 	POPN -2
 	PUSH 52
 	PUSH 70
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1727,7 +1727,7 @@ LOC_2D58:
 	POPN -2
 	PUSH 52
 	PUSH 73
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1745,7 +1745,7 @@ LOC_2DDC:
 	POPN -2
 	PUSH 51
 	PUSH 77
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
@@ -1759,7 +1759,7 @@ LOC_2E44:
 	POPN -2
 	PUSH 50
 	PUSH 70
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 2
 	PUSHARG 5
@@ -1775,23 +1775,23 @@ LOC_2EC8:
 	PUSHARG 6
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 3
 	PUSHARG 4
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 3
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -1803,7 +1803,7 @@ __asm{
 	PUSH 10011
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -1811,18 +1811,18 @@ __asm{
 	PUSH 32
 	MUL
 	PUSH 2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 4
 	PUSH 2
-	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow 
+	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow
 	POP
 	PUSH 5
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -1846,7 +1846,7 @@ LOC_30B0:
 	PUSH 10010
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -2
 	PUSH 47
@@ -1857,10 +1857,10 @@ LOC_30B0:
 	PUSH 0
 	PUSHARG -2
 	PUSH 110
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 12
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHSTR "CreateDots"
 	PUSHARG 1
 	PUSH 0
@@ -1886,7 +1886,7 @@ LOC_31D0:
 	JZ LOC_3224
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	DECN 2
@@ -1901,10 +1901,10 @@ __asm{
 	STACK 1
 	PUSHARG -3
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 20
 	DELAY
 	PUSH 1
@@ -1918,13 +1918,13 @@ LOC_3288:
 	DELAY
 	PUSHARG -3
 	PUSHARG 1
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	INCN 1
 	JMP LOC_3288
 LOC_32DC:
 	PUSHARG -3
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	RETN 2
 
 }}
@@ -1943,19 +1943,19 @@ LOC_3320:
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG -6
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG -6
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 2
 	PUSHARG 3
 	PUSHARG 4
 	PUSHARG -3
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 0
 	POPN 1
 LOC_33D8:
@@ -1967,23 +1967,23 @@ LOC_33D8:
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSH 49152
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 5
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG -4
 	JCOND 1, LOC_34E0
 	JCOND 2, LOC_3514
@@ -2017,13 +2017,13 @@ LOC_3548:
 LOC_357C:
 	PUSH 3
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_33D8
 LOC_35AC:
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG -2
 	DELAY
 	PUSH 0
@@ -2036,12 +2036,12 @@ void function DisableAttack (arg_0, arg_1, arg_2) {
 __asm{
 	PUSHARG -4
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -2
 	DELAY
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	RETN 3
 
 }}
@@ -2051,26 +2051,26 @@ __asm{
 	STACK 2
 	PUSHSTR "m000snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -3
 	PUSH 67108864
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -2
 	PUSH 16
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG -3
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 2
 	PUSHARG -3
 	PUSH 10018
 	PUSHARG 2
 	PUSH 16
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 10752
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_372C
@@ -2085,13 +2085,13 @@ LOC_373C:
 	PUSH 0
 	PUSHARG 2
 	PUSH 5
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 16
 	PUSH 3
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -2104,20 +2104,20 @@ LOC_37A8:
 	PUSH 10017
 	PUSHARG -2
 	PUSH 256
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 67108864
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 1000
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -3
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 60
 	DELAY
 	RETN 2
@@ -2131,25 +2131,25 @@ __asm{
 	PUSH 11001
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 1
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSHARG -4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 1001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHSTR "ShowHalfMoonSmoke"
 	PUSHARG 1
 	PUSH 0
@@ -2160,7 +2160,7 @@ __asm{
 	POPN 2
 LOC_3978:
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_39A8
 	PUSH 0
@@ -2178,7 +2178,7 @@ LOC_39A8:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -2196,7 +2196,7 @@ __asm{
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 11002
@@ -2230,9 +2230,9 @@ __asm{
 	POPN 1
 LOC_3B28:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_3D08
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_3C14
@@ -2243,14 +2243,14 @@ LOC_3B28:
 	NEG
 	PUSH 6
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSHARG 1
 	PUSH 2
 	MUL
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	SUB
 	PUSH 0
@@ -2259,7 +2259,7 @@ LOC_3B28:
 	PUSH 256
 	PUSHARG 1
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_3CB8
 LOC_3C14:
 	PUSHSTR "CreateHalfMoonSmoke"
@@ -2267,14 +2267,14 @@ LOC_3C14:
 	PUSH 7
 	PUSH 8
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSHARG 1
 	PUSH 2
 	MUL
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	PUSH 0
@@ -2283,11 +2283,11 @@ LOC_3C14:
 	PUSH 256
 	PUSHARG 1
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_3CB8:
 	PUSH 1
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 1
 	PUSH 1
@@ -2304,7 +2304,7 @@ LOC_3D08:
 void function CreateHalfMoonSmoke (arg_0, arg_1, arg_2, arg_3, arg_4) {
 __asm{
 	STACK 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_3D70
@@ -2312,7 +2312,7 @@ __asm{
 	PUSH 11003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_3DA4
 LOC_3D70:
@@ -2320,49 +2320,49 @@ LOC_3D70:
 	PUSH 11003
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_3DA4:
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 32768
 	PUSH 20480
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 14
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 1
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 2048
 	NEG
 	PUSHARG -2
 	SUB
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 LOC_3E88:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_3EFC
 	PUSH 1
 	DELAY
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_3EF4
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_3EFC
 LOC_3EF4:
 	JMP LOC_3E88
@@ -2376,10 +2376,10 @@ __asm{
 LOC_3F04:
 	STACK 12
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\001\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
@@ -2387,19 +2387,19 @@ LOC_3F04:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSH 0
 	POPN 11
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_3FEC
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 11
 LOC_3FEC:
 	PUSH 18
@@ -2447,12 +2447,12 @@ LOC_40E4:
 LOC_4108:
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 8
 	PUSHARG 7
 	PUSHARG 12
@@ -2462,49 +2462,49 @@ LOC_4108:
 	PUSHARG 8
 	PUSHARG 9
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHARG 1
 	PUSH 4096
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
 	PUSHSTR "m001snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHARG 1
 	PUSH 11001
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSHARG 4
 	PUSHARG 1
 	PUSHARG 5
 	PUSH 64
 	PUSH 1
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 0
 	PUSHARG 6
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 4
 	PUSH 16777216
 	PUSH 33554432
 	OR
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 4
 	PUSH 1001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHSTR "ShowHalfMoonSmoke"
 	PUSHARG 4
 	PUSH 0
@@ -2535,7 +2535,7 @@ LOC_43A0:
 	PUSHARG 12
 	PUSH 140
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "HalfMoonAll"
 	PUSHARG 4
 	PUSHARG 5
@@ -2544,7 +2544,7 @@ LOC_43A0:
 	PUSHARG 12
 	PUSH 140
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "LockCamera"
 	PUSHARG 4
 	PUSH 180
@@ -2562,7 +2562,7 @@ LOC_4468:
 	PUSH 140
 	PUSHARG 12
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "HalfMoonAll"
 	PUSHARG 4
 	PUSHARG 5
@@ -2571,7 +2571,7 @@ LOC_4468:
 	PUSH 280
 	PUSHARG 12
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "HalfMoonAll"
 	PUSHARG 4
 	PUSHARG 5
@@ -2580,7 +2580,7 @@ LOC_4468:
 	PUSH 140
 	PUSHARG 12
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "HalfMoonAll"
 	PUSHARG 4
 	PUSHARG 5
@@ -2589,7 +2589,7 @@ LOC_4468:
 	PUSH 280
 	PUSHARG 12
 	MUL
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "LockCamera"
 	PUSHARG 4
 	PUSH 180
@@ -2600,25 +2600,25 @@ LOC_4468:
 	JMP LOC_45C0
 LOC_45C0:
 	PUSHARG 4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 10
 	PUSHARG 10
 	PUSH 1
 	CMP
 	JZ LOC_4660
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 7
 	PUSH 0
 	CMPLE
 	PUSHARG 7
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	CMPGE
 	ORZ
 	JZ LOC_4660
 	PUSHARG 4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_4660:
 	PUSH 1
 	DELAY
@@ -2631,7 +2631,7 @@ LOC_4660:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -2643,9 +2643,9 @@ __asm{
 	POPN 4
 	PUSH 0
 	POPN 1
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	POPN 6
-	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight 
+	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight
 	POPN 7
 LOC_4710:
 	PUSHARG 7
@@ -2659,7 +2659,7 @@ LOC_472C:
 	JZ LOC_4774
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_47B0
 LOC_4774:
@@ -2669,7 +2669,7 @@ LOC_4774:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_47B0:
 	PUSHARG 3
@@ -2683,7 +2683,7 @@ LOC_47B0:
 	PUSHARG -3
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -2700,7 +2700,7 @@ LOC_4848:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -2716,7 +2716,7 @@ LOC_48B8:
 	JZ LOC_48E4
 	RETN 2
 LOC_48E4:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_4944
@@ -2726,7 +2726,7 @@ LOC_48E4:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_4998
 LOC_4944:
@@ -2740,7 +2740,7 @@ LOC_4944:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_4998:
 	PUSHARG 3
@@ -2758,7 +2758,7 @@ LOC_4998:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -2779,7 +2779,7 @@ LOC_4A48:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -2814,34 +2814,34 @@ __asm{
 LOC_4B4C:
 	STACK 8
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\002\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 3
@@ -2856,7 +2856,7 @@ LOC_4C98:
 	POPN 2
 LOC_4CA8:
 	PUSHARG 3
-	SYSCALL 0x116, (1 | (1 << 16)) ; GetMajorLevel 
+	SYSCALL 0x116, (1 | (1 << 16)) ; GetMajorLevel
 	POPN 6
 	PUSHARG 6
 	PUSH 40
@@ -2869,7 +2869,7 @@ LOC_4CF0:
 	PUSH 5
 	MUL
 	PUSHARG 3
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	SUB
 	POPN 7
 	PUSHARG 7
@@ -2898,24 +2898,24 @@ LOC_4D7C:
 	CALLBS
 	PUSHARG 1
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 24
 	DELAY
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 6
 	DELAY
 	PUSHSTR "m002snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "m002snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	JZ LOC_4EAC
@@ -2933,10 +2933,10 @@ LOC_4ECC:
 	PUSH 100
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
@@ -2955,7 +2955,7 @@ LOC_4F5C:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -2964,7 +2964,7 @@ void function BombLight (arg_0, arg_1) {
 __asm{
 	STACK 5
 	PUSHARG -3
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 2
 	PUSHARG -2
 	JCOND 0, LOC_4FFC
@@ -2978,82 +2978,82 @@ LOC_4FFC:
 	PUSH 7019
 	PUSHARG 2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 6
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 10
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_5468
 LOC_50A8:
 	PUSHARG -3
 	PUSH 13012
 	PUSHARG 2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 40960
 	PUSH 40960
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_5468
 LOC_5138:
 	PUSHARG -3
 	PUSH 7021
 	PUSHARG 2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_5468
 LOC_51C8:
 	PUSHARG -3
 	PUSH 7046
 	PUSHARG 2
 	PUSH 80
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 4
 	DELAY
 	PUSHARG -3
 	PUSH 7047
 	PUSHARG 2
 	PUSH 80
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 2
 	PUSH 0
@@ -3063,7 +3063,7 @@ LOC_51C8:
 	PUSH 16
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_5310
 LOC_52E0:
 	PUSHARG 1
@@ -3071,7 +3071,7 @@ LOC_52E0:
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_5310:
 	PUSH 32768
 	POPN 4
@@ -3080,11 +3080,11 @@ LOC_5310:
 	PUSHARG 1
 	PUSHARG 4
 	PUSHARG 5
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 0
 	POPN 3
 LOC_5388:
@@ -3095,7 +3095,7 @@ LOC_5388:
 	PUSHARG 1
 	PUSHARG 4
 	PUSHARG 5
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	PUSHARG 4
@@ -3114,7 +3114,7 @@ LOC_5388:
 	PUSH 1
 	NEG
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_5450:
 	INCN 3
 	JMP LOC_5388
@@ -3134,14 +3134,14 @@ __asm{
 	JZ LOC_578C
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 8
 	PUSHARG -3
 	PUSH 1
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 9
 	PUSHARG -3
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 10
 	PUSHARG 8
 	PUSH 1
@@ -3149,7 +3149,7 @@ __asm{
 	JZ LOC_5530
 	PUSHARG -2
 	PUSH 50
-	SYSCALL 0x127, (2 | (0 << 16)) ; 0x0127 
+	SYSCALL 0x127, (2 | (0 << 16)) ; 0x0127
 LOC_5530:
 	PUSHARG -3
 	PUSHARG -2
@@ -3162,13 +3162,13 @@ LOC_5530:
 	PUSHARG -3
 	PUSH 16
 	PUSH 8
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_55BC
 LOC_5598:
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_55BC:
 	PUSHARG 8
 	PUSH 0
@@ -3261,7 +3261,7 @@ __asm{
 	POPN 1
 LOC_57F8:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_58B4
 	PUSHARG 1
 	PUSH 0
@@ -3270,7 +3270,7 @@ LOC_57F8:
 	PUSHARG -3
 	PUSH 40960
 	PUSH 40960
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	POPN 1
 	JMP LOC_58A0
@@ -3278,7 +3278,7 @@ LOC_586C:
 	PUSHARG -3
 	PUSH 61440
 	PUSH 61440
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 1
 LOC_58A0:
@@ -3297,16 +3297,16 @@ __asm{
 	POPN 2
 LOC_58D4:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_5984
 	PUSHARG 2
 	PUSHARG -2
-	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202 
+	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202
 	POPN 1
 	PUSHARG -3
 	PUSH 32768
 	PUSHARG 1
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	PUSHARG 2
@@ -3336,7 +3336,7 @@ LOC_59B8:
 	PUSHARG -6
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -5
 	PUSH 0
@@ -3347,48 +3347,48 @@ LOC_59B8:
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_5A6C
 LOC_5A40:
 	PUSHARG 1
 	PUSH 8
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_5A6C:
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSHARG -4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG -3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 60
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 8192
 	PUSH 12
 	DIV
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 LOC_5B50:
 	PUSHARG -7
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_5BB0
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_5B9C
@@ -3399,7 +3399,7 @@ LOC_5B9C:
 	JMP LOC_5B50
 LOC_5BB0:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 6
 
 }}
@@ -3411,7 +3411,7 @@ __asm{
 	PUSH 2501
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -3
 	PUSH 0
@@ -3422,23 +3422,23 @@ __asm{
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_5C88
 LOC_5C5C:
 	PUSHARG 1
 	PUSH 16
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_5C88:
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_5CB4:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_5D34
 	PUSHSTR "ScaleShadow"
 	PUSHARG 1
@@ -3449,13 +3449,13 @@ LOC_5CB4:
 	SUB
 	PUSH 20480
 	PUSH 14
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSH 10
 	DELAY
 	JMP LOC_5CB4
 LOC_5D34:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -3466,25 +3466,25 @@ __asm{
 	PUSH 0
 	POPN 5
 	PUSHARG -6
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -6
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG -3
 	PUSH 0
 	CMP
@@ -3496,7 +3496,7 @@ __asm{
 	PUSHARG 2
 	PUSH 49152
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "FireTail"
 	PUSHARG 2
 	PUSHARG 3
@@ -3520,20 +3520,20 @@ LOC_5ECC:
 	PUSH 13011
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 5
 	PUSHARG 3
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_5FCC
@@ -3541,7 +3541,7 @@ LOC_5ECC:
 	PUSH 9
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_5FFC
 LOC_5FCC:
 	PUSHARG 5
@@ -3549,7 +3549,7 @@ LOC_5FCC:
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_5FFC:
 	PUSHSTR "CosZoomY"
 	PUSHARG 2
@@ -3562,7 +3562,7 @@ LOC_6028:
 	POPN 1
 LOC_6038:
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 4
 	PUSHARG 4
 	ZERO
@@ -3584,22 +3584,22 @@ LOC_6078:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 5
 	JZ LOC_611C
 	PUSHARG 5
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_611C:
 	JMP LOC_615C
 LOC_6124:
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 5
 	JZ LOC_615C
 	PUSHARG 5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_615C:
 	RETN 5
 
@@ -3610,10 +3610,10 @@ __asm{
 LOC_6164:
 	STACK 10
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\003\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
@@ -3621,19 +3621,19 @@ LOC_6164:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSH 0
 	POPN 10
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_624C
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 10
 LOC_624C:
 	PUSHARG 3
@@ -3654,12 +3654,12 @@ LOC_6294:
 LOC_62B4:
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 8
 	PUSHARG 7
 	PUSH 180
@@ -3671,7 +3671,7 @@ LOC_62B4:
 	SUB
 	PUSHARG 10
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 15
 	DELAY
 	PUSHARG -3
@@ -3682,44 +3682,44 @@ LOC_62B4:
 LOC_638C:
 	PUSHARG 1
 	PUSH 131072
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 15
 	DELAY
 	PUSHARG 1
 	PUSHSTR "m003snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	JMP LOC_64D4
 LOC_63FC:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 15
 	DELAY
 	PUSHARG 1
 	PUSHSTR "m003snd02"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	JMP LOC_64D4
 LOC_646C:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 15
 	DELAY
 	PUSHARG 1
 	PUSHSTR "m003snd03"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 LOC_64D4:
 	PUSHARG 1
 	PUSH 13001
@@ -3729,16 +3729,16 @@ LOC_64D4:
 	ADD
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSHARG 4
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 4
 	PUSH 1
 	PUSHARG -2
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG -3
 	PUSH 2
 	CMPZ
@@ -3748,7 +3748,7 @@ LOC_64D4:
 	PUSHARG 5
 	PUSH 80
 	PUSH 80
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	JMP LOC_6600
 LOC_65C0:
 	PUSHARG 4
@@ -3758,13 +3758,13 @@ LOC_65C0:
 	PUSH 80
 	PUSH 11
 	SUB
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 LOC_6600:
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 4
 	PUSH 16777216
 	PUSH 33554432
@@ -3773,10 +3773,10 @@ LOC_6600:
 	CMP
 	MUL
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 4
 	PUSH 3001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -2
 	PUSH 0
 	CMP
@@ -3791,7 +3791,7 @@ LOC_6600:
 	PUSH 9999
 	PUSHARG -2
 	PUSHARG -3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_673C
 LOC_6700:
 	PUSHSTR "FlyLight"
@@ -3800,7 +3800,7 @@ LOC_6700:
 	PUSH 9999
 	PUSHARG -2
 	PUSHARG -3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_673C:
 	PUSHSTR "LockCamera"
 	PUSHARG 4
@@ -3813,21 +3813,21 @@ LOC_673C:
 	CALLBS
 LOC_6778:
 	PUSHARG 4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 6
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 7
 	PUSH 0
 	CMPLE
 	PUSHARG 7
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	CMPGE
 	ORZ
 	JZ LOC_6804
 	PUSHARG 4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_682C
 LOC_6804:
 	PUSH 1
@@ -3842,7 +3842,7 @@ LOC_682C:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -3868,34 +3868,34 @@ __asm{
 	STACK 1
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 4001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_6A1C
 	PUSHSTR "LockCameraLineDelay"
@@ -3905,7 +3905,7 @@ __asm{
 	SUB
 	PUSH 80
 	MUL
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 280
 	CALLBS
 LOC_6A1C:
@@ -3914,7 +3914,7 @@ LOC_6A1C:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -3924,10 +3924,10 @@ __asm{
 LOC_6A54:
 	STACK 17
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\004\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
@@ -3935,36 +3935,36 @@ LOC_6A54:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 8
 	PUSHARG 7
 	PUSHARG 8
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_6C08
@@ -3980,7 +3980,7 @@ LOC_6C08:
 	PUSH 128
 	POPN 4
 LOC_6C28:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALL GetSoldierMaxX
 	POPN 9
 	PUSHARG 3
@@ -3991,14 +3991,14 @@ LOC_6C28:
 	PUSH 320
 	SUB
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	JMP LOC_6CB4
 LOC_6C8C:
 	PUSHARG 9
 	PUSH 320
 	ADD
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_6CB4:
 	PUSH 15
 	DELAY
@@ -4018,7 +4018,7 @@ LOC_6CB4:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4029,7 +4029,7 @@ LOC_6CB4:
 	PUSH 14001
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4042,7 +4042,7 @@ LOC_6CB4:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4055,7 +4055,7 @@ LOC_6CB4:
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_7134
 LOC_6E58:
 	PUSHSTR "CreateRushCart"
@@ -4070,7 +4070,7 @@ LOC_6E58:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4081,7 +4081,7 @@ LOC_6E58:
 	PUSH 14001
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4094,7 +4094,7 @@ LOC_6E58:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4105,7 +4105,7 @@ LOC_6E58:
 	PUSH 14001
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4118,7 +4118,7 @@ LOC_6E58:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4129,7 +4129,7 @@ LOC_6E58:
 	PUSH 14001
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4142,7 +4142,7 @@ LOC_6E58:
 	PUSH 2501
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateRushCart"
 	PUSHARG 9
 	PUSH 1200
@@ -4155,7 +4155,7 @@ LOC_6E58:
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_7134:
 	PUSHSTR "CreateRushCart"
 	INST_45
@@ -4164,7 +4164,7 @@ LOC_7134:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -4173,20 +4173,20 @@ void function LockTargetTime3 (arg_0, arg_1, arg_2, arg_3, arg_4) {
 __asm{
 	STACK 3
 	PUSHARG -6
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -3
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -4
 	POPN 1
 LOC_7218:
@@ -4195,7 +4195,7 @@ LOC_7218:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	DECN 1
@@ -4206,7 +4206,7 @@ LOC_7218:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -4216,12 +4216,12 @@ __asm{
 	STACK 2
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -2
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
@@ -4232,10 +4232,10 @@ __asm{
 	ORZ
 	JZ LOC_73D8
 	PUSHARG -2
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide 
+	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
 	POPN 2
 	PUSHARG 2
-	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP 
+	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP
 	PUSH 0
 	CMP
 	JZ LOC_73AC
@@ -4243,14 +4243,14 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_73D8
 LOC_73AC:
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_73D8:
 	PUSHSTR "LockTargetTime2"
 	PUSHARG 1
@@ -4267,7 +4267,7 @@ LOC_73D8:
 	PUSH 8
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -4283,12 +4283,12 @@ __asm{
 	CALL Hurt
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -2
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
@@ -4299,10 +4299,10 @@ __asm{
 	ORZ
 	JZ LOC_75B4
 	PUSHARG -2
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide 
+	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
 	POPN 2
 	PUSHARG 2
-	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP 
+	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP
 	PUSH 0
 	CMP
 	JZ LOC_7588
@@ -4310,14 +4310,14 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_75B4
 LOC_7588:
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_75B4:
 	PUSHSTR "LockTargetTime2"
 	PUSHARG 1
@@ -4368,7 +4368,7 @@ LOC_75B4:
 	PUSH 8
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -4378,12 +4378,12 @@ __asm{
 	STACK 4
 	PUSHARG -4
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHARG -4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG -3
 	PUSHARG 1
@@ -4397,25 +4397,25 @@ __asm{
 	DIV
 	PUSH 20
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	MUL
 	PUSH 15005
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSHARG 3
 	PUSH 131072
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
 	PUSHARG 1
 	ADD
@@ -4428,25 +4428,25 @@ __asm{
 	DIV
 	PUSH 15
 	PUSH 44
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	MUL
 	PUSH 15005
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSHARG 3
 	PUSH 131072
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
 	PUSHARG 1
 	ADD
@@ -4459,23 +4459,23 @@ __asm{
 	DIV
 	PUSH 25
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	MUL
 	PUSH 15005
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSHARG 3
 	PUSH 131072
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 24
 	DELAY
 	PUSH 0
@@ -4489,37 +4489,37 @@ LOC_7A80:
 	PUSH 15006
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	MUL
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSH 12
 	NEG
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	PUSH 16
 	PUSH 42
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSH 131072
 	PUSH 196608
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 4
 	JMP LOC_7A80
@@ -4542,41 +4542,41 @@ void function ThunderAttach (arg_0) {
 __asm{
 	STACK 6
 	PUSHARG -2
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 2
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHARG 1
 	PUSH 1
 	ADD
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	PUSHARG 1
 	PUSH 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 4
 	PUSHARG 3
 	JZ LOC_7DA4
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	PUSH 14409
 	CMPZ
 	JZ LOC_7DA4
 	PUSHARG 3
 	PUSH 0
 	PUSH 14409
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHSTR "ThunderAttachAttack"
 	PUSHARG 3
 	PUSHARG 5
@@ -4588,14 +4588,14 @@ LOC_7DA4:
 	JZ LOC_7E34
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	PUSH 14409
 	CMPZ
 	JZ LOC_7E34
 	PUSHARG 4
 	PUSH 0
 	PUSH 14409
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHSTR "ThunderAttachAttack"
 	PUSHARG 4
 	PUSHARG 5
@@ -4611,7 +4611,7 @@ void function ThunderCallback (arg_0, arg_1) callsign 5001 {
 __asm{
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	INST_09 4
 	PUSH 1
 	CMP
@@ -4672,27 +4672,27 @@ __asm{
 	STACK 3
 	PUSH 40
 	PUSH 70
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -4
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 5001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 2
 	PUSH 98304
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	POPN 1
 LOC_8098:
@@ -4701,7 +4701,7 @@ LOC_8098:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	DECN 1
@@ -4712,7 +4712,7 @@ LOC_8098:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -4725,7 +4725,7 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSH 8
 	POPN 1
@@ -4736,38 +4736,38 @@ LOC_817C:
 	PUSH 10013
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 12288
 	PUSH 12288
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 2
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSHARG 2
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 2
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	DECN 1
 	JMP LOC_817C
 LOC_82B4:
 	PUSHARG 3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -4783,18 +4783,18 @@ __asm{
 	PUSH 128
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 15004
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031 
+	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031
 	PUSHARG 1
 	PUSH 8192
 	PUSH 8192
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "CreateThunderSparkle"
 	PUSHARG -3
 	PUSHARG -2
@@ -4804,11 +4804,11 @@ __asm{
 	PUSHARG 1
 	PUSH 2048
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 1
 	PUSH 30
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -4818,11 +4818,11 @@ __asm{
 	STACK 2
 	PUSH 40
 	PUSH 70
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	CMP
 	JZ LOC_847C
@@ -4841,32 +4841,32 @@ LOC_847C:
 LOC_84A4:
 	PUSH 15001
 	PUSH 15003
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_84C8:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 2
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 5001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -4876,14 +4876,14 @@ __asm{
 LOC_8598:
 	STACK 21
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\005\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHARG -2
 	SETARG 4
 	PUSH 0
 	SETARG 5
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
@@ -4891,36 +4891,36 @@ LOC_8598:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 9
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 10
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_8758
@@ -4931,10 +4931,10 @@ LOC_8758:
 	PUSH 128
 	POPN 4
 LOC_8768:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 17
 	PUSH 0
 	POPN 18
@@ -4964,10 +4964,10 @@ LOC_882C:
 	PUSH 0
 	CMP
 	JZ LOC_8924
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 6
 	PUSHARG 6
 	PUSH 0
@@ -4977,18 +4977,18 @@ LOC_882C:
 	POPN 6
 LOC_889C:
 	PUSHARG 6
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 12
 	PUSHARG 6
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 13
 	PUSHARG 6
 	POPN 5
 	PUSHARG 5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 15
 	PUSHARG 5
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 16
 	JMP LOC_8A84
 LOC_8924:
@@ -4996,23 +4996,23 @@ LOC_8924:
 	PUSH 8
 	CMPG
 	JZ LOC_8970
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 5
 	JMP LOC_8A84
 LOC_8970:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 12
 	PUSHARG 13
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 14
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 12
@@ -5023,8 +5023,8 @@ LOC_8970:
 	PUSHARG 14
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 5
 	PUSHARG 5
 	PUSH 0
@@ -5034,17 +5034,17 @@ LOC_8970:
 	CMP
 	ORZ
 	JZ LOC_8A84
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 5
 LOC_8A84:
 	PUSHARG 5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 9
 	PUSHARG 5
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 10
 	PUSHARG 8
 	PUSH 0
@@ -5089,7 +5089,7 @@ LOC_8BA4:
 LOC_8BCC:
 	PUSH 15001
 	PUSH 15003
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 11
 LOC_8BF0:
 	PUSHSTR "LockTargetTime"
@@ -5106,12 +5106,12 @@ LOC_8BF0:
 	JMP LOC_8C90
 LOC_8C48:
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 19
 	PUSHARG 19
 	POPN 20
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 21
 LOC_8C90:
 	PUSHARG 19
@@ -5138,11 +5138,11 @@ LOC_8CE4:
 LOC_8D20:
 	PUSHARG 20
 	PUSHARG 19
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 9
 	PUSH 150
 	PUSH 650
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 10
 	PUSHSTR "LockThunder"
 	PUSHARG 9
@@ -5150,7 +5150,7 @@ LOC_8D20:
 	PUSH 128
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 0
 	CALLBS
@@ -5191,7 +5191,7 @@ LOC_8E8C:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -5200,7 +5200,7 @@ void function BigThunder () {
 __asm{
 LOC_8EC4:
 	STACK 7
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
@@ -5208,33 +5208,33 @@ LOC_8EC4:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHARG 5
 	PUSHARG 6
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 20
 	DELAY
 	PUSHARG 3
@@ -5249,14 +5249,14 @@ LOC_903C:
 	POPN 4
 LOC_904C:
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHSTR "m005snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 5
 	PUSHARG 6
 	PUSH 120
@@ -5269,7 +5269,7 @@ LOC_904C:
 	PUSH 4
 	PUSH 16777216
 	PUSH 5002
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 4
 	DELAY
 	PUSHSTR "LockTargetTime3"
@@ -5278,13 +5278,13 @@ LOC_904C:
 	PUSH 4
 	PUSH 16777216
 	PUSH 5002
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 60
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -5293,19 +5293,19 @@ void function HideArrow (arg_0, arg_1) {
 __asm{
 	PUSH 30
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -2
 	JZ LOC_91DC
 	PUSHARG -2
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_91DC:
 	PUSHARG -3
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -5317,23 +5317,23 @@ __asm{
 	POPN 7
 LOC_9220:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_94AC
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG 3
 	PUSH 0
 	CMP
 	JZ LOC_9498
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG -3
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 5
 	INST_09 7
 	PUSH 0
@@ -5341,28 +5341,28 @@ LOC_9220:
 	JZ LOC_9318
 	PUSH 16012
 	PUSH 16018
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 6
 	DECARG 7
 	JMP LOC_933C
 LOC_9318:
 	PUSH 16012
 	PUSH 16013
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 6
 LOC_933C:
 	PUSHARG -3
 	PUSHARG 6
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSHARG -2
 	PUSH 1
 	CMP
 	PUSH 1
 	PUSH 256
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	AND
 	PUSH 0
@@ -5381,12 +5381,12 @@ LOC_933C:
 	PUSH 7045
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 7
 	PUSHARG 7
 	PUSH 32768
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_9450:
 	PUSHSTR "HideArrow"
 	PUSHARG 4
@@ -5395,7 +5395,7 @@ LOC_9450:
 	PUSH 0
 	CALLBS
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_94AC
 LOC_9498:
 	PUSH 1
@@ -5497,29 +5497,29 @@ LOC_96B4:
 void function FlyArrowLU () callsign 6003 {
 __asm{
 	STACK 2
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 2
 	PUSHARG 2
 	PUSH 16003
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 128
 	PUSH 64
 	PUSH 104
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSHSTR "arrow"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	INST_09 6
 	PUSH 1
 	CMP
@@ -5528,19 +5528,19 @@ __asm{
 	PUSH 16009
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 128
 	PUSH 64
 	PUSH 104
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_9840:
 	RETN 0
 
@@ -5549,29 +5549,29 @@ LOC_9840:
 void function FlyArrowRU () callsign 6004 {
 __asm{
 	STACK 2
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 0
 	PUSH 64
 	PUSH 104
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 128
 	PUSH 96
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSHSTR "arrow"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	INST_09 6
 	PUSH 1
 	CMP
@@ -5580,19 +5580,19 @@ __asm{
 	PUSH 16009
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 0
 	PUSH 64
 	PUSH 104
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 128
 	PUSH 96
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_99CC:
 	RETN 0
 
@@ -5607,7 +5607,7 @@ __asm{
 	PUSH 16004
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -5615,23 +5615,23 @@ __asm{
 	ADD
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG -2
 	JZ LOC_9AB8
 	PUSHARG 1
 	PUSH 6001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_9B00
 LOC_9AB8:
 	PUSHARG 1
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHSTR "TraceArrow"
 	PUSHARG 1
 	PUSHARG -3
@@ -5647,13 +5647,13 @@ LOC_9B00:
 	JZ LOC_9B48
 	PUSHARG 1
 	PUSH 6002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_9B48:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16010
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -5661,13 +5661,13 @@ LOC_9B48:
 	ADD
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_9BE4:
 	RETN 5
 
@@ -5682,7 +5682,7 @@ __asm{
 	PUSH 16007
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -5690,23 +5690,23 @@ __asm{
 	SUB
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG -2
 	JZ LOC_9CD0
 	PUSHARG 1
 	PUSH 6001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_9D18
 LOC_9CD0:
 	PUSHARG 1
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHSTR "TraceArrow"
 	PUSHARG 1
 	PUSHARG -3
@@ -5722,13 +5722,13 @@ LOC_9D18:
 	JZ LOC_9D60
 	PUSHARG 1
 	PUSH 6002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_9D60:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16010
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -5736,13 +5736,13 @@ LOC_9D60:
 	SUB
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_9DFC:
 	RETN 5
 
@@ -5757,62 +5757,62 @@ __asm{
 	PUSH 16004
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 6001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -2
 	PUSH 1
 	CMP
 	JZ LOC_A00C
 	PUSHARG 1
 	PUSH 6002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16010
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_A00C:
 	RETN 4
 
@@ -5827,14 +5827,14 @@ __asm{
 	PUSH 16007
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	NEG
@@ -5842,35 +5842,35 @@ __asm{
 	SUB
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 6001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG -2
 	PUSH 1
 	CMP
 	JZ LOC_A224
 	PUSHARG 1
 	PUSH 6002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16010
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	NEG
@@ -5878,13 +5878,13 @@ __asm{
 	SUB
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_A224:
 	RETN 4
 
@@ -5901,18 +5901,18 @@ __asm{
 	NEG
 	PUSH 0
 	PUSH 31
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 8
 	DELAY
 	PUSHARG -3
 	PUSH 10
 	PUSH 0
 	PUSH 30
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 8
 	DELAY
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -5927,7 +5927,7 @@ __asm{
 	PUSH 14
 	PUSH 0
 	PUSH 31
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 8
 	DELAY
 	PUSHARG -3
@@ -5935,11 +5935,11 @@ __asm{
 	NEG
 	PUSH 0
 	PUSH 30
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 8
 	DELAY
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -5953,13 +5953,13 @@ __asm{
 	PUSH 16001
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	RETN 3
 
 }}
@@ -5973,13 +5973,13 @@ __asm{
 	PUSH 16002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	RETN 3
 
 }}
@@ -5992,7 +5992,7 @@ LOC_A474:
 	POPN 2
 	PUSH 0
 	POPN 4
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	PUSH 96
 	MUL
 	PUSH 240
@@ -6010,7 +6010,7 @@ LOC_A4D8:
 	PUSH 16006
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSH 240
@@ -6028,10 +6028,10 @@ LOC_A4D8:
 	MUL
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSHSTR "AddSoldierLeft"
 	PUSH 240
@@ -6059,7 +6059,7 @@ LOC_A4D8:
 	PUSH 16008
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSH 240
@@ -6079,7 +6079,7 @@ LOC_A4D8:
 	MUL
 	ADD
 	PUSH 14
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "ChangeLeftFirePos"
 	PUSHARG 5
 	PUSHARG 3
@@ -6093,7 +6093,7 @@ LOC_A738:
 	PUSH 16005
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSHARG 6
@@ -6111,10 +6111,10 @@ LOC_A738:
 	MUL
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSHSTR "AddSoldierRight"
 	PUSHARG 6
@@ -6142,7 +6142,7 @@ LOC_A738:
 	PUSH 16008
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSHARG 6
@@ -6162,7 +6162,7 @@ LOC_A738:
 	MUL
 	ADD
 	PUSH 14
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "ChangeRightFirePos"
 	PUSHARG 5
 	PUSHARG 3
@@ -6199,16 +6199,16 @@ LOC_A9F8:
 	PUSH 1
 	SETARG 8
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\006\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHARG -2
 	SETARG 6
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	PUSH 96
 	MUL
 	PUSH 240
@@ -6216,36 +6216,36 @@ LOC_A9F8:
 	POPN 6
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -3
 	PUSHARG -2
 	CALL ProduceArrowSoldier
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_AC08
@@ -6278,10 +6278,10 @@ LOC_AC58:
 	INST_45
 	PUSH 60
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 9
 	PUSH 0
 	POPN 10
@@ -6311,16 +6311,16 @@ LOC_AD34:
 	PUSH 0
 	CMPG
 	JZ LOC_AF28
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 2
 	PUSH 0
@@ -6348,7 +6348,7 @@ LOC_AE30:
 	PUSHARG 4
 	POPN 12
 LOC_AE5C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_AECC
@@ -6358,7 +6358,7 @@ LOC_AE5C:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	CALLBS
@@ -6370,7 +6370,7 @@ LOC_AECC:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	CALLBS
@@ -6381,7 +6381,7 @@ LOC_AF28:
 	JMP LOC_AF5C
 LOC_AF30:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 11
 	PUSHARG 11
 	POPN 12
@@ -6392,7 +6392,7 @@ LOC_AF5C:
 	PUSH 650
 	CMPGE
 	JZ LOC_AFB8
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_AFB0
@@ -6408,10 +6408,10 @@ LOC_AFB8:
 	DIV
 	POPN 11
 LOC_AFE0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -6421,7 +6421,7 @@ LOC_AFE0:
 	POPN 3
 LOC_B034:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 11
 	PUSHARG 10
 	POPN 1
@@ -6430,14 +6430,14 @@ LOC_B060:
 	PUSH 400
 	NEG
 	PUSH 400
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	PUSH 150
 	PUSH 650
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_B138
@@ -6447,11 +6447,11 @@ LOC_B060:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 1
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_B194
 LOC_B138:
 	PUSHSTR "FlyArrowLB2"
@@ -6460,21 +6460,21 @@ LOC_B138:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 1
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_B194:
 	DECN 1
 	PUSHARG 1
 	PUSH 0
 	CMPG
 	JNZ LOC_B060
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -6484,7 +6484,7 @@ LOC_B194:
 	POPN 3
 LOC_B20C:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 11
 	PUSHARG -3
 	PUSH 10
@@ -6493,7 +6493,7 @@ LOC_B20C:
 	MUL
 	PUSH 32
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -3
 	SUB
 	PUSH 8
@@ -6509,35 +6509,35 @@ LOC_B2A4:
 	PUSH 400
 	NEG
 	PUSH 400
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	PUSH 200
 	PUSH 600
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	PUSHARG 4
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 7
 	PUSHARG 5
-	SYSCALL 0x109, (1 | (1 << 16)) ; ScreenYToBattleY 
+	SYSCALL 0x109, (1 | (1 << 16)) ; ScreenYToBattleY
 	POPN 8
 	PUSHARG 7
 	PUSHARG 8
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	JZ LOC_B418
 	PUSHARG 8
-	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX 
+	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX
 	POPN 8
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_B3DC
 	PUSHARG 8
 	PUSH 8
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	SUB
 	POPN 5
@@ -6547,12 +6547,12 @@ LOC_B3DC:
 	PUSH 8
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	POPN 5
 LOC_B418:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_B498
@@ -6562,11 +6562,11 @@ LOC_B418:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_B4F4
 LOC_B498:
 	PUSHSTR "FlyArrowLB2"
@@ -6575,21 +6575,21 @@ LOC_B498:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_B4F4:
 	DECN 1
 	PUSHARG 1
 	PUSH 0
 	CMPG
 	JNZ LOC_B2A4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -6599,10 +6599,10 @@ LOC_B4F4:
 	POPN 3
 LOC_B56C:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSH 0
@@ -6617,7 +6617,7 @@ LOC_B56C:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -6713,45 +6713,45 @@ LOC_B814:
 void function StoneEmitterCmd3 () callsign 7005 {
 __asm{
 	STACK 5
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 4
 	PUSHARG 3
 	PUSH 17003
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
 	PUSH 117
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 30
 	PUSH 30
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 5
 	PUSHARG 5
 	JZ LOC_B980
 	PUSHARG 5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 1
 	PUSH 17022
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG 5
 	PUSH 30
 	PUSH 30
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_B980:
 	PUSH 2
 	DELAY
@@ -6759,33 +6759,33 @@ LOC_B980:
 	PUSH 17004
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSH 30
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 2
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 2
 	PUSH 1024
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 32
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 5
 	JZ LOC_BA9C
 	PUSHARG 5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_BA9C:
 	RETN 0
 
@@ -6796,35 +6796,35 @@ __asm{
 	STACK 2
 	PUSHSTR "m007snd03"
 	PUSH 200
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 2
 	PUSHARG -2
 	PUSH 2501
 	PUSHARG 2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	INST_09 9
 	PUSH 0
 	CMP
 	JZ LOC_BB74
 	PUSHARG 1
 	PUSH 7001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_BB90
 LOC_BB74:
 	PUSHARG 1
 	PUSH 7002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_BB90:
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F 
+	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F
 	RETN 1
 
 }}
@@ -6832,10 +6832,10 @@ LOC_BB90:
 void function FallExplode1 () callsign 7003 {
 __asm{
 	STACK 3
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008 
+	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008
 	PUSHSTR "StoneExplode"
 	PUSHARG 3
 	PUSH 0
@@ -6852,12 +6852,12 @@ LOC_BC20:
 	PUSHARG 3
 	PUSH 17007
 	PUSH 17011
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	INST_09 9
 	PUSH 0
@@ -6865,17 +6865,17 @@ LOC_BC20:
 	JZ LOC_BCD8
 	PUSHARG 1
 	PUSH 7001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_BCF4
 LOC_BCD8:
 	PUSHARG 1
 	PUSH 7002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_BCF4:
 	PUSHARG 1
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "Func7005"
 	PUSHARG 1
 	PUSH 0
@@ -6897,20 +6897,20 @@ __asm{
 	PUSHARG -2
 	PUSH 4
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG -2
 	PUSH 24576
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG -2
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSH 20
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_BE1C:
 	PUSHARG 2
@@ -6921,7 +6921,7 @@ LOC_BE1C:
 	PUSHARG -2
 	PUSHARG 1
 	PUSHARG 1
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 256
 	SUB
@@ -6932,14 +6932,14 @@ LOC_BE1C:
 	JZ LOC_BEB8
 	PUSHARG -2
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 LOC_BEB8:
 	PUSH 1
 	DELAY
 	JMP LOC_BE1C
 LOC_BECC:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -6953,43 +6953,43 @@ __asm{
 	JZ LOC_BF38
 	PUSHSTR "m007snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 1
 	SETARG 11
 LOC_BF38:
 	PUSHARG -2
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 2
 	PUSHARG -2
 	PUSH 17012
 	PUSHARG 2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 57344
 	PUSH 57344
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 67108864
 	ADD
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	INST_09 9
 	PUSH 0
 	CMP
 	JZ LOC_C030
 	PUSHARG 1
 	PUSH 7001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_C04C
 LOC_C030:
 	PUSHARG 1
 	PUSH 7002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_C04C:
 	RETN 1
 
@@ -6998,10 +6998,10 @@ LOC_C04C:
 void function FallExplode2 () callsign 7004 {
 __asm{
 	STACK 3
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008 
+	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008
 	PUSHSTR "FireStoneExplode"
 	PUSHARG 3
 	PUSH 0
@@ -7018,12 +7018,12 @@ LOC_C0C0:
 	PUSHARG 3
 	PUSH 17016
 	PUSH 17020
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 2
 	PUSH 3
@@ -7033,29 +7033,29 @@ LOC_C0C0:
 	JZ LOC_C200
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 67108864
 	ADD
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	INST_09 9
 	PUSH 0
 	CMP
 	JZ LOC_C1E4
 	PUSHARG 1
 	PUSH 7001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	JMP LOC_C200
 LOC_C1E4:
 	PUSHARG 1
 	PUSH 7002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_C200:
 	PUSHARG 1
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "Func7006"
 	PUSHARG 1
 	PUSH 0
@@ -7077,18 +7077,18 @@ __asm{
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG -2
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSH 30
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_C310:
 	PUSHARG 2
@@ -7099,7 +7099,7 @@ LOC_C310:
 	PUSHARG -2
 	PUSHARG 1
 	PUSHARG 1
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 256
 	SUB
@@ -7109,7 +7109,7 @@ LOC_C310:
 	JMP LOC_C310
 LOC_C388:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -7119,7 +7119,7 @@ __asm{
 	STACK 2
 	PUSHARG -4
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_C410
@@ -7127,7 +7127,7 @@ __asm{
 	PUSH 17023
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_C444
 LOC_C410:
@@ -7135,18 +7135,18 @@ LOC_C410:
 	PUSH 17002
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_C444:
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG -2
 	PUSH 1
 	CMP
@@ -7155,17 +7155,17 @@ LOC_C444:
 	PUSH 17021
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 81920
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSHARG 2
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_C580
@@ -7174,14 +7174,14 @@ LOC_C444:
 	NEG
 	PUSH 0
 	PUSH 42
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_C5AC
 LOC_C580:
 	PUSHARG 2
 	PUSH 63
 	PUSH 0
 	PUSH 42
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_C5AC:
 	RETN 5
 
@@ -7192,10 +7192,10 @@ __asm{
 	STACK 1
 LOC_C5BC:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_C6C8
 	PUSHARG -4
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -7216,7 +7216,7 @@ LOC_C618:
 	PUSHARG -5
 	PUSHARG -3
 	PUSHARG -3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_C680:
 	PUSHARG -2
 	PUSH 16
@@ -7225,12 +7225,12 @@ LOC_C680:
 	INCN -2
 	PUSHARG -5
 	PUSHARG -2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 LOC_C6C0:
 	JMP LOC_C5BC
 LOC_C6C8:
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -7248,7 +7248,7 @@ __asm{
 	PUSH 17005
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_C784
 LOC_C750:
@@ -7256,7 +7256,7 @@ LOC_C750:
 	PUSH 17014
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_C784:
 	PUSHARG 1
@@ -7265,24 +7265,24 @@ LOC_C784:
 	ADD
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 17004
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -6
@@ -7290,21 +7290,21 @@ LOC_C784:
 	ADD
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 2
 	PUSH 23
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 2
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 4
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHSTR "TraceStoneShadow"
 	PUSHARG 2
 	PUSHARG 1
@@ -7319,7 +7319,7 @@ LOC_C784:
 	PUSH 17013
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -7327,17 +7327,17 @@ LOC_C784:
 	ADD
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_CA18:
 	RETN 5
 
@@ -7356,7 +7356,7 @@ __asm{
 	PUSH 17006
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_CAC0
 LOC_CA8C:
@@ -7364,7 +7364,7 @@ LOC_CA8C:
 	PUSH 17015
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_CAC0:
 	PUSHARG 1
@@ -7373,24 +7373,24 @@ LOC_CAC0:
 	SUB
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 17004
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -6
@@ -7398,21 +7398,21 @@ LOC_CAC0:
 	SUB
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 2
 	PUSH 23
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 2
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 4
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHSTR "TraceStoneShadow"
 	PUSHARG 2
 	PUSHARG 1
@@ -7427,7 +7427,7 @@ LOC_CAC0:
 	PUSH 17013
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
@@ -7435,17 +7435,17 @@ LOC_CAC0:
 	SUB
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_CD54:
 	RETN 5
 
@@ -7455,10 +7455,10 @@ void function FlyStoneLB2 (arg_0, arg_1, arg_2, arg_3, arg_4) {
 __asm{
 	STACK 3
 	PUSHARG -6
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -6
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN -5
 	PUSHARG -4
 	DELAY
@@ -7470,7 +7470,7 @@ __asm{
 	PUSH 17005
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_CE34
 LOC_CE00:
@@ -7478,17 +7478,17 @@ LOC_CE00:
 	PUSH 17014
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_CE34:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 17004
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_CF20
@@ -7500,7 +7500,7 @@ LOC_CE34:
 	ADD
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 3
 	PUSHARG 2
 	PUSH 264
@@ -7509,7 +7509,7 @@ LOC_CE34:
 	ADD
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	JMP LOC_CFF8
 LOC_CF20:
 	PUSHARG 1
@@ -7517,54 +7517,54 @@ LOC_CF20:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSHARG -6
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSH 264
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 LOC_CFF8:
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 3
 	PUSH 23
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 3
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 3
 	PUSH 4
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHSTR "TraceStoneShadow"
 	PUSHARG 3
 	PUSHARG 1
@@ -7579,31 +7579,31 @@ LOC_CFF8:
 	PUSH 17013
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_D21C:
 	RETN 5
 
@@ -7613,10 +7613,10 @@ void function FlyStoneRB2 (arg_0, arg_1, arg_2, arg_3, arg_4) {
 __asm{
 	STACK 3
 	PUSHARG -6
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -6
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN -5
 	PUSHARG -4
 	DELAY
@@ -7628,7 +7628,7 @@ __asm{
 	PUSH 17006
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_D2FC
 LOC_D2C8:
@@ -7636,17 +7636,17 @@ LOC_D2C8:
 	PUSH 17015
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_D2FC:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 17004
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_D3E8
@@ -7658,7 +7658,7 @@ LOC_D2FC:
 	SUB
 	PUSHARG -5
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 3
 	PUSHARG 2
 	PUSH 264
@@ -7667,7 +7667,7 @@ LOC_D2FC:
 	SUB
 	PUSHARG -5
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	JMP LOC_D4C8
 LOC_D3E8:
 	PUSHARG 1
@@ -7675,7 +7675,7 @@ LOC_D3E8:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	NEG
@@ -7683,13 +7683,13 @@ LOC_D3E8:
 	SUB
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSHARG -6
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSH 264
 	NEG
@@ -7697,34 +7697,34 @@ LOC_D3E8:
 	SUB
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 LOC_D4C8:
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 3
 	PUSH 23
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 3
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 3
 	PUSH 4
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHSTR "TraceStoneShadow"
 	PUSHARG 3
 	PUSHARG 1
@@ -7739,14 +7739,14 @@ LOC_D4C8:
 	PUSH 17013
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	NEG
@@ -7754,17 +7754,17 @@ LOC_D4C8:
 	SUB
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_D6F0:
 	RETN 5
 
@@ -7781,38 +7781,38 @@ LOC_D6F8:
 	PUSH 0
 	SETARG 11
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\007\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
 	PUSHARG -3
@@ -7826,7 +7826,7 @@ LOC_D898:
 	PUSH 7002
 	POPN 7
 LOC_D8A8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_D8DC
@@ -7854,7 +7854,7 @@ LOC_D930:
 LOC_D950:
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 13
 	PUSHSTR "ProduceStoneEmitter"
 	PUSH 6576
@@ -7862,7 +7862,7 @@ LOC_D950:
 	PUSH 7
 	MUL
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	MUL
@@ -7871,7 +7871,7 @@ LOC_D950:
 	PUSH 7
 	MUL
 	SUB
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
@@ -7890,7 +7890,7 @@ LOC_D950:
 	PUSHARG 13
 	PUSHARG 6
 	PUSHARG -3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHARG 1
 	PUSHARG 8
 	SUB
@@ -7910,7 +7910,7 @@ LOC_D950:
 LOC_DACC:
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 13
 	PUSHSTR "ProduceStoneEmitter"
 	PUSH 6576
@@ -7922,7 +7922,7 @@ LOC_DACC:
 	PUSH 2
 	MUL
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	MUL
@@ -7935,7 +7935,7 @@ LOC_DACC:
 	PUSH 2
 	MUL
 	SUB
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
@@ -7954,7 +7954,7 @@ LOC_DACC:
 	PUSHARG 13
 	PUSHARG 6
 	PUSHARG -3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHARG 1
 	PUSHARG 8
 	SUB
@@ -7964,7 +7964,7 @@ LOC_DACC:
 	CMPG
 	JNZ LOC_DACC
 LOC_DC3C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_DCB0
@@ -8001,10 +8001,10 @@ LOC_DD0C:
 	INST_45
 	PUSH 92
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 9
 	PUSH 0
 	POPN 10
@@ -8030,16 +8030,16 @@ LOC_DD94:
 	SUB
 	POPN 1
 LOC_DDE8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 2
 	PUSH 0
@@ -8067,7 +8067,7 @@ LOC_DEC8:
 	PUSHARG 4
 	POPN 12
 LOC_DEF4:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_DF74
@@ -8077,11 +8077,11 @@ LOC_DEF4:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSHARG 7
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_DFD0
 LOC_DF74:
 	PUSHSTR "FlyStoneLB2"
@@ -8090,11 +8090,11 @@ LOC_DF74:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSHARG 7
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_DFD0:
 	DECN 1
 	PUSHARG 1
@@ -8104,7 +8104,7 @@ LOC_DFD0:
 	JMP LOC_E028
 LOC_DFFC:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 11
 	PUSHARG 11
 	POPN 12
@@ -8122,10 +8122,10 @@ LOC_E028:
 	SUB
 	POPN 12
 LOC_E07C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -8135,7 +8135,7 @@ LOC_E07C:
 	POPN 3
 LOC_E0D0:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 11
 	PUSHARG 10
 	POPN 1
@@ -8144,14 +8144,14 @@ LOC_E0FC:
 	PUSH 320
 	NEG
 	PUSH 320
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	PUSH 150
 	PUSH 650
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_E1D4
@@ -8161,11 +8161,11 @@ LOC_E0FC:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSHARG 7
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_E230
 LOC_E1D4:
 	PUSHSTR "FlyStoneLB1"
@@ -8174,21 +8174,21 @@ LOC_E1D4:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSHARG 7
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_E230:
 	DECN 1
 	PUSHARG 1
 	PUSH 0
 	CMPG
 	JNZ LOC_E0FC
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -8198,10 +8198,10 @@ LOC_E230:
 	POPN 3
 LOC_E2A8:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSH 0
@@ -8216,7 +8216,7 @@ LOC_E2A8:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 3
 
 }}
@@ -8279,20 +8279,20 @@ LOC_E480:
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 8
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031 
+	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031
 	PUSH 1
 	POPN 2
 LOC_E538:
@@ -8303,7 +8303,7 @@ LOC_E538:
 	PUSH 1
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_E590
@@ -8320,7 +8320,7 @@ LOC_E590:
 	PUSHARG 2
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSHARG -2
 	CMP
@@ -8328,7 +8328,7 @@ LOC_E590:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_E624:
 	INCN 2
 	JMP LOC_E538
@@ -8342,35 +8342,35 @@ __asm{
 	STACK 3
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG 2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG 2
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHSTR "CreateExplodeRound"
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8378,7 +8378,7 @@ __asm{
 	PUSHARG 1
 	PUSH 2
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8386,7 +8386,7 @@ __asm{
 	PUSHARG 1
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8394,7 +8394,7 @@ __asm{
 	PUSHARG 1
 	PUSH 5
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8402,7 +8402,7 @@ __asm{
 	PUSHARG 1
 	PUSH 7
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8410,7 +8410,7 @@ __asm{
 	PUSHARG 1
 	PUSH 9
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -8427,35 +8427,35 @@ __asm{
 	PUSH 18004
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 2176
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -8467,40 +8467,40 @@ LOC_E9F4:
 	PUSH 1
 	SETARG 12
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\008\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 10
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSH 10
 	DELAY
@@ -8514,7 +8514,7 @@ LOC_E9F4:
 	CALL ProduceAirCircle
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 20
 	DELAY
 	PUSH 0
@@ -8529,12 +8529,12 @@ LOC_EBCC:
 	PUSHARG -2
 	PUSH 72
 	PUSHARG -3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8001
 	CALLBS
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 1
 	PUSH 0
@@ -8542,7 +8542,7 @@ LOC_EBCC:
 	JZ LOC_EC80
 	PUSHSTR "m008snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 LOC_EC80:
 	INCN 1
 	JMP LOC_EBCC
@@ -8556,7 +8556,7 @@ LOC_EC90:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 3
 
 }}
@@ -8632,14 +8632,14 @@ __asm{
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 9001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_EF00:
@@ -8651,11 +8651,11 @@ LOC_EF00:
 	JZ LOC_F0C0
 	PUSHARG 1
 	PUSHARG 4
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 98304
 	PUSHARG 3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -3
@@ -8665,7 +8665,7 @@ LOC_EF00:
 	PUSHARG 5
 	MUL
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 2
 	DELAY
 	PUSHARG 3
@@ -8709,7 +8709,7 @@ LOC_F0B0:
 	JMP LOC_EF00
 LOC_F0C0:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -8732,7 +8732,7 @@ LOC_F0F4:
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 4
 	DELAY
 	INCN 1
@@ -8747,45 +8747,45 @@ __asm{
 LOC_F17C:
 	STACK 5
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\009\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 1
 	SETARG 13
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG -4
 	PUSH 0
@@ -8826,7 +8826,7 @@ LOC_F3CC:
 	PUSH 32
 	MUL
 	PUSHARG -3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHARG 1
 	PUSHARG 2
 	SUB
@@ -8837,7 +8837,7 @@ LOC_F3CC:
 	JNZ LOC_F3CC
 	PUSHSTR "m009snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateEightWay"
 	INST_45
 	PUSH 30
@@ -8845,7 +8845,7 @@ LOC_F3CC:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 3
 
 }}
@@ -8870,44 +8870,44 @@ LOC_F4EC:
 	PUSH 10
 	CMPL
 	JZ LOC_F668
-	PUSHARG -3
+	PUSHARG -3 // father object. NOTE it consists with 2rd arg of SYSCALL 0x1.
 	PUSH 20005
 	PUSH 20010
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	PUSHARG -2
-	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand // dwSequence
+	PUSHARG -2	//object flag. NOTE it consists with 3rd arg of SYSCALL 0x1.
+	PUSH 0		//dwAngleOffset
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG 1
 	PUSH 10752
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 256
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 64
 	PUSH 32
 	SUB
 	PUSH 64
 	PUSH 32
 	ADD
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 512
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_F4EC
 LOC_F668:
@@ -8928,41 +8928,41 @@ LOC_F688:
 	PUSHARG -3
 	PUSH 20005
 	PUSH 20010
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG 1
 	PUSH 10752
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 256
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 64
 	PUSH 32
 	SUB
 	PUSH 64
 	PUSH 32
 	ADD
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 7
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 32
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 512
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_F688
 LOC_F804:
@@ -8977,10 +8977,10 @@ __asm{
 	POPN 1
 LOC_F824:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_FB10
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 2
 	PUSHARG 2
 	PUSH 0
@@ -8995,70 +8995,70 @@ LOC_F824:
 LOC_F8B0:
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 46
 	PUSH 54
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 3
 	DELAY
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -3
 	PUSH 49152
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	INCN 1
 	JMP LOC_FAFC
 LOC_F974:
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 42
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 4
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 2
 	DELAY
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -3
 	PUSH 32768
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	INCN 1
 	JMP LOC_FAFC
 LOC_FA38:
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 40
 	PUSH 44
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 1
 	DELAY
 	PUSHARG -3
 	PUSH 65536
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -3
 	PUSH 16384
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	INCN 1
 	JMP LOC_FAFC
 LOC_FAFC:
@@ -9077,7 +9077,7 @@ __asm{
 	PUSHARG -6
 	PUSHARG 2
 	PUSHARG -4
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -5
 	PUSH 0
@@ -9098,29 +9098,29 @@ LOC_FBAC:
 	PUSHARG 2
 	PUSHARG -5
 	PUSHARG -4
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 43008
 	PUSH 73728
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 61440
 	PUSH 73728
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 512
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 52
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceStone"
 	PUSHARG 1
 	PUSHARG -2
@@ -9130,7 +9130,7 @@ LOC_FBAC:
 	PUSHARG 1
 	PUSH 48
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 6
 
 }}
@@ -9139,33 +9139,33 @@ void function ProduceSomethingXY (arg_0, arg_1, arg_2, arg_3, arg_4, arg_5) {
 __asm{
 	STACK 6
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	PUSHARG -5
-	PUSHARG -4
-	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	PUSHARG -5	// object sequence
+	PUSHARG -4  // dwFlags (really? Methinks it is direction (since in ConvexStone() it is 0 or 128). It can't be a flag; no flag could be 0x80. )
+	PUSH 0	// dwAngleOffset
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -3
 	JZ LOC_FD78
-	PUSHARG -3
-	PUSHARG 1
-	PUSHARG -4
-	PUSH 0
-	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 
+	PUSHARG -3	// ebp+8  dwScriptIndex; will pass through to dwScriptIndex in DoScript_1().
+	PUSHARG 1	// ebp+C  from here it is a handle, created as object with -5(sequence) and belongs to atker_major.
+	PUSHARG -4	// ebp+10 direction?
+	PUSH 0		// ebp+14 can't guess anything. always 0 when SYSCALL 0x1.
+	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 // will use GetScriptLinkedObject() of this script as pObject of DoScript_1(). The use of following args are unknown.
 LOC_FD78:
 	PUSHARG 1
 	PUSHARG -7
 	PUSHARG -6
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_104FC
 	PUSH 12
@@ -9181,21 +9181,21 @@ LOC_FD78:
 	NEG
 	PUSH 9
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 147
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20012
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 134
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20011
@@ -9203,21 +9203,21 @@ LOC_FD78:
 	NEG
 	PUSH 9
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 120
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20012
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 107
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20014
@@ -9225,21 +9225,21 @@ LOC_FD78:
 	NEG
 	PUSH 12
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 99
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20013
 	PUSH 10
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 85
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20011
@@ -9247,21 +9247,21 @@ LOC_FD78:
 	NEG
 	PUSH 10
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 70
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20014
 	PUSH 11
 	PUSH 13
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 67
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20012
@@ -9269,21 +9269,21 @@ LOC_FD78:
 	NEG
 	PUSH 11
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 52
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20013
 	PUSH 11
 	PUSH 13
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 49
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	JMP LOC_104AC
 LOC_101CC:
 	PUSHSTR "BrokenStone"
@@ -9293,21 +9293,21 @@ LOC_101CC:
 	NEG
 	PUSH 9
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 120
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20012
 	PUSH 6
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 107
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20014
@@ -9315,21 +9315,21 @@ LOC_101CC:
 	NEG
 	PUSH 9
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 99
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20013
 	PUSH 7
 	PUSH 9
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 85
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20011
@@ -9337,21 +9337,21 @@ LOC_101CC:
 	NEG
 	PUSH 7
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 70
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20014
 	PUSH 8
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 67
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20012
@@ -9359,31 +9359,31 @@ LOC_101CC:
 	NEG
 	PUSH 7
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 52
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "BrokenStone"
 	PUSHARG 1
 	PUSH 20013
 	PUSH 7
 	PUSH 9
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 49
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_104AC:
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHSTR "BrokenStone"
 	INST_45
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_1052C
 LOC_104FC:
 	PUSH 8
@@ -9391,7 +9391,7 @@ LOC_104FC:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_1052C:
 	RETN 6
 
@@ -9404,41 +9404,41 @@ LOC_10534:
 	PUSH 10002
 	POPN 9
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\010\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHARG 5
 	PUSHARG 6
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_106B4
@@ -9450,10 +9450,10 @@ LOC_106B4:
 	POPN 10
 LOC_106C4:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHARG 5
 	PUSHARG 6
@@ -9464,10 +9464,10 @@ LOC_106C4:
 	PUSH 15
 	DELAY
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 	PUSHARG -2
 	PUSH 0
@@ -9514,7 +9514,7 @@ LOC_10834:
 	PUSHARG 10
 	PUSHARG 9
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "ProduceSomethingXY"
 	PUSHARG 5
 	PUSHARG 7
@@ -9530,7 +9530,7 @@ LOC_10834:
 	PUSHARG 10
 	PUSHARG 9
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "LockTargetXY"
 	PUSHARG 5
 	PUSHARG 7
@@ -9547,7 +9547,7 @@ LOC_10834:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 1
 	POPN 2
 LOC_109AC:
@@ -9604,7 +9604,7 @@ LOC_10A3C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	INCN 3
 	JMP LOC_10A3C
 LOC_10B28:
@@ -9613,7 +9613,7 @@ LOC_10B28:
 LOC_10B38:
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 LOC_10B58:
 	PUSH 1
@@ -9621,7 +9621,7 @@ LOC_10B58:
 	PUSH 240
 	NEG
 	PUSH 240
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 7
 	PUSHARG 7
 	PUSHARG 11
@@ -9644,7 +9644,7 @@ LOC_10BEC:
 	PUSH 110
 	NEG
 	PUSH 340
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 8
 	PUSHARG 8
 	PUSHARG 12
@@ -9678,7 +9678,7 @@ LOC_10C80:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -9688,27 +9688,27 @@ __asm{
 	STACK 4
 	PUSHARG -2
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -2
 	PUSH 0
 	PUSH 6
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 1
 	PUSH 0
 	PUSH 18
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 4
 LOC_10DAC:
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 2
 	PUSHARG -2
 	PUSHARG -3
@@ -9717,7 +9717,7 @@ LOC_10DAC:
 	PUSHARG 2
 	PUSHARG 3
 	SUB
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG 1
@@ -9733,17 +9733,17 @@ LOC_10DAC:
 	JMP LOC_10EC0
 LOC_10E7C:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_10EA4
 	JMP LOC_10EC0
 LOC_10EA4:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JNZ LOC_10DAC
 LOC_10EC0:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -9755,19 +9755,19 @@ __asm{
 	POPN 1
 LOC_10EF4:
 	PUSHARG -7
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_10FE0
 	PUSHARG -2
 	JZ LOC_10F4C
 	PUSHARG 1
 	PUSHARG -5
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	POPN 2
 	JMP LOC_10F70
 LOC_10F4C:
 	PUSHARG 1
 	PUSHARG -5
-	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202 
+	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202
 	POPN 2
 LOC_10F70:
 	PUSHARG -7
@@ -9775,7 +9775,7 @@ LOC_10F70:
 	PUSH 0
 	PUSHARG 2
 	PUSHARG -6
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG 1
@@ -9795,27 +9795,27 @@ __asm{
 	STACK 5
 	PUSHARG -2
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -2
 	PUSH 0
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 1
 	PUSH 40
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 4
 LOC_1108C:
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 2
 	PUSHARG -2
 	PUSHARG -3
@@ -9824,7 +9824,7 @@ LOC_1108C:
 	PUSHARG 2
 	PUSHARG 3
 	SUB
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG 1
@@ -9840,17 +9840,17 @@ LOC_1108C:
 	JMP LOC_111A0
 LOC_1115C:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_11184
 	JMP LOC_111A0
 LOC_11184:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JNZ LOC_1108C
 LOC_111A0:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -9860,25 +9860,25 @@ __asm{
 	STACK 1
 	PUSH 10
 	PUSH 18
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -2
 	PUSH 21003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 524288
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG 1
 	PUSH 16384
 	PUSH 49152
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 16384
 	PUSH 49152
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "TornadoStoneMotion"
 	PUSHARG -2
 	PUSHARG 1
@@ -9896,36 +9896,36 @@ __asm{
 	PUSH 7050
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 128
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 16384
 	PUSH 18432
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 1
 	PUSH 12
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 512
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	RETN 1
 
 }}
@@ -9937,14 +9937,14 @@ __asm{
 	POPN 1
 LOC_1140C:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_114CC
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 5
 	MOD
@@ -9972,7 +9972,7 @@ __asm{
 	STACK 15
 	PUSH 0
 	PUSH 2134
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	AND
 	POPN 15
@@ -9980,7 +9980,7 @@ __asm{
 	PUSH 21002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHSTR "BottomMotion"
 	PUSHARG -2
@@ -9999,7 +9999,7 @@ LOC_1157C:
 	PUSH 21001
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	PUSHARG 14
 	SETNR 2
 	PUSHARG 14
@@ -10018,7 +10018,7 @@ LOC_1157C:
 	PUSHARG 14
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "TornadoMotion"
 	PUSHARG -2
 	PUSHARG 14
@@ -10030,7 +10030,7 @@ LOC_1157C:
 	MUL
 	PUSH 8
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 32
 	PUSHARG 14
 	PUSH 2
@@ -10038,12 +10038,12 @@ LOC_1157C:
 	MUL
 	PUSHARG 14
 	PUSHARG 15
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	INCN 14
 	JMP LOC_1157C
 LOC_116F0:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_11720
 	PUSH 2
 	DELAY
@@ -10052,7 +10052,7 @@ LOC_11720:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 0
 	POPN 14
 LOC_11754:
@@ -10066,7 +10066,7 @@ LOC_11754:
 	PUSHNR 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	INCN 14
 	JMP LOC_11754
 LOC_117B8:
@@ -10079,12 +10079,12 @@ __asm{
 	STACK 4
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 4
 	PUSHARG 4
 	PUSH 0
@@ -10103,30 +10103,30 @@ LOC_1184C:
 	NEG
 	PUSH 3
 	NEG
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	JMP LOC_118C4
 LOC_1189C:
 	PUSH 2
 	NEG
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_118C4:
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 LOC_118E8:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_119B8
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -3
@@ -10149,7 +10149,7 @@ LOC_119B0:
 	JMP LOC_118E8
 LOC_119B8:
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -10162,22 +10162,22 @@ LOC_119D4:
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 134217728
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 11001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	INST_01 3
 
@@ -10188,13 +10188,13 @@ __asm{
 	STACK 3
 LOC_11AA0:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_11C00
 	PUSHARG -4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG -3
@@ -10483,41 +10483,41 @@ __asm{
 LOC_12178:
 	STACK 16
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\011\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 4
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSH 2
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_122E8
@@ -10528,19 +10528,19 @@ LOC_122E8:
 	PUSH 128
 	POPN 3
 LOC_122F8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 8
 	PUSHARG 8
 	PUSH 0
 	CMP
 	JZ LOC_12390
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -10553,7 +10553,7 @@ LOC_12390:
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 9
 	PUSHARG 9
 	PUSHARG -2
@@ -10561,12 +10561,12 @@ LOC_12390:
 	MUL
 	PUSH 160
 	PUSH 200
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F 
+	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F
 	PUSHSTR "m011snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "LockCameraSimple"
 	PUSHARG 9
 	PUSH 320
@@ -10589,7 +10589,7 @@ LOC_12468:
 	PUSH 10
 	NEG
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 11
 	PUSHARG 7
@@ -10598,7 +10598,7 @@ LOC_12468:
 	PUSH 10
 	NEG
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 13
 	PUSHARG 9
@@ -10625,39 +10625,39 @@ LOC_12468:
 	JMP LOC_12468
 LOC_125B8:
 	PUSHARG 9
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_12984
 	PUSHARG 8
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_12624
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 8
 LOC_12624:
 	PUSHARG 8
 	JZ LOC_127E0
 	PUSHARG 8
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 1
 	PUSHARG 8
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 2
 	PUSH 4
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 11
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 11
 	PUSHARG 11
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 10
 	PUSH 0
 	POPN 12
@@ -10665,7 +10665,7 @@ LOC_12624:
 	PUSH 1
 	CMPG
 	JZ LOC_12768
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 1
@@ -10674,18 +10674,18 @@ LOC_12624:
 	PUSHARG 11
 	PUSH 1
 	PUSHARG 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 12
 LOC_12768:
 	PUSHARG 12
 	PUSH 0
 	CMP
 	JZ LOC_127D8
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 12
 	PUSHARG 12
 	PUSH 0
@@ -10696,10 +10696,10 @@ LOC_12768:
 LOC_127D8:
 	JMP LOC_12834
 LOC_127E0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 12
 	PUSHARG 12
 	PUSH 0
@@ -10709,16 +10709,16 @@ LOC_127E0:
 	POPN 12
 LOC_12834:
 	PUSHARG 9
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 14
 	PUSHARG 9
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 15
 	PUSHARG 12
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 12
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 14
 	PUSHARG 15
@@ -10739,7 +10739,7 @@ LOC_12834:
 	PUSHARG 9
 	PUSHARG 12
 	PUSHARG 16
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHSTR "WaitTarget"
 	PUSHARG 9
 	PUSHARG 1
@@ -10757,7 +10757,7 @@ LOC_12984:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -10835,22 +10835,22 @@ __asm{
 	POPN 4
 LOC_12B84:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_12D30
 	PUSH 1
 	DELAY
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_12BDC
 	JMP LOC_12D30
 LOC_12BDC:
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG 2
 	PUSHARG 1
@@ -10874,7 +10874,7 @@ LOC_12C60:
 	JZ LOC_12CC8
 	PUSHARG -3
 	PUSH 4
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 2
 	POPN 4
 	JMP LOC_12D28
@@ -10889,7 +10889,7 @@ LOC_12CC8:
 	JZ LOC_12D28
 	PUSHARG -3
 	PUSH 2
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 1
 	POPN 4
 LOC_12D28:
@@ -10903,13 +10903,13 @@ void function MoveDuplicator (arg_0, arg_1, arg_2) {
 __asm{
 	STACK 3
 	PUSHARG -4
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -4
@@ -10918,7 +10918,7 @@ __asm{
 	PUSH 64
 	ADD
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG -2
 	POPN 1
 LOC_12DE0:
@@ -10929,11 +10929,11 @@ LOC_12DE0:
 	PUSH 64
 	ADD
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_12E54
 	JMP LOC_12E78
@@ -10945,7 +10945,7 @@ LOC_12E54:
 	JNZ LOC_12DE0
 LOC_12E78:
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -10954,7 +10954,7 @@ void function ProduceDuplicator (arg_0, arg_1, arg_2, arg_3) {
 __asm{
 LOC_12E94:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_12F0C
 	PUSHSTR "DuplicatorShadow"
 	PUSHARG -5
@@ -10964,7 +10964,7 @@ LOC_12E94:
 	PUSH 8
 	SUB
 	PUSH 14
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 8
 	DELAY
 	JMP LOC_12E94
@@ -10986,7 +10986,7 @@ LOC_12F40:
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -4
 	PUSH 0
@@ -10997,38 +10997,38 @@ LOC_12F40:
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_12FF4
 LOC_12FC8:
 	PUSHARG 1
 	PUSH 8
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_12FF4:
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 20
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_13088:
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_130E8
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_130D4
@@ -11039,7 +11039,7 @@ LOC_130D4:
 	JMP LOC_13088
 LOC_130E8:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -11049,10 +11049,10 @@ __asm{
 LOC_13104:
 	STACK 10
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\012\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
@@ -11060,24 +11060,24 @@ LOC_13104:
 	POPN 10
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_131BC
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 10
 LOC_131BC:
 	PUSH 1
 	PUSH 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
 	SUB
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_13224
@@ -11090,12 +11090,12 @@ LOC_13224:
 LOC_13234:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 7
 	PUSHARG 5
 	PUSH 180
@@ -11107,40 +11107,40 @@ LOC_13234:
 	SUB
 	PUSHARG 10
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16384
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "att07"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 10
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 22002
 	PUSHARG 8
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG 8
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 2
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 12001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHSTR "ProduceShadowTime"
 	PUSHARG 2
 	PUSH 9999
@@ -11160,7 +11160,7 @@ LOC_13234:
 	NEG
 	PUSHARG 10
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALLBS
 	PUSH 16
 	POPN 5
@@ -11181,7 +11181,7 @@ LOC_134DC:
 	PUSHARG 5
 	PUSH 16
 	DIV
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 5
 	PUSH 24
 	PUSH 16
@@ -11210,33 +11210,33 @@ LOC_13574:
 	PUSHARG 2
 	PUSHSTR "m012snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	JMP LOC_13608
 LOC_135E4:
 	PUSHARG 2
 	PUSHSTR "m012snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 LOC_13608:
 	INCN 3
 	PUSH 1
 	DELAY
 	PUSHARG 2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 1
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 6
 	PUSHARG 6
 	PUSH 0
 	CMPLE
 	PUSHARG 6
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	CMPGE
 	ORZ
 	JZ LOC_136A0
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_136A0:
 	PUSHARG 1
 	JNZ LOC_134DC
@@ -11245,7 +11245,7 @@ LOC_136A0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -11269,7 +11269,7 @@ LOC_1372C:
 	JZ LOC_137F8
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	PUSHARG 3
 	PUSHARG 3
@@ -11278,7 +11278,7 @@ LOC_1372C:
 	ORNZ
 	JZ LOC_137E8
 	PUSHARG 3
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide 
+	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
 	POPN 4
 	PUSHARG -3
 	PUSHARG 4
@@ -11286,7 +11286,7 @@ LOC_1372C:
 	JZ LOC_137E8
 	PUSHARG 3
 	PUSHARG -2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 LOC_137E8:
 	INCN 2
 	JMP LOC_1372C
@@ -11305,25 +11305,25 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 256
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 2
 	DELAY
 	PUSHARG -2
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	PUSH 128
 	PUSH 192
 	PUSH 3
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 64
 	DELAY
 	PUSHARG -2
 	PUSH 128
 	PUSH 192
 	PUSH 0
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 64
 	DELAY
 	PUSH 0
@@ -11340,7 +11340,7 @@ LOC_138F4:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 1
@@ -11357,19 +11357,19 @@ LOC_13968:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	PUSH 0
 	PUSH 0
 	PUSH 30
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 1
 	DELAY
 	INCN 1
 	JMP LOC_13968
 LOC_13A08:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -11381,13 +11381,13 @@ __asm{
 	PUSHARG -3
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "Func13001"
 	PUSHARG 1
 	PUSH 0
@@ -11399,7 +11399,7 @@ __asm{
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 4
 
 }}
@@ -11409,41 +11409,41 @@ __asm{
 LOC_13AF0:
 	STACK 7
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\013\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 30
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_13C60
@@ -11454,10 +11454,10 @@ LOC_13C60:
 	PUSH 128
 	POPN 6
 LOC_13C70:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 7
 	PUSHARG 7
 	PUSH 0
@@ -11469,24 +11469,24 @@ LOC_13C70:
 	PUSH 1
 	ADD
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 2
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 LOC_13D20:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 2
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_13DB4
@@ -11513,12 +11513,12 @@ LOC_13DE0:
 	JNZ LOC_13D20
 	JMP LOC_13EA0
 LOC_13E0C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_13E68
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 3
 	PUSH 320
@@ -11527,14 +11527,14 @@ LOC_13E0C:
 	JMP LOC_13EA0
 LOC_13E68:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 3
 	PUSH 320
 	ADD
 	POPN 5
 LOC_13EA0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_13EFC
@@ -11544,7 +11544,7 @@ LOC_13EA0:
 	POPN 5
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	JMP LOC_13F34
 LOC_13EFC:
 	PUSHARG 5
@@ -11553,14 +11553,14 @@ LOC_13EFC:
 	POPN 5
 	PUSHARG 5
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_13F34:
 	PUSH 15
 	DELAY
 	PUSHSTR "m013snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_141A0
@@ -11728,7 +11728,7 @@ LOC_141A0:
 	CALLBS
 LOC_143C0:
 	PUSHSTR "StopAllSoldier"
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSH 25
@@ -11742,7 +11742,7 @@ LOC_143C0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -11772,13 +11772,13 @@ LOC_14490:
 	PUSH 24005
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_14504:
@@ -11795,7 +11795,7 @@ LOC_14504:
 	MUL
 	ADD
 	PUSH 64
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	INCN 2
@@ -11804,7 +11804,7 @@ LOC_14588:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -11814,28 +11814,28 @@ __asm{
 LOC_145B4:
 	STACK 7
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\014\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_146F0
@@ -11847,7 +11847,7 @@ LOC_145B4:
 	PUSHARG 5
 	PUSH 72
 	DIV
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 2
 	JMP LOC_14738
 LOC_146F0:
@@ -11859,7 +11859,7 @@ LOC_146F0:
 	PUSHARG 5
 	PUSH 72
 	DIV
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 2
 LOC_14738:
 	PUSHARG 2
@@ -11873,7 +11873,7 @@ LOC_1476C:
 	PUSH 0
 	POPN 6
 LOC_1477C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_147B0
@@ -11885,17 +11885,17 @@ LOC_147B0:
 	POPN 7
 LOC_147C0:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	JZ LOC_1488C
@@ -11907,7 +11907,7 @@ LOC_147C0:
 	PUSHARG 5
 	PUSH 72
 	DIV
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 2
 	JMP LOC_148D4
 LOC_1488C:
@@ -11919,7 +11919,7 @@ LOC_1488C:
 	PUSHARG 5
 	PUSH 72
 	DIV
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 2
 LOC_148D4:
 	PUSHARG 2
@@ -11928,49 +11928,49 @@ LOC_148D4:
 	JZ LOC_14E08
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 4
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 4
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 8192
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 10
 	DELAY
 	PUSHSTR "att07"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "yell01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 24001
 	PUSHARG 7
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 7
 	PUSH 58
 	PUSH 30
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 20
 	DELAY
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 20
 	POPN 1
 LOC_14A54:
 	PUSH 2
 	SETARG 16
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_14AFC
@@ -11988,7 +11988,7 @@ LOC_14A54:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	JMP LOC_14B70
 LOC_14AFC:
 	PUSHSTR "LockTargetXY"
@@ -12005,32 +12005,32 @@ LOC_14AFC:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 LOC_14B70:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 24002
 	PUSH 24004
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG 7
 	PUSH 64
 	PUSH 48
 	PUSH 64
 	ADD
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHSTR "SmallFireBall"
 	PUSHARG 3
 	PUSHARG 3
@@ -12049,13 +12049,13 @@ LOC_14B70:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "att07"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 7
 	CALL CreateLastAttack
 	PUSH 20
 	SETARG 16
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_14D8C
@@ -12073,7 +12073,7 @@ LOC_14B70:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	JMP LOC_14E00
 LOC_14D8C:
 	PUSHSTR "LockTargetXY"
@@ -12090,49 +12090,49 @@ LOC_14D8C:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 LOC_14E00:
 	JMP LOC_1505C
 LOC_14E08:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 16384
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 10
 	DELAY
 	PUSHSTR "att07"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "yell01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 24001
 	PUSHARG 7
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 7
 	PUSH 58
 	PUSH 30
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 20
 	DELAY
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 2
 	SETARG 16
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_14FE8
@@ -12150,7 +12150,7 @@ LOC_14E08:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	JMP LOC_1505C
 LOC_14FE8:
 	PUSHSTR "LockTargetXY"
@@ -12167,14 +12167,14 @@ LOC_14FE8:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 LOC_1505C:
 	PUSH 90
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -12230,38 +12230,38 @@ LOC_15184:
 	PUSHARG -2
 	PUSH 25001
 	PUSH 25002
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 10752
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 256
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 16
 	PUSH 128
 	PUSH 16
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 64
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 512
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 2
 	JMP LOC_15184
 LOC_152EC:
@@ -12276,13 +12276,13 @@ __asm{
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "LockTargetTime2"
 	PUSHARG 1
 	PUSH 25008
@@ -12298,7 +12298,7 @@ __asm{
 	PUSH 8
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -12308,21 +12308,21 @@ __asm{
 	STACK 4
 LOC_153E4:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_15604
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	PUSH 4
 	CMPLE
 	JZ LOC_155F0
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSH 0
 	POPN 3
 LOC_15484:
@@ -12335,35 +12335,35 @@ LOC_15484:
 	PUSH 0
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 25001
 	PUSH 25002
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 4
 	PUSHARG 4
 	PUSH 10752
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 4
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 4
 	PUSH 0
 	PUSH 256
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 4
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 4
 	PUSH 512
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	INCN 3
 	JMP LOC_15484
 LOC_155E8:
@@ -12383,19 +12383,19 @@ __asm{
 	PUSH 0
 	POPN 6
 	PUSHARG -4
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 4
 	PUSHARG -4
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 5
 	PUSH 4
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 7
 	PUSH 0
 	POPN 2
@@ -12404,7 +12404,7 @@ LOC_156B4:
 	PUSHARG 7
 	CMPL
 	JZ LOC_15894
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 4
@@ -12415,36 +12415,36 @@ LOC_156B4:
 	PUSHARG 7
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 8
 	PUSHARG 8
 	JZ LOC_15884
 	PUSH 0
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 8
 	PUSH 25005
 	PUSHARG -2
 	PUSH 280
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 0
 	PUSH 192
 	PUSH 60
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 15001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSHSTR "att04"
 	PUSH 128
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHSTR "TraceSmallSword"
 	PUSHARG 1
 	PUSH 0
@@ -12470,33 +12470,33 @@ LOC_158A4:
 	JZ LOC_159FC
 	PUSH 2
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -4
 	PUSH 25005
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 64
 	PUSH 130
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 280
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 0
 	PUSH 192
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSHSTR "att04"
 	PUSH 128
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHSTR "TraceSmallSword"
 	PUSHARG 1
 	PUSH 0
@@ -12527,7 +12527,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 96
@@ -12542,7 +12542,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSHARG -3
@@ -12557,7 +12557,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSHARG -3
@@ -12572,7 +12572,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 96
@@ -12589,7 +12589,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 96
@@ -12606,7 +12606,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 96
@@ -12623,7 +12623,7 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 96
@@ -12640,10 +12640,10 @@ __asm{
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12654,7 +12654,7 @@ __asm{
 	DELAY
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12665,7 +12665,7 @@ __asm{
 	DELAY
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12676,7 +12676,7 @@ __asm{
 	DELAY
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12687,7 +12687,7 @@ __asm{
 	DELAY
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12698,7 +12698,7 @@ __asm{
 	DELAY
 	PUSHSTR "m015snd02"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "Func15009"
 	PUSHARG -4
 	PUSHARG -3
@@ -12720,21 +12720,21 @@ LOC_16014:
 	PUSHARG 2
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	CMPL
 	JZ LOC_16108
 	PUSHARG -4
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	PUSHARG 3
@@ -12743,15 +12743,15 @@ LOC_16014:
 	PUSH 0
 	PUSH 25007
 	PUSH 25008
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	INCN 2
 	JMP LOC_16014
 LOC_16108:
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CMP
 	JZ LOC_16250
@@ -12759,14 +12759,14 @@ LOC_16108:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	PUSHARG 3
@@ -12774,20 +12774,20 @@ LOC_16108:
 	PUSHARG 5
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 25009
 	PUSH 25010
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 6
 	PUSHARG 6
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_16250:
 	PUSH 1
 	DELAY
@@ -12805,30 +12805,30 @@ __asm{
 	PUSH 25006
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
 	PUSH 300
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 3
 	PUSH 0
 	PUSH 192
 	PUSH 40
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 3
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 3
 	PUSH 15001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 1
 	POPN 4
 LOC_16380:
@@ -12847,7 +12847,7 @@ LOC_16380:
 	PUSH 8192
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 4
@@ -12856,10 +12856,10 @@ LOC_1640C:
 	PUSH 10
 	DELAY
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHSTR "SwordBomb"
 	PUSHARG 1
@@ -12870,7 +12870,7 @@ LOC_1640C:
 	PUSHARG 3
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -12878,10 +12878,10 @@ LOC_1640C:
 void function SwordAttack (arg_0, arg_1) {
 __asm{
 	STACK 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 5
 	PUSH 0
 	POPN 2
@@ -12891,20 +12891,20 @@ __asm{
 	JZ LOC_16588
 	PUSHARG -2
 	JZ LOC_1653C
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 2
 LOC_1653C:
 	PUSHARG 2
 	PUSH 0
 	CMP
 	JZ LOC_16580
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 2
 LOC_16580:
 	JMP LOC_16598
@@ -12913,10 +12913,10 @@ LOC_16588:
 	POPN 2
 LOC_16598:
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -12936,7 +12936,7 @@ LOC_16598:
 	PUSHARG 2
 	PUSH 0
 	PUSH 63
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -3
 	PUSH 0
 	CALLBS
@@ -12950,12 +12950,12 @@ void function ProduceSwordShadow (arg_0, arg_1, arg_2) {
 __asm{
 LOC_16688:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_166E0
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow 
+	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow
 	POP
 	PUSH 3
 	DELAY
@@ -12982,7 +12982,7 @@ LOC_16720:
 	PUSHARG -5
 	PUSHARG 3
 	PUSHARG 4
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	PUSHARG 3
@@ -13012,23 +13012,23 @@ LOC_167EC:
 	PUSH 25004
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 5
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 5
 	PUSH 0
 	PUSH 64
 	PUSH 1
 	NEG
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 25
 	DELAY
 	PUSHARG 5
 	PUSH 0
 	PUSH 64
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "ProduceSwordShadow"
 	PUSHARG 5
 	PUSH 16
@@ -13037,7 +13037,7 @@ LOC_167EC:
 	CALLBS
 	PUSHARG 5
 	PUSH 60
-	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F 
+	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F
 	RETN 4
 
 }}
@@ -13049,23 +13049,23 @@ __asm{
 	PUSH 25003
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 128
 	PUSH 64
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 0
 	PUSH 64
 	PUSH 1
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 256
 	PUSH 256
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "LargerSword"
 	PUSHARG 1
 	PUSH 65536
@@ -13083,39 +13083,39 @@ LOC_169EC:
 	PUSH 1
 	SETARG 17
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\015\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_16B60
@@ -13127,10 +13127,10 @@ LOC_16B60:
 	POPN 7
 LOC_16B70:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POP
 	PUSH 15
 	DELAY
@@ -13145,21 +13145,21 @@ LOC_16BE8:
 	POPN 8
 	PUSHSTR "m015snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_16C84
 LOC_16C1C:
 	PUSH 8
 	POPN 8
 	PUSHSTR "m015snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_16C84
 LOC_16C50:
 	PUSH 16
 	POPN 8
 	PUSHSTR "m015snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_16C84
 LOC_16C84:
 	PUSH 256
@@ -13168,7 +13168,7 @@ LOC_16C84:
 	POPN 6
 	PUSH 0
 	PUSH 63
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 9
 	PUSH 0
 	POPN 1
@@ -13225,7 +13225,7 @@ LOC_16DE8:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -13235,44 +13235,44 @@ __asm{
 	STACK 3
 	PUSH 1
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -4
 	PUSHARG -2
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSH 49152
 	PUSH 81920
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
 	PUSH 38
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -3
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 1
 	POPN 3
 LOC_16FB8:
@@ -13284,21 +13284,21 @@ LOC_16FB8:
 	DELAY
 	PUSHARG 1
 	PUSHARG 3
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	INCN 3
 	JMP LOC_16FB8
 LOC_1700C:
 	PUSH 16
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSHARG 1
 	PUSH 256
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 1
 	PUSHARG 3
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 3
 	DELAY
 	RETN 3
@@ -13312,29 +13312,29 @@ __asm{
 	PUSHARG -2
 	PUSH 0
 	PUSHARG -4
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 81920
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 192
 	PUSH 16
 	PUSHARG -4
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 4
 
 }}
@@ -13342,8 +13342,8 @@ __asm{
 void function IncreaseHP () {
 __asm{
 	STACK 2
-	PUSHINV 5 ; INTV_IS_RIGHT
-	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP 
+	PUSHINV 5 ; INTV_IS_LEFT
+	SYSCALL 0x117, (1 | (1 << 16)) ; GetMajorHP
 	POPN 1
 	PUSH 1
 	POPN 2
@@ -13352,11 +13352,11 @@ LOC_171B0:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE
 	CMPLE
 	JZ LOC_17210
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG 1
 	PUSHARG 2
 	ADD
-	SYSCALL 0x118, (2 | (0 << 16)) ; SetMajorHP? 
+	SYSCALL 0x118, (2 | (0 << 16)) ; SetMajorHP?
 	PUSH 2
 	DELAY
 	INCN 2
@@ -13395,7 +13395,7 @@ LOC_172A8:
 	POPN 6
 	JMP LOC_172D0
 LOC_172D0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_17304
@@ -13411,26 +13411,26 @@ LOC_17318:
 	PUSHARG 4
 	PUSH 0
 	PUSH 220
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 2048
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 192
 	PUSH 16
 	PUSH 240
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG 5
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 98304
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSH 0
 	POPN 2
 LOC_173FC:
@@ -13489,7 +13489,7 @@ LOC_17518:
 	PUSH 2
 	MUL
 	ADD
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG 6
 	PUSH 0
 	CALLBS
@@ -13498,7 +13498,7 @@ LOC_17518:
 LOC_1759C:
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 3
 	JMP LOC_174EC
@@ -13534,7 +13534,7 @@ LOC_17614:
 	PUSHARG -5
 	PUSHARG 2
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 1
@@ -13544,11 +13544,11 @@ LOC_176A4:
 	DELAY
 	PUSHARG -5
 	PUSH 1024
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG -5
 	PUSH 48
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 48
 	DELAY
 	RETN 4
@@ -13560,40 +13560,40 @@ __asm{
 LOC_17704:
 	STACK 3
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\016\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 5
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 10
 	DELAY
 	PUSHSTR "m016snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG -2
 	CALL CreateHolyLight
@@ -13601,13 +13601,13 @@ LOC_17704:
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 60
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -13654,15 +13654,15 @@ __asm{
 	PUSH 27010
 	PUSHARG -2
 	PUSH 64
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 131072
 	PUSH 114688
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_17A18:
@@ -13672,7 +13672,7 @@ LOC_17A18:
 	JZ LOC_17A6C
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	INCN 2
@@ -13680,13 +13680,13 @@ LOC_17A18:
 LOC_17A6C:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 64
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -13710,16 +13710,16 @@ __asm{
 	PUSH 27002
 	PUSHARG -2
 	PUSH 64
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 17001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 60
 	PUSH 6
 	MUL
@@ -13730,22 +13730,22 @@ __asm{
 	POPN 5
 	PUSHSTR "m017snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 LOC_17BF0:
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 0
 	PUSH 7
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 6
 	PUSHARG 2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 7
 	PUSHARG 5
 	PUSH 32
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	POPN 8
 	PUSHARG 2
 	PUSHARG 6
@@ -13753,7 +13753,7 @@ LOC_17BF0:
 	PUSH 64
 	PUSHARG 8
 	ADD
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 2
 	PUSH 65536
 	PUSH 1
@@ -13769,7 +13769,7 @@ LOC_17BF0:
 	SUB
 	MUL
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 5
 	PUSH 255
 	AND
@@ -13791,7 +13791,7 @@ LOC_17D7C:
 	JZ LOC_17DBC
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a40001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17DBC:
 	PUSHARG 3
@@ -13800,7 +13800,7 @@ LOC_17DBC:
 	JZ LOC_17DFC
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a20001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17DFC:
 	PUSHARG 3
@@ -13809,7 +13809,7 @@ LOC_17DFC:
 	JZ LOC_17E3C
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a20001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17E3C:
 	PUSHARG 3
@@ -13818,7 +13818,7 @@ LOC_17E3C:
 	JZ LOC_17E7C
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a10001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17E7C:
 	PUSHARG 3
@@ -13827,7 +13827,7 @@ LOC_17E7C:
 	JZ LOC_17EBC
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a10001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17EBC:
 	PUSHARG 3
@@ -13836,12 +13836,12 @@ LOC_17EBC:
 	JZ LOC_17EFC
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a30001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_17F18
 LOC_17EFC:
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a30001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_17F18:
 	PUSHARG 4
 	PUSH 255
@@ -13857,7 +13857,7 @@ LOC_17F18:
 	JZ LOC_17F84
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a40001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_17F84:
 	PUSHARG 3
 	PUSH 170
@@ -13869,7 +13869,7 @@ LOC_17F84:
 	JZ LOC_17FD4
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017a60001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_17FD4:
 	PUSHSTR "sc4502"
 	PUSHARG 2
@@ -13896,7 +13896,7 @@ LOC_17FD4:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 16
 	DELAY
 	INCARG 20
@@ -13917,7 +13917,7 @@ __asm{
 	ADD
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSH 0
 	POPN 3
@@ -13931,7 +13931,7 @@ LOC_18130:
 	PUSHARG 1
 	PUSH 65536
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 3
 	INCN 4
@@ -13950,7 +13950,7 @@ LOC_181B4:
 	PUSH 27007
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG -2
 	PUSH 255
@@ -13973,7 +13973,7 @@ LOC_18264:
 	JZ LOC_182A4
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c50001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_182A4:
 	PUSHARG 5
@@ -13982,7 +13982,7 @@ LOC_182A4:
 	JZ LOC_182E4
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c30001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_182E4:
 	PUSHARG 5
@@ -13991,7 +13991,7 @@ LOC_182E4:
 	JZ LOC_18324
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c30001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_18324:
 	PUSHARG 5
@@ -14000,7 +14000,7 @@ LOC_18324:
 	JZ LOC_18364
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c10001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_18364:
 	PUSHARG 5
@@ -14009,7 +14009,7 @@ LOC_18364:
 	JZ LOC_183A4
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c10001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_183A4:
 	PUSHARG 5
@@ -14018,12 +14018,12 @@ LOC_183A4:
 	JZ LOC_183E4
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c20001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 	JMP LOC_18400
 LOC_183E4:
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c40001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_18400:
 	PUSHARG -3
 	PUSH 255
@@ -14039,7 +14039,7 @@ LOC_18400:
 	JZ LOC_1846C
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c50001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_1846C:
 	PUSHARG 5
 	PUSH 170
@@ -14051,7 +14051,7 @@ LOC_1846C:
 	JZ LOC_184BC
 	PUSHARG 2
 	PUSHSTR "MAGIC\\017\\m017c70001"
-	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C 
+	SYSCALL 0x1C, (2 | (0 << 16)) ; 0x001C
 LOC_184BC:
 	PUSHARG 2
 	PUSH 65536
@@ -14068,7 +14068,7 @@ LOC_184BC:
 	SUB
 	MUL
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 49152
 	PUSH 1
@@ -14084,10 +14084,10 @@ LOC_184BC:
 	SUB
 	MUL
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 1
-	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F 
+	SYSCALL 0x1F, (2 | (0 << 16)) ; 0x001F
 LOC_185B0:
 	PUSHARG 4
 	PUSH 9
@@ -14096,14 +14096,14 @@ LOC_185B0:
 	PUSHARG 1
 	PUSH 256
 	PUSH 256
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_185F0:
 	JMP LOC_1861C
 LOC_185F8:
 	PUSHARG 1
 	PUSH 256
 	PUSH 256
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_1861C:
 	PUSH 1
 	DELAY
@@ -14115,13 +14115,13 @@ LOC_1861C:
 	JMP LOC_1867C
 LOC_18654:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMPZ
 	JNZ LOC_18130
 LOC_1867C:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -14133,45 +14133,45 @@ LOC_18698:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE
 	SETARG 18
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\017\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	SETARG 19
 	PUSH 0
 	SETARG 20
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_18838
@@ -14182,10 +14182,10 @@ LOC_18838:
 	PUSH 128
 	POPN 11
 LOC_18848:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 2
 	PUSHARG 2
 	PUSH 0
@@ -14195,10 +14195,10 @@ LOC_18848:
 	POPN 2
 LOC_1889C:
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -14210,11 +14210,11 @@ LOC_1889C:
 	PUSH 2501
 	PUSHARG 11
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHSTR "m017snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 120
@@ -14223,7 +14223,7 @@ LOC_1889C:
 	PUSH 120
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "sc4501"
 	PUSHARG 2
 	PUSHARG 11
@@ -14240,12 +14240,12 @@ LOC_1889C:
 	PUSH 2501
 	PUSHARG 11
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 6
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -14255,10 +14255,10 @@ LOC_1889C:
 	POPN 8
 LOC_18A70:
 	PUSHARG 8
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 8
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -14274,7 +14274,7 @@ LOC_18A70:
 	PUSH 120
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "sc4501"
 	PUSHARG 6
 	PUSHARG 11
@@ -14292,12 +14292,12 @@ LOC_18B50:
 	PUSH 2501
 	PUSHARG 11
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 7
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -14307,10 +14307,10 @@ LOC_18B50:
 	POPN 8
 LOC_18BF4:
 	PUSHARG 8
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 8
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -14326,7 +14326,7 @@ LOC_18BF4:
 	PUSH 120
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "sc4501"
 	PUSHARG 7
 	PUSHARG 11
@@ -14344,12 +14344,12 @@ LOC_18CD4:
 	PUSH 2501
 	PUSHARG 11
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -14359,10 +14359,10 @@ LOC_18CD4:
 	POPN 8
 LOC_18D78:
 	PUSHARG 8
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 8
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -14378,7 +14378,7 @@ LOC_18D78:
 	PUSH 120
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "sc4501"
 	PUSHARG 9
 	PUSHARG 11
@@ -14396,12 +14396,12 @@ LOC_18E58:
 	PUSH 2501
 	PUSHARG 11
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -14411,10 +14411,10 @@ LOC_18E58:
 	POPN 8
 LOC_18EFC:
 	PUSHARG 8
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 8
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 4
@@ -14430,7 +14430,7 @@ LOC_18EFC:
 	PUSH 120
 	ADD
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHSTR "sc4501"
 	PUSHARG 10
 	PUSHARG 11
@@ -14445,21 +14445,21 @@ LOC_18FD0:
 	CMPLE
 	JNZ LOC_18FD0
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 6
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 7
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 9
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 10
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSH 60
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -14508,14 +14508,14 @@ __asm{
 	STACK 2
 	PUSH 10
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
 	PUSHARG -5
 	PUSH 28001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 60
 	POPN 2
@@ -14529,7 +14529,7 @@ LOC_191F4:
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	DECN 2
 	PUSH 1
 	DELAY
@@ -14557,7 +14557,7 @@ LOC_192A8:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 2
@@ -14580,19 +14580,19 @@ LOC_1931C:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	DELAY
 	INCN 2
 	JMP LOC_1931C
 LOC_193E4:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -14628,14 +14628,14 @@ LOC_19484:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG 2
@@ -14646,21 +14646,21 @@ LOC_19484:
 	PUSH 0
 	PUSH 28002
 	PUSH 28004
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 6
 	PUSHARG 6
 	PUSH 0
 	PUSH 10
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHSTR "m016a"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_19484
@@ -14678,14 +14678,14 @@ __asm{
 	PUSHARG -3
 	PUSH 320
 	PUSH 360
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 28005
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSH 4
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSH 2
 	PUSH 3
@@ -14703,28 +14703,28 @@ LOC_19698:
 	PUSH 320
 	NEG
 	PUSH 320
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG -3
 	PUSH 100
 	NEG
 	PUSH 300
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 320
 	PUSH 360
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 28005
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSH 4
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	JMP LOC_19698
 LOC_19798:
@@ -14740,18 +14740,18 @@ __asm{
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG -2
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSH 30
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_19848:
 	PUSHARG 2
@@ -14762,7 +14762,7 @@ LOC_19848:
 	PUSHARG -2
 	PUSHARG 1
 	PUSHARG 1
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 256
 	SUB
@@ -14772,7 +14772,7 @@ LOC_19848:
 	JMP LOC_19848
 LOC_198C0:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -14780,45 +14780,45 @@ LOC_198C0:
 void function sc3604 () callsign 18002 {
 __asm{
 	STACK 3
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008 
+	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 21
 	PUSH 28011
 	PUSH 0
 	PUSH 18001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 21
 	PUSH 28011
 	PUSH 128
 	PUSH 18001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 21
 	PUSH 28011
 	PUSH 64
 	PUSH 18001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 21
 	PUSH 28011
 	PUSH 192
 	PUSH 18001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x1E, (2 | (0 << 16)) ; 0x001E 
+	SYSCALL 0x1E, (2 | (0 << 16)) ; 0x001E
 	PUSH 0
 	POPN 2
 LOC_19A4C:
@@ -14830,14 +14830,14 @@ LOC_19A4C:
 	PUSH 10003
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 16384
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "sc2512"
 	PUSHARG 1
 	PUSH 0
@@ -14850,7 +14850,7 @@ LOC_19B10:
 	PUSHARG 1
 	PUSHSTR "m018snd03"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	RETN 0
 
 }}
@@ -14862,41 +14862,41 @@ LOC_19B3C:
 	PUSH 0
 	SETARG 22
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\018\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_19CBC
@@ -14908,17 +14908,17 @@ LOC_19CBC:
 	POPN 10
 LOC_19CCC:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHSTR "m018snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	JCOND 0, LOC_19D68
 	JCOND 1, LOC_19DBC
@@ -14955,7 +14955,7 @@ LOC_19E10:
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 100
 	PUSH 95
 	ADD
@@ -14972,7 +14972,7 @@ LOC_19E88:
 	JZ LOC_1A294
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 12
 	PUSH 0
 	POPN 5
@@ -14985,14 +14985,14 @@ LOC_19ED8:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 7
 	PUSHARG 2
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 8
 	PUSHARG -2
@@ -15007,8 +15007,8 @@ LOC_19ED8:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSHARG 7
 	PUSH 48
@@ -15018,8 +15018,8 @@ LOC_19ED8:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	JMP LOC_1A07C
 LOC_1A030:
@@ -15029,8 +15029,8 @@ LOC_1A030:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 LOC_1A07C:
 	INCN 5
@@ -15038,7 +15038,7 @@ LOC_1A07C:
 LOC_1A08C:
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CMP
 	JZ LOC_1A1D4
@@ -15046,14 +15046,14 @@ LOC_1A08C:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 7
 	PUSHARG 2
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 8
 	PUSHARG 7
@@ -15061,20 +15061,20 @@ LOC_1A08C:
 	PUSHARG 9
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 28008
 	PUSH 28009
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 13
 	PUSHARG 13
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_1A1D4:
 	PUSH 1
 	DELAY
@@ -15087,17 +15087,17 @@ LOC_1A1D4:
 LOC_1A218:
 	PUSHSTR "m018snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_1A284
 LOC_1A23C:
 	PUSHSTR "m018snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_1A284
 LOC_1A260:
 	PUSHSTR "m018snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_1A284
 LOC_1A284:
 	INCN 4
@@ -15114,10 +15114,10 @@ LOC_1A2C4:
 	PUSHSTR "sc3602"
 	INST_45
 LOC_1A2D0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 13
 	PUSHARG 13
 	PUSH 0
@@ -15127,13 +15127,13 @@ LOC_1A2D0:
 	POPN 13
 LOC_1A324:
 	PUSHARG 13
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 13
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 13
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG 2
 	PUSH 240
@@ -15159,14 +15159,14 @@ LOC_1A400:
 	PUSHSTR "MoveCamera"
 	INST_45
 	PUSHARG 13
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_1A488
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 13
 	PUSHARG 13
 	PUSH 0
@@ -15176,13 +15176,13 @@ LOC_1A400:
 	POPN 13
 LOC_1A488:
 	PUSHARG 13
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 13
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 13
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHSTR "sc3603"
 	PUSHARG -2
@@ -15197,7 +15197,7 @@ LOC_1A488:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -15208,7 +15208,7 @@ __asm{
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMP
@@ -15278,20 +15278,20 @@ __asm{
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -3
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 24576
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_1A7A0:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1A7D0
 	PUSH 1
 	DELAY
@@ -15300,7 +15300,7 @@ LOC_1A7D0:
 	PUSHARG 1
 	PUSH 4
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 4
 
 }}
@@ -15313,28 +15313,28 @@ LOC_1A7FC:
 	PUSH 29001
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 19001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 80
 	PUSH 80
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	INST_01 2
 
@@ -15345,12 +15345,12 @@ __asm{
 	STACK 1
 	PUSHARG -3
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "CreateBowLight"
 	PUSHARG -3
 	PUSH 29002
@@ -15359,21 +15359,21 @@ __asm{
 	CALLBS
 LOC_1A974:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1AA14
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 1
 	PUSH 0
 	CMPLE
 	PUSHARG 1
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	CMPGE
 	ORZ
 	JZ LOC_1AA00
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_1AA14
 LOC_1AA00:
 	PUSH 1
@@ -15393,29 +15393,29 @@ LOC_1AA1C:
 	PUSHARG -2
 	SETARG 24
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\019\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_1AAEC
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 5
 	JMP LOC_1AAFC
 LOC_1AAEC:
 	PUSH 0
 	POPN 5
 LOC_1AAFC:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1AB44
@@ -15456,12 +15456,12 @@ LOC_1ABE0:
 LOC_1AC00:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 3
@@ -15473,21 +15473,21 @@ LOC_1AC00:
 	SUB
 	PUSHARG 5
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 524288
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "m019snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 6
 LOC_1AD24:
@@ -15541,12 +15541,12 @@ LOC_1AE30:
 	NEG
 	PUSHARG 5
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG 16
 	PUSH 1
 	SUB
 	PUSHNR 7
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "TraceBow"
 	INST_45
 	PUSH 60
@@ -15554,7 +15554,7 @@ LOC_1AE30:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -15563,17 +15563,17 @@ void function BlackHoleCallback (arg_0, arg_1) {
 __asm{
 	STACK 2
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 1
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 16
 	PUSH 25
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 LOC_1AF38:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1AFE0
 	PUSH 1
 	DELAY
@@ -15581,9 +15581,9 @@ LOC_1AF38:
 	PUSH 0
 	PUSH 0
 	PUSH 2
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 2
 	PUSHARG 1
@@ -15596,7 +15596,7 @@ LOC_1AFD8:
 	JMP LOC_1AF38
 LOC_1AFE0:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -15607,7 +15607,7 @@ __asm{
 	PUSHARG -3
 	PUSH 0
 	PUSH 123
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSH 0
 	POPN 2
 LOC_1B038:
@@ -15619,8 +15619,8 @@ LOC_1B038:
 	PUSHARG -2
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSH 1
 	DELAY
 	INCN 2
@@ -15637,15 +15637,15 @@ LOC_1B0B8:
 	PUSHARG -2
 	PUSH 2
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSH 1
 	DELAY
 	INCN 2
 	JMP LOC_1B0B8
 LOC_1B128:
 	PUSHARG -3
-	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier 
+	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier
 	POP
 	PUSHSTR "BlackHoleCallback"
 	PUSHARG -2
@@ -15663,10 +15663,10 @@ __asm{
 	PUSH 0
 	POPN 244
 	PUSHARG -4
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 236
 	PUSHARG -3
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 237
 	PUSHARG -2
 	PUSH 0
@@ -15694,14 +15694,14 @@ LOC_1B258:
 	PUSHARG 243
 	CMPL
 	JZ LOC_1B5B8
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 236
 	PUSHARG 237
 	PUSHARG 241
 	PUSHARG 242
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 232
 	PUSHARG 232
 	PUSH 0
@@ -15714,7 +15714,7 @@ LOC_1B2E8:
 	PUSHARG 232
 	CMPL
 	JZ LOC_1B36C
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 236
@@ -15722,7 +15722,7 @@ LOC_1B2E8:
 	PUSHARG 241
 	PUSHARG 242
 	PUSHARG 233
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	PUSHARG 233
 	SETNR 1
 	INCN 233
@@ -15739,7 +15739,7 @@ LOC_1B37C:
 	PUSHARG 232
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 239
 	PUSHARG 233
 	PUSHNR 1
@@ -15760,13 +15760,13 @@ LOC_1B428:
 	JZ LOC_1B470
 	PUSH 4
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 232
 	JMP LOC_1B494
 LOC_1B470:
 	PUSH 6
 	PUSH 9
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 232
 LOC_1B494:
 	PUSH 0
@@ -15779,7 +15779,7 @@ LOC_1B4A4:
 	PUSHARG 233
 	PUSHNR 1
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	PUSH 123
 	CMPZ
 	PUSHARG 233
@@ -15798,7 +15798,7 @@ LOC_1B4A4:
 LOC_1B54C:
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 245
 	PUSHARG 245
 	DELAY
@@ -15853,34 +15853,34 @@ LOC_1B668:
 	PUSH 30013
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 152
 	PUSH 232
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 200
 	PUSH 300
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 80
 	NEG
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 7
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 10
 	PUSH 18
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	JMP LOC_1B668
 LOC_1B7A4:
@@ -15903,35 +15903,35 @@ LOC_1B7D8:
 	PUSHARG -2
 	PUSH 30003
 	PUSH 30011
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 30
 	PUSH 130
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 127
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateBlackHoleStar"
 	PUSHARG -2
 	PUSH 30003
 	PUSH 30011
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 30
 	PUSH 130
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 0
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	JMP LOC_1B7D8
 LOC_1B928:
@@ -15946,37 +15946,37 @@ __asm{
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -6
 	PUSH 0
 	PUSHARG -3
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x16, (6 | (0 << 16)) ; 0x0016 
+	SYSCALL 0x16, (6 | (0 << 16)) ; 0x0016
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -2
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -2
 	DIV
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_1BA20:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1BAA8
 	PUSHARG 1
 	PUSH 4
 	PUSH 1
-	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow 
+	SYSCALL 0x23, (3 | (1 << 16)) ; CreateObject_Shadow
 	POP
 	PUSH 1
 	DELAY
@@ -15985,7 +15985,7 @@ LOC_1BA20:
 	CMP
 	JZ LOC_1BAA0
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_1BAA0:
 	JMP LOC_1BA20
 LOC_1BAA8:
@@ -15998,18 +15998,18 @@ __asm{
 LOC_1BAB0:
 	STACK 11
 	PUSHARG -4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALL GetSoldierMaxX2
 	POPN 11
 	PUSHARG 11
@@ -16025,7 +16025,7 @@ LOC_1BAB0:
 	POPN 2
 	JMP LOC_1BBEC
 LOC_1BB90:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1BBD0
@@ -16061,7 +16061,7 @@ LOC_1BBEC:
 	PUSH 100
 	PUSH 128
 	PUSH 30012
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 9
 	JMP LOC_1BCE8
 LOC_1BCA0:
@@ -16072,7 +16072,7 @@ LOC_1BCA0:
 	PUSH 100
 	PUSH 128
 	PUSH 30014
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 9
 LOC_1BCE8:
 	PUSH 0
@@ -16100,7 +16100,7 @@ LOC_1BD50:
 	PUSHARG 9
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 716
@@ -16108,7 +16108,7 @@ LOC_1BD50:
 	PUSH 100
 	PUSH 128
 	PUSH 30002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 7
 	PUSHARG 2
 	PUSHARG 4
@@ -16117,7 +16117,7 @@ LOC_1BD50:
 	PUSH 100
 	PUSH 128
 	PUSH 30001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 LOC_1BE20:
 	PUSHARG 6
@@ -16127,11 +16127,11 @@ LOC_1BE20:
 	PUSHARG 7
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	JMP LOC_1BEC8
 LOC_1BE8C:
 	PUSHARG 9
@@ -16141,7 +16141,7 @@ LOC_1BE8C:
 	PUSHARG 6
 	PUSH 12
 	MUL
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_1BEC8:
 	PUSHARG 6
 	PUSH 4096
@@ -16162,12 +16162,12 @@ LOC_1BEEC:
 	PUSH 100
 	PUSH 128
 	PUSH 30015
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 10
 	PUSHARG 10
 	PUSH 94208
 	PUSH 94208
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_1BF84:
 	PUSHSTR "CreateBlackHoleStars"
 	PUSHARG 7
@@ -16190,7 +16190,7 @@ LOC_1BF84:
 	CMPG
 	JZ LOC_1C024
 	PUSHARG 10
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_1C024:
 	PUSH 0
 	SETARG 25
@@ -16204,11 +16204,11 @@ LOC_1C044:
 	PUSHARG 1
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 7
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	PUSHARG 6
@@ -16220,11 +16220,11 @@ LOC_1C0D8:
 	PUSHARG 1
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 7
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -16234,52 +16234,52 @@ __asm{
 LOC_1C128:
 	STACK 2
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\020\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 140
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 40
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG -2
 	PUSH 0
 	CMP
 	JZ LOC_1C2A4
 	PUSHSTR "m020snd01"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_1C2C0
 LOC_1C2A4:
 	PUSHSTR "m020snd02"
 	PUSH 210
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 LOC_1C2C0:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
@@ -16290,7 +16290,7 @@ LOC_1C2C0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -16304,7 +16304,7 @@ __asm{
 	JZ LOC_1C450
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 2
 	PUSHARG 2
 	INST_4F 26
@@ -16336,7 +16336,7 @@ LOC_1C39C:
 	PUSH 1
 	PUSH 48
 	PUSH 60
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_1C448:
 	JMP LOC_1C49C
 LOC_1C450:
@@ -16362,12 +16362,12 @@ __asm{
 	PUSH 31001
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 65536
 	PUSH 81920
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "StepShow"
 	PUSHARG 1
 	PUSH 8
@@ -16376,7 +16376,7 @@ __asm{
 	CALLBS
 LOC_1C530:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1C594
 	PUSH 1
 	DELAY
@@ -16385,13 +16385,13 @@ LOC_1C530:
 	PUSH 192
 	PUSH 8
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	JMP LOC_1C530
 LOC_1C594:
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 1
 
 }}
@@ -16411,14 +16411,14 @@ __asm{
 	POPN 5
 LOC_1C618:
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1C7DC
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG 4
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -2
@@ -16493,14 +16493,14 @@ __asm{
 	POPN 3
 LOC_1C81C:
 	PUSHARG -7
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1C960
 	PUSHARG -7
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -3
@@ -16557,36 +16557,36 @@ __asm{
 	PUSH 31002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -8
 	PUSHARG -7
 	PUSHARG -6
 	PUSHARG -5
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 20001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1CA90
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	JMP LOC_1CAB4
 LOC_1CA90:
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_1CAB4:
 	PUSHSTR "StepShow"
 	PUSHARG 1
@@ -16611,10 +16611,10 @@ LOC_1CAB4:
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_1CB6C:
 	PUSHARG -8
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1CBC8
 	PUSH 1
 	DELAY
@@ -16630,7 +16630,7 @@ LOC_1CBC8:
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSH 1
 	CMP
@@ -16652,10 +16652,10 @@ LOC_1CC48:
 	PUSHARG -7
 	PUSHARG -6
 	PUSHARG -5
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_1CC84:
 	PUSHARG -8
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1CCE0
 	PUSH 1
 	DELAY
@@ -16671,7 +16671,7 @@ LOC_1CCE0:
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSH 1
 	CMP
@@ -16695,7 +16695,7 @@ LOC_1CD60:
 	STACK 6
 	PUSH 0
 	POPN 6
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1CE08
@@ -16717,7 +16717,7 @@ LOC_1CDD0:
 LOC_1CE00:
 	JMP LOC_1CE90
 LOC_1CE08:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	JZ LOC_1CE90
@@ -16740,30 +16740,30 @@ LOC_1CE90:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE
 	SETARG 30
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\021\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHARG 6
@@ -16772,15 +16772,15 @@ LOC_1CE90:
 	JZ LOC_1D28C
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHSTR "m021snd01"
 	PUSH 200
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 4
 	POPN 5
 	PUSH 80
@@ -16819,8 +16819,8 @@ LOC_1D060:
 	MUL
 	ADD
 	PUSHARG -2
-	PUSHINV 5 ; INTV_IS_RIGHT
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	PUSHINV 5 ; INTV_IS_LEFT
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	INCN 3
 	JMP LOC_1D060
 LOC_1D12C:
@@ -16871,14 +16871,14 @@ LOC_1D1C4:
 	ADD
 	PUSH 2
 	PUSHARG -2
-	PUSHINV 5 ; INTV_IS_RIGHT
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	PUSHINV 5 ; INTV_IS_LEFT
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	INCN 3
 	JMP LOC_1D1C4
 LOC_1D284:
 	JMP LOC_1D2E0
 LOC_1D28C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1D2C8
@@ -16896,7 +16896,7 @@ LOC_1D2E0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -16925,7 +16925,7 @@ __asm{
 LOC_1D3A0:
 	PUSHARG -3
 	PUSH 16777216
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 LOC_1D3BC:
 	JMP LOC_1D3E4
 LOC_1D3C4:
@@ -16943,37 +16943,37 @@ __asm{
 	STACK 1
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -5
 	PUSH 32003
 	PUSH 32005
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 12288
 	PUSH 20480
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12288
 	PUSH 20480
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 128
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 30
 	PUSHARG -4
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 0
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG -4
 	PUSH 20
 	DIV
@@ -16981,7 +16981,7 @@ __asm{
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 4
 
 }}
@@ -16993,23 +16993,23 @@ __asm{
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 14
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 32
@@ -17017,23 +17017,23 @@ __asm{
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 14
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 32
@@ -17041,23 +17041,23 @@ __asm{
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 14
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 16
 	DELAY
 	PUSHSTR "CreateFogSpeed"
@@ -17065,23 +17065,23 @@ __asm{
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 17
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 30
@@ -17089,23 +17089,23 @@ __asm{
 	PUSH 6
 	NEG
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 17
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 30
@@ -17113,23 +17113,23 @@ __asm{
 	PUSH 6
 	NEG
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 17
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 18
 	DELAY
 	PUSHSTR "CreateFogSpeed"
@@ -17137,23 +17137,23 @@ __asm{
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 28
@@ -17161,23 +17161,23 @@ __asm{
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -3
 	PUSH 28
@@ -17185,23 +17185,23 @@ __asm{
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	RETN 3
 
 }}
@@ -17216,45 +17216,45 @@ __asm{
 	PUSH 0
 	PUSH 128
 	PUSH 32002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_1DD2C
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 22001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_1DD2C:
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -7
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -6
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -7
 	PUSH 32
@@ -17262,23 +17262,23 @@ LOC_1DD2C:
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -6
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFogSpeed"
 	PUSHARG -7
 	PUSH 32
@@ -17286,23 +17286,23 @@ LOC_1DD2C:
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -6
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 48
 	PUSH 64
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 0
 	POPN 2
 LOC_1DF88:
@@ -17323,10 +17323,10 @@ LOC_1DF88:
 	MUL
 	PUSH 26
 	PUSH 36
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	CALLBS
 	PUSH 1
 	DELAY
@@ -17334,7 +17334,7 @@ LOC_1DF88:
 	PUSH 2
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	INCN 2
 	JMP LOC_1DF88
 LOC_1E070:
@@ -17350,7 +17350,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSH 54
@@ -17363,7 +17363,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSHARG -6
@@ -17376,7 +17376,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSHARG -6
@@ -17389,7 +17389,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSH 54
@@ -17404,7 +17404,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSH 54
@@ -17419,7 +17419,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSH 54
@@ -17434,7 +17434,7 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -7
 	PUSH 54
@@ -17449,13 +17449,13 @@ LOC_1E070:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 35
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 6
 
 }}
@@ -17465,34 +17465,34 @@ __asm{
 	STACK 1
 	PUSH 1
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -6
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 32001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSHARG -4
 	PUSHARG -3
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 1024
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG -2
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -17504,40 +17504,40 @@ LOC_1E524:
 	PUSH 1
 	SETARG 31
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\022\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 4
 LOC_1E680:
@@ -17551,17 +17551,17 @@ LOC_1E680:
 	PUSHARG -2
 	CMP
 	JZ LOC_1E6F4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	JMP LOC_1E71C
 LOC_1E6F4:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 LOC_1E71C:
 	PUSHARG 3
@@ -17572,10 +17572,10 @@ LOC_1E71C:
 	POPN 3
 LOC_1E748:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -17585,7 +17585,7 @@ LOC_1E748:
 	CALL MoveCamera
 	PUSHSTR "m022snd01"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateIce"
 	PUSHARG 1
 	PUSHARG 2
@@ -17593,7 +17593,7 @@ LOC_1E748:
 	PUSH 65536
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 1
 	PUSH 44
@@ -17605,9 +17605,9 @@ LOC_1E748:
 	PUSH 45056
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 1
 	PUSH 44
@@ -17619,15 +17619,15 @@ LOC_1E748:
 	PUSH 49152
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 1
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 2
 	PUSH 16
@@ -17636,27 +17636,27 @@ LOC_1E748:
 	PUSH 36864
 	PUSH 6
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 1
 	PUSH 180
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 5
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_1EA20
 	PUSHARG 2
 	PUSH 180
 	PUSH 240
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 6
 	JMP LOC_1EA50
@@ -17664,30 +17664,30 @@ LOC_1EA20:
 	PUSHARG 2
 	PUSH 180
 	PUSH 230
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 6
 LOC_1EA50:
 	PUSHARG 5
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 8
 	PUSHARG 6
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 8
 	PUSHARG 9
 	PUSH 5
 	PUSH 4
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 7
 	PUSHARG 7
 	PUSH 0
 	CMPG
 	JZ LOC_1EBB0
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 8
@@ -17698,23 +17698,23 @@ LOC_1EA50:
 	PUSHARG 7
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 3
 	PUSHARG 3
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_1EBB0
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 LOC_1EBB0:
 	PUSHSTR "m022snd01"
 	PUSH 200
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSHARG 6
@@ -17722,7 +17722,7 @@ LOC_1EBB0:
 	PUSH 65536
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 44
@@ -17734,9 +17734,9 @@ LOC_1EBB0:
 	PUSH 45056
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 44
@@ -17748,15 +17748,15 @@ LOC_1EBB0:
 	PUSH 49152
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 6
 	PUSH 16
@@ -17765,27 +17765,27 @@ LOC_1EBB0:
 	PUSH 36864
 	PUSH 6
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 1
 	PUSH 170
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 5
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_1EE24
 	PUSHARG 2
 	PUSH 190
 	PUSH 230
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 6
 	JMP LOC_1EE54
@@ -17793,30 +17793,30 @@ LOC_1EE24:
 	PUSHARG 2
 	PUSH 190
 	PUSH 240
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 6
 LOC_1EE54:
 	PUSHARG 5
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 8
 	PUSHARG 6
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 8
 	PUSHARG 9
 	PUSH 5
 	PUSH 4
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 7
 	PUSHARG 7
 	PUSH 0
 	CMPG
 	JZ LOC_1EFB4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 8
@@ -17827,23 +17827,23 @@ LOC_1EE54:
 	PUSHARG 7
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 3
 	PUSHARG 3
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_1EFB4
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 6
 LOC_1EFB4:
 	PUSHSTR "m022snd01"
 	PUSH 220
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSHARG 6
@@ -17851,7 +17851,7 @@ LOC_1EFB4:
 	PUSH 65536
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 44
@@ -17863,9 +17863,9 @@ LOC_1EFB4:
 	PUSH 45056
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 44
@@ -17877,15 +17877,15 @@ LOC_1EFB4:
 	PUSH 49152
 	PUSH 4
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateIce"
 	PUSHARG 5
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 6
 	PUSH 16
@@ -17894,9 +17894,9 @@ LOC_1EFB4:
 	PUSH 36864
 	PUSH 6
 	PUSH 7
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSH 30
 	DELAY
 	INCN 4
@@ -17909,7 +17909,7 @@ LOC_1F198:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -17927,7 +17927,7 @@ __asm{
 	JZ LOC_1F314
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 2
 	PUSHARG 2
 	INST_4F 32
@@ -17984,7 +17984,7 @@ __asm{
 	PUSHARG -7
 	PUSH 0
 	PUSH 33002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG -2
 	PUSH 0
@@ -17993,25 +17993,25 @@ __asm{
 	PUSHARG 1
 	PUSH 8192
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	JMP LOC_1F418
 LOC_1F3F4:
 	PUSHARG 1
 	PUSH 53248
 	PUSH 53248
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_1F418:
 	PUSHARG 1
 	PUSH 0
 	PUSHARG -4
 	PUSHARG -5
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSHARG -3
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG -2
 	PUSH 0
 	CMP
@@ -18028,7 +18028,7 @@ LOC_1F4AC:
 	PUSH 12
 	SUB
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 8
 
 }}
@@ -18041,32 +18041,32 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 128
 	MUL
 	PUSH 33001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 251658240
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 23001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1F5C8
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	JMP LOC_1F5EC
 LOC_1F5C8:
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_1F5EC:
 	PUSH 4096
 	POPN 2
@@ -18078,7 +18078,7 @@ LOC_1F5FC:
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 2
 	DELAY
 	PUSHARG 2
@@ -18091,17 +18091,17 @@ LOC_1F66C:
 	DELAY
 	PUSHSTR "m023snd01"
 	PUSH 128
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 250
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -18111,7 +18111,7 @@ __asm{
 	STACK 5
 	PUSHSTR "m023snd01"
 	PUSH 224
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 1
 LOC_1F724:
@@ -18124,45 +18124,45 @@ LOC_1F724:
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	PUSH 64
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 50
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 512
 	PUSH 768
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x313, (9 | (0 << 16)) ; 0x0313 
+	SYSCALL 0x313, (9 | (0 << 16)) ; 0x0313
 	PUSH 1
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_1F724
 LOC_1F85C:
 	PUSHSTR "m023snd02"
 	PUSH 224
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	PUSH 0
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSHSTR "CreateOnFireFire"
 	PUSHARG -3
@@ -18174,7 +18174,7 @@ LOC_1F85C:
 	POPN 1
 LOC_1F8F0:
 	PUSHARG 3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_1FADC
 	PUSHARG 1
 	PUSH 12
@@ -18185,7 +18185,7 @@ LOC_1F8F0:
 	PUSH 24
 	NEG
 	PUSH 24
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 4
 	PUSHARG 4
 	PUSH 0
@@ -18219,23 +18219,23 @@ LOC_1F9EC:
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 5
 	PUSH 48
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 54
 	PUSH 74
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 768
 	PUSH 1024
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
-	SYSCALL 0x313, (9 | (0 << 16)) ; 0x0313 
+	SYSCALL 0x313, (9 | (0 << 16)) ; 0x0313
 LOC_1FAC0:
 	PUSH 1
 	DELAY
@@ -18275,11 +18275,11 @@ LOC_1FB4C:
 	POPN 3
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 5
 	PUSH 0
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_1FC24
@@ -18301,7 +18301,7 @@ LOC_1FBEC:
 LOC_1FC1C:
 	JMP LOC_1FCAC
 LOC_1FC24:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	JZ LOC_1FCAC
@@ -18324,9 +18324,9 @@ LOC_1FCAC:
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE
 	SETARG 34
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\023\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHARG -2
 	JCOND 0, LOC_1FD10
 	JCOND 1, LOC_1FD28
@@ -18344,27 +18344,27 @@ LOC_1FD40:
 	PUSH 13
 	POPN 6
 LOC_1FD50:
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHARG 3
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 3
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHARG 9
@@ -18373,12 +18373,12 @@ LOC_1FD50:
 	JZ LOC_20144
 	PUSHARG 3
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 8
 LOC_1FE88:
@@ -18389,26 +18389,26 @@ LOC_1FE88:
 	PUSHARG 5
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 7
 	PUSHARG 7
 	PUSH 0
 	CMP
 	JZ LOC_20040
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_1FF7C
 	PUSHARG 1
 	PUSH 40
 	PUSH 400
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	JMP LOC_1FFAC
@@ -18416,18 +18416,18 @@ LOC_1FF7C:
 	PUSHARG 1
 	PUSH 40
 	PUSH 400
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 1
 LOC_1FFAC:
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_20008
 	PUSHARG 2
 	PUSH 30
 	PUSH 300
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	JMP LOC_20038
@@ -18435,17 +18435,17 @@ LOC_20008:
 	PUSHARG 2
 	PUSH 30
 	PUSH 300
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 LOC_20038:
 	JMP LOC_20078
 LOC_20040:
 	PUSHARG 7
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 7
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 LOC_20078:
 	PUSHARG 8
@@ -18465,20 +18465,20 @@ LOC_200B4:
 	CALLBS
 	PUSH 0
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 8
 	JMP LOC_1FE88
 LOC_20110:
 	PUSHSTR "TraceOnFire"
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	PUSH 0
 	PUSH 0
 	CALLBS
 	JMP LOC_20198
 LOC_20144:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_20180
@@ -18496,7 +18496,7 @@ LOC_20198:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -18508,9 +18508,9 @@ __asm{
 	POPN 4
 	PUSH 0
 	POPN 1
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	POPN 6
-	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight 
+	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight
 	POPN 7
 LOC_20220:
 	PUSHARG 7
@@ -18528,13 +18528,13 @@ LOC_2023C:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_202C0
 LOC_2029C:
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_202C0:
 	PUSHARG 3
@@ -18552,7 +18552,7 @@ LOC_202C0:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -18565,7 +18565,7 @@ LOC_20370:
 	PUSHARG -3
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -18581,7 +18581,7 @@ LOC_203C8:
 	JZ LOC_203F4
 	RETN 2
 LOC_203F4:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2046C
@@ -18595,7 +18595,7 @@ LOC_203F4:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_204A8
 LOC_2046C:
@@ -18605,7 +18605,7 @@ LOC_2046C:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_204A8:
 	PUSHARG 3
@@ -18627,7 +18627,7 @@ LOC_204A8:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -18644,7 +18644,7 @@ LOC_20570:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -18679,34 +18679,34 @@ __asm{
 LOC_2065C:
 	STACK 8
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\024\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 3
@@ -18721,7 +18721,7 @@ LOC_207A8:
 	POPN 2
 LOC_207B8:
 	PUSHARG 3
-	SYSCALL 0x116, (1 | (1 << 16)) ; GetMajorLevel 
+	SYSCALL 0x116, (1 | (1 << 16)) ; GetMajorLevel
 	POPN 6
 	PUSHARG 6
 	PUSH 40
@@ -18734,7 +18734,7 @@ LOC_20800:
 	PUSH 5
 	MUL
 	PUSHARG 3
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	SUB
 	POPN 7
 	PUSHARG 7
@@ -18763,24 +18763,24 @@ LOC_2088C:
 	CALLBS
 	PUSHARG 1
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 24
 	DELAY
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 6
 	DELAY
 	PUSHSTR "m002snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "m002snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_209C8
@@ -18804,10 +18804,10 @@ LOC_209F4:
 	PUSH 100
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
@@ -18826,7 +18826,7 @@ LOC_20A90:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 2
 
 }}
@@ -18855,7 +18855,7 @@ __asm{
 LOC_20B50:
 	PUSHARG -3
 	PUSH 16777216
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 LOC_20B6C:
 	JMP LOC_20B94
 LOC_20B74:
@@ -18877,34 +18877,34 @@ __asm{
 	PUSH 35002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 4096
 	PUSH 4096
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_20C5C
 	PUSHARG 1
 	PUSH 25001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 LOC_20C5C:
 	PUSHARG 1
 	PUSH 4096
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 20
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 3
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
@@ -18918,7 +18918,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -18931,7 +18931,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -18944,7 +18944,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -18957,7 +18957,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -18972,7 +18972,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -18987,7 +18987,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -19002,7 +19002,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -19017,7 +19017,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19030,7 +19030,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19043,7 +19043,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -19056,7 +19056,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -19069,7 +19069,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19084,7 +19084,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19099,7 +19099,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19114,7 +19114,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -19129,7 +19129,7 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -19142,13 +19142,13 @@ LOC_20C5C:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -19161,15 +19161,15 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 35001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031 
+	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 2
 LOC_214D4:
@@ -19179,7 +19179,7 @@ LOC_214D4:
 	JZ LOC_21528
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	INCN 2
@@ -19187,7 +19187,7 @@ LOC_214D4:
 LOC_21528:
 	PUSHSTR "m025snd01"
 	PUSH 220
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 2
 LOC_21554:
@@ -19221,14 +19221,14 @@ LOC_215EC:
 	JZ LOC_21640
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	DECN 2
 	JMP LOC_215EC
 LOC_21640:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -19240,40 +19240,40 @@ LOC_2165C:
 	PUSH 1
 	SETARG 37
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\025\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 4
 LOC_217B8:
@@ -19294,10 +19294,10 @@ LOC_217F0:
 	PUSH 0
 	CMP
 	JZ LOC_21908
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -19307,10 +19307,10 @@ LOC_217F0:
 	POPN 3
 LOC_2187C:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 6
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 7
 	PUSHARG 6
 	POPN 1
@@ -19331,17 +19331,17 @@ LOC_21908:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_219B0
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	JMP LOC_219E0
@@ -19349,24 +19349,24 @@ LOC_219B0:
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 LOC_219E0:
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -19381,7 +19381,7 @@ LOC_21A8C:
 	DIV
 	CMPL
 	JZ LOC_21C30
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -19392,18 +19392,18 @@ LOC_21A8C:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_21C20
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -19439,17 +19439,17 @@ LOC_21C38:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_21CC4
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	JMP LOC_21CF4
@@ -19457,24 +19457,24 @@ LOC_21CC4:
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 LOC_21CF4:
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -19489,7 +19489,7 @@ LOC_21DA0:
 	DIV
 	CMPL
 	JZ LOC_21F44
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -19500,18 +19500,18 @@ LOC_21DA0:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_21F34
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -19550,7 +19550,7 @@ LOC_21F44:
 	CALLBS
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 5
 	JMP LOC_217F0
@@ -19567,7 +19567,7 @@ LOC_21FBC:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -19597,47 +19597,47 @@ LOC_22088:
 	RETN 1
 LOC_22090:
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 16
 	SUB
 	POPN 3
 	PUSHARG -2
-	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier 
+	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier
 	POP
 	PUSHARG -2
 	PUSH 65536
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -2
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_2212C:
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 1
 	PUSHARG -2
 	PUSHARG 2
 	PUSH 12
 	NEG
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 3
 	PUSH 9
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 1
 	PUSH 3
 	NEG
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	DELAY
 	PUSHARG 1
@@ -19647,7 +19647,7 @@ LOC_2212C:
 	JMP LOC_22248
 LOC_22210:
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_22238
 	JMP LOC_22248
@@ -19656,7 +19656,7 @@ LOC_22238:
 	JNZ LOC_2212C
 LOC_22248:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -19665,37 +19665,37 @@ void function SpoutKillEdge (arg_0, arg_1) {
 __asm{
 	STACK 5
 	PUSHARG -3
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN -3
 	PUSHARG -2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN -2
 	PUSHARG -3
 	PUSH 1
 	ADD
 	PUSHARG -2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	PUSH 0
 	SETNR 1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	PUSH 1
 	SETNR 1
 	PUSHARG -3
 	PUSH 1
 	SUB
 	PUSHARG -2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	PUSH 2
 	SETNR 1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 1
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	PUSH 3
 	SETNR 1
 	PUSH 0
@@ -19725,8 +19725,8 @@ LOC_22394:
 LOC_2242C:
 	PUSHARG 5
 	PUSHNR 1
-	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x115, (1 | (1 << 16)) ; GetSoldierSide
+	PUSHINV 5 ; INTV_IS_LEFT
 	CMP
 	JZ LOC_22474
 	PUSH 0
@@ -19755,9 +19755,9 @@ LOC_22494:
 	MUL
 	PUSH 10
 	PUSH 36
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_22528:
 	INCN 5
 	JMP LOC_22494
@@ -19778,7 +19778,7 @@ LOC_22554:
 	JZ LOC_225B4
 	PUSHARG 5
 	PUSHNR 1
-	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier 
+	SYSCALL 0x134, (1 | (1 << 16)) ; KillSoldier
 	POP
 LOC_225B4:
 	INCN 5
@@ -19794,13 +19794,13 @@ __asm{
 	DELAY
 	PUSHARG -2
 	PUSH 16384
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSH 6
 	DELAY
 	PUSHARG -2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 1
 
 }}
@@ -19819,43 +19819,43 @@ LOC_22644:
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -2
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	PUSH 0
 	PUSH 36002
 	PUSH 36003
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 10240
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSH 32768
 	PUSH 49152
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 4
 	PUSHARG 1
 	PUSHARG 4
 	PUSHARG 4
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG 3
 	PUSH 32
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceStoneBomb"
 	PUSHARG 1
 	PUSH 0
@@ -19864,7 +19864,7 @@ LOC_22644:
 	CALLBS
 	PUSH 0
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 2
 	JMP LOC_22644
@@ -19889,23 +19889,23 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 36012
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 5
 	PUSHARG 5
 	PUSH 65536
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
 	PUSH 36013
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 6
 	PUSHARG 6
 	PUSH 65536
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_2296C
 	PUSHSTR "MoveCamera"
@@ -19928,7 +19928,7 @@ LOC_2297C:
 	PUSH 0
 	PUSH 0
 	PUSH 56
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
@@ -19938,7 +19938,7 @@ LOC_2297C:
 	PUSH 2
 	MUL
 	ADD
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 2
 	PUSH 3
@@ -19947,7 +19947,7 @@ LOC_2297C:
 	PUSH 1
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_22A54:
 	INCN 2
 	JMP LOC_2297C
@@ -19963,11 +19963,11 @@ LOC_22A74:
 	PUSH 0
 	PUSH 0
 	PUSH 28
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 1
 	PUSH 65536
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	PUSHARG 2
@@ -19981,24 +19981,24 @@ LOC_22B10:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 5
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 5
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 6
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 6
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	RETN 3
 
 }}
@@ -20009,21 +20009,21 @@ LOC_22BE4:
 	STACK 52
 	PUSHSTR "m026snd01"
 	PUSH 200
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -4
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 1
 	PUSHARG -3
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 4
 	PUSH 2
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 6
 	PUSH 0
 	POPN 5
@@ -20034,7 +20034,7 @@ LOC_22CA8:
 	PUSHARG 6
 	CMPL
 	JZ LOC_22D58
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 1
@@ -20042,7 +20042,7 @@ LOC_22CA8:
 	PUSH 4
 	PUSH 2
 	PUSHARG 4
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	PUSHARG 5
 	SETNR 7
 	PUSHARG 4
@@ -20068,7 +20068,7 @@ LOC_22D78:
 	PUSHARG 6
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 52
 	PUSHARG 4
 	PUSHNR 7
@@ -20092,7 +20092,7 @@ LOC_22E34:
 	JZ LOC_23030
 	PUSH 4
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 6
 	PUSH 0
@@ -20100,11 +20100,11 @@ LOC_22E34:
 	JZ LOC_22F8C
 	PUSHARG 4
 	PUSHNR 7
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 4
 	PUSHNR 7
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHSTR "SpoutKillEdge"
 	PUSHARG 1
@@ -20121,7 +20121,7 @@ LOC_22E34:
 	CALLBS
 	PUSHSTR "m026snd01"
 	PUSH 230
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateSpout"
 	PUSHARG 1
 	PUSHARG 2
@@ -20135,14 +20135,14 @@ LOC_22F8C:
 	PUSH 432
 	NEG
 	PUSH 432
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHARG -3
 	PUSH 187
 	NEG
 	PUSH 187
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHSTR "CreateSpout"
@@ -20166,40 +20166,40 @@ LOC_23038:
 	PUSH 1
 	SETARG 38
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\026\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 3
 LOC_23194:
@@ -20207,18 +20207,18 @@ LOC_23194:
 	PUSH 3
 	CMPL
 	JZ LOC_23374
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 4
 	PUSHARG 4
 	JZ LOC_23280
 	PUSHARG 4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHSTR "SpoutKillEdge"
 	PUSHARG 1
@@ -20235,19 +20235,19 @@ LOC_23194:
 	JMP LOC_23300
 LOC_23280:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 200
 	NEG
 	PUSH 200
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 150
 	NEG
 	PUSH 150
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 LOC_23300:
@@ -20275,7 +20275,7 @@ LOC_23374:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -20290,10 +20290,10 @@ __asm{
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
 	PUSH 1
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 3
 	PUSHARG 3
 	INST_4F 39
@@ -20346,7 +20346,7 @@ LOC_234FC:
 LOC_23574:
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	DECN 1
 	PUSHARG 1
@@ -20356,13 +20356,13 @@ LOC_23574:
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_2360C
 LOC_235E8:
 	PUSHARG -3
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_2360C:
 	RETN 2
 
@@ -20375,55 +20375,55 @@ __asm{
 	PUSH 37002
 	PUSHARG -2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 12
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG -3
 	PUSH 37002
 	PUSHARG -2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 12
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 LOC_2373C:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_23898
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 24
 	PUSH 50
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 2
 	PUSHARG -3
 	PUSHARG -2
@@ -20431,26 +20431,26 @@ LOC_2373C:
 	SUB
 	PUSH 20
 	PUSH 50
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 1
 	DELAY
 	JMP LOC_2373C
 LOC_23898:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -20463,7 +20463,7 @@ __asm{
 	PUSH 6
 	NEG
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	PUSHARG -5
@@ -20471,13 +20471,13 @@ __asm{
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	PUSH 0
 	PUSHARG -4
 	PUSH 37001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
@@ -20486,26 +20486,26 @@ __asm{
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 27001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
 	PUSH 8
 	PUSH 2
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG -3
 	PUSH 1
 	CMP
@@ -20513,13 +20513,13 @@ __asm{
 	PUSHARG 1
 	PUSH 1
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	JMP LOC_23AB4
 LOC_23A90:
 	PUSHARG 1
 	PUSH 1
 	PUSH 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_23AB4:
 	PUSHSTR "AttachFireToCow"
 	PUSHARG 1
@@ -20546,23 +20546,23 @@ LOC_23B40:
 	POPN 3
 LOC_23B50:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_23CD4
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -3
 	PUSH 1
 	CMP
 	JZ LOC_23BF8
 	PUSHARG 2
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	CMPGE
 	JZ LOC_23BF0
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_23CD4
 LOC_23BF0:
 	JMP LOC_23C40
@@ -20574,7 +20574,7 @@ LOC_23BF8:
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_23CD4
 LOC_23C40:
 	PUSH 1
@@ -20592,10 +20592,10 @@ LOC_23C40:
 	PUSH 3
 	NEG
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_23CCC:
 	JMP LOC_23B50
 LOC_23CD4:
@@ -20607,7 +20607,7 @@ void function FireCow (arg_0) {
 __asm{
 LOC_23CDC:
 	STACK 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_23D20
@@ -20621,43 +20621,43 @@ LOC_23D20:
 	INST_52 39
 LOC_23D38:
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\027\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 10
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_23EC0
@@ -20673,10 +20673,10 @@ LOC_23EC0:
 	PUSH 128
 	POPN 3
 LOC_23EE0:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALL GetSoldierMaxX
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_23F44
@@ -20684,23 +20684,23 @@ LOC_23EE0:
 	PUSH 320
 	SUB
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	JMP LOC_23F6C
 LOC_23F44:
 	PUSHARG 5
 	PUSH 320
 	ADD
 	PUSH 0
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_23F6C:
 	PUSH 15
 	DELAY
 	PUSHSTR "m027snd01"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "m027snd02"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 0
 	CMP
@@ -20715,9 +20715,9 @@ LOC_23F6C:
 	PUSH 75
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20728,9 +20728,9 @@ LOC_23F6C:
 	PUSH 75
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20741,11 +20741,11 @@ LOC_23F6C:
 	PUSH 225
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20756,9 +20756,9 @@ LOC_23F6C:
 	PUSH 225
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_24784
 LOC_24160:
 	PUSHARG -2
@@ -20775,9 +20775,9 @@ LOC_24160:
 	PUSH 350
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20788,9 +20788,9 @@ LOC_24160:
 	PUSH 250
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20801,9 +20801,9 @@ LOC_24160:
 	PUSH 150
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20812,11 +20812,11 @@ LOC_24160:
 	ADD
 	PUSH 562
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20827,9 +20827,9 @@ LOC_24160:
 	PUSH 150
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20840,9 +20840,9 @@ LOC_24160:
 	PUSH 250
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20853,9 +20853,9 @@ LOC_24160:
 	PUSH 350
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_24784
 LOC_24424:
 	PUSHSTR "CreateFireCow"
@@ -20868,9 +20868,9 @@ LOC_24424:
 	PUSH 400
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20881,9 +20881,9 @@ LOC_24424:
 	PUSH 300
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20894,9 +20894,9 @@ LOC_24424:
 	PUSH 200
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20907,9 +20907,9 @@ LOC_24424:
 	PUSH 100
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20918,11 +20918,11 @@ LOC_24424:
 	ADD
 	PUSH 562
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20933,9 +20933,9 @@ LOC_24424:
 	PUSH 100
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20946,9 +20946,9 @@ LOC_24424:
 	PUSH 200
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20959,9 +20959,9 @@ LOC_24424:
 	PUSH 300
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "CreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -20972,31 +20972,31 @@ LOC_24424:
 	PUSH 400
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_24784:
 	PUSH 110
 	PUSH 160
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHSTR "m027snd02"
 	PUSH 210
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 10
 	DELAY
 	PUSHSTR "m027snd01"
 	PUSH 160
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "LockCameraLine"
 	INST_45
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -21009,7 +21009,7 @@ LOC_24784:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -21019,11 +21019,11 @@ __asm{
 	STACK 9
 	PUSHARG -3
 	PUSH 1
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 2
 	PUSHARG -3
 	PUSH 2
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 3
 	PUSHARG -2
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
@@ -21055,7 +21055,7 @@ LOC_2498C:
 	JZ LOC_249CC
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN -3
 LOC_249CC:
 	INST_09 1
@@ -21078,7 +21078,7 @@ LOC_24A18:
 	PUSHARG -3
 	PUSH 10
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21086,7 +21086,7 @@ LOC_24A18:
 	PUSHARG -3
 	PUSH 25
 	PUSH 35
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21094,7 +21094,7 @@ LOC_24A18:
 	PUSHARG -3
 	PUSH 40
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21102,7 +21102,7 @@ LOC_24A18:
 	PUSHARG -3
 	PUSH 55
 	PUSH 65
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21111,14 +21111,14 @@ LOC_24A18:
 LOC_24B44:
 	PUSHARG -3
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 4
 	DELAY
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 	JMP LOC_24BCC
 LOC_24BAC:
@@ -21133,77 +21133,77 @@ LOC_24BCC:
 	JZ LOC_24E68
 	PUSHARG -3
 	PUSH 1
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 	PUSHARG 2
 	PUSH 1
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 	PUSHARG 3
 	PUSH 1
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 7
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG 7
 	ADD
 	POPN 4
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG -3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 6
 	PUSHARG -3
 	PUSHARG 4
 	PUSHARG 5
 	PUSHARG 6
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG 7
 	ADD
 	POPN 4
 	PUSHARG 2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 6
 	PUSHARG 2
 	PUSHARG 4
 	PUSHARG 5
 	PUSHARG 6
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG 7
 	ADD
 	POPN 4
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 3
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 6
 	PUSHARG 3
 	PUSHARG 4
 	PUSHARG 5
 	PUSHARG 6
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	DELAY
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 	PUSHARG 2
 	PUSH 0
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020 
+	SYSCALL 0x20, (2 | (0 << 16)) ; 0x0020
 LOC_24E68:
 	PUSHARG 2
 	PUSH 0
@@ -21211,12 +21211,12 @@ LOC_24E68:
 	JZ LOC_24EA8
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN -3
 LOC_24EA8:
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	DECN 1
 	PUSHARG 1
@@ -21243,7 +21243,7 @@ LOC_24F3C:
 	PUSHARG -3
 	PUSH 10
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21251,7 +21251,7 @@ LOC_24F3C:
 	PUSHARG -3
 	PUSH 25
 	PUSH 35
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21259,7 +21259,7 @@ LOC_24F3C:
 	PUSHARG -3
 	PUSH 40
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21267,7 +21267,7 @@ LOC_24F3C:
 	PUSHARG -3
 	PUSH 55
 	PUSH 65
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -21276,20 +21276,20 @@ LOC_24F3C:
 LOC_25068:
 	PUSHARG -3
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 4
 	DELAY
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_250EC
 LOC_250C8:
 	PUSHARG -3
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_250EC:
 	RETN 2
 
@@ -21300,40 +21300,40 @@ __asm{
 	STACK 2
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	PUSHARG -3
 	PUSH 38002
 	PUSH 38008
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG 2
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 18432
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG 2
 	PUSH 12
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 38
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 8
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -21350,31 +21350,31 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 3
 	PUSHARG 3
 	PUSH 192
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 3
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 3
 	PUSH 28001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 3
 	PUSH 1
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 3
 	PUSH 2
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG -4
 	PUSH 96
 	SUB
@@ -21384,76 +21384,76 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 2
 	PUSHARG 2
 	PUSH 192
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 2
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 28001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 2
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 2
 	PUSH 1
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 2
 	PUSH 2
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
 	PUSH 38001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 192
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 49152
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 28001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 1
 	PUSH 1
 	PUSHARG 2
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 1
 	PUSH 2
 	PUSHARG 3
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 2
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 3
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_2560C:
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 0
 	CMPG
 	JZ LOC_25648
@@ -21462,13 +21462,13 @@ LOC_2560C:
 	JMP LOC_2560C
 LOC_25648:
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -21479,35 +21479,35 @@ __asm{
 	PUSHARG -3
 	DELAY
 	PUSHARG -6
-	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133 
+	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133
 	PUSH 100
 	SUB
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG -5
 	PUSH 400
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG -4
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG -2
 	PUSH 1
 	CMP
 	JZ LOC_25808
 LOC_25778:
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSH 2
 	DELAY
@@ -21515,7 +21515,7 @@ LOC_25778:
 	PUSHARG 4
 	PUSH 240
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 3
 	PUSHARG -5
 	CMPL
@@ -21523,10 +21523,10 @@ LOC_25778:
 	JMP LOC_25890
 LOC_25808:
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSH 2
 	DELAY
@@ -21534,16 +21534,16 @@ LOC_25808:
 	PUSHARG 4
 	PUSH 240
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 3
 	PUSHARG -5
 	CMPG
 	JNZ LOC_25808
 LOC_25890:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -21557,40 +21557,40 @@ LOC_258C0:
 	PUSH 1
 	SETARG 41
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\028\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG -2
 	JCOND 0, LOC_25A48
 	JCOND 1, LOC_25A70
@@ -21614,10 +21614,10 @@ LOC_25A98:
 	PUSH 8
 	POPN 9
 LOC_25AB8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -21626,12 +21626,12 @@ LOC_25AB8:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 3
 LOC_25B0C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_25BD0
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG -2
 	PUSH 1
 	ADD
@@ -21641,7 +21641,7 @@ LOC_25B0C:
 	PUSH 25
 	NEG
 	PUSH 25
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 4
 	MUL
 	ADD
@@ -21650,13 +21650,13 @@ LOC_25B0C:
 	PUSH 20
 	NEG
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 	JMP LOC_25C70
 LOC_25BD0:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHARG -2
 	PUSH 1
 	ADD
@@ -21666,7 +21666,7 @@ LOC_25BD0:
 	PUSH 25
 	NEG
 	PUSH 25
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 4
 	MUL
 	ADD
@@ -21675,12 +21675,12 @@ LOC_25BD0:
 	PUSH 20
 	NEG
 	PUSH 20
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 LOC_25C70:
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG -2
 	PUSH 1
@@ -21690,7 +21690,7 @@ LOC_25C70:
 	PUSH 1
 	ADD
 	POPN 7
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_25D5C
@@ -21709,8 +21709,8 @@ LOC_25C70:
 	SUB
 	PUSHARG 8
 	PUSH 0
-	PUSHINV 5 ; INTV_IS_RIGHT
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	PUSHINV 5 ; INTV_IS_LEFT
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_25DD4
 LOC_25D5C:
 	PUSHSTR "TracingCamera"
@@ -21728,8 +21728,8 @@ LOC_25D5C:
 	ADD
 	PUSHARG 8
 	PUSH 0
-	PUSHINV 5 ; INTV_IS_RIGHT
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	PUSHINV 5 ; INTV_IS_LEFT
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_25DD4:
 	PUSH 0
 	POPN 6
@@ -21740,10 +21740,10 @@ LOC_25DE4:
 	JZ LOC_25ED0
 	PUSHSTR "m028snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateRollStone"
 	PUSHARG 4
-	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133 
+	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133
 	PUSH 200
 	ADD
 	PUSHARG 9
@@ -21751,7 +21751,7 @@ LOC_25DE4:
 	CALLBS
 	PUSH 10
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_25EA4
@@ -21778,7 +21778,7 @@ LOC_25ED0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -21826,7 +21826,7 @@ __asm{
 	STACK 5
 	PUSH 0
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	MUL
 	DELAY
@@ -21834,23 +21834,23 @@ __asm{
 	PUSH 39011
 	PUSH 0
 	PUSH 220
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSHARG 4
 	PUSHARG -4
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 220
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 4
 	PUSH 4096
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 4
 	PUSH 0
 	PUSH 20
 	NEG
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 1
 	POPN 5
 LOC_260F0:
@@ -21869,49 +21869,49 @@ LOC_260F0:
 	MUL
 	ADD
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	INCN 5
 	JMP LOC_260F0
 LOC_26170:
 	PUSHARG 4
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -4
 	PUSH 39002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 4096
 	PUSH 4096
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 29001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 4096
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 10
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 3
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
@@ -21927,7 +21927,7 @@ LOC_26170:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -21942,27 +21942,12 @@ LOC_26170:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
-	PUSH 20
-	SUB
-	PUSHARG 3
-	PUSH 2501
-	PUSH 0
-	PUSH 8
-	PUSH 29001
-	PUSH 0
-	PUSH 0
-	PUSH 33554432
-	PUSH 16777216
-	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG 2
-	PUSHARG 3
 	PUSH 20
 	SUB
+	PUSHARG 3
 	PUSH 2501
 	PUSH 0
 	PUSH 8
@@ -21972,13 +21957,28 @@ LOC_26170:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG 2
+	PUSHARG 3
+	PUSH 20
+	SUB
+	PUSH 2501
+	PUSH 0
+	PUSH 8
+	PUSH 29001
+	PUSH 0
+	PUSH 0
+	PUSH 33554432
+	PUSH 16777216
+	ADD
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 10
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -21990,7 +21990,7 @@ __asm{
 	PUSHARG -2
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSH 1
 	POPN 2
@@ -22010,7 +22010,7 @@ LOC_2651C:
 	PUSHARG 2
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 2
@@ -22019,7 +22019,7 @@ LOC_265A8:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -22028,16 +22028,16 @@ void function BigPaBombHurt (arg_0) {
 __asm{
 	STACK 6
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSH 0
 	POPN 3
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 6
 	PUSH 0
 	POPN 2
@@ -22056,7 +22056,7 @@ LOC_26658:
 	PUSH 16777216
 	ADD
 	PUSH 29001
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 6
 	PUSH 64
 	ADD
@@ -22091,23 +22091,23 @@ LOC_2676C:
 	STACK 2
 	PUSHSTR "m029snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 39012
 	PUSH 0
 	PUSH 220
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 0
 	PUSH 20
 	NEG
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_267EC:
 	PUSH 1
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 2
 	PUSHARG 2
 	PUSH 0
@@ -22122,7 +22122,7 @@ LOC_267EC:
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHSTR "BigBombCircle"
 	PUSHARG -2
 	PUSH 39013
@@ -22157,39 +22157,39 @@ LOC_26924:
 	PUSH 39016
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 49152
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -5
 	PUSH 39017
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSH 49152
 	PUSH 20480
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 2
 LOC_26A7C:
@@ -22221,30 +22221,30 @@ LOC_26B04:
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG -2
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	INCN 2
 	JMP LOC_26A7C
 LOC_26BBC:
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 3
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 4
 
 }}
@@ -22256,28 +22256,28 @@ __asm{
 	PUSH 39015
 	PUSH 0
 	PUSH 220
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 220
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 49152
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 0
 	PUSH 20
 	NEG
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_26CC8:
 	PUSH 1
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 2
 	PUSHARG 2
 	PUSH 0
@@ -22291,7 +22291,7 @@ LOC_26CC8:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -22303,24 +22303,24 @@ __asm{
 	PUSHARG -3
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSH 9
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 128
 	PUSH 45
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHSTR "ProduceShadowTime"
 	PUSHARG 1
 	PUSH 9999
@@ -22330,7 +22330,7 @@ __asm{
 	PUSH 18
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -22340,20 +22340,20 @@ __asm{
 	STACK 11
 	PUSHSTR "m029snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 0
 	PUSH 0
 	PUSH 39001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031 
+	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_26F24:
@@ -22363,7 +22363,7 @@ LOC_26F24:
 	JZ LOC_26F78
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	INCN 2
@@ -22371,10 +22371,10 @@ LOC_26F24:
 LOC_26F78:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSHARG 1
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_26FC0:
@@ -22388,7 +22388,7 @@ LOC_26FC0:
 	ADD
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	PUSHARG 2
 	SETNR 4
 	INCN 2
@@ -22444,7 +22444,7 @@ LOC_27144:
 	CALL CreateBigPaBomb
 	PUSHSTR "m029snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 3
 LOC_27198:
@@ -22468,7 +22468,7 @@ LOC_271C4:
 	ADD
 	PUSH 0
 	PUSH 128
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 40
 	PUSHARG 2
 	MUL
@@ -22480,7 +22480,7 @@ LOC_271C4:
 LOC_27260:
 	PUSH 1
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 3
 	JMP LOC_27198
@@ -22498,7 +22498,7 @@ LOC_272B8:
 	JZ LOC_2730C
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 2
 	DELAY
 	DECN 2
@@ -22515,44 +22515,44 @@ LOC_27314:
 	PUSH 1
 	SETARG 42
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\029\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -22562,16 +22562,16 @@ LOC_27314:
 	POPN 3
 LOC_274B4:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHSTR "HoldAllDelay"
 	PUSH 8
 	PUSH 6
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 0
 	PUSH 0
@@ -22596,7 +22596,7 @@ LOC_274B4:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -22609,7 +22609,7 @@ __asm{
 	CMP
 	JZ LOC_276D0
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	INST_09 43
 	JZ LOC_27638
 	PUSHINV 4 ; INTV_MAGIC_ATTACK_VALUE
@@ -22659,25 +22659,25 @@ __asm{
 	STACK 1
 LOC_2772C:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_2781C
 	PUSH 1
 	DELAY
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_277DC
 	PUSHARG 1
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	PUSH 100
 	SUB
 	CMPG
 	JZ LOC_277D4
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_2781C
 LOC_277D4:
 	JMP LOC_27814
@@ -22687,13 +22687,13 @@ LOC_277DC:
 	CMPL
 	JZ LOC_27814
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	JMP LOC_2781C
 LOC_27814:
 	JMP LOC_2772C
 LOC_2781C:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -22702,19 +22702,19 @@ void function HalfMoonNewMotion (arg_0, arg_1, arg_2, arg_3) {
 __asm{
 	STACK 12
 	PUSHARG -5
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -5
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG -5
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 7
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 4
 	PUSHARG 3
 	PUSHARG 1
@@ -22787,7 +22787,7 @@ LOC_279F0:
 	PUSHARG 10
 	DIV
 	PUSHARG -3
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	ADD
 	POPN 5
 	JMP LOC_27B00
@@ -22799,7 +22799,7 @@ LOC_27AB8:
 	PUSHARG 10
 	DIV
 	PUSHARG -3
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	SUB
 	POPN 5
 LOC_27B00:
@@ -22807,13 +22807,13 @@ LOC_27B00:
 	PUSHARG 6
 	PUSHARG 5
 	PUSHARG 7
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG -4
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	INCN 8
@@ -22828,26 +22828,26 @@ LOC_27B7C:
 	PUSHARG 3
 	PUSHARG 4
 	PUSHARG 7
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG -4
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 LOC_27BFC:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_27DA8
 	PUSHARG -5
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSH 128
 	POPN 8
 LOC_27C4C:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_27DA8
 	PUSHARG 1
 	PUSHARG 3
@@ -22866,7 +22866,7 @@ LOC_27C4C:
 	PUSHARG 4
 	PUSHARG 8
 	PUSHARG -3
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	ADD
 	POPN 5
 	JMP LOC_27D2C
@@ -22874,7 +22874,7 @@ LOC_27CFC:
 	PUSHARG 4
 	PUSHARG 8
 	PUSHARG -3
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	SUB
 	POPN 5
 LOC_27D2C:
@@ -22882,13 +22882,13 @@ LOC_27D2C:
 	PUSHARG 6
 	PUSHARG 5
 	PUSHARG 7
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG -4
 	PUSHARG -5
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	INCN 8
@@ -22903,9 +22903,9 @@ __asm{
 LOC_27DB0:
 	STACK 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	SUB
 	POPN 1
 	PUSHARG 1
@@ -22928,38 +22928,38 @@ __asm{
 	PUSH 40001
 	PUSHARG -6
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -7
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 30001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 49152
 	PUSH 49152
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 40002
 	PUSHARG -6
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	CALL GetGeneralWidth
 	POPN 4
 	PUSHSTR "CheckHalfMoonNew"
@@ -22985,11 +22985,11 @@ LOC_27FE8:
 	PUSHARG 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 30
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	PUSHARG 2
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 30
-	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019 
+	SYSCALL 0x19, (3 | (0 << 16)) ; 0x0019
 	JMP LOC_28080
 LOC_28054:
 	PUSHSTR "HalfMoonNewMotion"
@@ -23010,10 +23010,10 @@ LOC_28088:
 	PUSH 2
 	SETARG 43
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\030\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
@@ -23021,19 +23021,19 @@ LOC_28088:
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSH 0
 	POPN 11
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_28180
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 11
 LOC_28180:
 	PUSH 18
@@ -23081,12 +23081,12 @@ LOC_28278:
 LOC_2829C:
 	PUSHARG 1
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 7
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 8
 	PUSHARG 7
 	PUSHARG 12
@@ -23096,24 +23096,24 @@ LOC_2829C:
 	PUSHARG 8
 	PUSHARG 9
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHARG 1
 	PUSH 4096
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG 1
 	PUSHSTR "m001snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHARG -2
 	JZ LOC_2852C
 	PUSHSTR "CreateHalfMoonNew"
@@ -23123,7 +23123,7 @@ LOC_2829C:
 	PUSH 0
 	PUSH 1
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23131,7 +23131,7 @@ LOC_2829C:
 	PUSH 200
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23139,7 +23139,7 @@ LOC_2829C:
 	PUSH 400
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23147,7 +23147,7 @@ LOC_2829C:
 	PUSH 200
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23155,7 +23155,7 @@ LOC_2829C:
 	PUSH 400
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	JMP LOC_285F8
 LOC_2852C:
 	PUSHSTR "CreateHalfMoonNew"
@@ -23165,7 +23165,7 @@ LOC_2852C:
 	PUSH 0
 	PUSH 1
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23173,7 +23173,7 @@ LOC_2852C:
 	PUSH 200
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	PUSHSTR "CreateHalfMoonNew"
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHARG 5
@@ -23181,7 +23181,7 @@ LOC_2852C:
 	PUSH 200
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_285F8:
 	PUSH 8
 	DELAY
@@ -23192,7 +23192,7 @@ LOC_285F8:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -23255,17 +23255,17 @@ __asm{
 	PUSH 41001
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 8
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHSTR "m031snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 8
 	DELAY
 	PUSHARG -3
@@ -23280,7 +23280,7 @@ LOC_2882C:
 	PUSHARG -2
 	PUSHARG 2
 	PUSH 8
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -2
@@ -23298,7 +23298,7 @@ LOC_288D4:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -23311,42 +23311,42 @@ LOC_28900:
 	PUSH 41009
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 31001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 32768
 	PUSH 24576
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -6
 	PUSH 41010
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSH 32768
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 2
 LOC_28A74:
@@ -23371,19 +23371,19 @@ LOC_28A74:
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG -3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSHARG -2
 	PUSH 16
@@ -23393,11 +23393,11 @@ LOC_28A74:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 3
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_28BEC:
 	INCN 2
 	JMP LOC_28A74
@@ -23413,28 +23413,28 @@ __asm{
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN -5
 	PUSHARG -5
 	PUSH 41008
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 32768
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
@@ -23442,7 +23442,7 @@ __asm{
 	PUSHARG -2
 	CALL CreateFirePillarLight
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -23456,11 +23456,11 @@ LOC_28D3C:
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSH 0
 	POPN 2
@@ -23500,7 +23500,7 @@ LOC_28E34:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23513,7 +23513,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23526,7 +23526,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSHARG -2
@@ -23539,7 +23539,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSHARG -2
@@ -23552,7 +23552,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23567,7 +23567,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23582,7 +23582,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23597,7 +23597,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -23612,7 +23612,7 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
@@ -23625,81 +23625,23 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	SUB
-	PUSHARG -2
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 31001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 31001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 31001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	ADD
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 31001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	ADD
-	PUSHARG -2
-	PUSH 100
-	SUB
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 31001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
 	SUB
 	PUSHARG -2
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 31001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSHARG -2
 	PUSH 100
 	ADD
 	PUSH 2501
@@ -23709,11 +23651,39 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 31001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
-	SUB
+	ADD
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 31001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	ADD
 	PUSHARG -2
 	PUSH 100
 	SUB
@@ -23724,10 +23694,40 @@ LOC_28E34:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	SUB
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 31001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	SUB
+	PUSHARG -2
+	PUSH 100
+	SUB
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 31001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "m031snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 2
 LOC_295C0:
@@ -23742,7 +23742,7 @@ LOC_295C0:
 	PUSH 0
 	PUSH 12
 	NEG
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSH 4
 	DELAY
@@ -23751,7 +23751,7 @@ LOC_295C0:
 	CMPL
 	JZ LOC_2965C
 	PUSHARG 4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_2965C:
 	INCN 2
 	JMP LOC_295C0
@@ -23766,7 +23766,7 @@ LOC_2967C:
 	PUSHARG 4
 	PUSH 65536
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 2
 	DELAY
 	PUSHARG 2
@@ -23779,7 +23779,7 @@ LOC_296EC:
 	DELAY
 	PUSHSTR "m031snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateFirePillarBomb"
 	PUSHARG 4
 	PUSH 32
@@ -23806,13 +23806,13 @@ LOC_296EC:
 	CALLBS
 	PUSHARG 4
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 4
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -23824,44 +23824,44 @@ LOC_29820:
 	PUSH 1
 	SETARG 44
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\031\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -23871,10 +23871,10 @@ LOC_29820:
 	POPN 3
 LOC_299C0:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -23890,7 +23890,7 @@ LOC_299C0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -23900,7 +23900,7 @@ __asm{
 	STACK 2
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	PUSHARG 1
 	PUSH 4660
@@ -23942,7 +23942,7 @@ LOC_29B50:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125 
+	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125
 	PUSH 4
 	DELAY
 	INCN 1
@@ -23961,24 +23961,24 @@ __asm{
 	PUSH 42001
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 73728
 	PUSH 73728
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 1
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 6
 	PUSH 60
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSH 0
 	POPN 2
@@ -23996,16 +23996,16 @@ LOC_29CB4:
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 5
 	PUSHARG 6
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	INCN 2
 	JMP LOC_29CB4
 LOC_29D6C:
@@ -24013,11 +24013,11 @@ LOC_29D6C:
 	PUSHARG 4
 	PUSHARG 5
 	PUSHARG 6
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -24028,56 +24028,56 @@ LOC_29DC4:
 	STACK 4
 	PUSHSTR "m032snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN -2
 	PUSHARG -2
 	PUSH 42004
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 32001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
 	PUSH 4660
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSH 42002
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "CreateSparkleCenter"
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -24085,7 +24085,7 @@ LOC_29DC4:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -24093,7 +24093,7 @@ LOC_29DC4:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -24101,7 +24101,7 @@ LOC_29DC4:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -24115,17 +24115,17 @@ LOC_29DC4:
 	INST_45
 	PUSHSTR "m032snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 1
 	PUSH 42003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 4096
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 0
 	POPN 4
 LOC_2A11C:
@@ -24141,7 +24141,7 @@ LOC_2A11C:
 	PUSH 2
 	PUSH 33554432
 	PUSH 32001
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 4
 	PUSH 32
 	ADD
@@ -24163,7 +24163,7 @@ LOC_2A1B8:
 	PUSH 2
 	PUSH 33554432
 	PUSH 32001
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 4
 	PUSH 32
 	ADD
@@ -24175,10 +24175,10 @@ LOC_2A244:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_2A274:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_2A2A4
 	PUSH 1
 	DELAY
@@ -24189,9 +24189,9 @@ LOC_2A2A4:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -24201,50 +24201,50 @@ __asm{
 LOC_2A2F0:
 	STACK 3
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\032\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 5
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -24259,7 +24259,7 @@ LOC_2A2F0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -24322,7 +24322,7 @@ LOC_2A648:
 	PUSH 1
 	DELAY
 	PUSHARG -4
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -24334,7 +24334,7 @@ LOC_2A648:
 	PUSH 43003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG -2
 	JZ LOC_2A724
@@ -24342,47 +24342,47 @@ LOC_2A648:
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 33001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_2A724:
 	PUSHARG 2
 	PUSH 45056
 	PUSH 45056
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSH 0
 	PUSH 48
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 3
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 3
 	PUSH 33001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_2A7EC:
 	PUSHARG -4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSH 26
 	DELAY
 	PUSHARG 3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG -3
 	JZ LOC_2A854
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_2A854:
 	RETN 3
 
@@ -24409,33 +24409,33 @@ LOC_2A8A0:
 	PUSH 43004
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG 2
 	PUSH 64
 	PUSH 8
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 44
 	PUSH 12
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 16
 	PUSHARG 3
 	PUSH 2
 	MUL
 	SUB
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG 1
 	PUSH 2048
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHSTR "TraceFlash"
 	PUSHARG 1
 	PUSHARG 3
@@ -24467,23 +24467,23 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 43003
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 33001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 4
 	DELAY
 	PUSHSTR "CreateCannonFlash"
 	PUSHARG 1
 	PUSH 30720
 	PUSH 36864
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -24492,7 +24492,7 @@ __asm{
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -24504,17 +24504,17 @@ LOC_2AB54:
 	PUSH 1
 	DELAY
 	PUSHARG -2
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG 3
 	PUSH 0
 	CMPG
 	JNZ LOC_2AB54
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHSTR "CannonExplode"
 	PUSHARG 1
@@ -24523,7 +24523,7 @@ LOC_2AB54:
 	PUSH 0
 	CALLBS
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -24531,37 +24531,37 @@ LOC_2AB54:
 void function ShootCannon () callsign 33002 {
 __asm{
 	STACK 4
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 2
 	PUSHARG 2
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 4
 	PUSHARG 2
 	PUSH 43002
 	PUSHARG 4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 61440
 	PUSH 61440
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 45
 	PUSH 85
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 30
 	PUSH 30
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSH 2
 	DELAY
 	PUSH 32
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 0
 
 }}
@@ -24571,10 +24571,10 @@ __asm{
 	STACK 1
 LOC_2AD3C:
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_2AE48
 	PUSHARG -4
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 1
 	PUSHARG 1
 	PUSH 0
@@ -24595,7 +24595,7 @@ LOC_2AD98:
 	PUSHARG -5
 	PUSHARG -3
 	PUSHARG -3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_2AE00:
 	PUSHARG -2
 	PUSH 16
@@ -24604,12 +24604,12 @@ LOC_2AE00:
 	INCN -2
 	PUSHARG -5
 	PUSHARG -2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 LOC_2AE40:
 	JMP LOC_2AD3C
 LOC_2AE48:
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -24623,7 +24623,7 @@ __asm{
 	PUSH 43006
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
@@ -24631,13 +24631,13 @@ __asm{
 	ADD
 	PUSHARG -3
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceCannon"
 	PUSHARG 1
 	PUSH 0
@@ -24657,7 +24657,7 @@ __asm{
 	PUSH 43006
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
@@ -24665,13 +24665,13 @@ __asm{
 	SUB
 	PUSHARG -3
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceCannon"
 	PUSHARG 1
 	PUSH 0
@@ -24686,10 +24686,10 @@ void function FlyCannonLB2 (arg_0, arg_1, arg_2) {
 __asm{
 	STACK 3
 	PUSHARG -4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN -3
 	PUSHARG -2
 	DELAY
@@ -24697,10 +24697,10 @@ __asm{
 	PUSH 43006
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_2B120
@@ -24712,7 +24712,7 @@ __asm{
 	ADD
 	PUSHARG -3
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	JMP LOC_2B18C
 LOC_2B120:
 	PUSHARG 1
@@ -24720,21 +24720,21 @@ LOC_2B120:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	PUSH 24
 	ADD
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_2B18C:
 	PUSHARG 1
 	PUSH 128
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceCannon"
 	PUSHARG 1
 	PUSH 0
@@ -24749,10 +24749,10 @@ void function FlyCannonRB2 (arg_0, arg_1, arg_2) {
 __asm{
 	STACK 3
 	PUSHARG -4
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN -3
 	PUSHARG -2
 	DELAY
@@ -24760,10 +24760,10 @@ __asm{
 	PUSH 43006
 	PUSH 128
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_2B2E4
@@ -24775,7 +24775,7 @@ __asm{
 	SUB
 	PUSHARG -3
 	PUSH 260
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	JMP LOC_2B354
 LOC_2B2E4:
 	PUSHARG 1
@@ -24783,7 +24783,7 @@ LOC_2B2E4:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 260
 	NEG
@@ -24791,14 +24791,14 @@ LOC_2B2E4:
 	SUB
 	PUSH 0
 	PUSH 260
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_2B354:
 	PUSHARG 1
 	PUSH 0
 	PUSH 32
 	NEG
 	PUSH 32
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHSTR "TraceCannon"
 	PUSHARG 1
 	PUSH 0
@@ -24814,7 +24814,7 @@ __asm{
 	STACK 1
 	PUSHARG -3
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2B424
@@ -24822,7 +24822,7 @@ __asm{
 	PUSH 43005
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	JMP LOC_2B458
 LOC_2B424:
@@ -24830,18 +24830,18 @@ LOC_2B424:
 	PUSH 43001
 	PUSHARG -2
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 LOC_2B458:
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	RETN 4
 
 }}
@@ -24853,41 +24853,41 @@ LOC_2B4B0:
 	PUSH 1
 	SETARG 45
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\033\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2B630
@@ -24929,7 +24929,7 @@ LOC_2B6DC:
 LOC_2B70C:
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 7
 	PUSHSTR "ProduceCannonEmitter"
 	PUSH 6576
@@ -24937,7 +24937,7 @@ LOC_2B70C:
 	PUSH 7
 	MUL
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	MUL
@@ -24946,7 +24946,7 @@ LOC_2B70C:
 	PUSH 7
 	MUL
 	SUB
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
@@ -24984,7 +24984,7 @@ LOC_2B70C:
 LOC_2B878:
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 7
 	PUSHSTR "ProduceCannonEmitter"
 	PUSH 6576
@@ -24996,7 +24996,7 @@ LOC_2B878:
 	PUSH 2
 	MUL
 	ADD
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	MUL
@@ -25009,7 +25009,7 @@ LOC_2B878:
 	PUSH 2
 	MUL
 	SUB
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
@@ -25037,7 +25037,7 @@ LOC_2B878:
 	CMPG
 	JNZ LOC_2B878
 LOC_2B9D8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2BA40
@@ -25068,10 +25068,10 @@ LOC_2BA40:
 LOC_2BA90:
 	PUSH 80
 	DELAY
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	POPN 10
 	PUSH 0
 	POPN 11
@@ -25097,16 +25097,16 @@ LOC_2BB0C:
 	SUB
 	POPN 4
 LOC_2BB60:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 9
 	PUSHARG 9
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 14
 	PUSHARG 9
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 15
 	PUSHARG 5
 	PUSH 0
@@ -25134,7 +25134,7 @@ LOC_2BC40:
 	PUSHARG 14
 	POPN 13
 LOC_2BC6C:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2BCDC
@@ -25144,7 +25144,7 @@ LOC_2BC6C:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	CALLBS
@@ -25156,7 +25156,7 @@ LOC_2BCDC:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	CALLBS
@@ -25169,7 +25169,7 @@ LOC_2BD28:
 	JMP LOC_2BD80
 LOC_2BD54:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 12
 	PUSHARG 12
 	POPN 13
@@ -25187,10 +25187,10 @@ LOC_2BD80:
 	SUB
 	POPN 13
 LOC_2BDD4:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 9
 	PUSHARG 9
 	PUSH 0
@@ -25200,7 +25200,7 @@ LOC_2BDD4:
 	POPN 9
 LOC_2BE28:
 	PUSHARG 9
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 12
 	PUSHARG 11
 	POPN 4
@@ -25209,14 +25209,14 @@ LOC_2BE54:
 	PUSH 320
 	NEG
 	PUSH 320
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 14
 	PUSH 150
 	PUSH 650
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 15
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2BF1C
@@ -25226,7 +25226,7 @@ LOC_2BE54:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	CALLBS
@@ -25238,7 +25238,7 @@ LOC_2BF1C:
 	PUSH 80
 	PUSH 1
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	CALLBS
@@ -25248,10 +25248,10 @@ LOC_2BF68:
 	PUSH 0
 	CMPG
 	JNZ LOC_2BE54
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 9
 	PUSHARG 9
 	PUSH 0
@@ -25261,10 +25261,10 @@ LOC_2BF68:
 	POPN 9
 LOC_2BFE0:
 	PUSHARG 9
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 14
 	PUSHARG 9
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 15
 	PUSHARG 14
 	PUSH 0
@@ -25277,7 +25277,7 @@ LOC_2BFE0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -25345,31 +25345,31 @@ __asm{
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 44003
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 2
 	PUSH 8
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSHARG -3
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 32768
 	PUSH 32768
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 512
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG -2
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 6
 
 }}
@@ -25384,17 +25384,17 @@ __asm{
 	PUSHARG -6
 	PUSH 0
 	PUSH 44004
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 2
 	PUSH 4
 	PUSH 28
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSHARG -4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	JMP LOC_2C40C
 LOC_2C384:
 	PUSHARG -8
@@ -25402,17 +25402,17 @@ LOC_2C384:
 	PUSHARG -6
 	PUSH 0
 	PUSH 44002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSH 2
 	PUSH 0
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSHARG -4
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 LOC_2C40C:
 	PUSHARG -3
 	PUSH 4
@@ -25421,13 +25421,13 @@ LOC_2C40C:
 	PUSHARG 1
 	PUSH 1024
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 7
 
 }}
@@ -25439,46 +25439,46 @@ __asm{
 	DELAY
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	PUSHARG -3
 	PUSH 44005
 	PUSH 44011
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG 2
 	PUSH 20
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 18432
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG 2
 	PUSH 4
 	PUSH 20
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 36
 	PUSH 54
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 6
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSHSTR "m034snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 8
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -25491,11 +25491,11 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 44001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_2C680:
@@ -25505,7 +25505,7 @@ LOC_2C680:
 	JZ LOC_2C6D4
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	INCN 2
@@ -25515,7 +25515,7 @@ LOC_2C6D4:
 	DELAY
 	PUSHARG 1
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_2C70C:
@@ -25527,7 +25527,7 @@ LOC_2C70C:
 	PUSHARG 1
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -25544,7 +25544,7 @@ LOC_2C778:
 	PUSH 2
 	PUSH 3
 	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 60
@@ -25557,81 +25557,23 @@ LOC_2C778:
 	PUSH 2
 	PUSH 3
 	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -4
-	PUSH 60
-	SUB
-	PUSHARG -3
-	PUSH 2501
-	PUSH 0
-	PUSH 2
-	PUSH 34001
-	PUSH 2
-	PUSH 3
-	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -4
-	PUSHARG -3
-	PUSH 48
-	ADD
-	PUSH 2501
-	PUSH 0
-	PUSH 2
-	PUSH 34001
-	PUSH 2
-	PUSH 3
-	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -4
-	PUSHARG -3
-	PUSH 48
-	ADD
-	PUSH 2501
-	PUSH 0
-	PUSH 2
-	PUSH 34001
-	PUSH 2
-	PUSH 3
-	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -4
-	PUSH 60
-	ADD
-	PUSHARG -3
-	PUSH 48
-	ADD
-	PUSH 2501
-	PUSH 0
-	PUSH 2
-	PUSH 34001
-	PUSH 2
-	PUSH 3
-	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -4
-	PUSH 60
-	ADD
-	PUSHARG -3
-	PUSH 48
-	SUB
-	PUSH 2501
-	PUSH 0
-	PUSH 2
-	PUSH 34001
-	PUSH 2
-	PUSH 3
-	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 60
 	SUB
 	PUSHARG -3
+	PUSH 2501
+	PUSH 0
+	PUSH 2
+	PUSH 34001
+	PUSH 2
+	PUSH 3
+	PUSH 251658240
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -4
+	PUSHARG -3
 	PUSH 48
 	ADD
 	PUSH 2501
@@ -25641,11 +25583,39 @@ LOC_2C778:
 	PUSH 2
 	PUSH 3
 	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -4
+	PUSHARG -3
+	PUSH 48
+	ADD
+	PUSH 2501
+	PUSH 0
+	PUSH 2
+	PUSH 34001
+	PUSH 2
+	PUSH 3
+	PUSH 251658240
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -4
 	PUSH 60
-	SUB
+	ADD
+	PUSHARG -3
+	PUSH 48
+	ADD
+	PUSH 2501
+	PUSH 0
+	PUSH 2
+	PUSH 34001
+	PUSH 2
+	PUSH 3
+	PUSH 251658240
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -4
+	PUSH 60
+	ADD
 	PUSHARG -3
 	PUSH 48
 	SUB
@@ -25656,7 +25626,37 @@ LOC_2C778:
 	PUSH 2
 	PUSH 3
 	PUSH 251658240
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -4
+	PUSH 60
+	SUB
+	PUSHARG -3
+	PUSH 48
+	ADD
+	PUSH 2501
+	PUSH 0
+	PUSH 2
+	PUSH 34001
+	PUSH 2
+	PUSH 3
+	PUSH 251658240
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -4
+	PUSH 60
+	SUB
+	PUSHARG -3
+	PUSH 48
+	SUB
+	PUSH 2501
+	PUSH 0
+	PUSH 2
+	PUSH 34001
+	PUSH 2
+	PUSH 3
+	PUSH 251658240
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 0
 	POPN 2
 LOC_2CB54:
@@ -25669,16 +25669,16 @@ LOC_2CB54:
 	PUSHARG -3
 	PUSH 20
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 16
 	PUSH 0
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 2
 	PUSH 1
 	AND
@@ -25690,16 +25690,16 @@ LOC_2CB54:
 	PUSHARG -3
 	PUSH 20
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 18
 	PUSH 1
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 LOC_2CCA8:
 	PUSH 1
 	DELAY
@@ -25712,25 +25712,25 @@ LOC_2CCA8:
 	PUSHARG -3
 	PUSH 20
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_2CD50:
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 2
 	JMP LOC_2CB54
 LOC_2CD80:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -25742,40 +25742,40 @@ LOC_2CD9C:
 	PUSH 1
 	SETARG 46
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\034\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHARG -2
 	JCOND 0, LOC_2CF14
 	JCOND 1, LOC_2CF2C
@@ -25800,45 +25800,45 @@ LOC_2CF64:
 	PUSHARG 5
 	CMPL
 	JZ LOC_2D314
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 	PUSHARG 3
 	JZ LOC_2D040
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	JMP LOC_2D0C0
 LOC_2D040:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 250
 	NEG
 	PUSH 250
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 200
 	NEG
 	PUSH 200
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 LOC_2D0C0:
@@ -25860,17 +25860,17 @@ LOC_2D114:
 	PUSHARG 2
 	PUSH 40
 	PUSH 150
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_2D1B0
 	PUSHARG 1
 	PUSH 150
 	PUSH 200
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	JMP LOC_2D1E0
@@ -25878,18 +25878,18 @@ LOC_2D1B0:
 	PUSHARG 1
 	PUSH 150
 	PUSH 200
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 1
 LOC_2D1E0:
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	JZ LOC_2D23C
 	PUSHARG 2
 	PUSH 120
 	PUSH 170
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	JMP LOC_2D26C
@@ -25897,7 +25897,7 @@ LOC_2D23C:
 	PUSHARG 2
 	PUSH 120
 	PUSH 170
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 LOC_2D26C:
@@ -25920,7 +25920,7 @@ LOC_2D2C4:
 	PUSHARG 2
 	PUSH 80
 	PUSH 120
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	INCN 4
@@ -25935,7 +25935,7 @@ LOC_2D314:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -26026,7 +26026,7 @@ LOC_2D52C:
 	PUSHARG 2
 	PUSH 0
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	PUSHARG 2
@@ -26055,33 +26055,33 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 45001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 35001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 20
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
 	PUSH 0
 	PUSH 45002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 8
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -26093,40 +26093,40 @@ LOC_2D700:
 	PUSH 1
 	SETARG 47
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\035\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 0
 	POPN 4
 LOC_2D85C:
@@ -26136,10 +26136,10 @@ LOC_2D85C:
 	ADD
 	CMPL
 	JZ LOC_2DBD0
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -26148,38 +26148,38 @@ LOC_2D85C:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 24
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
-	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202 
+	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202
 	ADD
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 20
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	ADD
 	POPN 2
 	JMP LOC_2D9F8
 LOC_2D9C0:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 LOC_2D9F8:
 	PUSHARG 1
@@ -26190,7 +26190,7 @@ LOC_2D9F8:
 	CALL MoveCamera
 	PUSHSTR "m035snd01"
 	PUSH 230
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateSpears"
 	PUSHARG 1
 	PUSHARG 2
@@ -26199,37 +26199,37 @@ LOC_2D9F8:
 	CALLBS
 	PUSH 8
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 24
 	PUSH 32
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
-	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202 
+	SYSCALL 0x202, (2 | (1 << 16)) ; 0x0202
 	ADD
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 20
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
-	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201 
+	SYSCALL 0x201, (2 | (1 << 16)) ; 0x0201
 	ADD
 	POPN 2
 	PUSHSTR "m035snd01"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "CreateSpears"
 	PUSHARG 1
 	PUSHARG 2
@@ -26248,7 +26248,7 @@ LOC_2DBD0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -26315,7 +26315,7 @@ __asm{
 	ADD
 	PUSH 128
 	PUSHARG -4
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
@@ -26326,12 +26326,12 @@ __asm{
 	SUB
 	PUSH 80
 	PUSH 180
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG -4
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_2DE34:
@@ -26346,13 +26346,13 @@ LOC_2DE34:
 	PUSHARG 1
 	PUSHARG 3
 	PUSHARG 3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_2DE90:
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 2
 	DIV
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	PUSHARG 3
@@ -26364,12 +26364,12 @@ LOC_2DE90:
 LOC_2DEF0:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 24
 	DELAY
 	PUSHSTR "m036snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 1
 	PUSH 64
 	PUSHARG -3
@@ -26378,22 +26378,22 @@ LOC_2DEF0:
 	SUB
 	PUSH 0
 	PUSH 12
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 36001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 48
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	DELAY
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	RETN 4
 
 }}
@@ -26410,11 +26410,11 @@ __asm{
 	PUSH 46001
 	PUSHARG -4
 	ADD
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 2
 LOC_2E090:
@@ -26429,13 +26429,13 @@ LOC_2E090:
 	PUSHARG 1
 	PUSHARG 3
 	PUSHARG 3
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 LOC_2E0EC:
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 2
 	DIV
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	PUSHARG 3
@@ -26447,12 +26447,12 @@ LOC_2E0EC:
 LOC_2E14C:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 24
 	DELAY
 	PUSHSTR "m036snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 1
 	PUSH 64
 	PUSHARG -4
@@ -26461,25 +26461,25 @@ LOC_2E14C:
 	SUB
 	PUSH 0
 	PUSH 12
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG -2
 	JZ LOC_2E21C
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 36001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 LOC_2E21C:
 	PUSHARG 1
 	PUSH 48
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -3
 	DELAY
 	PUSHARG 1
 	PUSH 50331648
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	RETN 6
 
 }}
@@ -26489,53 +26489,53 @@ __asm{
 LOC_2E270:
 	STACK 8
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\036\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 1
 	SETARG 48
 	PUSHSTR "m036snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 0
 	CMP
 	JZ LOC_2E800
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -26545,16 +26545,16 @@ LOC_2E270:
 	POPN 3
 LOC_2E448:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 3
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 7
 	PUSHARG 3
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 8
 	PUSHARG 1
 	PUSHARG 2
@@ -26567,7 +26567,7 @@ LOC_2E448:
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	PUSH 0
@@ -26577,20 +26577,20 @@ LOC_2E534:
 	PUSH 4
 	CMPL
 	JZ LOC_2E71C
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 7
 	PUSHARG 8
 	PUSH 6
 	PUSH 5
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 6
 	PUSHARG 6
 	PUSH 2
 	CMPG
 	JZ LOC_2E66C
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 7
@@ -26601,15 +26601,15 @@ LOC_2E534:
 	PUSHARG 6
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 3
 	PUSHSTR "CreateSlashByTarget"
 	PUSHARG 3
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	CALLBS
 	JMP LOC_2E70C
@@ -26619,21 +26619,21 @@ LOC_2E66C:
 	PUSH 250
 	NEG
 	PUSH 250
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 2
 	PUSH 180
 	NEG
 	PUSH 180
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_2E70C:
 	INCN 4
 	JMP LOC_2E534
@@ -26650,21 +26650,21 @@ LOC_2E72C:
 	PUSH 250
 	NEG
 	PUSH 250
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 2
 	PUSH 180
 	NEG
 	PUSH 180
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	INCN 4
 	JMP LOC_2E72C
 LOC_2E7F8:
@@ -26681,17 +26681,17 @@ LOC_2E810:
 	PUSH 0
 	CMP
 	JZ LOC_2E878
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	JMP LOC_2E8A0
 LOC_2E878:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 LOC_2E8A0:
 	PUSHARG 3
@@ -26702,16 +26702,16 @@ LOC_2E8A0:
 	POPN 3
 LOC_2E8CC:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 3
-	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectXY 
+	SYSCALL 0x101, (1 | (1 << 16)) ; GetObjectBattleX
 	POPN 7
 	PUSHARG 3
-	SYSCALL 0x102, (1 | (1 << 16)) ; 0x0102 
+	SYSCALL 0x102, (1 | (1 << 16)) ; GetObjectBattleY
 	POPN 8
 	PUSHARG 1
 	PUSHARG 2
@@ -26724,7 +26724,7 @@ LOC_2E8CC:
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	PUSH 0
@@ -26734,20 +26734,20 @@ LOC_2E9B8:
 	PUSH 5
 	CMPL
 	JZ LOC_2EBA0
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 7
 	PUSHARG 8
 	PUSH 6
 	PUSH 5
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 6
 	PUSHARG 6
 	PUSH 2
 	CMPG
 	JZ LOC_2EAF0
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 7
@@ -26758,15 +26758,15 @@ LOC_2E9B8:
 	PUSHARG 6
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 3
 	PUSHSTR "CreateSlashByTarget"
 	PUSHARG 3
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 24
 	CALLBS
 	JMP LOC_2EB90
@@ -26776,21 +26776,21 @@ LOC_2EAF0:
 	PUSH 250
 	NEG
 	PUSH 250
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 2
 	PUSH 180
 	NEG
 	PUSH 180
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 24
 	PUSH 1
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 LOC_2EB90:
 	INCN 4
 	JMP LOC_2E9B8
@@ -26807,27 +26807,27 @@ LOC_2EBB0:
 	PUSH 250
 	NEG
 	PUSH 250
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 2
 	PUSH 180
 	NEG
 	PUSH 180
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 40
 	PUSH 0
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 12
 	PUSH 0
-	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311 
+	SYSCALL 0x311, (7 | (0 << 16)) ; 0x0311
 	INCN 4
 	JMP LOC_2EBB0
 LOC_2EC7C:
 	PUSH 56
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 5
 	JMP LOC_2E810
@@ -26839,7 +26839,7 @@ LOC_2ECAC:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -26929,7 +26929,7 @@ LOC_2EEB4:
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	PUSHARG 2
 	SETNR 3
 	PUSHARG 2
@@ -26937,11 +26937,11 @@ LOC_2EEB4:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSHNR 3
 	PUSH 37001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	INCN 2
 	PUSHARG 1
 	PUSH 72
@@ -26968,7 +26968,7 @@ LOC_2EFE0:
 	JZ LOC_2F028
 	PUSHARG 1
 	PUSHNR 3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	INCN 1
 	JMP LOC_2EFE0
 LOC_2F028:
@@ -26984,7 +26984,7 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHSTR "CreateFireWallAttack"
 	PUSHARG -4
@@ -27005,12 +27005,12 @@ LOC_2F0B0:
 	ADD
 	PUSH 0
 	PUSH 34
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSHARG 4
 	PUSH 32768
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 4
 	DELAY
 	PUSHARG 2
@@ -27018,7 +27018,7 @@ LOC_2F0B0:
 	CMPL
 	JZ LOC_2F16C
 	PUSHARG 4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_2F16C:
 	INCN 2
 	JMP LOC_2F0B0
@@ -27033,7 +27033,7 @@ LOC_2F18C:
 	PUSHARG 4
 	PUSH 32768
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 2
 	DELAY
 	PUSHARG 2
@@ -27048,13 +27048,13 @@ LOC_2F1FC:
 	SETARG 49
 	PUSHARG 4
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 4
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -27066,41 +27066,41 @@ LOC_2F274:
 	PUSH 1
 	SETARG 50
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\037\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALL GetSoldierMaxX2
 	POPN 4
 	PUSH 0
@@ -27110,7 +27110,7 @@ LOC_2F274:
 	NEG
 	CMP
 	JZ LOC_2F464
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2F444
@@ -27131,8 +27131,8 @@ LOC_2F464:
 	JZ LOC_2F6E8
 	PUSHSTR "m037snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2F5D0
@@ -27169,7 +27169,7 @@ LOC_2F518:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 3
 	PUSH 120
@@ -27212,7 +27212,7 @@ LOC_2F630:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 3
 	PUSH 120
@@ -27224,8 +27224,8 @@ LOC_2F6E0:
 LOC_2F6E8:
 	PUSHSTR "m037snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_2F8B4
@@ -27262,7 +27262,7 @@ LOC_2F780:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHSTR "CreateFireWall"
 	PUSHARG 4
@@ -27280,7 +27280,7 @@ LOC_2F780:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 3
 	PUSH 120
@@ -27323,7 +27323,7 @@ LOC_2F914:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHSTR "CreateFireWall"
 	PUSHARG 4
@@ -27341,7 +27341,7 @@ LOC_2F914:
 	CALLBS
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 3
 	PUSH 120
@@ -27352,22 +27352,22 @@ LOC_2FA40:
 	PUSHSTR "CreateFireWall"
 	INST_45
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 140
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 60
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -27444,7 +27444,7 @@ LOC_2FC64:
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	PUSHARG 1
 	PUSH 3
 	MUL
@@ -27468,7 +27468,7 @@ LOC_2FC64:
 	ADD
 	PUSHNR 3
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	JMP LOC_2FD94
 LOC_2FD58:
 	PUSHARG 1
@@ -27478,7 +27478,7 @@ LOC_2FD58:
 	ADD
 	PUSHNR 3
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 LOC_2FD94:
 	PUSHARG 1
 	PUSH 3
@@ -27487,7 +27487,7 @@ LOC_2FD94:
 	ADD
 	PUSHNR 3
 	PUSH 38001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	INCN 2
 	JMP LOC_2FC64
 LOC_2FDE0:
@@ -27533,7 +27533,7 @@ LOC_2FE58:
 	MUL
 	ADD
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	INCN 2
 	JMP LOC_2FE58
 LOC_2FF08:
@@ -27554,7 +27554,7 @@ LOC_2FF44:
 	JZ LOC_2FF8C
 	PUSHARG 1
 	PUSHNR 3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	INCN 1
 	JMP LOC_2FF44
 LOC_2FF8C:
@@ -27571,7 +27571,7 @@ LOC_2FF94:
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 0
 	POPN 66
@@ -27586,7 +27586,7 @@ LOC_2FFE8:
 	ADD
 	PUSH 128
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	PUSHARG 66
 	SETNR 2
 	PUSHARG 66
@@ -27599,16 +27599,16 @@ LOC_2FFE8:
 	SUB
 	PUSH 0
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 40960
 	PUSH 40960
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 0
@@ -27617,7 +27617,7 @@ LOC_2FFE8:
 	MOD
 	PUSH 2
 	MUL
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	INCN 66
 	JMP LOC_2FFE8
 LOC_30144:
@@ -27638,7 +27638,7 @@ LOC_30180:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 69
 	PUSHARG 69
 	PUSH 0
@@ -27647,7 +27647,7 @@ LOC_30180:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 128
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	DECN 69
 	JMP LOC_30294
 LOC_30218:
@@ -27659,7 +27659,7 @@ LOC_30218:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 3
 	PUSH 2
 	MUL
@@ -27674,7 +27674,7 @@ LOC_30294:
 	PUSHNR 2
 	PUSH 0
 	PUSHARG 69
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 67
 	PUSH 90
 	CMPLE
@@ -27689,7 +27689,7 @@ LOC_30294:
 	SUB
 	PUSHARG 67
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 LOC_30330:
 	INCN 66
 	JMP LOC_30180
@@ -27719,13 +27719,13 @@ LOC_303B4:
 	JZ LOC_303FC
 	PUSHARG 66
 	PUSHNR 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	INCN 66
 	JMP LOC_303B4
 LOC_303FC:
 	PUSHSTR "m038snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 66
 LOC_30428:
@@ -27741,7 +27741,7 @@ LOC_30428:
 	ADD
 	PUSH 128
 	PUSHARG -2
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	PUSHARG 66
 	SETNR 2
 	PUSHARG 66
@@ -27754,12 +27754,12 @@ LOC_30428:
 	SUB
 	PUSH 90
 	PUSHARG -2
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 40960
 	PUSH 40960
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 64
@@ -27769,7 +27769,7 @@ LOC_30428:
 	SUB
 	PUSH 0
 	PUSH 10
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 66
 	PUSH 1
 	AND
@@ -27779,18 +27779,18 @@ LOC_30428:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 50331648
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	JMP LOC_305DC
 LOC_305B8:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 LOC_305DC:
 	PUSHARG 66
 	PUSHNR 2
 	PUSH 38001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	INCN 66
 	JMP LOC_30428
 LOC_30610:
@@ -27805,12 +27805,12 @@ LOC_30620:
 	PUSHNR 2
 	PUSH 48
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	INCN 66
 	JMP LOC_30620
 LOC_30678:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -27822,44 +27822,44 @@ LOC_30694:
 	PUSH 1
 	SETARG 51
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\038\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -27869,10 +27869,10 @@ LOC_30694:
 	POPN 3
 LOC_30834:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -27882,7 +27882,7 @@ LOC_30834:
 	CALL MoveCamera
 	PUSHSTR "m038snd02"
 	PUSH 200
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 50
@@ -27892,7 +27892,7 @@ LOC_30834:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -27927,10 +27927,10 @@ LOC_30960:
 LOC_309B8:
 	PUSHARG -3
 	PUSH 128
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG -3
 	PUSH 251658240
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 	PUSH 1
 	DELAY
 	PUSHARG -2
@@ -27955,7 +27955,7 @@ LOC_30A68:
 	CALL Hurt
 LOC_30A88:
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -27965,42 +27965,42 @@ __asm{
 	STACK 2
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 	PUSHARG -2
 	PUSH 49002
 	PUSH 49008
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSHARG 2
 	PUSH 20
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 16384
-	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D 
+	SYSCALL 0x1D, (2 | (0 << 16)) ; 0x001D
 	PUSHARG 1
 	PUSHARG -2
 	PUSHARG 2
 	PUSH 4
 	PUSH 20
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 36
 	PUSH 60
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSH 8
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 1
 
 }}
@@ -28015,26 +28015,26 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 49001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 39001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 192
 	PUSH 0
 	PUSH 4
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSH 0
 	POPN 3
 LOC_30D08:
@@ -28044,7 +28044,7 @@ LOC_30D08:
 	JZ LOC_30D5C
 	PUSHARG 1
 	PUSHARG 3
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 2
 	DELAY
 	INCN 3
@@ -28052,19 +28052,19 @@ LOC_30D08:
 LOC_30D5C:
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 LOC_30D78:
 	PUSH 1
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_30DB4
 	RETN 3
 LOC_30DB4:
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 2
 	PUSH 80
@@ -28073,7 +28073,7 @@ LOC_30DB4:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -28087,44 +28087,44 @@ LOC_30E18:
 	PUSH 0
 	SETARG 52
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\039\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -28134,12 +28134,12 @@ LOC_30E18:
 	POPN 3
 LOC_30FC8:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
-	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133 
+	SYSCALL 0x133, (0 | (1 << 16)) ; 0x0133
 	PUSH 40
 	ADD
 	POPN 7
@@ -28178,7 +28178,7 @@ LOC_310A8:
 	PUSHARG 7
 	PUSH 52
 	PUSH 57
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	JMP LOC_31168
@@ -28188,7 +28188,7 @@ LOC_31128:
 	PUSHARG 7
 	PUSH 2
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 LOC_31168:
@@ -28212,7 +28212,7 @@ LOC_3118C:
 	PUSHARG 7
 	PUSH 200
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 15
 	DELAY
 	PUSHARG 1
@@ -28223,7 +28223,7 @@ LOC_3118C:
 	CALL MoveCamera
 	PUSHSTR "m039snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_31288
 LOC_31250:
 	PUSHARG 4
@@ -28232,11 +28232,11 @@ LOC_31250:
 	JZ LOC_31288
 	PUSHSTR "m039snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 LOC_31288:
 	PUSH 10
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 4
 	JMP LOC_31058
@@ -28250,7 +28250,7 @@ LOC_312B8:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -28269,12 +28269,12 @@ __asm{
 	PUSHARG -4
 	PUSH 0
 	PUSH 50002
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG -2
 	PUSH 4
 	SUB
@@ -28282,13 +28282,13 @@ __asm{
 	PUSHARG 1
 	PUSH 512
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 5
 
 }}
@@ -28310,27 +28310,27 @@ LOC_3140C:
 	PUSH 30
 	NEG
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 2
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 2
 	JMP LOC_3140C
@@ -28341,17 +28341,17 @@ LOC_31518:
 	PUSH 128
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 50001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 33554432
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 40001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSH 0
 	POPN 2
 LOC_315BC:
@@ -28361,7 +28361,7 @@ LOC_315BC:
 	JZ LOC_316E4
 	PUSH 1
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 1
 	CMP
 	JZ LOC_316C8
@@ -28370,24 +28370,24 @@ LOC_315BC:
 	PUSH 30
 	NEG
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSH 0
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_316C8:
 	PUSH 1
 	DELAY
@@ -28397,7 +28397,7 @@ LOC_316E4:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -28422,15 +28422,15 @@ LOC_31728:
 	PUSH 15
 	NEG
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG -3
 	PUSH 15
 	NEG
 	PUSH 15
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 LOC_317D0:
 	PUSH 1
 	DELAY
@@ -28454,7 +28454,7 @@ __asm{
 	POPN 1
 	PUSHSTR "m040snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 LOC_3184C:
 	INST_09 53
 	PUSH 0
@@ -28471,7 +28471,7 @@ LOC_3184C:
 	JZ LOC_318D0
 	PUSHSTR "m040snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 1
 LOC_318D0:
@@ -28486,44 +28486,44 @@ __asm{
 LOC_318E0:
 	STACK 4
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\040\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -28533,10 +28533,10 @@ LOC_318E0:
 	POPN 3
 LOC_31A70:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -28562,21 +28562,21 @@ LOC_31A70:
 	PUSH 9999
 	PUSH 0
 	CALLBS
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	PUSH 2
 	DIV
 	PUSH 0
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 4
 LOC_31BA8:
 	PUSH 1
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG 4
 	PUSH 3
@@ -28584,17 +28584,17 @@ LOC_31BA8:
 	PUSH 0
 	CMP
 	JZ LOC_31C20
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	JMP LOC_31C48
 LOC_31C20:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 LOC_31C48:
 	PUSHARG 3
@@ -28606,32 +28606,32 @@ LOC_31C48:
 	ORZ
 	JZ LOC_31D1C
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	PUSH 10
 	PUSH 40
 	NEG
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	PUSH 10
 	PUSH 30
 	NEG
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	POPN 2
 	JMP LOC_31D54
 LOC_31D1C:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 LOC_31D54:
 	PUSHSTR "CreateQuakeStone"
@@ -28639,7 +28639,7 @@ LOC_31D54:
 	PUSHARG 2
 	PUSH 2
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CALLBS
 	DECN 4
@@ -28658,7 +28658,7 @@ LOC_31D54:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -28705,7 +28705,7 @@ LOC_31EF4:
 LOC_31F14:
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	DECN 1
 	PUSHARG 1
@@ -28714,10 +28714,10 @@ LOC_31F14:
 	JZ LOC_31FB4
 	PUSHARG -3
 	PUSH 1
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 2
 	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSH 0
 	PUSHARG 2
 	INST_52 55
@@ -28726,7 +28726,7 @@ LOC_31FB4:
 	PUSHARG -3
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_31FD8:
 	RETN 2
 
@@ -28744,34 +28744,34 @@ LOC_31FE0:
 	RETN 4
 LOC_32014:
 	PUSHARG -5
-	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX 
+	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX
 	POPN -5
 	PUSHARG -4
-	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX 
+	SYSCALL 0x103, (1 | (1 << 16)) ; BattleXToScreenX
 	POPN -4
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
 	PUSHARG -3
 	PUSH 51001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 41001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 1
 	PUSH 1
 	PUSHARG -2
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHARG 1
 	PUSHARG -2
 	INST_52 55
@@ -28795,7 +28795,7 @@ LOC_3214C:
 	PUSH 15
 	MUL
 	ADD
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 12
 	DELAY
 	INCN 1
@@ -28812,47 +28812,47 @@ LOC_321C0:
 	PUSH 1
 	SETARG 54
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\041\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 12
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "m041snd02"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	POPN 4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_326B0
@@ -28930,10 +28930,10 @@ LOC_324AC:
 LOC_32538:
 	JMP LOC_32640
 LOC_32540:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x138, (1 | (0 << 16)) ; 0x0138 
+	SYSCALL 0x138, (1 | (0 << 16)) ; 0x0138
 	PUSH 0
 	POPN 3
 LOC_32570:
@@ -28974,7 +28974,7 @@ LOC_32640:
 	PUSH 0
 	PUSH 0
 	CALLBS
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	PUSH 280
 	SUB
 	PUSHARG 2
@@ -29056,10 +29056,10 @@ LOC_327FC:
 LOC_3287C:
 	JMP LOC_3298C
 LOC_32884:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x138, (1 | (0 << 16)) ; 0x0138 
+	SYSCALL 0x138, (1 | (0 << 16)) ; 0x0138
 	PUSH 0
 	POPN 3
 LOC_328B4:
@@ -29112,22 +29112,22 @@ LOC_329E4:
 	PUSH 60
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSH 30
 	DELAY
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -29176,14 +29176,14 @@ __asm{
 	STACK 2
 	PUSH 10
 	PUSH 50
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
 	PUSHARG -5
 	PUSH 28001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 60
 	POPN 2
@@ -29197,7 +29197,7 @@ LOC_32BE8:
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	DECN 2
 	PUSH 1
 	DELAY
@@ -29225,7 +29225,7 @@ LOC_32C9C:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 1
 	DELAY
 	INCN 2
@@ -29248,19 +29248,19 @@ LOC_32D10:
 	PUSH 65536
 	MUL
 	ADD
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG -2
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSH 1
 	DELAY
 	INCN 2
 	JMP LOC_32D10
 LOC_32DD8:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -29296,14 +29296,14 @@ LOC_32E78:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG -3
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG 2
@@ -29314,21 +29314,21 @@ LOC_32E78:
 	PUSH 0
 	PUSH 28002
 	PUSH 28004
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 6
 	PUSHARG 6
 	PUSH 0
 	PUSH 10
 	PUSH 30
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHSTR "m016a"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	PUSH 5
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 1
 	JMP LOC_32E78
@@ -29346,14 +29346,14 @@ __asm{
 	PUSHARG -3
 	PUSH 320
 	PUSH 360
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 28012
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSH 4
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSH 2
 	PUSH 3
@@ -29371,28 +29371,28 @@ LOC_3308C:
 	PUSH 320
 	NEG
 	PUSH 320
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG -3
 	PUSH 100
 	NEG
 	PUSH 300
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 3
 	PUSHARG 2
 	PUSHARG 3
 	PUSH 320
 	PUSH 360
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 28012
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSH 4
 	PUSH 10
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	JMP LOC_3308C
 LOC_3318C:
@@ -29408,18 +29408,18 @@ __asm{
 	PUSHARG -2
 	PUSH 4
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 2
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG -2
 	PUSH 8192
-	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021 
+	SYSCALL 0x21, (2 | (0 << 16)) ; 0x0021
 	PUSH 30
 	PUSH 40
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 2
 LOC_3323C:
 	PUSHARG 2
@@ -29430,7 +29430,7 @@ LOC_3323C:
 	PUSHARG -2
 	PUSHARG 1
 	PUSHARG 1
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 256
 	SUB
@@ -29440,7 +29440,7 @@ LOC_3323C:
 	JMP LOC_3323C
 LOC_332B4:
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -29448,45 +29448,45 @@ LOC_332B4:
 void function Xsc3604 () callsign 42002 {
 __asm{
 	STACK 3
-	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B 
+	SYSCALL 0xB, (0 | (1 << 16)) ; 0x000B
 	POPN 3
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008 
+	SYSCALL 0x8, (1 | (0 << 16)) ; 0x0008
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 115
 	PUSH 28011
 	PUSH 0
 	PUSH 42001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 115
 	PUSH 28011
 	PUSH 128
 	PUSH 42001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 115
 	PUSH 28011
 	PUSH 64
 	PUSH 42001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "MovingShadow"
 	PUSHARG 3
 	INST_09 115
 	PUSH 28011
 	PUSH 192
 	PUSH 42001
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHARG 3
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x1E, (2 | (0 << 16)) ; 0x001E 
+	SYSCALL 0x1E, (2 | (0 << 16)) ; 0x001E
 	PUSH 0
 	POPN 2
 LOC_33440:
@@ -29498,14 +29498,14 @@ LOC_33440:
 	PUSH 10003
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 16384
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "Xsc2512"
 	PUSHARG 1
 	PUSH 0
@@ -29518,7 +29518,7 @@ LOC_33504:
 	PUSHARG 1
 	PUSHSTR "m018snd03"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	RETN 0
 
 }}
@@ -29529,12 +29529,12 @@ __asm{
 	PUSH 0
 	SETARG 116
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_335B4
@@ -29546,17 +29546,17 @@ LOC_335B4:
 	POPN 10
 LOC_335C4:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHSTR "m018snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	JCOND 0, LOC_33660
 	JCOND 1, LOC_336B4
@@ -29593,7 +29593,7 @@ LOC_33708:
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 3
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 100
 	PUSH 95
 	ADD
@@ -29610,7 +29610,7 @@ LOC_33780:
 	JZ LOC_33B8C
 	PUSH 1
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 12
 	PUSH 0
 	POPN 5
@@ -29623,14 +29623,14 @@ LOC_337D0:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 7
 	PUSHARG 2
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 8
 	PUSHARG -2
@@ -29645,8 +29645,8 @@ LOC_337D0:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	PUSHARG 7
 	PUSH 48
@@ -29656,8 +29656,8 @@ LOC_337D0:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 	JMP LOC_33974
 LOC_33928:
@@ -29667,8 +29667,8 @@ LOC_33928:
 	PUSH 0
 	PUSH 28006
 	PUSH 28007
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POP
 LOC_33974:
 	INCN 5
@@ -29676,7 +29676,7 @@ LOC_33974:
 LOC_33984:
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	CMP
 	JZ LOC_33ACC
@@ -29684,14 +29684,14 @@ LOC_33984:
 	PUSH 48
 	NEG
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 7
 	PUSHARG 2
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 8
 	PUSHARG 7
@@ -29699,20 +29699,20 @@ LOC_33984:
 	PUSHARG 9
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 28008
 	PUSH 28009
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 13
 	PUSHARG 13
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 10
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x17, (3 | (0 << 16)) ; 0x0017
 LOC_33ACC:
 	PUSH 1
 	DELAY
@@ -29725,17 +29725,17 @@ LOC_33ACC:
 LOC_33B10:
 	PUSHSTR "m018snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_33B7C
 LOC_33B34:
 	PUSHSTR "m018snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_33B7C
 LOC_33B58:
 	PUSHSTR "m018snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	JMP LOC_33B7C
 LOC_33B7C:
 	INCN 4
@@ -29752,10 +29752,10 @@ LOC_33BBC:
 	PUSHSTR "Xsc3602"
 	INST_45
 LOC_33BC8:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 13
 	PUSHARG 13
 	PUSH 0
@@ -29765,13 +29765,13 @@ LOC_33BC8:
 	POPN 13
 LOC_33C1C:
 	PUSHARG 13
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 13
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 13
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHARG 2
 	PUSH 240
@@ -29791,14 +29791,14 @@ LOC_33CC0:
 	CALL MoveCamera
 LOC_33CE0:
 	PUSHARG 13
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_33D5C
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 13
 	PUSHARG 13
 	PUSH 0
@@ -29808,13 +29808,13 @@ LOC_33CE0:
 	POPN 13
 LOC_33D5C:
 	PUSHARG 13
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 13
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 13
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 3
 	PUSHSTR "Xsc3603"
 	PUSHARG -2
@@ -29840,7 +29840,7 @@ __asm{
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	INST_09 117
 	JZ LOC_33E70
 	PUSH 2
@@ -29888,7 +29888,7 @@ LOC_33EFC:
 LOC_33F74:
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	DECN 1
 	PUSHARG 1
@@ -29898,13 +29898,13 @@ LOC_33F74:
 	PUSHARG -3
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_3400C
 LOC_33FE8:
 	PUSHARG -3
 	PUSH 0
 	PUSHARG 1
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 LOC_3400C:
 	RETN 2
 
@@ -29917,55 +29917,55 @@ __asm{
 	PUSH 37002
 	PUSHARG -2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 12
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSHARG -3
 	PUSH 37002
 	PUSHARG -2
 	PUSH 50
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 131072
 	PUSH 131072
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 2
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 12
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 LOC_3413C:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_34298
 	PUSHARG 1
 	PUSHARG -3
 	PUSHARG -2
 	PUSH 24
 	PUSH 50
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSHARG 2
 	PUSHARG -3
 	PUSHARG -2
@@ -29973,26 +29973,26 @@ LOC_3413C:
 	SUB
 	PUSH 20
 	PUSH 50
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	PUSH 1
 	DELAY
 	JMP LOC_3413C
 LOC_34298:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -30005,7 +30005,7 @@ __asm{
 	PUSH 6
 	NEG
 	PUSH 6
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	PUSHARG -5
@@ -30013,13 +30013,13 @@ __asm{
 	PUSH 8
 	NEG
 	PUSH 8
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	ADD
 	PUSH 0
 	PUSHARG -4
 	PUSH 37001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
@@ -30028,26 +30028,26 @@ __asm{
 	PUSH 2
 	NEG
 	PUSH 2
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 42003
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
 	PUSH 8
 	PUSH 4
 	NEG
 	PUSH 4
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSHSTR "XAttachFireToCow"
 	PUSHARG 1
 	PUSHARG -4
@@ -30060,17 +30060,17 @@ __asm{
 	POPN 3
 LOC_34490:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_34668
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -3
 	PUSH 1
 	CMP
 	JZ LOC_34544
 	PUSHARG 2
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	PUSH 100
 	SUB
 	CMPG
@@ -30078,7 +30078,7 @@ LOC_34490:
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_34668
 LOC_3453C:
 	JMP LOC_3458C
@@ -30090,7 +30090,7 @@ LOC_34544:
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_34668
 LOC_3458C:
 	PUSH 1
@@ -30108,10 +30108,10 @@ LOC_3458C:
 	PUSH 3
 	NEG
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	MUL
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_34618:
 	PUSHARG 3
 	PUSH 500
@@ -30120,7 +30120,7 @@ LOC_34618:
 	PUSHARG 1
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	JMP LOC_34668
 LOC_34660:
 	JMP LOC_34490
@@ -30135,12 +30135,12 @@ __asm{
 	PUSH 1
 	SETARG 117
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_34708
@@ -30156,10 +30156,10 @@ LOC_34708:
 	PUSH 128
 	POPN 3
 LOC_34728:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	CALL GetSoldierMaxX
 	POPN 5
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_34764
@@ -30169,10 +30169,10 @@ LOC_34764:
 	DELAY
 	PUSHSTR "m027snd01"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "m027snd02"
 	PUSH 180
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 0
 	CMP
@@ -30187,9 +30187,9 @@ LOC_34764:
 	PUSH 75
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30200,9 +30200,9 @@ LOC_34764:
 	PUSH 75
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30213,11 +30213,11 @@ LOC_34764:
 	PUSH 225
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30228,9 +30228,9 @@ LOC_34764:
 	PUSH 225
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_3503C
 LOC_34958:
 	PUSHARG -2
@@ -30247,9 +30247,9 @@ LOC_34958:
 	PUSH 350
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30260,9 +30260,9 @@ LOC_34958:
 	PUSH 250
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30273,9 +30273,9 @@ LOC_34958:
 	PUSH 150
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30284,11 +30284,11 @@ LOC_34958:
 	ADD
 	PUSH 562
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30299,9 +30299,9 @@ LOC_34958:
 	PUSH 150
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30312,9 +30312,9 @@ LOC_34958:
 	PUSH 250
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30325,9 +30325,9 @@ LOC_34958:
 	PUSH 350
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	JMP LOC_3503C
 LOC_34C1C:
 	PUSHSTR "XCreateFireCow"
@@ -30340,9 +30340,9 @@ LOC_34C1C:
 	PUSH 400
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30353,9 +30353,9 @@ LOC_34C1C:
 	PUSH 320
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30366,9 +30366,9 @@ LOC_34C1C:
 	PUSH 240
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30379,9 +30379,9 @@ LOC_34C1C:
 	PUSH 160
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30392,9 +30392,9 @@ LOC_34C1C:
 	PUSH 80
 	ADD
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30403,11 +30403,11 @@ LOC_34C1C:
 	ADD
 	PUSH 562
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSHARG -2
 	PUSH 1
 	ADD
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30418,9 +30418,9 @@ LOC_34C1C:
 	PUSH 80
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30431,9 +30431,9 @@ LOC_34C1C:
 	PUSH 160
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30444,9 +30444,9 @@ LOC_34C1C:
 	PUSH 240
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30457,9 +30457,9 @@ LOC_34C1C:
 	PUSH 320
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSHSTR "XCreateFireCow"
 	PUSHARG 5
 	PUSH 1200
@@ -30470,22 +30470,22 @@ LOC_34C1C:
 	PUSH 400
 	SUB
 	PUSHARG 3
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 LOC_3503C:
 	PUSH 110
 	PUSH 160
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	PUSHSTR "m027snd02"
 	PUSH 210
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 10
 	DELAY
 	PUSHSTR "m027snd01"
 	PUSH 160
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "XCreateFireCow"
 	INST_45
 	PUSH 60
@@ -30499,7 +30499,7 @@ __asm{
 	STACK 2
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext 
+	SYSCALL 0x2F, (2 | (1 << 16)) ; GetCallbackContext
 	POPN 1
 	PUSHARG 1
 	PUSH 4660
@@ -30541,7 +30541,7 @@ LOC_3519C:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125 
+	SYSCALL 0x125, (3 | (0 << 16)) ; 0x0125
 	PUSH 4
 	DELAY
 	INCN 1
@@ -30560,24 +30560,24 @@ __asm{
 	PUSH 42001
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 73728
 	PUSH 73728
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 1
-	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107 
+	SYSCALL 0x107, (1 | (1 << 16)) ; 0x0107
 	POPN 6
 	PUSH 60
 	PUSH 80
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSH 0
 	POPN 2
@@ -30595,16 +30595,16 @@ LOC_35300:
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	PUSHARG 5
 	PUSHARG 6
 	PUSH 16
 	NEG
 	PUSH 16
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	INCN 2
 	JMP LOC_35300
 LOC_353B8:
@@ -30612,11 +30612,11 @@ LOC_353B8:
 	PUSHARG 4
 	PUSHARG 5
 	PUSHARG 6
-	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014 
+	SYSCALL 0x14, (4 | (0 << 16)) ; 0x0014
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -30627,56 +30627,56 @@ LOC_35410:
 	STACK 4
 	PUSHSTR "m032snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG -2
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN -2
 	PUSHARG -2
 	PUSH 42004
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSH 42004
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 0
 	PUSH 4660
-	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext 
+	SYSCALL 0x2E, (3 | (0 << 16)) ; SetCallbackContext
 	PUSH 4
 	DELAY
 	PUSHARG 1
 	PUSH 8
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
 	PUSH 42002
 	PUSH 0
 	PUSH 48
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHSTR "XCreateSparkleCenter"
 	PUSHARG 1
 	PUSH 0
 	PUSH 1
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -30684,7 +30684,7 @@ LOC_35410:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -30692,7 +30692,7 @@ LOC_35410:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -30700,7 +30700,7 @@ LOC_35410:
 	PUSHARG 1
 	PUSH 20
 	PUSH 48
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 0
 	PUSH 0
 	CALLBS
@@ -30714,17 +30714,17 @@ LOC_35410:
 	INST_45
 	PUSHSTR "m032snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHARG 1
 	PUSH 42003
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSH 4096
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 0
 	POPN 4
 LOC_35768:
@@ -30740,7 +30740,7 @@ LOC_35768:
 	PUSH 2
 	PUSH 33554432
 	PUSH 42004
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 4
 	PUSH 32
 	ADD
@@ -30762,7 +30762,7 @@ LOC_35804:
 	PUSH 2
 	PUSH 33554432
 	PUSH 42004
-	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312 
+	SYSCALL 0x312, (8 | (0 << 16)) ; 0x0312
 	PUSHARG 4
 	PUSH 32
 	ADD
@@ -30774,10 +30774,10 @@ LOC_35890:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_358C0:
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_358F0
 	PUSH 1
 	DELAY
@@ -30788,9 +30788,9 @@ LOC_358F0:
 	PUSHARG 2
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 1
 
 }}
@@ -30801,21 +30801,21 @@ __asm{
 	PUSH 260
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	PUSH 5
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	POPN 3
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 3
 	CALL XCreateSparkle
@@ -30831,10 +30831,10 @@ __asm{
 	PUSHARG -2
 	DELAY
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -30849,44 +30849,44 @@ __asm{
 LOC_35A84:
 	STACK 2
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\032\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\027\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\018\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHSTR "XCallDragon"
 	PUSH 2
 	PUSH 0
@@ -30922,7 +30922,7 @@ LOC_35A84:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -30985,17 +30985,17 @@ __asm{
 	PUSH 41001
 	PUSH 0
 	PUSH 8
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -4
 	PUSHARG -2
 	PUSHARG -3
 	PUSH 8
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHSTR "m031snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 8
 	DELAY
 	PUSHARG -3
@@ -31010,7 +31010,7 @@ LOC_35ED8:
 	PUSHARG -2
 	PUSHARG 2
 	PUSH 8
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -2
@@ -31028,7 +31028,7 @@ LOC_35F80:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 3
 
 }}
@@ -31041,42 +31041,42 @@ LOC_35FAC:
 	PUSH 41009
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSH 43001
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 32768
 	PUSH 24576
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -6
 	PUSH 41010
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 3
 	PUSHARG 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSH 32768
 	PUSH 16384
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 2
 LOC_36120:
@@ -31101,19 +31101,19 @@ LOC_36120:
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG -3
 	PUSHARG -6
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 2
 	PUSHARG -2
 	PUSH 16
@@ -31123,11 +31123,11 @@ LOC_36120:
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 3
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_36298:
 	INCN 2
 	JMP LOC_36120
@@ -31143,28 +31143,28 @@ __asm{
 	PUSH 2501
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN -5
 	PUSHARG -5
 	PUSH 41008
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG 1
 	PUSH 32768
 	PUSH 65536
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG 1
 	PUSHARG -2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG -5
 	PUSHARG -4
 	PUSHARG -3
@@ -31172,7 +31172,7 @@ __asm{
 	PUSHARG -2
 	CALL XCreateFirePillarLight
 	PUSHARG -5
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 4
 
 }}
@@ -31186,11 +31186,11 @@ LOC_363E8:
 	PUSH 0
 	PUSH 0
 	PUSH 2501
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSH 0
 	PUSH 255
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 3
 	PUSH 0
 	POPN 2
@@ -31230,7 +31230,7 @@ LOC_364E0:
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31243,7 +31243,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31256,7 +31256,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSHARG -2
@@ -31269,7 +31269,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSHARG -2
@@ -31282,7 +31282,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31297,7 +31297,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31312,7 +31312,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31327,7 +31327,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 60
@@ -31342,7 +31342,7 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
@@ -31355,81 +31355,23 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	SUB
-	PUSHARG -2
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 43001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 43001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 43001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	ADD
-	PUSHARG -2
-	PUSH 100
-	ADD
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 43001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
-	PUSHSTR "LockTargetXY"
-	PUSHARG -3
-	PUSH 120
-	ADD
-	PUSHARG -2
-	PUSH 100
-	SUB
-	PUSH 2501
-	PUSH 60
-	PUSH 2
-	PUSH 43001
-	PUSH 2
-	PUSH 3
-	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
 	SUB
 	PUSHARG -2
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 43001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSHARG -2
 	PUSH 100
 	ADD
 	PUSH 2501
@@ -31439,11 +31381,39 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 43001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG -3
 	PUSH 120
-	SUB
+	ADD
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 43001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	ADD
 	PUSHARG -2
 	PUSH 100
 	SUB
@@ -31454,10 +31424,40 @@ LOC_364E0:
 	PUSH 2
 	PUSH 3
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	SUB
+	PUSHARG -2
+	PUSH 100
+	ADD
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 43001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
+	PUSHSTR "LockTargetXY"
+	PUSHARG -3
+	PUSH 120
+	SUB
+	PUSHARG -2
+	PUSH 100
+	SUB
+	PUSH 2501
+	PUSH 60
+	PUSH 2
+	PUSH 43001
+	PUSH 2
+	PUSH 3
+	PUSH 33554432
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "m031snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 2
 LOC_36C6C:
@@ -31472,7 +31472,7 @@ LOC_36C6C:
 	PUSH 0
 	PUSH 12
 	NEG
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 4
 	PUSH 4
 	DELAY
@@ -31481,7 +31481,7 @@ LOC_36C6C:
 	CMPL
 	JZ LOC_36D08
 	PUSHARG 4
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_36D08:
 	INCN 2
 	JMP LOC_36C6C
@@ -31496,7 +31496,7 @@ LOC_36D28:
 	PUSHARG 4
 	PUSH 65536
 	PUSHARG 2
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 2
 	DELAY
 	PUSHARG 2
@@ -31509,7 +31509,7 @@ LOC_36D98:
 	DELAY
 	PUSHSTR "m031snd02"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "XCreateFirePillarBomb"
 	PUSHARG 4
 	PUSH 32
@@ -31536,13 +31536,13 @@ LOC_36D98:
 	CALLBS
 	PUSHARG 4
 	PUSH 4096
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSHARG 4
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -31553,15 +31553,15 @@ __asm{
 	PUSH 1
 	SETARG 118
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129 
+	SYSCALL 0x129, (1 | (1 << 16)) ; 0x0129
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -31571,10 +31571,10 @@ __asm{
 	POPN 3
 LOC_36F70:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
@@ -31617,7 +31617,7 @@ __asm{
 LOC_37094:
 	PUSHARG -3
 	PUSH 16777216
-	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B 
+	SYSCALL 0x2B, (2 | (0 << 16)) ; 0x002B
 LOC_370B0:
 	JMP LOC_370D8
 LOC_370B8:
@@ -31639,34 +31639,34 @@ __asm{
 	PUSH 35002
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG 1
 	PUSH 4096
 	PUSH 4096
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSHARG -2
 	JZ LOC_371A0
 	PUSHARG 1
 	PUSH 43002
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHARG 1
 	PUSH 33554432
 	PUSH 16777216
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 LOC_371A0:
 	PUSHARG 1
 	PUSH 4096
 	NEG
-	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025 
+	SYSCALL 0x25, (2 | (0 << 16)) ; 0x0025
 	PUSH 20
 	DELAY
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 3
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
@@ -31680,7 +31680,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -31693,7 +31693,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -31706,7 +31706,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -31719,7 +31719,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -31734,7 +31734,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -31749,7 +31749,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -31764,7 +31764,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 64
@@ -31779,7 +31779,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31792,7 +31792,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31805,7 +31805,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -31818,7 +31818,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -31831,7 +31831,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31846,7 +31846,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31861,7 +31861,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31876,7 +31876,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSH 128
@@ -31891,7 +31891,7 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSHSTR "LockTargetXY"
 	PUSHARG 2
 	PUSHARG 3
@@ -31904,13 +31904,13 @@ LOC_371A0:
 	PUSH 0
 	PUSH 0
 	PUSH 33554432
-	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314 
+	SYSCALL 0x314, (10 | (0 << 16)) ; 0x0314
 	PUSH 20
 	DELAY
 	PUSHARG 1
 	PUSH 16
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 	RETN 2
 
 }}
@@ -31923,15 +31923,15 @@ __asm{
 	PUSH 0
 	PUSH 0
 	PUSH 35001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw 
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
 	POPN 1
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031 
+	SYSCALL 0x31, (2 | (0 << 16)) ; 0x0031
 	PUSHARG 1
 	PUSH 98304
 	PUSH 98304
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B 
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	PUSH 0
 	POPN 2
 LOC_37A18:
@@ -31941,7 +31941,7 @@ LOC_37A18:
 	JZ LOC_37A6C
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	INCN 2
@@ -31949,7 +31949,7 @@ LOC_37A18:
 LOC_37A6C:
 	PUSHSTR "m025snd01"
 	PUSH 220
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSH 0
 	POPN 2
 LOC_37A98:
@@ -31983,14 +31983,14 @@ LOC_37B30:
 	JZ LOC_37B84
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 1
 	DELAY
 	DECN 2
 	JMP LOC_37B30
 LOC_37B84:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 2
 
 }}
@@ -32001,10 +32001,10 @@ __asm{
 	PUSH 1
 	SETARG 119
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSH 0
 	POPN 4
@@ -32026,10 +32026,10 @@ LOC_37C38:
 	PUSH 0
 	CMP
 	JZ LOC_37D24
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive 
+	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
 	POPN 3
 	PUSHARG 3
 	PUSH 0
@@ -32039,10 +32039,10 @@ LOC_37C38:
 	POPN 3
 LOC_37CC4:
 	PUSHARG 3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 6
 	PUSHARG 3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 7
 	PUSHARG 6
 	POPN 1
@@ -32057,29 +32057,29 @@ LOC_37D24:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -32094,7 +32094,7 @@ LOC_37E4C:
 	DIV
 	CMPL
 	JZ LOC_37FF0
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -32105,18 +32105,18 @@ LOC_37E4C:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_37FE0
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -32156,29 +32156,29 @@ LOC_37FF8:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 1
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -32193,7 +32193,7 @@ LOC_38120:
 	DIV
 	CMPL
 	JZ LOC_382C4
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -32204,18 +32204,18 @@ LOC_38120:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_382B4
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -32255,29 +32255,29 @@ LOC_382CC:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 1
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	ADD
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -32292,7 +32292,7 @@ LOC_383F4:
 	DIV
 	CMPL
 	JZ LOC_38598
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -32303,18 +32303,18 @@ LOC_383F4:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_38588
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -32350,29 +32350,29 @@ LOC_385A0:
 	PUSHARG 6
 	PUSH 200
 	PUSH 260
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 1
 	PUSHARG 7
 	PUSH 220
 	PUSH 270
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	SUB
 	POPN 2
 	PUSHARG 1
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 9
 	PUSHARG 2
-	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX 
+	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
 	POPN 10
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
 	PUSHARG 10
 	PUSH 3
 	PUSH 3
-	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A 
+	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 8
 	PUSHARG 8
 	PUSH 0
@@ -32387,7 +32387,7 @@ LOC_386AC:
 	DIV
 	CMPL
 	JZ LOC_38850
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	XOR
 	PUSHARG 9
@@ -32398,18 +32398,18 @@ LOC_386AC:
 	PUSHARG 8
 	PUSH 1
 	SUB
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
-	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
+	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
 	POPN 11
 	PUSHARG 11
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	JZ LOC_38840
 	PUSHARG 11
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 13
 	PUSHARG 11
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 14
 	PUSHARG 13
 	PUSHARG 6
@@ -32448,7 +32448,7 @@ LOC_38850:
 	CALLBS
 	PUSH 8
 	PUSH 12
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	DELAY
 	INCN 5
 	JMP LOC_37C38
@@ -32539,22 +32539,22 @@ __asm{
 	POPN 4
 LOC_38AA4:
 	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_38C50
 	PUSH 1
 	DELAY
 	PUSHARG -2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_38AFC
 	JMP LOC_38C50
 LOC_38AFC:
 	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHARG -2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG 2
 	PUSHARG 1
@@ -32578,7 +32578,7 @@ LOC_38B80:
 	JZ LOC_38BE8
 	PUSHARG -3
 	PUSH 4
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 2
 	POPN 4
 	JMP LOC_38C48
@@ -32593,7 +32593,7 @@ LOC_38BE8:
 	JZ LOC_38C48
 	PUSHARG -3
 	PUSH 2
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 1
 	POPN 4
 LOC_38C48:
@@ -32607,13 +32607,13 @@ void function XMoveDuplicator (arg_0, arg_1, arg_2) {
 __asm{
 	STACK 3
 	PUSHARG -4
-	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A 
+	SYSCALL 0x1A, (1 | (1 << 16)) ; 0x001A
 	POPN 3
 	PUSHARG -4
 	PUSHARG -3
 	PUSHARG 3
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG -4
@@ -32622,7 +32622,7 @@ __asm{
 	PUSH 64
 	ADD
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSHARG -2
 	POPN 1
 LOC_38D00:
@@ -32633,11 +32633,11 @@ LOC_38D00:
 	PUSH 64
 	ADD
 	PUSH 0
-	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015 
+	SYSCALL 0x15, (5 | (0 << 16)) ; 0x0015
 	PUSH 1
 	DELAY
 	PUSHARG -4
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	ZERO
 	JZ LOC_38D74
 	JMP LOC_38D98
@@ -32649,7 +32649,7 @@ LOC_38D74:
 	JNZ LOC_38D00
 LOC_38D98:
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 3
 
 }}
@@ -32658,7 +32658,7 @@ void function XProduceDuplicator (arg_0, arg_1, arg_2, arg_3) {
 __asm{
 LOC_38DB4:
 	PUSHARG -5
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_38E2C
 	PUSHSTR "XDuplicatorShadow"
 	PUSHARG -5
@@ -32668,7 +32668,7 @@ LOC_38DB4:
 	PUSH 8
 	SUB
 	PUSH 14
-	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310 
+	SYSCALL 0x310, (6 | (0 << 16)) ; 0x0310
 	PUSH 8
 	DELAY
 	JMP LOC_38DB4
@@ -32690,7 +32690,7 @@ LOC_38E60:
 	PUSHARG -5
 	PUSHARG -4
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 1
 	PUSHARG -4
 	PUSH 0
@@ -32701,38 +32701,38 @@ LOC_38E60:
 	NEG
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 	JMP LOC_38F14
 LOC_38EE8:
 	PUSHARG 1
 	PUSH 8
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028 
+	SYSCALL 0x28, (4 | (0 << 16)) ; 0x0028
 LOC_38F14:
 	PUSHARG 1
 	PUSHARG -4
 	PUSH 0
 	PUSHARG -3
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 1
 	PUSH 262144
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 1
 	PUSHARG -2
-	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027 
+	SYSCALL 0x27, (2 | (0 << 16)) ; 0x0027
 	PUSH 2
 	DELAY
 	PUSHARG 1
 	PUSH 20
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026 
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
 LOC_38FA8:
 	PUSHARG -6
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	JZ LOC_39008
 	PUSHARG 1
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	PUSH 0
 	CMP
 	JZ LOC_38FF4
@@ -32743,7 +32743,7 @@ LOC_38FF4:
 	JMP LOC_38FA8
 LOC_39008:
 	PUSHARG 1
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 	RETN 5
 
 }}
@@ -32755,24 +32755,24 @@ __asm{
 	POPN 10
 	PUSH 0
 	PUSH 3
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	PUSH 3
 	CMP
 	JZ LOC_39090
 	PUSH 0
 	PUSH 90
-	SYSCALL 0x303, (2 | (1 << 16)) ; Rand 
+	SYSCALL 0x303, (2 | (1 << 16)) ; Rand
 	POPN 10
 LOC_39090:
 	PUSH 1
 	PUSH 2
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMPZ
 	MUL
 	SUB
 	POPN 9
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_390F8
@@ -32784,34 +32784,34 @@ LOC_390F8:
 	POPN 8
 LOC_39108:
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 5
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 7
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSHSTR "att07"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 22002
 	PUSHARG 8
 	PUSH 0
-	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo 
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
 	POPN 2
 	PUSHARG 2
 	PUSHARG 8
 	PUSH 0
 	PUSH 16
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 2
 	PUSH 16777216
 	PUSH 33554432
 	ADD
-	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags 
+	SYSCALL 0x29, (2 | (0 << 16)) ; SetObjectFlags
 	PUSHARG 2
 	PUSH 43003
-	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure 
+	SYSCALL 0x2C, (2 | (0 << 16)) ; SetCallbackProcedure
 	PUSHSTR "ProduceShadowTime"
 	PUSHARG 2
 	PUSH 9999
@@ -32843,7 +32843,7 @@ LOC_392BC:
 	PUSHARG 5
 	PUSH 16
 	DIV
-	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018 
+	SYSCALL 0x18, (4 | (0 << 16)) ; 0x0018
 	PUSHARG 5
 	PUSH 24
 	PUSH 16
@@ -32872,35 +32872,35 @@ LOC_39354:
 	PUSHARG 2
 	PUSHSTR "m012snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	JMP LOC_393E8
 LOC_393C4:
 	PUSHARG 2
 	PUSHSTR "m012snd01"
 	PUSH 255
-	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound 
+	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 LOC_393E8:
 	INCN 3
 	PUSH 1
 	DELAY
 	PUSHARG 2
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist 
+	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
 	POPN 1
 	PUSHARG 2
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 6
 	PUSHARG 6
 	PUSH 50
 	CMPLE
 	PUSHARG 6
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132 
+	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
 	PUSH 51
 	SUB
 	CMPGE
 	ORZ
 	JZ LOC_3948C
 	PUSHARG 2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle 
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
 LOC_3948C:
 	PUSHARG 1
 	JNZ LOC_392BC
@@ -32915,44 +32915,44 @@ __asm{
 LOC_394B0:
 	STACK 2
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\012\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\025\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\031\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 1
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 2
 	PUSHARG 1
 	PUSHARG 2
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 15
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 20
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSHSTR "XDuplicator"
 	PUSH 0
 	PUSH 0
@@ -32984,7 +32984,7 @@ LOC_394B0:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 0
 
 }}
@@ -32996,9 +32996,9 @@ __asm{
 	POPN 4
 	PUSH 0
 	POPN 1
-	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth 
+	SYSCALL 0x12D, (0 | (1 << 16)) ; GetBattleWidth
 	POPN 6
-	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight 
+	SYSCALL 0x12E, (0 | (1 << 16)) ; GetBattleHeight
 	POPN 7
 LOC_39750:
 	PUSHARG 7
@@ -33012,7 +33012,7 @@ LOC_3976C:
 	JZ LOC_397B4
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_397F0
 LOC_397B4:
@@ -33022,7 +33022,7 @@ LOC_397B4:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_397F0:
 	PUSHARG 3
@@ -33036,7 +33036,7 @@ LOC_397F0:
 	PUSHARG -3
 	PUSHARG 1
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -33053,7 +33053,7 @@ LOC_39888:
 	PUSHARG 1
 	SUB
 	PUSHARG 2
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -33069,7 +33069,7 @@ LOC_398F8:
 	JZ LOC_39924
 	RETN 2
 LOC_39924:
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
 	JZ LOC_39984
@@ -33079,7 +33079,7 @@ LOC_39924:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 	JMP LOC_399D8
 LOC_39984:
@@ -33093,7 +33093,7 @@ LOC_39984:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle 
+	SYSCALL 0x113, (2 | (1 << 16)) ; GetSoldierHandle
 	POPN 3
 LOC_399D8:
 	PUSHARG 3
@@ -33111,7 +33111,7 @@ LOC_399D8:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -33132,7 +33132,7 @@ LOC_39A88:
 	SUB
 	PUSHARG 2
 	SUB
-	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119 
+	SYSCALL 0x119, (3 | (1 << 16)) ; 0x0119
 	POPN 5
 	PUSHSTR "StepShow"
 	PUSHARG 5
@@ -33167,31 +33167,31 @@ __asm{
 LOC_39B8C:
 	STACK 8
 	PUSHSTR "magic\\000\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "magic\\002\\*"
-	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape 
-	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic 
+	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
+	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	PUSH 8
 	PUSH 5
 	CALL DownBrightness
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	POPN 1
-	PUSHINV 5 ; INTV_IS_RIGHT
+	PUSHINV 5 ; INTV_IS_LEFT
 	POPN 3
 	PUSHARG 1
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHARG 1
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
 	PUSH 120
 	SUB
-	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera 
+	SYSCALL 0x100, (2 | (0 << 16)) ; SetViewCamera
 	PUSHARG 1
 	PUSH 2
-	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter 
+	SYSCALL 0x121, (2 | (0 << 16)) ; AddAttackCounter
 	PUSH 20
 	DELAY
 	PUSHARG 3
@@ -33207,7 +33207,7 @@ LOC_39CBC:
 LOC_39CCC:
 	PUSH 200
 	PUSHARG 3
-	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount 
+	SYSCALL 0x10C, (1 | (1 << 16)) ; GetSoldierCount
 	SUB
 	POPN 7
 	PUSHARG 7
@@ -33236,24 +33236,24 @@ LOC_39D4C:
 	CALLBS
 	PUSHARG 1
 	PUSH 32768
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSH 24
 	DELAY
 	PUSHARG 1
 	PUSH 65536
-	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate 
+	SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
 	PUSHARG 1
 	PUSH 0
-	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming? 
+	SYSCALL 0x128, (2 | (0 << 16)) ; SetOverehelming?
 	PUSH 6
 	DELAY
 	PUSHSTR "m002snd01"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
 	PUSHSTR "m002snd03"
 	PUSH 255
-	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1 
-	PUSHINV 5 ; INTV_IS_RIGHT
+	SYSCALL 0x301, (2 | (0 << 16)) ; PlaySound1
+	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 0
 	CMP
 	JZ LOC_39E7C
@@ -33271,10 +33271,10 @@ LOC_39E9C:
 	PUSH 100
 	DELAY
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX 
+	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 4
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY 
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
 	POPN 5
 	PUSHARG 4
 	PUSHARG 5
@@ -33288,7 +33288,7 @@ LOC_39F0C:
 	PUSH 16
 	PUSH 5
 	CALL RaiseBrightness
-	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic 
+	SYSCALL 0x110, (0 | (0 << 16)) ; EnablePlayMagic
 	RETN 1
 
 }}
@@ -33308,7 +33308,7 @@ LOC_39F70:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 
+	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001
 	RETN 0
 
 }}
@@ -33336,7 +33336,7 @@ LOC_3A01C:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 
+	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001
 	RETN 0
 
 }}
@@ -33356,7 +33356,7 @@ LOC_3A07C:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 
+	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001
 	RETN 0
 
 }}
@@ -33384,7 +33384,7 @@ LOC_3A128:
 	PUSH 0
 	PUSH 0
 	PUSH 0
-	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001 
+	SYSCALL 0x1, (4 | (0 << 16)) ; 0x0001
 	RETN 0
 
 }}
