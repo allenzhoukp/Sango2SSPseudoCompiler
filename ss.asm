@@ -307,11 +307,17 @@ SetByte:
 	RETN 2
 
 Magic116:
-	STACK 0   
-	PUSHINV INTV_IS_LEFT
-	SYSCALL 0x10D, (1 | (1 << 16)) ; GetRandomSoldierHandleFromAlive
-	PUSHINV INTV_DEFENDER_MAJOR
-	SYSCALL 0x10E, (2 | (0 << 16)) ; SYSCALL_0x010E
+	STACK 1   
+	PUSHINV INTV_ATTACKER_MAJOR
+	PUSH 44001
+	PUSH 0
+	PUSH 0
+	SYSCALL 0x11, (4 | (1 << 16)) ; CreateObjectBelongTo
+	POPN 1
+	PUSHARG 1
+	PUSH 1
+	NEG
+	SYSCALL 0x20, (2 | (0 << 16)) ; SetObjectFriction
 	RETN 0
 
 DelayAmbientSound:

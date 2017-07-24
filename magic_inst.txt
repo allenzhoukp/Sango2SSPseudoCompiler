@@ -1,6 +1,7 @@
 ﻿;远帆：这个文件是注册写的，原文未做改动，凡分号后面的内容都是我自己的注释，不能代表注册原意。
 ;2017.7.21加注：补充完所有的指令的用途，并测试了一部分。可见该虚拟机可完成的事情还是很多的，尤其是经常被忽略的字符串处理。
 ;   现在完全可以用prompt + INST_49来调试了！只需要将需要测试的值推入栈中，然后INST_49转为字符串，即可prompt之。可以手动用ADDS加上一个"%k%%e%"来让它在屏幕上待久一点。
+;2017.7.24加注：补充完除SYSCALL 0x10E外的所有系统调用的用途，并测试了一部分。
 
 架构：
      无寄存器，只有stack的CPU.
@@ -242,6 +243,9 @@ Inst_45 :
 	; 表示函数执行至此，暂时停下来（阻塞），直到CreateRushCart函数执行完毕，才继续执行下一行。
 
 Inst_46 :
+    ; 将栈顶字符串弹栈，检查该字符串所指示的函数是否在运行中（包括系统调用的和CALLBS调用的）。若运行中则将1压栈，否则将0压栈。
+    ; 例如，在执行鬼哭时，PUSHSTR str INST_46 当str为"Magic110", "XDuplicator", "XTaiChi", "LockTargetXY"等时会返回1。否则返回0.
+    ; 该指令连着INST_45, 是因为INST_45中也调用了相同函数，来判断指定函数是否正在运行中（因而可以阻塞当前函数，直到目标函数运行完毕）。
 
 Inst_47 : CALLBS	1		n		--      Call Subscript by String
 	; 第一个先压入要调用的函数的字符串编号，然后按常规调用函数的顺序压入参数（同CALL）。
@@ -266,6 +270,7 @@ Inst_4E : GETVAR_V	1		n		--		局部变量[n+param1]压栈 // 间接寻址
 	；助记符是PUSHNR
 
 Inst_4F : INST_4F	1		n		--		全局变量(?Top_Stack)[n+param1]压栈 // 间接寻址
+    ; 助记符无效，用INST_4F
 
 Inst_50 : IGETN		1		n		--		内部数组的第 (栈顶值 + n)个值压栈
 	; 助记符是PUSHINVR
@@ -277,9 +282,9 @@ Inst_51 : SETVAR_V  	1       	n       	--      	局部变量[n+param2] = param1 
 Inst_52 : INST_52	1		n		--		全局变量(?Top_Stack)[n+param2] = param1 // 间接寻址
 
 Inst_53 : ISETN		1		n		--		栈顶值写入 INTV[栈顶-1+n]
+    ; 助记符无效，用INST_53
 	; 从INST_4E到INST_53, 作用类似于数组操作，数组下标总不会都是静态的，动态的时候就用到这几个了。
-	; 比如，要操作第[5 + 循环变量argX]个变量时，就会用到INST_4E和INST_51.
-	; 不记得助记符有没有用了，实在编译不过就写INST_XX就好。
+	; 比如，要操作第[5 + 循环变量argX]个变量时，就会用到INST_4E(PUSHNR)和INST_51(SETNR).
 
 ;Inst_54 :
     ; INCN的间接寻址版。用法如：PUSHARG 6 INST_54 1 表示变量(1 + arg6)自增1.
@@ -330,7 +335,7 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
     ;换算关系：战场X = 屏幕X / 96, 战场Y = 屏幕Y / 72 （均向下取整）
 ;如不加解释，以下所有x/y/z默认为屏幕坐标。
 
-;所有函数中，所有角度均以128为180度。具体到nDir，则为0向右（x轴正向），64为指向背景（y轴正向），128向左（x轴负向）。
+;所有函数中，所有角度均以128为180度, 256为360度循环。具体到nDir，则为0向右（x轴正向），64为指向背景（y轴正向），128向左（x轴负向）。
 
 系统调用：
 1 : 调用给定dwScriptIndex的脚本函数 ; (dwScriptIndex, argument0, argument1, argument2) 后面三个应为 反向压入的 调用该函数的参数，参数数量和目标函数magic表中定义的一致。
@@ -346,32 +351,37 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
   ; DoScript (dwScriptIndex, argument0, argument1, argument2)
 
 2 : 显示对话框1 (nDir, pGeneral, szPrompt)
-  ; Prompt (nDir, pGeneral, strPrompt)
+        ; 很显然这个nDir不是角度啦。测试得dir的取值如下：
+        ; 0 - 从下方弹出对话框，武将头像在左侧，半透明
+        ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，半透明
+        ; 2 - 从下方弹出对话框，武将头像在左侧，强制为（战场上）左方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的左半边会显示空白。
+        ; 3 - 从下方弹出对话款，武将头像在右侧，强制为（战场上）右方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的右半边会显示空白。
+  ; Prompt (dir, pGeneral, strPrompt)
 
 3 : 显示对话框2 -- 增强型？ (nDir, pGeneral, szPrompt)
-  ; Prompt1 (nDir, pGeneral, strPrompt)
+  ; Prompt1 (dir, pGeneral, strPrompt)
 
 4 ：显示对话框3 - 指定头像文件(nDir, szHeaderShape, szPrompt)
-  ; PromptWithFace (nDir, strFaceShapePath, strPrompt)
+  ; PromptWithFace (dir, strFaceShapePath, strPrompt)
 
 5 ：显示对话框4 - 指定头像文件 增强型(nDir, szHeaderShape, szPrompt)
-  ; PromptWithFace1 (nDir, strFaceShapePath, strPrompt)
+  ; PromptWithFace1 (dir, strFaceShapePath, strPrompt)
 
 6 ：     ; 这是用来设置对话框中%SX%替换为什么字符串的函数。(?, X, str) 一般配合SYSCALL 0x200（GetGeneralName）使用。
-         ; 第一个参数待考。（讲真，我不是很明白为什么要指定nDir，但奥汀都是这么做的，idb里的逻辑也是这么走的。）
-  ; SetSXString (nDir, index, string)
+         ; 第一个参数待考。通常和显示对话框的第一个参数(dir)相同。（讲真，我不是很明白为什么要指定dir，但奥汀都是这么做的，idb里的逻辑也是这么走的。）
+  ; SetSXString (dir, index, string)
 
-7 : 批量LoadShape (所有文件名通配string的文件)
+7 : 批量LoadShape (所有文件名通配string的文件) ; 路径不需要指明shape文件夹，以双反斜杠\\为分隔符，不带.shp后缀。如"magic\\000\\*"
   ; BatchLoadShape (path)
 
 8 ：设置当前脚本所链接的物件句柄 ; (objectHandle)
   ; SetScriptLinkedObject (objectHandle)
 
 9 ：显示对话框5 - 指定显示位置、主将、以及消息在message.ini中的序号 (nDir, pGeneral, nMessageIndex)
-  ; PromptWithMessageIndex (nDir, pGeneral, nMessageIndex)
+  ; PromptWithMessageIndex (dir, pGeneral, nMessageIndex)
 
 A ：显示对话框6 - 指定显示位置、主将、以及消息在message.ini中的序号  增强型 (nDir, pGeneral, nMessageIndex)
-  ; PromptWithMessageIndex1 (nDir, pGeneral, nMessageIndex)
+  ; PromptWithMessageIndex1 (dir, pGeneral, nMessageIndex)
 
 B : GetScriptLinkedObjectHandle ;
   ; GetScriptLinkedObject () returns ScriptLinkedObjectHandle
@@ -383,8 +393,10 @@ B : GetScriptLinkedObjectHandle ;
    ; CreateObjectRaw (x, y, z, nDir, dwSequence) returns ObjectHandle, or NULL if failed.
 
 11 : CreateObjectBelongTo  创建属于某个物件的子物件
-                         ; zOffset即是z轴相对偏移。
-   ; CreateObjectBelongTo (pFatherObjectHandle, dwSequence, nDir, zOffset) returns ObjectHandle, or NULL if failed.
+                         ; x/y都和参照对象相同。zOffset即是z轴坐标相对于参照对象的偏移。
+                         ; 从idb逻辑上看，这个命名是有问题的。实际上只是参照某个对象的坐标创建一个新对象，并未设置hLinkedObject。
+                         ; 由于注册命名的缘故，SYSCALL_TABLE.txt中也支持 CreateObjectBelongTo 的写法。
+   ; CreateObjectByReference (referenceObjectHandle, dwSequence, nDir, zOffset) returns ObjectHandle, or NULL if failed.
 
 12 : IsObjectExist
                          ; 检查该Handle对应的Object是否存在。（实际上等价于GetObjectByHandle(handle) != NULL）
@@ -417,7 +429,7 @@ B : GetScriptLinkedObjectHandle ;
    ; SetObjectStep_Sphere (objectHandle, phi, theta, radiusStep)
 
 ;19 : MoveObjectTo (dwHandle1, dwHandle2, nStep)
-   ; 让物件1以每帧移动量nStep向物件2靠近。
+   ; 让物件1以每帧移动量nStep（矢量长度）向物件2靠近。
    ; MoveObjectTo (objectHandle, targetHandle, nStep)
 
 1A : GetObjectDir
@@ -572,11 +584,11 @@ B : GetScriptLinkedObjectHandle ;
 ;10A和10B都不存在。
 
 10C : GetSoldierCount(bRight) ; 获得某一方还有多少兵。注意注册花样玩脱，实际上参数为1的时候得到的是左边（玩家的敌方）的兵数。
-                              ; 用的时候 PUSHINV INTV_IS_LEFT （或者GetINV(INTV_IS_LEFT)，如果您用我的伪代码编译器的话）推进去就可以。
+                              ; 用的时候传入 PUSHINV INTV_IS_LEFT （或者GetINV(INTV_IS_LEFT)，如果您用我的伪代码编译器的话）就可以。
                                       ; 这个INTV原来在注册那里叫INTV_IS_RIGHT...想必被坑的不止我一个。
     ; GetSoldierCount(isLeft) returns soldierCount
 
-10D : 获得随机的活着士兵的hObject(bRight) ; 也就是物件handle啦。同上，参数是isLeft.
+10D : 获得随机的活着士兵的hObject(bRight) ; hObject也就是物件handle啦。同上，参数是isLeft.
     ; GetRandomSoldierHandleFromAlive(isLeft) returns soldierHandle
 
 ;10E : 将物件2的OBJECT设置为物件1的field_88. 完全不可理喻。
@@ -614,7 +626,7 @@ B : GetScriptLinkedObjectHandle ;
 116 : 得到主将的等级(bRight) ; 同10C/10D, 参数是isLeft, 不是isRight.
     ; GetMajorLevel (isLeft)
 
-117 : 得到主将HP (0 = Self, 1 = Enemy) ;指右边和左边。同10C/10D, 参数是isLeft.
+117 : 得到主将HP (0 = Self, 1 = Enemy) ;Self和Enemy指右边和左边。同10C/10D, 参数是isLeft.
     ; GetMajorHP (isLeft)
 
 118 : 设置主将HP ? ; 如果hp大于hp_max, 则直接满血，不会溢出。
@@ -768,7 +780,7 @@ B : GetScriptLinkedObjectHandle ;
     ; CalcCos (alpha, A) returns A * cos (alpha)
 
 
-    ;注意：以下三条函数是摄像机对准的【中心】坐标。当然，对SYSCALL 0x205 (SetBigmapCamera)，有保护机制防止越界。
+    ;注意：以下三条函数是摄像机对准的【中心】坐标。当然，对SYSCALL 0x205 (SetBigmapCamera)，有保护机制防止把摄像机对到大地图外面去。
 
 ;203 : 返回进入大地图时，摄像机对准的中心点的X坐标。（技术细节：returns 360 + g_nScreenStartX）
     ; GetBigmapStartX () returns cameraCenterX
@@ -779,7 +791,8 @@ B : GetScriptLinkedObjectHandle ;
 ;205 : 将大地图摄像机中心点对准指定的 (x, y) 。
     ; SetBigmapCamera (x, y)
 
-206 : Get武将类型(0 : 武力or智力 > 90 / 1: 武力or智力>75 / 2: other)  ; 参数是武将指针。这个决定了开战时喊的话，比如“完了！完了！搞不好今天要死在这里了！”。
+206 : Get武将类型(0 : 武力or智力 > 90 / 1: 武力or智力>75 / 2: other)
+                ; 参数是武将指针。这个决定了开战时喊的话，比如2类对上0类的话，就可能会喊“完了！完了！搞不好今天要死在这里了！”。
     ; GetGeneralType (pGeneral) returns generalType
 
 ;207 : 得到Magic.ini中，武将技对应的TITLE值（字符串型）。参数是武将技sequence. 比如鬼哭对应"大将军"。
@@ -803,12 +816,12 @@ B : GetScriptLinkedObjectHandle ;
 ;211 : 招降。仅适用于招降画面使用。从YieldGeneral()的结果来看，其实并不能决定到底是成功还是失败……只是让函数继续而已。
     ; YieldGeneral_Perform ()
 
-;212 : 返回全局“效果开关”是不是开着的。
+;212 : 返回主选单中“设定选项”（还记得主选单上还有第三个按钮吗？）中，“效果开关”是不是开着的。
     ; IsCurrentEffectOn () returns isCurrentEffectOn
 
 300 : PlaySound  ; 有源地播放音乐。音频文件不需要指明sound文件夹，直接写文件名，不带后缀名。（也就是说音频文件必须在sound文件夹下）。
                  ; 音量以255为最大，0为静音.
-                 ; 目前已知只能播放wav格式，具体要求尚不清楚。建议遵守原版文件的采样率和码率。
+                 ; 目前已知可以播放wav格式，具体要求尚不清楚。建议遵守原版文件的采样率和码率。
     ; PlaySound (sourceObjectHandle, strSoundFileName, volume)
 
 301 : PlaySound1 ; 无源地播放音乐（即，不管镜头对准哪儿，声音都一样大）。其余同上。

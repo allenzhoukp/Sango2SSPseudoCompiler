@@ -11,6 +11,7 @@
 0xB 0 1 GetScriptLinkedObject
 0x10 5 1 CreateObjectRaw
 0x11 4 1 CreateObjectBelongTo
+0x11 4 1 CreateObjectByReference
 0x12 1 1 IsObjectExist
 0x13 1 0 FreeObjectByHandle
 0x14 4 0 SetObjectCoordinate
