@@ -1,8 +1,8 @@
 // --------------------
-// Sango2 Smart Script Pseudo Code Compiler v0.3
+// Sango2 Smart Script Pseudo Code Compiler v0.4
 // This project is written with the help of Sam Nipps' mini-c project.
 // The script code generated is according to the format created by Henryshow.
-// Copyright (c) 2017 Allen Zhou
+// Copyright (c) 2018 Allen Zhou
 // --------------------
 
 #include <cstdio>
@@ -432,7 +432,8 @@ int new_param (const char* ident) {
     require(locals.find(name) == locals.end(),
         "Param '%s' redefined");
 
-    //Params starts from -2 to -inf
+    //Params temporary starts from -2 to -inf.
+    //It should starts from (-param_count - 1) to -2, but temporary it is reversed.
     locals[name] = param_no;
     return param_no--;
 }
@@ -563,7 +564,9 @@ bool try_match_instruction () {
 
     return true;
 }
-
+// No more backward argument list.
+// args are now in order -(param_count + 1) to -2 from the first to last.
+/*
 int backward_argument_list () {
     // Normal CALL requires arguments to be pushed backwards
     // Use a proxy output for each argument, and push them into real
@@ -592,7 +595,7 @@ int backward_argument_list () {
 
     return argument_count;
 }
-
+*/
 bool try_match_syscall () {
     if (lexer.token_type != TOKEN_IDENT)
         return false;
@@ -644,9 +647,11 @@ bool try_match_function () {
 
         match("(");
 
+        // no more backward argument pushing.
         bool has_argument = waiting_for(")");
-        if(has_argument)
-            backward_argument_list ();
+        if(has_argument) do {
+            expr(1);
+        } while (try_match(","));
 
         match(")");
 
@@ -1027,13 +1032,16 @@ void async_call () {
 
     match("(");
 
+    // no more backward argument pushing
     int argument_count = 0;
-    if (waiting_for(")"))
-        argument_count = backward_argument_list ();
+    if (waiting_for(")")) do {
+        expr(1);
+        argument_count++;
+    } while (try_match(","));
 
     match(")");
 
-    require(argument_count <= 10, "too much argument for a sync call");
+    require(argument_count <= 10, "too much argument for an async call");
 
     //CALLBS
     if (argument_count <= 4) {
@@ -1231,6 +1239,10 @@ void decl_function () {
             break;
     }
     match(")");
+
+    // reverse the param numbers!
+    for(auto it = locals.begin(); it != locals.end(); ++it)
+        it->second = -(curfn_argument_count + it->second + 3);
 
     int callsign = 0;
 

@@ -2,8 +2,29 @@ GetGlobalVariable(index)         INST_09
 SetGlobalVariable(value, index)  SETARG
 GetINV(index)                    PUSHINV
 SetINV(value, index)             SETINV
+
 Delay(time)                      DELAY
 Wait(Function Name)              INST_45
+
+// The followings are Not supported for now
+itoa(integer)                    INST_49
+ftoa(float)                      INST_4B
+gcvt(float)                      INST_4B
+itof(integer)                    LTOF
+ltof(integer)                    LTOF
+ftoi(float)                      FTOL
+ftol(float)                      FTOL
+
+floatEquals(float, float)        CMPF
+floatGreater(float, float)       CMPGF
+floatGreaterEqual(float, float)  CMPGEF
+floatLess(float, float)          CMPLF
+floatLessEqual(float, float)     CMPLEF
+strEquals(string, string)        CMPS
+strGreater(string, string)       CMPGS
+strGreaterEqual(string, string)  CMPGEFS
+strLess(string, string)          CMPLS
+strLessEqual(string, string)     CMPLEFS
 
 Note: INST_4F/50/52/53 are not supported now.
 Note: switch-case grammar (JCOND) is not supported now.

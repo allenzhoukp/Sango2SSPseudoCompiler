@@ -346,14 +346,14 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
                                   ; PUSH fatherObject
                                   ; PUSH direction
                                   ; PUSH 0
-                                  ; SYCALL 0x1, SYSCALL 0x1, (4 | (0 << 16))
-                                  ; 伪代码为SYSCALL_0x0001(20001, fatherObject, direction, 0);
+                                  ; SYSCALL 0x1, (4 | (0 << 16))
+                                  ; 伪代码为 DoScript(20001, fatherObject, direction, 0);
   ; DoScript (dwScriptIndex, argument0, argument1, argument2)
 
 2 : 显示对话框1 (nDir, pGeneral, szPrompt)
         ; 很显然这个nDir不是角度啦。测试得dir的取值如下：
-        ; 0 - 从下方弹出对话框，武将头像在左侧，半透明
-        ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，半透明
+        ; 0 - 从下方弹出对话框，武将头像在左侧，对话框半透明
+        ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，对话框半透明
         ; 2 - 从下方弹出对话框，武将头像在左侧，强制为（战场上）左方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的左半边会显示空白。
         ; 3 - 从下方弹出对话款，武将头像在右侧，强制为（战场上）右方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的右半边会显示空白。
   ; Prompt (dir, pGeneral, strPrompt)
@@ -369,6 +369,20 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
 
 6 ：     ; 这是用来设置对话框中%SX%替换为什么字符串的函数。(?, X, str) 一般配合SYSCALL 0x200（GetGeneralName）使用。
          ; 第一个参数待考。通常和显示对话框的第一个参数(dir)相同。（讲真，我不是很明白为什么要指定dir，但奥汀都是这么做的，idb里的逻辑也是这么走的。）
+         ; 例如，您想在战场上Prompt如下字符串：“贼将XX纳命来！%k%%e%”，其中XX是敌方武将的名字，并且是在战场上，由右方武将喊出。
+         ; 那么代码大致如下（未经测试，仅供参考）：
+         ; PUSH 4
+         ; PUSH 1
+         ; PUSHINV INTV_DEFENDER_GENERAL
+         ; SYSCALL 0x200, (1 | (3 << 16)) ; GetGeneralName
+         ; SYSCALL 0x6, (3 | (0 << 16)) ; SetSXString
+         ; PUSH 4
+         ; PUSHINV INTV_ATTACKER_GENERAL
+         ; PUSHSTR XXX ; "贼将%S1%纳命来！%k%%e%" //这里XXX应该是分号后字符串的编号。
+         ; SYSCALL 0x3, (3 | (0 << 16)) ; Prompt1
+         ; 伪代码如下（未经测试，仅供参考）：
+         ; SetSXString(4, 1, GetGeneralName(GetINV(INTV_DEFENDER_GENERAL)));
+         ; Prompt1(4, GetINV(INTV_ATTACKER_GENERAL), "贼将%S1%纳命来！%k%%e%");
   ; SetSXString (dir, index, string)
 
 7 : 批量LoadShape (所有文件名通配string的文件) ; 路径不需要指明shape文件夹，以双反斜杠\\为分隔符，不带.shp后缀。如"magic\\000\\*"
@@ -411,7 +425,7 @@ B : GetScriptLinkedObjectHandle ;
 15 ：根据物件2的坐标设置物件1的坐标。 MoveObjectByReference(dwHandle1, dwHandle2, nStepAngle, nRadius, nStartAngle)
                          ; 以物件2坐标 加入z轴偏移zOffset后 为基准点，按相对柱坐标调整物件1的位置.
                          ; 如果您对柱坐标不熟悉：在xy平面上指定一个方向，该方向与x轴正向（正右）的夹角即是nDir. z轴移动和直角坐标一样。
-   ; MoveObjectByReference_Cylind (objectHandle, referenceObjectHandle, zOffset, nRadius, nDir)
+   ; MoveObjectByReference_Cylind (objectHandle, referenceObjectHandle, nDir, nRadius, zOffset)
 
 
 16,17 : 坐标系转换 -- 未全明
@@ -425,7 +439,7 @@ B : GetScriptLinkedObjectHandle ;
    ; SetObjectStep_Cylind (objectHandle, radiusStep, zStep)
 
 18 : SetObjectCoordinate_ByVector(hObject, nAngle_Y_XZ, nAngle_Z_XY, nVectorLength)
-   ; 设置物件移动的速度（每帧移动量）。这是球坐标下的速度：radiusStep表示每帧沿规定方向移动多少。phi和theta的意义和SYSCALL 0x16, 也即MoveObjectByReference2() 相同。
+   ; 设置物件移动的速度（每帧移动量）。这是球坐标下的速度：radiusStep表示每帧沿规定方向移动多少。phi和theta的意义和SYSCALL 0x16, 也即MoveObjectByReference_Sphere() 相同。
    ; SetObjectStep_Sphere (objectHandle, phi, theta, radiusStep)
 
 ;19 : MoveObjectTo (dwHandle1, dwHandle2, nStep)
@@ -444,7 +458,11 @@ B : GetScriptLinkedObjectHandle ;
    ; 一般是用在武将技物件上，可以随时换图。
    ; SetObjectDrawingFileItem (objectHandle, strShape)
 
-;1D : 设置field_24. 根据idb中 DefaultObjectProcess() 的逻辑，大致判断为重力. 当OF_NOGRAVITY标记未打，且该项为0时，默认值为40960。实际产生加速度（即每帧zStep变化量）为该值的2倍。
+;1D : 设置field_24. 根据idb中 DefaultObjectProcess() 的逻辑，大致判断为重力. 当OF_NOGRAVITY标记未打，且该项为0时，默认值为40960。
+            ; 实际产生加速度（即每帧zStep变化量）为 (该值 >> 16) * 2。（也就是默认重力加速度为1.25）
+            ; 从结果来看，即是以65536为2点重力加速度。
+            ; 所谓重力加速度，即是每帧zStep增加的值。当然不会无限地掉下去，掉到地板（z=0）时速度自动减为0。
+
    ; SetObjectGravity (objectHandle, dwGravity)
 
 ;1E : 设置或清除物件的OF_NOGRAVITY标记. 若设置，即将dwFlags |= 0x10000.
@@ -476,8 +494,8 @@ B : GetScriptLinkedObjectHandle ;
 
 
    ; 自注：关于magic对象的nBrightness/dwCreateTick/nPlayingIndex/nAlpha四个属性，目前已知的逻辑大致是这样：
-   ; nPlayingIndex是否为零，表示该对象是否会自动降低透明度。nPlayingIndex的高2位表示每次透明度下降几分之一。nPlayingIndex的低2位表示每过几帧下降一次透明度。
-   ; 开始时，nAlpha被设置为16 << 16, dwCreateTick被设置为和nPlayingIndex的低2位相等。
+   ; nPlayingIndex是否为零，表示该对象是否会自动降低透明度。nPlayingIndex的高位表示每次透明度下降几分之一。nPlayingIndex的低位表示每过几帧下降一次透明度。
+   ; 开始时，nAlpha被设置为16 << 16, dwCreateTick被设置为和nPlayingIndex的低位相等。
    ; dwCreateTick是个倒计时器, 每帧自减1. 当其减为0时，触发透明度下降，dwCreateTick复原为nPlayingIndex的低位。
    ; 每次触发透明度下降，nAlpha的高位下降(16.0 / nPlayingIndex的高位)，nBrightness被设置为与nAlpha的高位相等。
    ; 这一系列操作，主要在 InitializeObjectBrightness(), UpdateObjectBrightness() 与 MagicObjectOnTick() 三个函数中，因而可能只适用于MagicObject。别的物件或许稍有不同。
@@ -520,11 +538,11 @@ B : GetScriptLinkedObjectHandle ;
                         ; 并不，实际上是个Getter. 明晃晃的只有一个arg_0注册你瞅哪儿去了……
    ; GetObjectFlags (objectHandle) returns flags
 
-2B : 清除物件flag (clear bit)  ; 清除参数里带有的所有flag (flag |= ~flagsToClear)
+2B : 清除物件flag (clear bit)  ; 清除参数里带有的所有flag (flag &= ~flagsToClear)
    ; ClearObjectFlags (objectHandle, flagsToClear)
 
 2C : 设置callback sequence.
-                        ; 所谓回调，就是武将技物件砸到人了，可以判定伤害的时候，调用的函数。注意压入的是callsign。
+                        ; 所谓回调，就是武将技物件砸到人了，可以判定伤害的时候，调用的函数。注意压入的是callsign，也就是Script编号（鬼哭=610的那个）。
                         ; 至于砸到人怎么判，实际上是根据物件的Flags里面有没有OF_ENEMYFORCE, OF_ENEMYGENERAL, OF_MYFORCE, OF_MYGENERAL几个标记，对应砸敌人兵、将、自己兵、将。
                             ; 当然flags是可以与（也就是加）在一起的，所以就有了OF_ATTACKENEMY, OF_ATTACKMY, OF_ATTACKALL这仨，表示砸别人、砸自己和通杀。
    ; SetCallbackProcedure (objectHandle, callbackFuncCallsign)
@@ -533,7 +551,7 @@ B : GetScriptLinkedObjectHandle ;
    ; GetObjectSequence (objectHandle) returns sequence
 
 2E : 设置callback context  ( i , value)
-                        ; 所谓CallbackContext, 就是你有什么要告诉回调函数的东西，可以用这个按编号存起来，然后回调函数中再根据编号读出来。
+                        ; 所谓CallbackContext, 就是你有什么要告诉回调函数的东西，可以用这个按编号i存起来，然后回调函数中再根据编号读出来。
                         ; 编号从0开始。实际上从SANGO_OBJECT的结构体大小来看，只能存3个，差评。
    ; SetCallbackContext (objectHandle, i, value)
 
@@ -544,7 +562,7 @@ B : GetScriptLinkedObjectHandle ;
    ; SetObjectDir (objectHandle, nDir)
 
 ;31 : （猜测）用来设置堆叠顺序。默认为-1。一旦设置为正数，则一定会被摆放在战场所有物件的后面（但仍在背景的前面）。
-   ; 如果是正数，那么数字越小越靠后。为0时消失（但不会销毁，类似于visible=false）。注意这个数是short类型（WORD），需<=32767.
+   ; 如果是正数，那么数字越小越靠后。为0时消失（但不会销毁，类似于visible=false）。注意这个数是short类型（WORD），要小于等于32767.
    ; SetObjectLayer (objectHandle, nLayer);
 
    ; 自注：这破玩意儿(field_66)整个idb里除了初始化和SYSCALL 0x31就特么出现过一次(sub_43FF4E)，调用它的和它调用的函数没一个是有名字的。看代码根本猜不出是干什么的。
@@ -700,6 +718,15 @@ B : GetScriptLinkedObjectHandle ;
     ; 这个有点刁钻。实际上是返回指定方最“关键”的小兵的handle.
     ; “关键度”和该小兵周围的自己人人数，以及他们离自己的远近有关。所以该函数倾向于返回人堆里面的那位。
     ; “关键度”如下计算：如果有个小兵在目标兵周围7*7范围内，目标兵关键度就增加(7 - 两小兵曼哈顿距离)。详见SetScreenObjectByXYAndAdjustImportancyArray()函数(sub_43B028).
+    ; 也就是说，以*为中心（目标兵），周围对应位置存在一个小兵，对中心小兵的“关键度”贡献如下：
+    ; 1 2 3 4 3 2 1
+    ; 2 3 4 5 4 3 2
+    ; 3 4 5 6 5 4 3
+    ; 4 5 6 * 6 5 4
+    ; 3 4 5 6 5 4 3
+    ; 2 3 4 5 4 3 2
+    ; 1 2 3 4 3 2 1
+
     ; GetMostImportantSoldier (isLeft) returns soldierHandle
 
 12A : 得到以(x,y)为中心，(width,height)大小的矩形内，给定方的士兵的数量。
@@ -748,7 +775,7 @@ B : GetScriptLinkedObjectHandle ;
 
 ;137 : （猜测）锁定R/G/B三个通道的亮度。三个参数对应R/G/B通道，以180为100%亮度，以0为0%。(180,180,180)为原始图像，(0,0,0)为全黑。
                 ; 用上一条SYSCALL 0x136 (UnlockBrightness) 取消效果。
-                ; 如果调用了一次该函数，再调用一次时，将只有地板受影响，而背景部分维持原有的色彩滤镜效果。
+                ; 如果调用了一次该函数，未用SYSCALL 0x136取消，就再调用一次的话，将只有地板受影响，而背景部分维持原有的效果。
     ; LockRGBChannelBrightness (RBrightness, GBrightness, BBrightness)
 
 ;138 : 十面埋伏（使某一方主将无法退兵）
@@ -821,7 +848,7 @@ B : GetScriptLinkedObjectHandle ;
 
 300 : PlaySound  ; 有源地播放音乐。音频文件不需要指明sound文件夹，直接写文件名，不带后缀名。（也就是说音频文件必须在sound文件夹下）。
                  ; 音量以255为最大，0为静音.
-                 ; 目前已知可以播放wav格式，具体要求尚不清楚。建议遵守原版文件的采样率和码率。
+                 ; 目前已知可以播放wav格式，具体要求尚不清楚。除非经过测试无问题，建议尽量遵守原版文件的采样率和码率。
     ; PlaySound (sourceObjectHandle, strSoundFileName, volume)
 
 301 : PlaySound1 ; 无源地播放音乐（即，不管镜头对准哪儿，声音都一样大）。其余同上。
