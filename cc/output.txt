@@ -5,39 +5,26 @@ GetByte type=2
 address type=2
 ) type=1
 { type=1
-__asm type=2
-{ type=1
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSHINVR type=2
-0 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-0x03 type=3
-AND type=2
-PUSH type=2
-3 type=3
-SHL type=2
-SHR type=2
-PUSH type=2
-0xFF type=3
-AND type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-} type=1
+
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSHINVR 0  // data0 = array_base[(address - array_base)]
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 0x03
+        AND
+        PUSH 3
+        SHL
+        SHR
+        PUSH 0xFF
+        AND         // result = (data0 >> ((address - array_base) % 4 * 8)) & 0xFF;
+        POPN -2
+        RETN 0
+     type=5
 } type=1
 int type=2
 function type=2
@@ -58,12 +45,12 @@ if type=2
 ( type=1
 result type=2
 & type=1
-0x80 type=3
+80h type=3, num=128
 ) type=1
 return type=2
 result type=2
 | type=1
-0xFFFFFF00 type=3
+0xFFFFFF00 type=3, num=-256
 ; type=1
 return type=2
 result type=2
@@ -76,91 +63,60 @@ GetShort type=2
 address type=2
 ) type=1
 { type=1
-__asm type=2
-{ type=1
-PUSHARG type=2
-address type=2
-PUSH type=2
-0x03 type=3
-AND type=2
-JCOND type=2
-3 type=3
-, type=1
-LANG_GET_SHORT_1 type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSHINVR type=2
-0 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-0x03 type=3
-AND type=2
-PUSH type=2
-3 type=3
-SHL type=2
-SHR type=2
-PUSH type=2
-0xFFFF type=3
-AND type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-LANG_GET_SHORT_1 type=2
-: type=1
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-PUSHINVR type=2
-0 type=3
-PUSH type=2
-8 type=3
-SHL type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSHINVR type=2
-0 type=3
-PUSH type=2
-24 type=3
-SHR type=2
-PUSH type=2
-0xFF type=3
-AND type=2
-OR type=2
-PUSH type=2
-0xFFFF type=3
-AND type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-} type=1
+
+        PUSHARG address
+        PUSH 0x03
+        AND
+        JCOND 3, LANG_GET_SHORT_1 // 如果该2字节横跨在两个DWORD之间，需特殊操作。
+
+        // return (GetINV(minus / 4) >> (minus % 4 * 8)) & 0xFFFF
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSHINVR 0
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 0x03
+        AND
+        PUSH 3
+        SHL
+        SHR
+        PUSH 0xFFFF
+        AND
+        POPN -2
+        RETN 0
+
+    LANG_GET_SHORT_1:
+        // return ((GetINV(minus / 4 + 1) << 8) | (GetINV(minus / 4) >> 24 & 0xFF)) & 0xFFFF
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSH 1
+        ADD
+        PUSHINVR 0      //得到下4个字节的值；欲求Short的高位在这一个Int的最低一位
+        PUSH 8
+        SHL             //最低一位移到第2位
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSHINVR 0      //得到本4个字节的值；欲求Short的低位在这一个Int的最高位
+        PUSH 24
+        SHR             //最高位移到最低位
+        PUSH 0xFF
+        AND             //去除较高的3位（去掉有符号右移产生的1）
+        OR              //最低位和第2位合并
+        PUSH 0xFFFF
+        AND             //去除高2位
+        POPN -2
+        RETN 0
+     type=5
 } type=1
 int type=2
 function type=2
@@ -181,12 +137,12 @@ if type=2
 ( type=1
 result type=2
 & type=1
-0x8000 type=3
+0100000 type=3, num=32768
 ) type=1
 return type=2
 result type=2
 | type=1
-0xFFFF0000 type=3
+0xFFFF0000 type=3, num=-65536
 ; type=1
 return type=2
 result type=2
@@ -199,127 +155,82 @@ GetInt type=2
 address type=2
 ) type=1
 { type=1
-__asm type=2
-{ type=1
-STACK type=2
-2 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSHINVR type=2
-0 type=3
-POPN type=2
-1 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-0x03 type=3
-AND type=2
-JCOND type=2
-0 type=3
-, type=1
-GET_ADDR_TAIL_V2_0 type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-PUSHINVR type=2
-0 type=3
-POPN type=2
-2 type=3
-JCOND type=2
-2 type=3
-, type=1
-GET_ADDR_TAIL_V2_2 type=2
-JCOND type=2
-3 type=3
-, type=1
-GET_ADDR_TAIL_V2_3 type=2
-GET_ADDR_TAIL_V2_1 type=2
-: type=1
-PUSHARG type=2
-1 type=3
-PUSH type=2
-8 type=3
-SHR type=2
-PUSH type=2
-0xFFFFFF type=3
-AND type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-24 type=3
-SHL type=2
-OR type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-GET_ADDR_TAIL_V2_2 type=2
-: type=1
-PUSHARG type=2
-1 type=3
-PUSH type=2
-16 type=3
-SHR type=2
-PUSH type=2
-0xFFFF type=3
-AND type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-24 type=3
-SHL type=2
-OR type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-GET_ADDR_TAIL_V2_3 type=2
-: type=1
-PUSHARG type=2
-1 type=3
-PUSH type=2
-24 type=3
-SHR type=2
-PUSH type=2
-0xFF type=3
-AND type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-8 type=3
-SHL type=2
-OR type=2
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-GET_ADDR_TAIL_V2_0 type=2
-: type=1
-PUSHARG type=2
-1 type=3
-POPN type=2
-- type=1
-2 type=3
-RETN type=2
-0 type=3
-} type=1
+
+        STACK 2
+
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSHINVR 0
+        POPN 1
+
+        PUSHARG address
+        // PUSH INTV_ARRAY_BASE
+        // SUB
+        PUSH 0x03
+        AND
+        JCOND 0, GET_ADDR_TAIL_V2_0
+
+        PUSHARG address
+        PUSH INTV_ARRAY_BASE
+        SUB
+        PUSH 2
+        SHR
+        PUSH 1
+        ADD
+        PUSHINVR 0
+        POPN 2
+
+        // JCOND 1, GET_ADDR_TAIL_1
+        JCOND 2, GET_ADDR_TAIL_V2_2
+        JCOND 3, GET_ADDR_TAIL_V2_3
+
+    GET_ADDR_TAIL_V2_1:
+        PUSHARG 1
+        PUSH 8
+        SHR			// stack1 = [address] >> 8;
+        PUSH 0xFFFFFF
+        AND         // clr high bit
+        PUSHARG 2
+        PUSH 24
+        SHL			// stack2 = [address+4] << 24 ;
+        OR
+        POPN -2
+        RETN 0
+
+    GET_ADDR_TAIL_V2_2:
+        PUSHARG 1
+        PUSH 16
+        SHR			// stack1 = [address] >> 16
+        PUSH 0xFFFF
+        AND         // clr high bits
+        PUSHARG 2
+        PUSH 24
+        SHL			// stack2 = [address+4] << 16 ;
+        OR
+        POPN -2
+        RETN 0
+
+    GET_ADDR_TAIL_V2_3:
+        PUSHARG 1
+        PUSH 24
+        SHR			// stack1 = [address] >> 24
+        PUSH 0xFF
+        AND         // clr high bits
+        PUSHARG 2
+        PUSH 8
+        SHL			// stack2 = [address+4] << 8 ;
+        OR
+        POPN -2
+        RETN 0
+
+    GET_ADDR_TAIL_V2_0:
+        PUSHARG 1
+        POPN -2
+        RETN 0
+     type=5
 } type=1
 void type=2
 function type=2
@@ -330,239 +241,155 @@ address type=2
 value type=2
 ) type=1
 { type=1
-__asm type=2
-{ type=1
-STACK type=2
-5 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-0x03 type=3
-AND type=2
-POPN type=2
-1 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSHINVR type=2
-0 type=3
-POPN type=2
-2 type=3
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-PUSHINVR type=2
-0 type=3
-POPN type=2
-3 type=3
-PUSHARG type=2
-1 type=3
-JCOND type=2
-0 type=3
-, type=1
-SET_ADDR_TAIL_0 type=2
-JCOND type=2
-1 type=3
-, type=1
-SET_ADDR_TAIL_1 type=2
-JCOND type=2
-2 type=3
-, type=1
-SET_ADDR_TAIL_2 type=2
-JCOND type=2
-3 type=3
-, type=1
-SET_ADDR_TAIL_3 type=2
-SET_ADDR_TAIL_0 type=2
-: type=1
-PUSHARG type=2
-value type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-INST_53 type=2
-0 type=3
-JMP type=2
-SET_DATA_END type=2
-SET_ADDR_TAIL_1 type=2
-: type=1
-PUSHARG type=2
-value type=2
-PUSH type=2
-0xFFFFFF type=3
-AND type=2
-PUSH type=2
-8 type=3
-SHL type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-0xFF type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-INST_53 type=2
-0 type=3
-PUSHARG type=2
-value type=2
-PUSH type=2
-24 type=3
-SHR type=2
-PUSHARG type=2
-3 type=3
-PUSH type=2
-0xFFFFFF00 type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-INST_53 type=2
-0 type=3
-JMP type=2
-SET_DATA_END type=2
-SET_ADDR_TAIL_2 type=2
-: type=1
-PUSHARG type=2
-value type=2
-PUSH type=2
-0xFFFF type=3
-AND type=2
-PUSH type=2
-16 type=3
-SHL type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-0xFFFF type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-INST_53 type=2
-0 type=3
-PUSHARG type=2
-value type=2
-PUSH type=2
-16 type=3
-SHR type=2
-PUSHARG type=2
-3 type=3
-PUSH type=2
-0xFFFF0000 type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-INST_53 type=2
-0 type=3
-JMP type=2
-SET_DATA_END type=2
-SET_ADDR_TAIL_3 type=2
-: type=1
-PUSHARG type=2
-value type=2
-PUSH type=2
-0xFF type=3
-AND type=2
-PUSH type=2
-24 type=3
-SHL type=2
-PUSHARG type=2
-2 type=3
-PUSH type=2
-0xFFFFFF type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-INST_53 type=2
-0 type=3
-PUSHARG type=2
-value type=2
-PUSH type=2
-8 type=3
-SHR type=2
-PUSHARG type=2
-3 type=3
-PUSH type=2
-0xFF000000 type=3
-AND type=2
-OR type=2
-PUSHARG type=2
-address type=2
-PUSH type=2
-INTV_ARRAY_BASE type=2
-SUB type=2
-PUSH type=2
-2 type=3
-SHR type=2
-PUSH type=2
-1 type=3
-ADD type=2
-INST_53 type=2
-0 type=3
-JMP type=2
-SET_DATA_END type=2
-SET_DATA_END type=2
-: type=1
-RETN type=2
-2 type=3
-} type=1
+
+        STACK 5
+
+    	PUSHARG address
+    	PUSH 0x03
+    	AND
+    	POPN 1
+
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR
+    	PUSHINVR 0
+    	POPN 2
+
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR
+    	PUSH 1
+    	ADD
+    	PUSHINVR 0
+    	POPN 3
+
+    	PUSHARG 1
+    	JCOND 0, SET_ADDR_TAIL_0
+    	JCOND 1, SET_ADDR_TAIL_1
+    	JCOND 2, SET_ADDR_TAIL_2
+    	JCOND 3, SET_ADDR_TAIL_3
+
+    SET_ADDR_TAIL_0:
+    	PUSHARG value // 压入要写的数据
+
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR	// 压入要写的地址
+    	INST_53 0 // 写入数据
+
+    	JMP SET_DATA_END
+
+    SET_ADDR_TAIL_1:
+    	PUSHARG value // 压入要写的数据
+    	PUSH 0xFFFFFF
+    	AND
+    	PUSH 8
+    	SHL
+    	PUSHARG 2
+    	PUSH 0xFF
+    	AND
+    	OR		//(src & 0xFF) | ((dest & 0xFFFFFF) << 8)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR	// 压入要写的地址
+    	INST_53 0 // 写入数据
+
+    	PUSHARG value // 压入要写的数据
+    	PUSH 24
+    	SHR
+    	PUSHARG 3
+    	PUSH 0xFFFFFF00
+    	AND
+    	OR		//(src & 0xFFFFFF00) | ((dest & 0xFF000000) >> 24)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR
+    	PUSH 1
+    	ADD // 压入要写的地址
+    	INST_53 0 // 写入数据
+    	JMP SET_DATA_END
+
+    SET_ADDR_TAIL_2:
+    	PUSHARG value // 压入要写的数据
+    	PUSH 0xFFFF
+    	AND
+    	PUSH 16
+    	SHL
+    	PUSHARG 2
+    	PUSH 0xFFFF
+    	AND
+    	OR 		//(src & 0xFFFF) | ((dest & 0xFFFF) << 16)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR	// 压入要写的地址
+    	INST_53 0 // 写入数据
+
+    	PUSHARG value // 压入要写的数据
+    	PUSH 16
+    	SHR
+    	PUSHARG 3
+    	PUSH 0xFFFF0000
+    	AND
+    	OR		//(src & 0xFFFF0000) | ((dest & 0xFFFF0000) >> 16)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR
+    	PUSH 1
+    	ADD // 压入要写的地址
+    	INST_53 0 // 写入数据
+    	JMP SET_DATA_END
+
+    SET_ADDR_TAIL_3:
+    	PUSHARG value // 压入要写的数据
+    	PUSH 0xFF
+    	AND
+    	PUSH 24
+    	SHL
+    	PUSHARG 2
+    	PUSH 0xFFFFFF
+    	AND
+    	OR		//(src & 0xFFFFFF) | ((dest & 0xFF) << 24)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR	// 压入要写的地址
+    	INST_53 0 // 写入数据
+
+    	PUSHARG value // 压入要写的数据
+    	PUSH 8
+    	SHR
+    	PUSHARG 3
+    	PUSH 0xFF000000
+    	AND
+    	OR		//(src & 0xFF000000) | ((dest & 0xFFFFFF00) >> 8)
+    	PUSHARG address
+    	PUSH INTV_ARRAY_BASE
+    	SUB
+    	PUSH 2
+    	SHR
+    	PUSH 1
+    	ADD // 压入要写的地址
+    	INST_53 0 // 写入数据
+    	JMP SET_DATA_END
+
+    SET_DATA_END:
+    	RETN 2 //modified
+     type=5
 } type=1
 void type=2
 function type=2
@@ -582,16 +409,16 @@ GetShort type=2
 ( type=1
 address type=2
 + type=1
-2 type=3
+2 type=3, num=2
 ) type=1
 << type=1
-16 type=3
+16 type=3, num=16
 ) type=1
 | type=1
 ( type=1
 value type=2
 & type=1
-0x0000FFFF type=3
+0x0000FFFF type=3, num=65535
 ) type=1
 ) type=1
 ; type=1
@@ -615,13 +442,13 @@ GetInt type=2
 address type=2
 ) type=1
 & type=1
-0xFFFFFF00 type=3
+0xFFFFFF00 type=3, num=-256
 ) type=1
 | type=1
 ( type=1
 value type=2
 & type=1
-0x000000FF type=3
+0x000000FF type=3, num=255
 ) type=1
 ) type=1
 ; type=1

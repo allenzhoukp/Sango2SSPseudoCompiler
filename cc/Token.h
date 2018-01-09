@@ -6,7 +6,7 @@ using std::string;
 
 struct Token {
     enum TokenType_{
-        tokenErr, tokenOperator, tokenIdent, tokenNum, tokenStr
+        tokenErr, tokenOperator, tokenIdent, tokenNum, tokenStr, tokenAsm
     } type;
 
     string content;

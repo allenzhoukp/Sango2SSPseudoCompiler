@@ -52,10 +52,16 @@ bool Lexer::nextNumber () {
         curtoken->type = TokenType::tokenNum;
         move(curtoken->content.length());
 
-        if(cm[4].str() == "h")
-            curtoken->content = "0x" + cm[3].str();
+        // read unsigned int for Dec and Oct numbers.
+        // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
+        // so curtoken->_number keeps the signed type.
+        if(cm[4].str() == "h" || cm[2].str() == "0x")
+            sscanf(cm[3].str().c_str(), "%X", &curtoken->_number);
+        else if(curtoken->content[0] == '0')
+            sscanf(cm[0].str().c_str(), "%O", &curtoken->_number);
+        else
+            curtoken->_number = atoi(curtoken->content.c_str());
 
-        curtoken->_number = atoi(curtoken->content.c_str());
         return true;
     }
     Panic::panic("digit not match", curfile->fileName, curfile->curln, curfile->curcol);
@@ -111,80 +117,51 @@ bool Lexer::nextIdent () {
 
 //Only valid macro is #include. Everything else treated as comments.
 void Lexer::nextMacro () {
-    move(1); //Skip '#'
-
-    if(strncmp(curfile->input, "include", 7) == 0) {
-        move(7);
-
-        //skip spaces
-        while(*curfile->input == ' ' || *curfile->input == '\t')
-            move(1);
-
-        //#include format
-        if(*curfile->input != '<' && *curfile->input != '"') {
-            Panic::panic("Invalid #include macro. Usage: #include \"filename\" or #include <filename>",
-                curfile->fileName, curfile->curln, curfile->curcol);
-            return;
-        }
-
-        //Skip left
-        move(1);
-
-        //Get filename
-        string fileName = "";
-        while(*curfile->input != '>' && *curfile->input != '"') {
-            fileName += *curfile->input;
-            move(1);
-        }
-
-        //Skip right
-        move(1);
-
-        //readFile() will adjust stack.
-        //stack pop will be done in next().
+    // match #include
+    if(std::regex_search(curfile->input, cm, rInclude,
+            std::regex_constants::match_continuous)) {
+        string fileName = cm[1].str();
+        move(cm[0].str().length());
         readFile(fileName);
 
-    //Treat as comments
-    } else {
-        //go through towards new line
-        while(*curfile->input != '\n')
-            move(1);
+    // other macros treated as comments: skip
+    } else if (std::regex_search(curfile->input, cm, rOtherMacro,
+            std::regex_constants::match_continuous)){
+        move(cm[0].str().length());
 
-        //skip '\n'
-        move(1);
     }
-
 }
 
-bool Lexer::nextOperator() {
+bool Lexer::nextOperatorOrComment() {
+
+    //comments
+    if(std::regex_search(curfile->input, cm, rComment, std::regex_constants::match_continuous)) {
+        move(cm[0].str().length());
+        return false;
+    }
+
     if((std::regex_search(curfile->input, cm, rOperator2chars, std::regex_constants::match_continuous) ||
         std::regex_search(curfile->input, cm, rOperator1char, std::regex_constants::match_continuous))) {
 
-        //comments!
-        if(cm[0].str() == "//") {
-            move(2);
-            while(*curfile->input != '\n')
-                move(1);
-            move(1);
-
-        } else if (cm[0].str() == "/*") {
-            while(strncmp(curfile->input, "*/", 2) != 0)
-                move(1);
-            move(2);
-
-        //Operators
-        } else {
-            curtoken->type = TokenType::tokenOperator;
-            curtoken->content = cm[0].str();
-            move(cm[0].str().length());
-            return true;
-        }
-
-        return false;
+        curtoken->type = TokenType::tokenOperator;
+        curtoken->content = cm[0].str();
+        move(cm[0].str().length());
+        return true;
     }
+
     Panic::panic("Invalid operator", curfile->fileName, curfile->curln, curfile->curcol);
     while(!isspace(*curfile->input))
         move(1);
+    return false;
+}
+
+bool Lexer::nextAsm() {
+    if(std::regex_search(curfile->input, cm, rAsm, std::regex_constants::match_continuous)) {
+        curtoken->type = TokenType::tokenAsm;
+        curtoken->content = cm[1].str();
+        move(cm[0].str().length());
+        return true;
+    }
     return false;
 }
 
@@ -216,10 +193,11 @@ Token* Lexer::next() {
             nextMacro();
 
         //End-of-file: pop stack.
-        //empty stack: end.
         else if(*curfile->input == '\0' || *curfile->input == EOF) {
             fileStackTop--;
 
+            //empty stack: end. Return an EOF token.
+            //  (This token is w/index = tokenCount, so won't be counted in token list.)
             if(fileStackTop == 0) {
                 curtoken->content = "EOF";
                 return curtoken;
@@ -236,7 +214,10 @@ Token* Lexer::next() {
     char ch = *curfile->input;
     bool result = false;
 
-    if(isalpha(ch) || ch == '_')
+    if(strncmp(curfile->input, "__", 2) == 0 && nextAsm())
+        result = true;
+
+    else if(isalpha(ch) || ch == '_')
         result = nextIdent();
 
     else if(isdigit(ch))
@@ -246,7 +227,7 @@ Token* Lexer::next() {
         result = nextString();
 
     else
-        result = nextOperator();
+        result = nextOperatorOrComment();
 
     //There is new token: return it. tokenCount points at a new blank token.
     if(result) {
