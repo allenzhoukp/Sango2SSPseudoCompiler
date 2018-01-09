@@ -52,8 +52,8 @@ bool Lexer::nextNumber () {
         curtoken->type = TokenType::tokenNum;
         move(curtoken->content.length());
 
-        if(cm[3].str() == "h")
-            curtoken->content = "0x" + cm[2].str();
+        if(cm[4].str() == "h")
+            curtoken->content = "0x" + cm[3].str();
 
         curtoken->_number = atoi(curtoken->content.c_str());
         return true;

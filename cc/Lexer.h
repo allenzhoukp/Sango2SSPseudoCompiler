@@ -21,7 +21,7 @@ private:
 
     cmatch cm;
     // regex r_digit{ R"((\d*\.?\d+|\d+\.?\d*)([e][+-]?\d+)?)" };
-    regex rDigit { R"((\d+)|(0x)*[0-9A-Fa-f]+(h)*)" }; //Oct, Dec or Hex numbers.
+    regex rDigit { R"((\d+)|(0x)*([0-9A-Fa-f])+(h)*)" }; //Oct, Dec or Hex numbers.
     regex rAlpha { R"([a-zA-Z_]\w*)" }; //Starts with non-number.
     regex rSpace { R"(([ \t]+)|((?:\r\n)+)|(\n+))" }; //Multiple spaces, or new line.
     regex rOperator2chars { R"((->)|(\+\+)|(--)|(<<)|(>>)|(>=)|(<=)|(==)|(!=)|(&&)|(\|\|)|([-+*/%^&|]=)|(<<=)|(>>=)|(/\*)|(\*/)|(//))" };
