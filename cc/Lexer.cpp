@@ -52,7 +52,7 @@ bool Lexer::nextNumber () {
         curtoken->type = TokenType::tokenNum;
         move(curtoken->content.length());
 
-        // read unsigned int for Dec and Oct numbers.
+        // read unsigned int for Hex and Oct numbers.
         // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
         // so curtoken->_number keeps the signed type.
         if(cm[4].str() == "h" || cm[2].str() == "0x")
@@ -209,6 +209,11 @@ Token* Lexer::next() {
         else
             break;
     }
+
+    //get token's position info (source file, line, column)
+    curtoken->fileName = curfile->fileName;
+    curtoken->lineNo = curfile->curln;
+    curtoken->columnNo = curfile->curcol;
 
     //result: if there is a new token found
     char ch = *curfile->input;

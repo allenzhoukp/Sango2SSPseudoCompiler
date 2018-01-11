@@ -10,7 +10,7 @@ struct Token {
     } type;
 
     string content;
-    int fileNo;
+    string fileName;
     int lineNo;
     int columnNo;
 

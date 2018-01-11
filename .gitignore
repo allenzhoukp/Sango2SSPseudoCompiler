@@ -5,3 +5,5 @@ ss.so
 ss.cds
 ss.lst
 _qr.bat
+*.exe
+cc/Test.exe
