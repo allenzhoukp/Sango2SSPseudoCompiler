@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstring>
+#include <sstream>
 
 bool Parser::isPtr(int type) {
     return type >= 10;
@@ -37,76 +38,74 @@ bool Parser::tryMatch (int& tokenPos, string s) {
 }
 
 //get type code from token position.
-//if match == true, when failed to find a type, panic.
+//if match == true, tokenPos will be moved.
 //the name of the type will be written to typeName.
 int Parser::getType (int& tokenPos, bool match, string& typeName) {
 
     typeName = "";
-
+    int result = -1;
+    int tokmove = 1;
     string content = tokens[tokenPos].content;
 
     //prevent exceeding.
     string nextContent = tokenPos + 1 < tokenCount ? tokens[tokenPos + 1].content : "";
 
-    //void, int, string, float.
+    //void, int, string, float and their ptrs.
     if(typeNameToCode.find(content) != typeNameToCode.end()) {
 
-        //void*, string*, float*.
-        if(nextContent == "*" && content != "int") {
-            return 10 + typeNameToCode[content];
+        //void*, string*
+        //NOTE no float * support for now.
+        if(nextContent == "*" && content != "int" && content != "float") {
+            typeName = content + " *";
+            result = 10 + typeNameToCode[content];
+            tokmove = 2;
+        //int *
+        } else if (nextContent == "*" && content == "int"){
+            typeName = "int *";
+            result = DataTypes::typeIntPtr;
+            tokmove = 2;
+        //void, int, string, float
+        } else {
+            typeName = content;
+            result = typeNameToCode[content];
         }
-        typeName = content;
 
-        return typeNameToCode[content];
-    }
-
-    if(content == "unsigned") {
+    } else if(content == "unsigned") {
         //unsigned *
         if(nextContent == "*") {
             typeName = "unsigned *";
-            return DataTypes::typeUIntPtr;
-        }
+            result = DataTypes::typeUIntPtr;
+            tokmove = 2;
 
         //unsigned int *, unsigned short *, unsigned byte *
-        if(numericNameToCode.find(nextContent) != numericNameToCode.end()) {
+        } else if(numericNameToCode.find(nextContent) != numericNameToCode.end()) {
             string thirdContent = tokenPos + 2 < tokenCount ? tokens[tokenPos + 2].content : "";
             if(thirdContent == "*") {
                 typeName = "unsigned " + nextContent + " *";
-                return 110 + numericNameToCode[nextContent] + 1;
+                result = 110 + numericNameToCode[nextContent] + 1;
+                tokmove = 3;
             }
         }
 
-        if(match)
-            require(tokenPos, false, "Error: invalid type name: unsigned " + nextContent + ". \n" +
-                "\t Note: for unsigned int/short/byte, only their pointers are supported.");
-
-        return -1;
-    }
-
-    //int *, short *, byte *
-    if(numericNameToCode.find(content) != numericNameToCode.end()) {
+    //short *, byte *
+    } else if(numericNameToCode.find(content) != numericNameToCode.end()) {
         if(nextContent == "*") {
             typeName = content + " *";
-            return 110 + numericNameToCode[nextContent];
+            result = 110 + numericNameToCode[nextContent];
+            tokmove = 2;
         }
 
-        if(match)
-            require(tokenPos, false, "Error: invalid type name: " + content + ". \n" +
-                    "\t Note: for short/byte, only their pointers are supported.");
-
-        return -1;
-    }
-
     //TODO struct *
-    if(nextContent == "*") {
+    } else if(nextContent == "*") {
         typeName = content + " *";
-        return DataTypes::typeStructPtr;
+        result = DataTypes::typeStructPtr;
+        tokmove = 2;
     }
 
     if(match)
-        require(tokenPos, false, "Error: invalid type name: '" + content + "'");
+        tokenPos += tokmove;
 
-    return -1;
+    return result;
 }
 
 int Parser::getType(int& tokenPos, bool match) {
@@ -180,14 +179,20 @@ Intv Parser::getIntvByName(string name) {
 
 //============Create Expression Tree=============
 
+Parser::ExpressionNodePool::ExpressionNodePool() {
+    clear();
+}
+
 ExpressionNode* Parser::ExpressionNodePool::newNode() {
     return &pool[len++];
 }
 
 void Parser::ExpressionNodePool::clear() {
     len = 0;
-    memset(pool, 0, sizeof(pool));
-    //NOTE this implies isLvalue=false in default.
+    for(int i = 0; i < MAX_LINE_LEN * 10; i++) {
+        pool[i].left = pool[i].right = NULL;
+        pool[i].isLvalue = false;
+    }
 }
 
 
@@ -210,8 +215,54 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
     ExpressionNode* x = expNodePool.newNode();
     ExpressionNode* left = nodePos;
 
-    //...TODO [], ->, ++, --.
-    return;
+    int operatorTokenPos = tokenPos;
+
+    if(tryMatch(tokenPos, "[")) {
+
+        //Currently, only direct locals supported
+        //TODO direct intvs (not for instruction-call-intvs, i.e. GetINV())
+        require(operatorTokenPos,
+            left->type == ExpNodeType::local,
+            "Operator [] can only be applied to local variables currently");
+
+        //The right operand of [] is the index.
+        expr(x->right, tokenPos, 0);
+        match(tokenPos, "]");
+
+        x->op = "[]";
+        x->type = ExpNodeType::binaryOp;
+        x->resultType = left->resultType;
+        x->isLvalue = true; //indeed.
+
+    } else if (tryMatch(tokenPos, "->")) {
+
+        require(operatorTokenPos,
+            left->resultType == DataTypes::typeStructPtr,
+            "Operator -> can only be applied to struct *");
+
+        //TODO match structures
+
+        x->op = "->";
+        x->isLvalue = true;
+
+    } else if (tryMatch(tokenPos, "++") || tryMatch(tokenPos, "--")) {
+
+        require(operatorTokenPos,
+            left->isLvalue == true,
+            "Operator ++/-- requires an lvalue operand");
+
+        //set global sign.
+        if(tokens[operatorTokenPos].content == "++")
+            ppNode = x;
+        else
+            mmNode = x;
+
+        x->op = "b";
+        x->type = ExpNodeType::unaryOp;
+        x->resultType = left->resultType;
+        x->isLvalue = false; //you can't do something like (i++) = 2;
+
+    } else return;
 
     //Put the new node into the position.
     x->left = left;
@@ -281,7 +332,6 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
         tokenPos++;
     }
 
-    //TODO back() ([], ++, --, ->)
     back(x, tokenPos);
 }
 
@@ -358,16 +408,50 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         x->resultType = x->left->resultType; //Float, int or ptr.
         return;
 
+    //TODO not tested.
     } else if (tryMatch(tokenPos, "*")) {
         unary(x->left, tokenPos);
-        //TODO get addr
+
+        require(currentTokenPos,
+            isPtr(x->left->resultType),
+            "Operator * can only be applied on pointers");
+
+        require(currentTokenPos,
+            x->left->resultType < DataTypes::typeStructPtr && x->left->resultType != DataTypes::typeVoidPtr,
+            "Operator * cannot be applied on a struct or void pointer. \n"
+            "Note Use operator -> to access struct members");
+
+        x->type = ExpNodeType::unaryOp;
+        x->op = "*";
+        x->isLvalue = true; //indeed.
+
+        switch(x->left->resultType) {
+
+        case DataTypes::typeIntPtr:
+        case DataTypes::typeUIntPtr:
+        case DataTypes::typeShortPtr:
+        case DataTypes::typeUShortPtr:
+        case DataTypes::typeBytePtr:
+        case DataTypes::typeUBytePtr:
+            x->resultType = DataTypes::typeInt;
+            break;
+
+        case DataTypes::typeStringPtr:
+            x->resultType = DataTypes::typeString;
+            break;
+
+        default:
+            x->resultType = DataTypes::typeInt; //Only here when error.
+        }
+
+        return;
 
     //TODO not tested.
     } else if (see(tokenPos, "(")) {
         //cast
         int newTokenPos = tokenPos + 1;
         string typeName = "";
-        int typeCode = getType(newTokenPos, false, typeName);
+        int typeCode = getType(newTokenPos, true, typeName);
 
         if(typeCode != -1) {
             tokenPos = newTokenPos;
@@ -375,21 +459,21 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
             x->type = ExpNodeType::unaryOp;
 
             // I don't know why to_string(int) doesn't work. Lazy compiler author?
-            char buf[10];
-            sprintf(buf, "(%d)", typeCode);
-            x->op = buf;
+            std::ostringstream os;
+            os << "(" << typeCode << ")";
+            x->op = os.str();
 
             x->isLvalue = false;
             x->resultType = typeCode;
 
-            expr(x->left, tokenPos, 0);
+            //fix: should be unary() (type cast has quite a high priority!)
+            unary(x->left, tokenPos);
 
-            //Failed cast: float -> ptr, string -> ptr, string -> float, string -> int
+            //Failed cast: float -> ptr, string -> ptr, string -> float, string -> int, everything -> void
             //Don't give actual instruction for now.
             require(currentTokenPos,
-                typeCode == x->left->resultType ||
-                    (!((isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat)
-                        || x->left->resultType == DataTypes::typeString)),
+                typeCode == x->left->resultType || typeCode == DataTypes::typeVoid ||
+                (!((isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat) || x->left->resultType == DataTypes::typeString)),
                 "invalid type cast to (" + typeName + ")");
 
             return;
@@ -401,9 +485,116 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
 
 }
 
-void Parser::expr(ExpressionNode* &x, int& tokenPos, int priority){
-    //TODO expr()
-    //O WTF...
+// 0: =, +=, -=, *=, /=, %=, &=, |=, ^=
+// 1: &&, ||
+// 2: &, |, ^
+// 3: ==, !=, <, <=, >, >=
+// 4: <<, >>
+// 5: +, -
+// 6: *, /, %
+// 7: unary()
+
+//TODO build framework
+void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
+
+    if (level == 7) {
+        unary(x, tokenPos);
+        return;
+    }
+
+    expr (x, tokenPos, level + 1);
+
+    while (level == 6 ? see(tokenPos, "*") || see(tokenPos, "/") || see(tokenPos, "%") :
+           level == 5 ? see(tokenPos, "+") || see(tokenPos, "-") :
+           level == 4 ? see(tokenPos, "<<") || see(tokenPos, ">>") :
+           level == 3 ? see(tokenPos, "==") || see(tokenPos, "!=") ||
+                        see(tokenPos, ">") || see(tokenPos, "<") || see(tokenPos, ">=") || see(tokenPos, "<=") :
+           level == 2 ? see(tokenPos, "&") || see(tokenPos, "|") || see(tokenPos, "^") :
+           level == 1 ? see(tokenPos, "&&") || see(tokenPos, "||") :
+              see(tokenPos, "=") || see(tokenPos, "+=") || see(tokenPos, "-=") || see(tokenPos, "*=") ||
+              see(tokenPos, "/=") || see(tokenPos, "&=") || see(tokenPos, "|=") || see(tokenPos, "^=") ||
+              see(tokenPos, "<<=") || see(tokenPos, ">>=")) {
+
+        // the original node in position of x, is now the left operand of this operator.
+        // e.g. a + b * c, w/o "* c", b is the right operand of +; w/"* c", (b * c) is the right operand of +,
+        //      and the node for operator * is placed at (node for operator +) -> right.
+        ExpressionNode* left = x;
+        x = expNodePool.newNode();
+        x->left = left;
+
+        x->op = tokens[tokenPos].content;
+        x->type = ExpNodeType::binaryOp;
+        x->isLvalue = (level == 0 ? true : false);
+
+        int operatorTokenPos = tokenPos;
+        tokenPos++; //skip operator
+
+        expr (x->right, tokenPos, level + 1);
+        ExpressionNode* right = x->right;
+
+        // For the following, all pointers are automatically converted into int.
+
+        // int, float, string
+        if(x->op == "+" || x->op == "==" || x->op == "!=" || x->op == "+=") {
+
+            // for strings: can only compare string w/string, and link string w/string
+            if(left->resultType == DataTypes::typeString)
+                require(operatorTokenPos,
+                    right->resultType == DataTypes::typeString,
+                    "Can't apply operator " + x->op + " between a string and a non-string");
+
+            // logic result.
+            // int == float -> float == float
+            if(x->op == "==" || x->op == "!=")
+                x->resultType = DataTypes::typeInt;
+
+            // +
+            else {
+                //string + string = string
+                if(left->resultType == DataTypes::typeString)
+                    x->resultType = DataTypes::typeString;
+
+                // int + int = int, float + int or float = float
+                else
+                    x->resultType = (left->resultType == DataTypes::typeFloat || right->resultType == DataTypes::typeFloat)
+                        ? DataTypes::typeFloat : DataTypes::typeInt;
+            }
+
+        // int, float, but not string.
+        // *,/,-,>,>=,<,<=
+        } else if(x->op == "*" || x->op == "/" || x->op == "-" || level == 3 ||
+                  x->op == "*=" || x->op == "/=" || x->op == "-=") {
+            require(operatorTokenPos,
+                left->resultType != DataTypes::typeString && right->resultType != DataTypes::typeString,
+                "Invalid operand type: string");
+
+            // If one of operands has float value, then the result is float. int otherwise.
+            x->resultType = (left->resultType == DataTypes::typeFloat || right->resultType == DataTypes::typeFloat)
+                ? DataTypes::typeFloat : DataTypes::typeInt;
+
+        // only int
+        } else if(x->op == "%" || level == 4 || level == 2 || level == 1 ||
+                  x->op == "%=" || x->op == "<<=" || x->op == ">>=" || x->op == "&=" || x->op == "|=" || x->op == "^=") {
+            require(operatorTokenPos,
+                left->resultType != DataTypes::typeString && right->resultType != DataTypes::typeString,
+                "Invalid operand type: string");
+
+            require(operatorTokenPos,
+                left->resultType != DataTypes::typeFloat && right->resultType != DataTypes::typeFloat,
+                x->op == "%"
+                    ? "Invalid operand type: float (Sango2 does not support % instructions for float)"
+                    : "Invalid operand type: float");
+
+            x->resultType = DataTypes::typeInt;
+
+        } //else x->op == "="
+
+        //The-most-weirdo: assignments (requires lvalue)
+        if(level == 0)
+            require(operatorTokenPos, left->isLvalue,
+                "assignment operator requires an lvalue as left operand");
+
+    }
 }
 
 
@@ -427,10 +618,11 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
     initParam(paramList);
     newLocal(DataTypes::typeInt, "i");
     newLocal(DataTypes::typeString, "str");
+    newLocal(DataTypes::typeIntPtr, "ptr");
 
-    ExpressionNode* root = expNodePool.newNode();
+    ExpressionNode* root = NULL;
     int tokenPos = 0;
-    unary(root, tokenPos);
+    expr(root, tokenPos, 0);
 
     tokenPos++;
 

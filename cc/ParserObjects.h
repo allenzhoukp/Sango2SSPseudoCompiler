@@ -19,7 +19,9 @@ namespace DataTypes{
     const int typeIntPtr = 110; const int typeShortPtr = 112; const int typeBytePtr = 114;
     const int typeUIntPtr = 111; const int typeUShortPtr = 113; const int typeUBytePtr = 115;
 
-    const int typeStringPtr = 12; const int typeFloatPtr = 13;
+    //NOTE For numeric * we have PUSHINV, for string * we have SYSCALL 0x200.
+    //But nothing for float * for now.
+    const int typeStringPtr = 12; //const int typeFloatPtr = 13;
 
     const int typeStructPtr = 140;
     //All types of different structures are as follows: 140 + TYPE_ID

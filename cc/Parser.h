@@ -23,7 +23,6 @@ private:
     int syscallCount = 0;
     map<string, Syscall*> syscallNameMapping;
 
-
     Intv intvs[MAX_FUNC_LEN];
     int intvCount = 0;
 
@@ -31,6 +30,10 @@ private:
     int funcCount = 0;
     map<string, Function*> funcNameMapping;
     Function* currentFunc;
+
+    //backward ++/-- (like i++)
+    ExpressionNode* ppNode;
+    ExpressionNode* mmNode;
 
     bool isPtr (int type);
     void require (int& tokenPos, bool condition, string errmsg);
@@ -50,9 +53,10 @@ private:
 
     class ExpressionNodePool {
     private:
-        ExpressionNode pool[MAX_LINE_LEN];
+        ExpressionNode pool[MAX_LINE_LEN * 10];
         int len = 0;
     public:
+        ExpressionNodePool();
         ExpressionNode* newNode();
         void clear();
 
