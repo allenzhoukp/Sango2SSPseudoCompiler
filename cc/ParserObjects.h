@@ -12,7 +12,7 @@ const int MAX_PARAM_NUM = 32;
 
 namespace DataTypes{
     const int typeVoid = 0;
-    const int typeInt = 1; const int typeString = 2; const int typeFloat = 3;
+    const int typeInt = 1; const int typeString = 3; const int typeFloat = 2;
 
     const int typeVoidPtr = 10;
 
@@ -21,7 +21,7 @@ namespace DataTypes{
 
     //NOTE For numeric * we have PUSHINV, for string * we have SYSCALL 0x200.
     //But nothing for float * for now.
-    const int typeStringPtr = 12; //const int typeFloatPtr = 13;
+    const int typeStringPtr = 13; //const int typeFloatPtr = 12;
 
     const int typeStructPtr = 140;
     //All types of different structures are as follows: 140 + TYPE_ID
@@ -37,8 +37,7 @@ struct Syscall {
     string name;
     int code;
     int returnType;
-    Var params[MAX_PARAM_NUM];
-    int paramCount = 0;
+    int paramCount;
 };
 
 struct Function {

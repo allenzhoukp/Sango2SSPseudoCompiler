@@ -1,1 +1,1 @@
-i += (((int *) ptr * i & 0xFF) >> 78h) >= 6 + *ptr
+i += (((int *) ptr * i & 0xFF) % GetIntv(true)) >= 6 + *ptr

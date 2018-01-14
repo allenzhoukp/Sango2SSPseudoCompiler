@@ -23,8 +23,12 @@ private:
     int syscallCount = 0;
     map<string, Syscall*> syscallNameMapping;
 
+    //intvs can be ANYWHERE, so it's no good to use array mapping.
     Intv intvs[MAX_FUNC_LEN];
     int intvCount = 0;
+
+    //mapping: code - var.
+    int globalTypes[MAX_FUNC_LEN];
 
     Function funcs[MAX_FUNC_LEN];
     int funcCount = 0;
@@ -35,11 +39,15 @@ private:
     ExpressionNode* ppNode;
     ExpressionNode* mmNode;
 
+    void loadSyscallTable ();
+    void loadIntvTable ();
+
     bool isPtr (int type);
-    void require (int& tokenPos, bool condition, string errmsg);
-    bool see (int& tokenPos, string s);
+    void require (int tokenPos, bool condition, string errmsg);
+    bool see (int tokenPos, string s);
     void match (int& tokenPos, string s);
     bool tryMatch (int& tokenPos, string s);
+    bool validateType (int target, int given);
     int getType (int& tokenPos, bool match, string& typeName);
     int getType (int& tokenPos, bool match);
 
@@ -64,6 +72,7 @@ private:
 
 public:
     Parser(Token* tokenList, int tokenCnt_);
+    void initExpNodeParamArray (ExpressionNode* x, int len);
     bool tryMatchSyscall(ExpressionNode* &x, int& tokenPos);
     bool tryMatchInst(ExpressionNode* &x, int& tokenPos);
     bool tryMatchFunccall(ExpressionNode* &x, int& tokenPos);

@@ -55,8 +55,8 @@ bool Lexer::nextNumber () {
         // read unsigned int for Hex and Oct numbers.
         // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
         // so curtoken->_number keeps the signed type.
-        if(cm[4].str() == "h" || cm[2].str() == "0x")
-            sscanf(cm[3].str().c_str(), "%X", &curtoken->_number);
+        if(cm[3].str() == "h" || cm[1].str() == "0x")
+            sscanf(cm[2].str().c_str(), "%X", &curtoken->_number);
         else if(curtoken->content[0] == '0')
             sscanf(cm[0].str().c_str(), "%O", &curtoken->_number);
         else

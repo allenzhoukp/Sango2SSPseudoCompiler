@@ -5,17 +5,54 @@
 #include <cstring>
 #include <sstream>
 
+void Parser::loadSyscallTable () {
+    FILE* fin = fopen("SYSCALL_TABLE.txt", "r");
+    Syscall syscall;
+    char name[MAX_LINE_LEN];
+
+    if(fin == NULL) {
+        printf("Unable to load SYSCALL_TABLE.txt!");
+        exit(1);
+    }
+
+    while(fscanf(fin, "%x %d %d %s", &syscall.code, &syscall.paramCount,
+                      &syscall.returnType, name) != EOF) {
+        syscall.name = string(name);
+        syscalls[syscallCount] = syscall;
+        syscallNameMapping[name] = &syscalls[syscallCount];
+        syscallCount++;
+    }
+    fclose(fin);
+}
+
+void Parser::loadIntvTable () {
+    FILE* fin = fopen("INTV_TABLE.txt", "r");
+    Intv intv;
+    char name[MAX_LINE_LEN];
+
+    if(fin == NULL)
+        return;
+
+    while(fscanf(fin, "%s %x", name, &intv.intvNo) != EOF) {
+        intv.name = string(name);
+        intvs[intvCount++] = intv;
+    }
+    fclose(fin);
+}
+
+//==========Auxillary function============
+
 bool Parser::isPtr(int type) {
     return type >= 10;
 }
 
-void Parser::require (int& tokenPos, bool condition, string errmsg) {
+void Parser::require (int tokenPos, bool condition, string errmsg) {
     if(!condition)
         Panic::panic(errmsg, tokens[tokenPos].fileName,
             tokens[tokenPos].lineNo, tokens[tokenPos].columnNo);
 }
 
-bool Parser::see (int& tokenPos, string s) {
+bool Parser::see (int tokenPos, string s) {
     return tokens[tokenPos].content == s;
 }
 
@@ -113,6 +150,14 @@ int Parser::getType(int& tokenPos, bool match) {
     return getType(tokenPos, match, s);
 }
 
+bool Parser::validateType(int target, int given) {
+    if(isPtr(target))
+        target = DataTypes::typeInt;
+    if(isPtr(given))
+        given = DataTypes::typeInt;
+    return target == given;
+}
+
 void Parser::newLocal(int type, string name) {
     Var& var = currentFunc->locals[currentFunc->localCount];
     var.type = type;
@@ -125,7 +170,8 @@ void Parser::newLocal(int type, string name) {
 void Parser::initParam(vector<Var> params) {
     for(int i = 0; i < params.size(); i++) {
         params[i].no = -(params.size() - i + 1);  //e.g. 7 params, first (idx=0) param has number -8. idx=1, no=-7, etc.
-        currentFunc->params[params.size() - i - 1] = params[i]; //idx in currentFunc->params[] is -no - 2.
+
+        currentFunc->params[i] = params[i]; //maintain order in params[]
         currentFunc->numberMapping.emplace(params[i].name, params[i].no);
     }
     currentFunc->paramCount = params.size();
@@ -146,8 +192,8 @@ Var Parser::getLocalByName(string name) {
     //param no starts from -2.
     if(number > 0)
         return currentFunc->locals[number - 1];
-    else if(number <= -2)
-        return currentFunc->params[-number - 2];
+    else if(number <= -2) //params[i].no = -paramsCount + i - 1 => i = paramsCount + number + 1
+        return currentFunc->params[currentFunc->paramCount + number + 1];
     else {
         Var var;
         var.name = "NULL";
@@ -195,22 +241,194 @@ void Parser::ExpressionNodePool::clear() {
     }
 }
 
+void Parser::initExpNodeParamArray (ExpressionNode* x, int len) {
+    x->params = new ExpressionNode*[MAX_FUNC_LEN + 1];
+    memset(x->params, 0, sizeof(ExpressionNode *) * (MAX_FUNC_LEN + 1));
+}
 
 bool Parser::tryMatchSyscall(ExpressionNode* &x, int& tokenPos){
-    //TODO syscall
+    string content = tokens[tokenPos].content;
+    if(syscallNameMapping.find(content) != syscallNameMapping.end()) {
+        Syscall* syscall = syscallNameMapping[content];
+
+        if(x == NULL)
+            x = expNodePool.newNode();
+
+        x->type = ExpNodeType::syscall;
+        x->name = content;
+        x->isLvalue = false;
+        x->resultType = syscall->returnType;
+
+        tokenPos++; //skip syscall name
+        match(tokenPos, "(");
+
+        initExpNodeParamArray(x, syscall->paramCount);
+        int paramCount = 0;
+
+        if(!see(tokenPos, ")")) do {
+            expr(x->params[paramCount++], tokenPos, 0);
+        } while (tryMatch(tokenPos, ","));
+
+        match(tokenPos, ")");
+
+        std::ostringstream errmsg;
+        errmsg << "the number of parameters does not match. Required " << syscall->paramCount <<
+            " params, seen " << paramCount;
+        require(tokenPos - 1,
+            paramCount == syscall->paramCount, errmsg.str());
+
+        return true;
+
+    }
     return false;
 };
 
+//GetGlobal(), SetGlobal(), GetIntv(), SetIntv(), Delay(), Wait(), IsRunning()
+//INST_4F,     INST_52,     PUSHINVR,  INST_53,   DELAY,   INST_45,INST_46
 bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
-    //TODO inst
-    return false;
+
+    //For instructions, looks like the only appropriate way is to write it in a hard-wire way.
+
+    string name = tokens[tokenPos].content;
+
+    //Global Vars (INST_4F, INST_52)
+    //For now, ONLY INT globals are supported.
+    //If we want to know the exact type, the problem is that - we can't infer type from the index
+    //   we can only know in runtime. Originally ODIN knows all the globals and they work like locals.
+    //   So looks like we can only implement things like that when we manage to figure out
+    //   all the existing globals - especially their types.
+    //TODO Globals support
+    if(tryMatch(tokenPos, "GetGlobal")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = DataTypes::typeInt;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 1);
+        expr(x->params[0], tokenPos, 0);
+
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+            "GetGlobal() requires an integer parameter");
+
+        match(tokenPos, ")");
+    }
+    else if(tryMatch(tokenPos, "SetGlobal")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = DataTypes::typeVoid;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 2);
+        expr(x->params[0], tokenPos, 0);
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+            "SetGlobal() requires integer parameters");
+        match(tokenPos, ",");
+        expr(x->params[1], tokenPos, 1);
+        require(tokenPos, x->params[1]->resultType == DataTypes::typeInt,
+            "SetGlobal() requires integer parameters");
+        match(tokenPos, ")");
+    }
+
+    //INTVs (PUSHINVR, INST_53)
+    //Two ways to use Intvs: use GetIntv/SetIntv,
+    //    or write it in INTV_LIST.txt and use it like a local.
+    //Intvs can only have integer value (even in the original code, most perhaps)
+    else if(tryMatch(tokenPos, "GetIntv")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = DataTypes::typeInt;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 1);
+        expr(x->params[0], tokenPos, 0);
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+            "GetIntv() requires an integer parameter");
+        match(tokenPos, ")");
+    }
+    else if(tryMatch(tokenPos, "SetIntv")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = DataTypes::typeVoid;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 2);
+        expr(x->params[0], tokenPos, 0);
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+            "SetGlobal() requires integer parameters");
+        match(tokenPos, ",");
+        expr(x->params[1], tokenPos, 1);
+        require(tokenPos, x->params[1]->resultType == DataTypes::typeInt,
+            "SetGlobal() requires integer parameters");
+        match(tokenPos, ")");
+    }
+
+    //delay(), wait(), isRunning() (DELAY, INST_45, INST_46)
+    else if(tryMatch(tokenPos, "Delay")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = DataTypes::typeVoid;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 1);
+        expr(x->params[0], tokenPos, 0);
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+            "Delay() requires an integer parameter");
+        match(tokenPos, ")");
+    }
+    else if(tryMatch(tokenPos, "Wait") || tryMatch(tokenPos, "IsRunning")) {
+        if(x != NULL) x = expNodePool.newNode();
+        x->resultType = name == "Wait" ? DataTypes::typeVoid : DataTypes::typeInt;
+
+        match(tokenPos, "(");
+        initExpNodeParamArray(x, 1);
+        expr(x->params[0], tokenPos, 0);
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeString,
+            name + "() requires a string parameter");
+        match(tokenPos, ")");
+    }
+    else
+        return false;
+
+    x->type = ExpNodeType::inst;
+    x->isLvalue = false;
+    x->name = name;
+
+    return true;
 };
 
 bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
-    //TODO funccall
+    string name = tokens[tokenPos].content;
+    if(funcNameMapping.find(name) != funcNameMapping.end()) {
+        if(x = NULL)
+            x = expNodePool.newNode();
+
+        Function* func = funcNameMapping[name];
+        x->type = ExpNodeType::funcCall;
+        x->name = name;
+        x->resultType = func->returnType;
+        x->isLvalue = false;
+
+        initExpNodeParamArray(x, func->paramCount);
+
+        match(tokenPos, "(");
+        int paramCount = 0;
+
+        if(!see(tokenPos, ")")) do {
+            expr(x->params[paramCount], tokenPos, 0);
+            require(tokenPos,
+                validateType(func->params[paramCount].type, x->params[paramCount]->resultType),
+                "parameter type not match");
+
+        } while (tryMatch(tokenPos, ","));
+
+        std::ostringstream err;
+        err << "function " << func->name << " requires " << func->paramCount <<
+            " parameter(s), found " << paramCount;
+        require(tokenPos, paramCount == func->paramCount,
+             err.str());
+
+        match(tokenPos, ")");
+        return true;
+    }
     return false;
 };
 
+//Back: operators after an object w/highest priority [], ->, ++, --
 void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
     ExpressionNode* x = expNodePool.newNode();
     ExpressionNode* left = nodePos;
@@ -295,8 +513,24 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
     // identifiers: vars, INTVs, function calls, syscalls, instructions
     } else if (token.type == TokenType::tokenIdent) {
 
+        //true, false (constants)
+        if(token.content == "true" || token.content == "false") {
+            x->type = ExpNodeType::intConst;
+            x->intValue = token.content == "true" ? 1 : 0;
+            x->resultType = DataTypes::typeInt;
+            x->isLvalue = false;
+            tokenPos++;
+
+        //null (constants)
+        } else if(token.content == "NULL" || token.content == "null") {
+            x->type = ExpNodeType::intConst;
+            x->intValue = 0;
+            x->resultType = DataTypes::typeVoidPtr;
+            x->isLvalue = false;
+            tokenPos++;
+
         //locals
-        if(getLocalNoByName(token.content) != -1) {
+        } else if(getLocalNoByName(token.content) != -1) {
             x->type = ExpNodeType::local;
             x->localVar = getLocalByName(token.content);
             x->resultType = getLocalByName(token.content).type;
@@ -335,6 +569,7 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
     back(x, tokenPos);
 }
 
+//Unary: unary operators !, -, ~, ++, --, *, (type cast)
 void Parser::unary(ExpressionNode* &x, int& tokenPos){
 
     if(x == NULL)
@@ -408,7 +643,6 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         x->resultType = x->left->resultType; //Float, int or ptr.
         return;
 
-    //TODO not tested.
     } else if (tryMatch(tokenPos, "*")) {
         unary(x->left, tokenPos);
 
@@ -446,7 +680,6 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
 
         return;
 
-    //TODO not tested.
     } else if (see(tokenPos, "(")) {
         //cast
         int newTokenPos = tokenPos + 1;
@@ -494,7 +727,6 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
 // 6: *, /, %
 // 7: unary()
 
-//TODO build framework
 void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
 
     if (level == 7) {
@@ -610,6 +842,9 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
     numericNameToCode.emplace("int", 0);
     numericNameToCode.emplace("short", 2);
     numericNameToCode.emplace("byte", 4);
+
+    loadSyscallTable();
+    loadIntvTable();
 
     //NOTE Test
     currentFunc = new Function;
