@@ -30,6 +30,9 @@ private:
     int syscallCount = 0;
     map<string, Syscall*> syscallNameMapping;
 
+    StructInfo structInfos[MAX_FUNC_LEN];
+    int structInfoCount = 0;
+
     //intvs can be ANYWHERE, so it's no good to use array mapping.
     Intv intvs[MAX_FUNC_LEN];
     int intvCount = 0;
@@ -59,6 +62,7 @@ private:
 
     void loadSyscallTable ();
     void loadIntvTable ();
+    void loadStructTable ();
 
     bool isPtr (int type);
     void require (int tokenPos, bool condition, string errmsg);
@@ -68,6 +72,9 @@ private:
     bool validateType (int target, int given);
     int getType (int& tokenPos, bool match, string& typeName);
     int getType (int& tokenPos, bool match);
+    StructInfo* getStructInfoByid (int id) ;
+    StructInfo* getStructInfoByName (string name) ;
+    string toCamel (string name);
 
     void newLocal (int type, string name);
     void initParam (vector<Var> params);
@@ -102,11 +109,21 @@ public:
     bool tryMatchSyscall(ExpressionNode* &x, int& tokenPos);
     bool tryMatchInst(ExpressionNode* &x, int& tokenPos);
     bool tryMatchFunccall(ExpressionNode* &x, int& tokenPos);
+    StructMember matchMember (int& tokenPos, int structType);
+    ExpressionNode* createMemberNode (StructMember member);
+    int dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType);
     void back(ExpressionNode* &nodePos, int& tokenPos);
     void object(ExpressionNode* &x, int& tokenPos);
     void unary(ExpressionNode* &x, int& tokenPos);
     void expr(ExpressionNode* &x, int& tokenPos, int priority);
 
+    void outputInst(ExpressionNode* x, int& stackDepth);
+    void outputFuncCall(ExpressionNode* x, int& stackDepth);
+    void outputGetValue(int type);
+    void outputSetValue(int type);
+    void outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack);
+    void outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack);
+    void treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack = true);
     void expr(int& tokenPos, bool hasResultStack);
 
     void outputLabel(string name);

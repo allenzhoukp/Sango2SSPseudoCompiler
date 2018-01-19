@@ -29,7 +29,7 @@ private:
     regex rOtherMacro { R"(#[^\n]*\n)" };
     regex rAsm { R"(__asm\s*\{([^\}]*)\})" };
     regex rOperator2chars { R"((->)|(\+\+)|(--)|(<<)|(>>)|(>=)|(<=)|(==)|(!=)|(&&)|(\|\|)|([-+*/%^&|]=)|(<<=)|(>>=)|(/\*)|(\*/)|(//))" };
-    regex rOperator1char { R"([-+*/%=~!^&|,;:<>()[\]\{\}])" };
+    regex rOperator1char { R"([-+*/%=~!^&|,.;:<>()[\]\{\}])" };
     //regex rOperator2chars { R"()"};
     //regex rOperator1char { R"()"};
 

@@ -385,3 +385,17 @@ void function SetByte(address, value) {
     SetInt(address,
         (GetInt(address) & 0xFFFFFF00) | (value & 0x000000FF));
 }
+
+// Write string (in stack) to target address.
+// Use a brute-force style: Target syscall 0x213, always set before use
+//                          (no global flag indicates whether it is set).
+void function SetString(address, value) {
+    //0x46DC60 = strcpy
+    SetInt(0x4A71FC, 0x46DC60); // 0x4A69B0(SYSCALL_ARRAY_BASE) + 0x213 * 4
+
+    __asm {
+        PUSHARG address
+        PUSHARG value
+        SYSCALL 0x213, (2 | (1 << 16)) ; Modified 0x213 (SetString)
+    }
+}

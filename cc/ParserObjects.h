@@ -9,6 +9,7 @@ using std::map;
 
 const int MAX_LOCAL_NUM = 1024;
 const int MAX_PARAM_NUM = 32;
+const int MAX_MEMBER_COUNT = 1024;
 
 namespace DataTypes{
     const int typeVoid = 0;
@@ -59,6 +60,34 @@ struct Intv {
     int intvNo;
 };
 
+// these types are a little bit different.
+// int, byte, short, float, string,
+// string *, struct *.
+// Specially, there is struct (like SOLDIER_INFO in BATTLE_USER_INFO) and arrays. That's it.
+
+struct StructMember {
+    string name;
+    int offset;
+    int type;
+    string typeName;
+    bool isArray;
+
+    static const int STRUCT = 500; //DataType base for struct.
+    static const int typeUInt = 411;
+    static const int typeShort = 412;
+    static const int typeByte = 414;
+    static const int typeUShort = 413;
+    static const int typeUByte = 415;
+};
+
+struct StructInfo {
+    int id;
+    string name;
+    int size;
+    int memberCount;
+    StructMember members[MAX_MEMBER_COUNT];
+};
+
 struct ExpressionNode {
     enum Type_{
         intConst, strConst,
@@ -75,14 +104,18 @@ struct ExpressionNode {
     Var localVar; //for local
     Intv intvVar; //for INTV
 
-    //for inst/funccall/syscall
-    string name;
+    string name;    //for inst
+    Function* func; //for funcCall
+    Syscall* sys; //for syscall
     ExpressionNode** params;
 
     //for operators
     string op;
     ExpressionNode *left;
     ExpressionNode *right;
+
+    //for operator ->
+    int accessType;
 };
 typedef ExpressionNode::Type_ ExpNodeType;
 
