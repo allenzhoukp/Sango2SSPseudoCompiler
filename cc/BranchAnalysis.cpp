@@ -69,6 +69,8 @@ bool Parser::tryMatchAsm (int& tokenPos) {
 
     //output asm
     out << content << endl;
+    tokenPos++;
+    return true;
 }
 
 //TODO: if, while, for and switch are NOT TESTED.
@@ -191,7 +193,7 @@ bool Parser::tryMatchFor (int& tokenPos) {
 	out << increment.str();
 
 	//go to loop start
-	out << "\t" << "JZ " << loopStart << endl;
+	out << "\t" << "JMP " << loopStart << endl;
 
 	//breakTo here
 	outputLabel(breakTo);
@@ -324,6 +326,7 @@ bool Parser::tryMatchJumps (int& tokenPos) {
         } else {
             out << "\t" << "RETN " << currentFunc->paramCount << endl;
         }
+        lineReturned = true;
 
     } else return false;
 
@@ -379,6 +382,9 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
 // variable decl
 // expr
 void Parser::line(int& tokenPos) {
+    //clear returned flag
+    lineReturned = false;
+
     // all except normal line (blocks and line with an expression body)
     if(!(tryMatchAsm(tokenPos) ||
          tryMatchIf(tokenPos) ||
@@ -402,4 +408,97 @@ void Parser::line(int& tokenPos) {
             match(tokenPos, ";");
         }
     }
+}
+
+//Functions.
+void Parser::matchFunc(int& tokenPos) {
+
+    currentFunc = &funcs[funcCount++];
+
+    string typeName;
+
+    //match return type
+    currentFunc->returnType = getType(tokenPos, true, typeName);
+    require(tokenPos, currentFunc->returnType != -1,
+        "invalid return type: " + typeName);
+
+    //Downward support: still accepts "function" token.
+    tryMatch(tokenPos, "function");
+
+    //Check name conflict and add to function name mapping
+    currentFunc->name = tokens[tokenPos].content;
+    require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+        "invalid function name: it should only contains letters, numbers and '_', and should not start with numbers");
+    require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
+        "there has already been a function named " + currentFunc->name);
+    funcNameMapping[currentFunc->name] = currentFunc;
+    tokenPos++;
+
+    match(tokenPos, "(");
+
+    //Match parameters
+    vector<Var> params;
+    if(!see(tokenPos, ")")) do {
+        Var var;
+
+        //typeName
+        var.type = getType(tokenPos, true, typeName);
+        require(tokenPos - 1, var.type != -1,
+            "invalid type name: " + typeName);
+
+        //parameter name validity and conflicts
+        require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+            "invalid parameter name: it should only contains letters, numbers and '_', and should not start with numbers");
+
+        var.name = tokens[tokenPos].content;
+        for(auto it = params.begin(); it != params.end(); ++it){
+            if(it->name == var.name){
+                require(tokenPos, false,
+                    "there has already been a parameter or local variable named " + var.name);
+                break;
+            }
+        }
+
+        //add to params
+        params.push_back(var);
+        tokenPos++;
+
+    } while (tryMatch(tokenPos, ","));
+
+    //push params vector into params array of this function
+    initParam(params);
+    match(tokenPos, ")");
+
+    //match callsign
+    if(tryMatch(tokenPos, "callsign")) {
+        require(tokenPos, tokens[tokenPos].type == TokenType::tokenNum,
+            "callsign of a function must be an integer");
+        currentFunc->callsign = tokens[tokenPos]._number;
+        tokenPos++;
+    }
+
+    //Backup the output - remember the STACK instruction in the front?
+    std::ostringstream functionContent;
+    out.swap(functionContent);
+
+    //function body.
+    //Now it is possible to avoid bracks! Although really weird...
+    line(tokenPos);
+
+    //Restore the original output.
+    out.swap(functionContent);
+    //Adjust stack position
+    out << "\t" << "STACK " << currentFunc->localCount + 2 << endl;
+
+    //Output function body
+    out << functionContent.str();
+
+    //An extra RETN at the end of funtion when there's no return value
+    if(currentFunc->returnType != DataTypes::typeVoid) {
+        require(tokenPos, lineReturned,
+            "no explicit return at the end of the function body");
+    } else {
+        out << "\t" << "RETN " << currentFunc->paramCount << endl;
+    }
+
 }

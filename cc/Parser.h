@@ -53,6 +53,9 @@ private:
     stack<string> breakToLabels;
     stack<string> loopToLabels;
 
+    //for end-of-funtion return flag
+    bool lineReturned = false;
+
     //backward ++/-- (like i++)
     stack<ExpressionNode*> ppNodes;
     stack<ExpressionNode*> mmNodes;
@@ -116,7 +119,7 @@ public:
     bool tryMatchFunccall(ExpressionNode* &x, int& tokenPos);
     StructMember matchMember (int& tokenPos, int structType);
     ExpressionNode* createMemberNode (StructMember member);
-    int dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType);
+    int dotAndArrayInStruct (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType);
     void back(ExpressionNode* &nodePos, int& tokenPos);
     void object(ExpressionNode* &x, int& tokenPos);
     void unary(ExpressionNode* &x, int& tokenPos);
@@ -141,6 +144,8 @@ public:
     bool tryMatchJumps (int& tokenPos);
     bool tryMatchLocalDecl (int& tokenPos) ;
     void line(int& tokenPos);
+
+    void matchFunc(int& tokenPos);
 
 };
 

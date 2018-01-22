@@ -28,7 +28,7 @@ bool Parser::isStruct(int type) {
 }
 
 bool Parser::isStructPtr(int type) {
-    return isPtr(type) && (type - (1 << 16)) >= DataTypes::typeStructBase;
+    return isPtr(type) && (type - (1 << 16) < (1 << 16)) && (type - (1 << 16) >= DataTypes::typeStructBase);
 }
 
 int Parser::getStructIdByType(int type) {
@@ -363,16 +363,10 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
     loadIntvTable();
     loadStructTable();
 
-    //NOTE Test
-    currentFunc = new Function;
-    vector<Var> paramList;
-    paramList.push_back((Var){DataTypes::typeInt, "param"});
-    initParam(paramList);
-
     int tokenPos = 0;
-    line(tokenPos);
-    printf("%s", out.str().c_str());
+    while(tokenPos < tokenCount)
+        matchFunc(tokenPos);
 
-    tokenPos++;
+    printf("%s", out.str().c_str());
 
 }

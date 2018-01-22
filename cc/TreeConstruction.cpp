@@ -251,7 +251,7 @@ ExpressionNode* Parser::createMemberNode (StructMember member) {
 //      First call for array, result is SoldierInfo(a structure);
 //      The result is a structure (not a pointer) which cannot be directly accessed, so recurse for the dot.
 //      Final result is the type of pObject (SangoObject *).
-int Parser::dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType) {
+int Parser::dotAndArrayInStruct (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType) {
     bool isResultAnArray = false;
     if(tryMatch(tokenPos, ".")) {
         //oldOffset + newOffset = right operand of operator ->
@@ -315,7 +315,7 @@ int Parser::dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int stru
     }
 
     if(isStruct(structOrArrayType) || isResultAnArray)
-        return dotAndStructArray (nodePos, tokenPos, structOrArrayType);
+        return dotAndArrayInStruct (nodePos, tokenPos, structOrArrayType);
     else
         return structOrArrayType;
 }
@@ -331,6 +331,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         //Currently, only direct locals supported
         //TODO direct intvs (not for instruction-call-intvs, i.e. GetINV())
+        //TODO pointers (used in an array-like style)
         require(operatorTokenPos,
             left->type == ExpNodeType::local,
             "Operator [] can only be applied to local variables currently");
@@ -360,7 +361,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
         //Here, directly record the actual type in the resultType of ->.
         //Or it won't be easy to make an inference.
         if(isStruct(directMember.type) || directMember.isArray)
-            x->resultType = dotAndStructArray(directMemberNode, tokenPos, directMember.type);
+            x->resultType = dotAndArrayInStruct(directMemberNode, tokenPos, directMember.type);
         else
             x->resultType = directMember.type;
 
