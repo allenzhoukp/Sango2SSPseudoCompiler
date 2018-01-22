@@ -12,7 +12,27 @@ using std::endl;
 //==========Auxillary function============
 
 bool Parser::isPtr(int type) {
-    return type >= 10;
+    //return type >= 10;
+    return (type >> 16) != 0;
+}
+
+bool Parser::isInteger(int type) {
+    return isPtr(type) ||
+        type == DataTypes::typeInt || type == DataTypes::typeUInt ||
+        type == DataTypes::typeShort || type == DataTypes::typeUShort ||
+        type == DataTypes::typeByte || type == DataTypes::typeUByte;
+}
+
+bool Parser::isStruct(int type) {
+    return !isPtr(type) && type >= DataTypes::typeStructBase;
+}
+
+bool Parser::isStructPtr(int type) {
+    return isPtr(type) && (type - (1 << 16)) >= DataTypes::typeStructBase;
+}
+
+int Parser::getStructIdByType(int type) {
+    return (type & 0xFFFF) - DataTypes::typeStructBase;
 }
 
 void Parser::require (int tokenPos, bool condition, string errmsg) {
@@ -43,6 +63,7 @@ bool Parser::tryMatch (int& tokenPos, string s) {
     return false;
 }
 
+/* @Deprecated
 //get type code from token position.
 //if match == true, tokenPos will be moved.
 //the name of the type will be written to typeName.
@@ -117,6 +138,59 @@ int Parser::getType (int& tokenPos, bool match, string& typeName) {
 
     return result;
 }
+*/
+
+//This look far more easier to understand. Damn it. Viva la brute force.
+int Parser::getType(int& tokenPos, bool match, string& typeName) {
+    string content = tokens[tokenPos].content;
+    string combinedContent = tokens[tokenPos].content + " " + tokens[tokenPos + 1].content;
+    int type = -1;
+    int tokmove = 1;
+    if(content == "void")
+        type = DataTypes::typeVoid;
+    else if(content == "int")
+        type = DataTypes::typeInt;
+    else if(content == "float")
+        type = DataTypes::typeFloat;
+    else if(content == "string")
+        type = DataTypes::typeString;
+    else if(content == "short")
+        type = DataTypes::typeShort;
+    else if(content == "byte")
+        type = DataTypes::typeByte;
+    else if(content == "unsigned")
+        type = DataTypes::typeUInt;
+    else if(combinedContent == "unsigned int") {
+        type = DataTypes::typeUInt;
+        tokmove = 2;
+    } else if(combinedContent == "unsigned short") {
+        type = DataTypes::typeUShort;
+        tokmove = 2;
+    } else if(combinedContent == "unsigned byte") {
+        type = DataTypes::typeUByte;
+        tokmove = 2;
+    } else {
+        type = getStructInfoByName(content)->id;
+        if(type == -1)
+            return -1;
+        type += DataTypes::typeStructBase;
+    }
+
+    int ptrCount = 0;
+    while(tokens[tokenPos + tokmove + ptrCount].content == "*")
+        ptrCount++;
+
+    typeName = "";
+    for(int i = 0; i < tokmove + ptrCount; i++) {
+        if(i != 0) typeName += " ";
+        typeName += tokens[tokenPos + i].content;
+    }
+
+    if(match)
+        tokenPos += tokmove + ptrCount;
+
+    return type | (ptrCount << 16);
+}
 
 int Parser::getType(int& tokenPos, bool match) {
     string s;
@@ -124,9 +198,9 @@ int Parser::getType(int& tokenPos, bool match) {
 }
 
 bool Parser::validateType(int target, int given) {
-    if(isPtr(target))
+    if(isInteger(target))
         target = DataTypes::typeInt;
-    if(isPtr(given))
+    if(isInteger(given))
         given = DataTypes::typeInt;
     return target == given;
 }
@@ -203,7 +277,7 @@ void Parser::newLabel (string name) {
 
 string Parser::emitLabel (string name) {
     std::ostringstream labelName;
-    labelName << "t" << time(0) << "_" << labelNo << "_" << name << endl;
+    labelName << "t" << time(0) << "_" << labelNo << "_" << name;
     name = labelName.str();
     newLabel(name);
     return name;
@@ -262,305 +336,13 @@ string Parser::toCamel (string name) {
     for(int i = 1; i < name.length(); i++) {
         name[i] = tolower(name[i]);
         if(name[i] == '_') {
-            name.erase(i);
+            name.erase(i, 1);
             if(i < name.length())
                 name[i] = toupper(name[i]);
         }
     }
 
     return name;
-}
-
-
-
-
-//=================Line, Function, Branches==================
-
-void Parser::outputLabel(string name) {
-    out << name << ":\n";
-}
-
-//match __asm{} block.
-//will only replace all locals, params, strings, intvs. Does not check grammar.
-//NOTE will replace all local/param names that look the same! Especially in comments...
-bool Parser::tryMatchAsm (int& tokenPos) {
-    //__asm block will clear out all the unnecessary information, like '__asm{' and '}'.
-    //only the actual code will remain.
-    Token& token = tokens[tokenPos];
-    if(token.type != TokenType::tokenAsm)
-        return false;
-
-    string content = token.content;
-    std::size_t pos;
-    char buf[MAX_LINE_LEN];
-    std::smatch sm;
-
-    //replace local variable names
-    for(int i = 0; i < currentFunc->localCount; i++) {
-        sprintf(buf, "%d", currentFunc->locals[i].no);
-        std::regex rLocal ("\\b(" + currentFunc->locals[i].name + ")\\b");
-        while(std::regex_search(content, sm, rLocal))
-            content.replace(sm.position(1), sm[1].str().length(), string(buf));
-    }
-
-    //replace param variable names
-    for(int i = 0; i < currentFunc->paramCount; i++) {
-        sprintf(buf, "%d", currentFunc->params[i].no);
-        std::regex rParam ("\\b(" + currentFunc->params[i].name + ")\\b");
-        while(std::regex_search(content, sm, rParam))
-            content.replace(sm.position(1), sm[1].str().length(), string(buf));
-    }
-
-    //replace strings
-    //only possible: PUSHSTR "xxx"
-    //Greedy .*: prevent matching \" or a " in the next line
-    std::regex rPushstr { R"([Pp][Uu][Ss][Hh][Ss][Tt][Rr]\s+(".*"))" };
-    while(std::regex_search(content, sm, rPushstr)) {
-        //get rid of ""
-        string str = sm[1].str().substr(1, sm[1].str().length() - 2);
-        if(getStringNo(str) == -1)
-            newString(str); //doesn't exist before: add to string_table
-
-        sprintf(buf, "%d", getStringNo(str)); //...then the stringNo won't be -1.
-        //+2: "" are included in the seq to replace!
-        content.replace(sm.position(1), str.length() + 2, string(buf));
-    }
-
-    //replace intv names
-    for(int i = 0; i < intvCount; i++) {
-        sprintf(buf, "%d", intvs[i].intvNo);
-        std::regex rIntv ("\\b(" + intvs[i].name + ")\\b");
-        while(std::regex_search(content, sm, rIntv))
-            content.replace(sm.position(1), sm[1].str().length(), string(buf));
-    }
-
-    //output asm
-    out << content << endl;
-}
-
-//TODO: if, while, for and switch are NOT TESTED.
-//Temporary dealing with expr() (tree destruction) instead.
-bool Parser::tryMatchIf (int& tokenPos) {
-    if(!tryMatch(tokenPos, "if"))
-        return false;
-    string ifStart = emitLabel("if");
-    string ifElse = emitLabel("else");
-    string ifEnd = emitLabel("if_end");
-
-    match(tokenPos, "(");
-    expr(tokenPos, true);
-    match(tokenPos, ")");
-
-    out << "\tJZ " << ifElse << "\n";
-
-    outputLabel(ifStart);
-
-    line(tokenPos);
-
-    if(tryMatch(tokenPos, "else")) {
-        //without else, why jumping?
-        out << "\tJMP " << ifEnd << "\n";
-        outputLabel(ifElse);
-        line(tokenPos);
-
-    } else  //stil required. U create a jump to "else" before, right?
-        outputLabel(ifElse);
-
-    outputLabel(ifEnd);
-
-    return true;
-}
-
-bool Parser::tryMatchWhile (int& tokenPos) {
-
-	if(!see(tokenPos, "do") && !see(tokenPos, "while"))
-		return false;
-
-    string loopTo = emitLabel("while");
-    string breakTo = emitLabel("while_end");
-	loopToLabels.push(loopTo);
-	breakToLabels.push(breakTo);
-
-	outputLabel(loopTo);
-
-	bool hasDo = tryMatch(tokenPos, "do");
-
-	// do-while body
-	if(hasDo)
-		line(tokenPos);
-
-	// while brace
-	match(tokenPos, "while");
-	match(tokenPos, "(");
-	expr(tokenPos, true);
-	match(tokenPos, ")");
-
-	// condition not satisfied: break
-	out << "\t" << "JZ " << breakTo << endl;
-
-	if(hasDo)
-		match(tokenPos, ";");
-
-	// while body
-	else
-		line(tokenPos);
-
-	// loop
-	out << "\t" << "JMP " << loopTo << endl;
-	outputLabel(breakTo);
-
-	loopToLabels.pop();
-	breakToLabels.pop();
-	return true;
-}
-
-bool Parser::tryMatchFor (int& tokenPos) {
-	if(!tryMatch(tokenPos, "for"))
-		return false;
-	match(tokenPos, "(");
-
-	// init
-	// in fact, there should only be variable decl and expr...
-	// but i don't know whether the others are valid.
-	// NOTE just use a line() here
-	line(tokenPos);  //will match ";"
-
-	string loopStart = emitLabel("for");
-	string loopContinue = emitLabel("for_continue");
-	string breakTo = emitLabel("for_end");
-	loopToLabels.push(loopContinue);
-	breakToLabels.push(breakTo);
-
-	//loop_start here
-	outputLabel(loopStart);
-
-	//condition
-	expr(tokenPos, true); //won't match ";"
-	match(tokenPos, ";");
-	out << "\t" << "JZ " << breakTo << endl;
-
-	//increment
-	//backup these contents.
-	std::ostringstream increment;
-	out.swap(increment); //previous content of out is now in increment
-	expr(tokenPos, false); //contents will be outputed to out; won't match ";"
-	out.swap(increment); //swap: out = previous content, increment = content just outputed
-
-	match(tokenPos, ")");
-
-	//body
-	line(tokenPos);
-
-	//loopContinue here
-	outputLabel(loopContinue);
-
-	//append increment
-	out << increment.str();
-
-	//go to loop start
-	out << "\t" << "JZ " << loopStart << endl;
-
-	//breakTo here
-	outputLabel(breakTo);
-
-	loopToLabels.pop();
-	breakToLabels.pop();
-	return true;
-}
-
-bool Parser::tryMatchSwitch (int& tokenPos) {
-	if(!tryMatch(tokenPos, "switch"))
-		return false;
-	match(tokenPos, "(");
-
-	//variable
-	expr(tokenPos, true);
-
-	match(tokenPos, ")");
-
-	//I don't think someone can avoid that.
-	match(tokenPos, "{");
-
-	//Break to
-	string switchEnd = emitLabel("switch_end");
-	string defaultCase = emitLabel("switch_default");
-	//write a 'continue' in switch may indeed mean something!
-	breakToLabels.push(switchEnd);
-
-	//Use a lot of ostringstream for backing up...
-	std::ostringstream *content = new std::ostringstream[MAX_FUNC_LEN];
-	string *labels = new string[MAX_FUNC_LEN];
-	int branchCount = 0;
-
-	while(!tryMatch(tokenPos, "}")) {
-
-		bool isDefault = tryMatch(tokenPos, "default");
-		if(!isDefault) {
-			match(tokenPos, "case");
-
-			//immediate value
-			ExpressionNode* immediate;
-			object(immediate, tokenPos);
-			require(tokenPos,
-				immediate->type == ExpNodeType::intConst,
-				"expected an integer constant here");
-			int value = immediate->intValue;
-            delete immediate;
-
-            char buf[MAX_FUNC_LEN];
-			sprintf(buf, "switch_case_%d", value);
-			labels[branchCount] = emitLabel(string(buf));
-
-			out << "\t" << "JCOND " << value << ", " << labels[branchCount] << endl;
-
-		// default: pop stack & jmp
-		} else {
-			out << "\t" << "POP" << endl;
-			out << "\t" << "JMP " << defaultCase << endl;
-			labels[branchCount] = defaultCase;
-		}
-
-		match(tokenPos, ":");
-
-		//case content
-		//backup...
-		out.swap(content[branchCount]);
-		while(!see(tokenPos, "case") &&
-				!see(tokenPos, "default") &&
-				!see(tokenPos,  "}"))
-			line(tokenPos);
-		out.swap(content[branchCount]);
-
-		branchCount++;
-
-		//default has to be the last case!
-		if(isDefault) {
-			match(tokenPos, "}");
-			break;
-		}
-	}
-
-	//output label and content
-	for(int i = 0; i < branchCount; i++) {
-		outputLabel(labels[i]);
-		out << content[i].str();
-	}
-
-	breakToLabels.pop();
-	delete[] labels;
-	delete[] content;
-	return true;
-}
-
-// in total:
-// branches: if, while, for, switch
-// __asm block
-// return; break; continue; goto;
-// label decl
-// variable decl
-// expr
-void Parser::line(int& tokenPos) {
-    //TODO FINISH THOSE RATS!
 }
 
 Parser::Parser(Token* tokenList, int tokenCnt_) {
@@ -579,20 +361,16 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
 
     loadSyscallTable();
     loadIntvTable();
+    loadStructTable();
 
     //NOTE Test
     currentFunc = new Function;
     vector<Var> paramList;
     paramList.push_back((Var){DataTypes::typeInt, "param"});
     initParam(paramList);
-    newLocal(DataTypes::typeInt, "i");
-    newLocal(DataTypes::typeString, "str");
-    newLocal(DataTypes::typeIntPtr, "ptr");
 
-    ExpressionNode* root = NULL;
     int tokenPos = 0;
-    tryMatchAsm(tokenPos);
-
+    line(tokenPos);
     printf("%s", out.str().c_str());
 
     tokenPos++;

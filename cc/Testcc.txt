@@ -1,1 +1,45 @@
-i += (((int *) ptr * i & 0xFF) % GetIntv(true)) >= 6 + *ptr
+{
+    int smoke;
+    PlaySound(smoke, "S013SND01", 255);
+    Delay(80);
+
+    SetObjectFlags(smoke, 262144); //OF_MIXER
+    SetObjectBrightness(smoke, 16);
+    for(int brightness = 16; brightness > 0; brightness--) {
+        SetObjectBrightness(smoke, brightness);
+        switch(brightness) {
+            case 0:
+                return;
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 9:
+                Delay(3);
+                break;
+            case 2:
+            case 4:
+            case 6:
+            case 8:
+            case 10:
+                Delay(4);
+                break;
+            default:
+                Delay(2);
+                continue;
+        }
+    }
+
+    FreeObjectByHandle(smoke);
+}
+/*
+if(param && "GetContext" == "GetContent") {
+    for(int i = 0; i < 100; ++i) {
+        General* gen = ((SOLDIER_INFO *) (ptr->pMother))->pMother->pSoldierInfo[i].pGeneral;
+        string *genName = ((string *) gen), newstr = "WHOA!!!!";
+        param += ++gen->wHPMax;
+        newstr = *((string *) gen);
+    }
+    return;
+}
+*/

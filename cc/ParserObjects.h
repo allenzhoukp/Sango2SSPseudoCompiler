@@ -14,18 +14,21 @@ const int MAX_MEMBER_COUNT = 1024;
 namespace DataTypes{
     const int typeVoid = 0;
     const int typeInt = 1; const int typeString = 3; const int typeFloat = 2;
+    const int typeShort = 4; const int typeByte = 5;
+    const int typeUInt = 6; const int typeUShort = 7; const int typeUByte = 8;
+    const int typeStructBase = 10;
 
-    const int typeVoidPtr = 10;
+    const int typeVoidPtr = 0 | (1 << 16);
 
-    const int typeIntPtr = 110; const int typeShortPtr = 112; const int typeBytePtr = 114;
-    const int typeUIntPtr = 111; const int typeUShortPtr = 113; const int typeUBytePtr = 115;
+    const int typeIntPtr = typeInt | (1 << 16); const int typeShortPtr = typeShort | (1 << 16); const int typeBytePtr = typeByte | (1 << 16);
+    const int typeUIntPtr = typeUInt | (1 << 16); const int typeUShortPtr = typeUShort | (1 << 16); const int typeUBytePtr = typeUByte | (1 << 16);
 
     //NOTE For numeric * we have PUSHINV, for string * we have SYSCALL 0x200.
     //But nothing for float * for now.
-    const int typeStringPtr = 13; //const int typeFloatPtr = 12;
+    const int typeStringPtr = typeString | (1 << 16); //const int typeFloatPtr = 12;
 
-    const int typeStructPtr = 140;
-    //All types of different structures are as follows: 140 + TYPE_ID
+    const int typeStructPtr = typeStructBase | (1 << 16);
+    //All types of different structures are as follows: typeStructPtr + TYPE_ID
 };
 
 struct Var {

@@ -47,27 +47,39 @@ void Lexer::nextSpace () {
 
 //Henryshow asm compiler does not support float constants.
 bool Lexer::nextNumber () {
-    if(std::regex_search(curfile->input, cm, rDigit, std::regex_constants::match_continuous)) {
-        curtoken->content = cm[0].str();
-        curtoken->type = TokenType::tokenNum;
-        move(curtoken->content.length());
 
-        // read unsigned int for Hex and Oct numbers.
-        // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
-        // so curtoken->_number keeps the signed type.
-        if(cm[3].str() == "h" || cm[1].str() == "0x")
-            sscanf(cm[2].str().c_str(), "%X", &curtoken->_number);
-        else if(curtoken->content[0] == '0')
-            sscanf(cm[0].str().c_str(), "%O", &curtoken->_number);
+    // read unsigned int for Hex and Oct numbers.
+    // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
+    // so curtoken->_number keeps the signed type.
+
+    if(std::regex_search(curfile->input, cm, rHex, std::regex_constants::match_continuous)) {
+        //Hex: 0x
+        if(strncmp(curfile->input, "0x", 2) == 0)
+            sscanf(cm[1].str().c_str(), "%X", &curtoken->_number);
+        //Hex: xxxh
         else
-            curtoken->_number = atoi(curtoken->content.c_str());
+            sscanf(cm[2].str().c_str(), "%X", &curtoken->_number);
 
-        return true;
+    } else if(std::regex_search(curfile->input, cm, rDigit, std::regex_constants::match_continuous)) {
+
+        //Oct
+        if(*curfile->input == '0')
+            sscanf(cm[0].str().c_str(), "%o", &curtoken->_number);
+        //Dec
+        else
+            sscanf(cm[0].str().c_str(), "%d", &curtoken->_number);
+
+    } else {
+        Panic::panic("digit not match", curfile->fileName, curfile->curln, curfile->curcol);
+        while(!isspace(*curfile->input))
+            move(1);
+        return false;
     }
-    Panic::panic("digit not match", curfile->fileName, curfile->curln, curfile->curcol);
-    while(!isspace(*curfile->input))
-        move(1);
-    return false;
+
+    curtoken->content = cm[0].str();
+    curtoken->type = TokenType::tokenNum;
+    move(curtoken->content.length());
+    return true;
 }
 
 //Char treated as string!
@@ -140,8 +152,9 @@ bool Lexer::nextOperatorOrComment() {
         return false;
     }
 
-    if((std::regex_search(curfile->input, cm, rOperator2chars, std::regex_constants::match_continuous) ||
-        std::regex_search(curfile->input, cm, rOperator1char, std::regex_constants::match_continuous))) {
+    if(std::regex_search(curfile->input, cm, rOperator3chars, std::regex_constants::match_continuous) ||
+       std::regex_search(curfile->input, cm, rOperator2chars, std::regex_constants::match_continuous) ||
+       std::regex_search(curfile->input, cm, rOperator1char, std::regex_constants::match_continuous )) {
 
         curtoken->type = TokenType::tokenOperator;
         curtoken->content = cm[0].str();

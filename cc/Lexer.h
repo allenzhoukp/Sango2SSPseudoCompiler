@@ -21,13 +21,15 @@ private:
 
     cmatch cm;
     // regex r_digit{ R"((\d*\.?\d+|\d+\.?\d*)([e][+-]?\d+)?)" };
-    regex rDigit { R"(((0x)*([0-9A-Fa-f]+)(h)*)|(\d+))" }; //Oct, Dec or Hex numbers.
+    regex rHex { R"((?:0x([0-9A-Fa-f]+))|(([0-9A-Fa-f]+)h))" };
+    regex rDigit { R"((\d+))" }; //Oct, Dec or Hex numbers.
     regex rAlpha { R"([a-zA-Z_]\w*)" }; //Starts with non-number.
     regex rSpace { R"(([ \t]+)|((?:\r\n)+)|(\n+))" }; //Multiple spaces, or new line.
     regex rComment { R"((//[^\n]*\n)|(/\*[\s\S]*?\*/))" };
     regex rInclude { R"(#include[ \t]*[<"]([^<>\|:""\*\?]+)[">]\s*)" };
     regex rOtherMacro { R"(#[^\n]*\n)" };
     regex rAsm { R"(__asm\s*\{([^\}]*)\})" };
+    regex rOperator3chars { R"((<<=)|(>>=))" };
     regex rOperator2chars { R"((->)|(\+\+)|(--)|(<<)|(>>)|(>=)|(<=)|(==)|(!=)|(&&)|(\|\|)|([-+*/%^&|]=)|(<<=)|(>>=)|(/\*)|(\*/)|(//))" };
     regex rOperator1char { R"([-+*/%=~!^&|,.;:<>()[\]\{\}])" };
     //regex rOperator2chars { R"()"};

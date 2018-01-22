@@ -92,7 +92,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
 
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             "GetGlobal() requires an integer parameter");
 
         match(tokenPos, ")");
@@ -104,11 +104,11 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 2);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             "SetGlobal() requires integer parameters");
         match(tokenPos, ",");
         expr(x->params[1], tokenPos, 1);
-        require(tokenPos, x->params[1]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[1]->resultType),
             "SetGlobal() requires integer parameters");
         match(tokenPos, ")");
     }
@@ -124,7 +124,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             "GetIntv() requires an integer parameter");
         match(tokenPos, ")");
     }
@@ -135,11 +135,11 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 2);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             "SetGlobal() requires integer parameters");
         match(tokenPos, ",");
         expr(x->params[1], tokenPos, 1);
-        require(tokenPos, x->params[1]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[1]->resultType),
             "SetGlobal() requires integer parameters");
         match(tokenPos, ")");
     }
@@ -152,7 +152,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeInt,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             "Delay() requires an integer parameter");
         match(tokenPos, ")");
     }
@@ -163,7 +163,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, x->params[0]->resultType == DataTypes::typeString,
+        require(tokenPos, isInteger(x->params[0]->resultType),
             name + "() requires a string parameter");
         match(tokenPos, ")");
     }
@@ -215,7 +215,7 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
 };
 
 StructMember Parser::matchMember (int& tokenPos, int structType) {
-    StructInfo* info = getStructInfoByid(structType - DataTypes::typeStructPtr);
+    StructInfo* info = getStructInfoByid(getStructIdByType(structType));
     require(tokenPos, info->id != -1,
         "Invalid struct * type");
     int memberIndex = -1;
@@ -255,7 +255,7 @@ int Parser::dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int stru
     bool isResultAnArray = false;
     if(tryMatch(tokenPos, ".")) {
         //oldOffset + newOffset = right operand of operator ->
-        StructMember dotMember = matchMember(tokenPos, structOrArrayType - StructMember::STRUCT);
+        StructMember dotMember = matchMember(tokenPos, structOrArrayType);
         ExpressionNode* dotMemberNode = createMemberNode(dotMember);
         ExpressionNode* left = nodePos;
         ExpressionNode* x = expNodePool.newNode();
@@ -293,28 +293,28 @@ int Parser::dotAndStructArray (ExpressionNode* &nodePos, int& tokenPos, int stru
         y->right->resultType = DataTypes::typeInt;
         y->right->isLvalue = false;
 
-        if(structOrArrayType == DataTypes::typeInt || structOrArrayType == StructMember::typeUInt ||
-           structOrArrayType == DataTypes::typeFloat ||
-           isPtr(structOrArrayType == DataTypes::typeInt))
+        if(structOrArrayType == DataTypes::typeInt || structOrArrayType == DataTypes::typeUInt ||
+           //structOrArrayType == DataTypes::typeFloat || // for now we cannot read float...
+           isPtr(structOrArrayType))
             y->right->intValue = 4;
-        else if(structOrArrayType == StructMember::typeShort || structOrArrayType == StructMember::typeUShort)
+        else if(structOrArrayType == DataTypes::typeShort || structOrArrayType == DataTypes::typeUShort)
             y->right->intValue = 2;
-        else if(structOrArrayType == StructMember::typeByte || structOrArrayType == StructMember::typeUByte)
+        else if(structOrArrayType == DataTypes::typeByte || structOrArrayType == DataTypes::typeUByte)
             y->right->intValue = 1;
-        else if(structOrArrayType >= StructMember::STRUCT &&
-                getStructInfoByid(structOrArrayType - DataTypes::typeStructPtr)->id != -1)
-            y->right->intValue = getStructInfoByid(structOrArrayType - DataTypes::typeStructPtr)->size;
+        else if(isStruct(structOrArrayType) &&
+                getStructInfoByid(getStructIdByType(structOrArrayType))->id != -1)
+            y->right->intValue = getStructInfoByid(getStructIdByType(structOrArrayType))->size;
         else
             require(tokenPos, false, "invalid type for a struct-member array");
 
-        expr(y->left, tokenPos);
+        expr(y->left, tokenPos, 0);
         match(tokenPos, "]");
 
     } else {
         require(tokenPos, false, "invalid member access: structures or arrays in structures cannot be directly accessed");
     }
 
-    if(structOrArrayType >= StructMember::STRUCT || isResultAnArray)
+    if(isStruct(structOrArrayType) || isResultAnArray)
         return dotAndStructArray (nodePos, tokenPos, structOrArrayType);
     else
         return structOrArrayType;
@@ -348,18 +348,21 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
     } else if (tryMatch(tokenPos, "->")) {
 
         require(operatorTokenPos,
-            left->resultType >= DataTypes::typeStructPtr,
+            isStructPtr(left->resultType),
             "Operator -> can only be applied to struct *");
 
-        StructMember directMember = matchMember(left->resultType);
+        StructMember directMember = matchMember(tokenPos, left->resultType);
         ExpressionNode* directMemberNode = createMemberNode(directMember);
 
         //struct: must have a . operator (cannot directly access a structure!)
         //array: must have a [] operator (byte[] does not mean string for now.)
-        if(directMember.type >= StructMember::STRUCT || directMember.isArray)
-            x->ptrMemberType = dotAndStructArray(directMemberNode, tokenPos, directMember.type);
+
+        //Here, directly record the actual type in the resultType of ->.
+        //Or it won't be easy to make an inference.
+        if(isStruct(directMember.type) || directMember.isArray)
+            x->resultType = dotAndStructArray(directMemberNode, tokenPos, directMember.type);
         else
-            x->ptrMemberType = directMember.type;
+            x->resultType = directMember.type;
 
         //TODO !!! looks like there is severe problem here, for the difference between resultType and ptrMemberType.
         // this is indeed confusing. The more confusing thing is, there is even difference between string and string * in memory!
@@ -375,18 +378,13 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
         // THE BEST WAY?
         // Include all types. 0=void, 1=int, 2=string, 3=float, 4=short, 5=byte, 6=uint, 7=ushort, 8=ubyte. 10 + struct id = structures.
         // For pointer, use the high bits. 3 | (2 << 16) is float **.
+        // When taking the value of the address, subtract 1 << 16 from the type.
         // Problem? Huge paraphrasing. Add an isNumeric() (returns type>>16 != 0 || type == int || type == ....). Change all type checks.
-
-        //all numerics goes to int!
-        x->resultType = x->ptrMemberType;
-        if(x->resultType == StructMember::typeUInt ||
-           x->resultType == StructMember::typeShort || x->resultType == StructMember::typeUShort ||
-           x->resultType == StructMember::typeByte || x->resultType == StructMember::typeUByte)
-           x->resultType = DataTypes::typeInt;
 
         x->type = ExpNodeType::binaryOp;
         x->op = "->";
         x->isLvalue = true; //Indeed.
+        x->right = directMemberNode;
 
     } else if (tryMatch(tokenPos, "++") || tryMatch(tokenPos, "--")) {
 
@@ -396,9 +394,9 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         //set global sign.
         if(tokens[operatorTokenPos].content == "++")
-            ppNode = x;
+            ppNodes.push(x);
         else
-            mmNode = x;
+            mmNodes.push(x);
 
         x->op = "b";
         x->type = ExpNodeType::unaryOp;
@@ -410,6 +408,10 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
     //Put the new node into the position.
     x->left = left;
     nodePos = x;
+
+    //Recursively getting new back operators.
+    //Once not found, it falls in the "else" branch and this return to object().
+    back(nodePos, tokenPos);
 }
 
 //Object: integer constants, string constants, braces, locals, function calls, syscalls, instructions, etc.
@@ -576,7 +578,7 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
             "Operator * can only be applied on pointers");
 
         require(currentTokenPos,
-            x->left->resultType < DataTypes::typeStructPtr && x->left->resultType != DataTypes::typeVoidPtr,
+            !isStructPtr(x->left->resultType) && x->left->resultType != DataTypes::typeVoidPtr,
             "Operator * cannot be applied on a struct or void pointer. \n"
             "Note Use operator -> to access struct members");
 
@@ -584,24 +586,8 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         x->op = "*";
         x->isLvalue = true; //indeed.
 
-        switch(x->left->resultType) {
-
-        case DataTypes::typeIntPtr:
-        case DataTypes::typeUIntPtr:
-        case DataTypes::typeShortPtr:
-        case DataTypes::typeUShortPtr:
-        case DataTypes::typeBytePtr:
-        case DataTypes::typeUBytePtr:
-            x->resultType = DataTypes::typeInt;
-            break;
-
-        case DataTypes::typeStringPtr:
-            x->resultType = DataTypes::typeString;
-            break;
-
-        default:
-            x->resultType = DataTypes::typeInt; //Only here when error.
-        }
+        //Directly get the result type by subtracting a * in the type.
+        x->resultType = x->left->resultType - (1 << 16);
 
         return;
 
@@ -627,11 +613,12 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
             //fix: should be unary() (type cast has quite a high priority!)
             unary(x->left, tokenPos);
 
-            //Failed cast: float -> ptr, string -> ptr, string -> float, string -> int, everything -> void
+            //Failed cast: float -> ptr, string -> everything, everything -> void
             //Don't give actual instruction for now.
             require(currentTokenPos,
-                typeCode == x->left->resultType || typeCode == DataTypes::typeVoid ||
-                (!((isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat) || x->left->resultType == DataTypes::typeString)),
+                typeCode == x->left->resultType ||
+                    typeCode != DataTypes::typeVoid || x->left->resultType != DataTypes::typeString ||
+                    !(isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat),
                 "invalid type cast to (" + typeName + ")");
 
             return;
@@ -696,9 +683,9 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
         if(x->op == "+" || x->op == "+=" || level == 3) {
 
             // for strings: can only compare string w/string, and link string w/string
-            if(left->resultType == DataTypes::typeString)
+            if(left->resultType == DataTypes::typeString || right->resultType == DataTypes::typeString)
                 require(operatorTokenPos,
-                    right->resultType == DataTypes::typeString,
+                    left->resultType == DataTypes::typeString && right->resultType == DataTypes::typeString,
                     "Can't apply operator " + x->op + " between a string and a non-string");
 
             // logic result.
@@ -718,6 +705,9 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
                         ? DataTypes::typeFloat : DataTypes::typeInt;
 
                 // follow the type of the left
+                // convert all integers into int
+                else if(isInteger(left->resultType))
+                    x->resultType = DataTypes::typeInt;
                 else
                     x->resultType = left->resultType;
             }
@@ -753,7 +743,9 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
 
             x->resultType = DataTypes::typeInt;
 
-        } //else x->op == "="
+        //x->op == "="
+        } else
+            x->resultType = left->resultType;
 
         //The-most-weirdo: assignments (requires lvalue)
         if(level == 0)

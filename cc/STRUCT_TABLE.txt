@@ -4,7 +4,7 @@ MSG 0x1C
 00000008 wParam          int
 0000000C lParam          int
 00000010 time            int
-00000014 pt              POINT 
+00000014 pt              POINT
 end
 
 
@@ -20,7 +20,7 @@ tagMSG 0x1C
 00000008 wParam          int
 0000000C lParam          int
 00000010 time            int
-00000014 pt              POINT 
+00000014 pt              POINT
 end
 
 
@@ -111,6 +111,7 @@ _BITCOUNT_DDPF 0x4
 00000000 dwYUVBitCount   int
 00000000 dwZBufferBitDepth int
 00000000 dwAlphaBitDepth int
+end
 
 
 DDPIXELFORMAT 0x20
@@ -269,8 +270,8 @@ end
 
 
 LEVEL_INDEX 0x2
-00000000 chLevel         byte 
-00000001 chIndex         byte 
+00000000 chLevel         byte
+00000001 chIndex         byte
 end
 
 
@@ -487,7 +488,7 @@ SANGO_OBJECT 0xA8
 00000090 nAlpha          int
 00000094 nDirection      int
 00000098 nCallbackSequence int
-0000009C dwCallbackContext dd 3 dup
+0000009C dwCallbackContext int 3 dup
 end
 
 
@@ -504,8 +505,8 @@ KING 0x346
 0000002C dwExp           int
 00000030 dwType          int
 00000034 u2              byte 256 dup
-00000134 wItem           dw 256 dup
-00000334 pObject         SANGO_OBJECT *                    ; 
+00000134 wItem           short 256 dup
+00000334 pObject         SANGO_OBJECT *                    ;
 00000338 pCity           CITY *                    ; offset
 0000033C pTroop          TROOP *                    ; offset
 00000340 wSelect         short
@@ -537,7 +538,7 @@ end
 
 
 TROOP_ANIMATION_TABLE 0x1C
-00000000 pWait           ANIMATION * 				; 
+00000000 pWait           ANIMATION * 				;
 00000004 pWalk           ANIMATION *
 00000008 field_8         ANIMATION *
 0000000C field_C         ANIMATION *
@@ -569,7 +570,7 @@ BASE_ANIMATION_TABLE 0x4
 end
 
 
-MAJOR_ANIMTAION_TABLE 0x50
+MAJOR_ANIMATION_TABLE 0x50
 00000000 pFirst          ANIMATION *
 00000004 pWait           ANIMATION *
 00000008 pWalk           ANIMATION *
@@ -641,7 +642,7 @@ end
 
 
 ARMY_INFO 0x45C
-00000000 _ah             ARMY_HEADER 
+00000000 _ah             ARMY_HEADER
 0000001C gi              GENERAL_IN_ARMY 15 dup
 00000454 pWiseGeneral    GENERAL *                    ; offset
 00000458 dwWiseSequence  int
@@ -679,10 +680,10 @@ GENERAL 0xF7
 00000044 wInfantryCount  short
 00000046 wCavalierMax    short
 00000048 wCavalierCount  short
-0000004A wPos            dw 5 dup
+0000004A wPos            short 5 dup
 00000054 chMagic         byte 8 dup
 0000005C chWise          byte 8 dup
-00000064 chSelectWise    byte 
+00000064 chSelectWise    byte
 00000065 skillLvIndex    LEVEL_INDEX 8 dup
 00000075 wiseLvIndex     LEVEL_INDEX 8 dup
 00000085 wUnknown6       short
@@ -728,18 +729,18 @@ DDSURFACEDESC 0x6C
 00000004 dwFlags         int
 00000008 dwHeight        int
 0000000C dwWidth         int
-00000010 anonymous_0     _LINEAR_SIZE_DDSD 
+00000010 anonymous_0     _LINEAR_SIZE_DDSD
 00000014 dwBackBufferCount int
-00000018 anonymous_1     _REFRESH_RATE_DDSD 
+00000018 anonymous_1     _REFRESH_RATE_DDSD
 0000001C dwAlphaBitDepth int
 00000020 dwReserved      int
 00000024 lpSurface       int                    ; offset
-00000028 ddckCKDestOverlay DDCOLORKEY 
-00000030 ddckCKDestBlt   DDCOLORKEY 
-00000038 ddckCKSrcOverlay DDCOLORKEY 
-00000040 ddckCKSrcBlt    DDCOLORKEY 
-00000048 ddpfPixelFormat DDPIXELFORMAT 
-00000068 ddsCaps         DDSCAPS 
+00000028 ddckCKDestOverlay DDCOLORKEY
+00000030 ddckCKDestBlt   DDCOLORKEY
+00000038 ddckCKSrcOverlay DDCOLORKEY
+00000040 ddckCKSrcBlt    DDCOLORKEY
+00000048 ddpfPixelFormat DDPIXELFORMAT
+00000068 ddsCaps         DDSCAPS
 end
 
 
@@ -800,7 +801,7 @@ end
 
 TROOP 0x6C
 00000000 dwType          int
-00000004 anonymous_0     _TROOP_INDEX 
+00000004 anonymous_0     _TROOP_INDEX
 00000008 pKingNode       KING *                    ; offset
 0000000C pMajor          GENERAL *                    ; offset
 00000010 pWise           GENERAL *                    ; offset
@@ -852,9 +853,9 @@ end
 
 _WIN32_FIND_DATAA 0x140
 00000000 dwFileAttributes int
-00000004 ftCreationTime  FILETIME 
-0000000C ftLastAccessTime FILETIME 
-00000014 ftLastWriteTime FILETIME 
+00000004 ftCreationTime  FILETIME
+0000000C ftLastAccessTime FILETIME
+00000014 ftLastWriteTime FILETIME
 0000001C nFileSizeHigh   int
 00000020 nFileSizeLow    int
 00000024 dwReserved0     int
@@ -912,8 +913,8 @@ DDCAPS 0x16C
 00000058 dwAlignBoundaryDest int
 0000005C dwAlignSizeDest int
 00000060 dwAlignStrideAlign int
-00000064 dwRops          dd 8 dup
-00000084 ddsCaps         DDSCAPS 
+00000064 dwRops          int 8 dup
+00000084 ddsCaps         DDSCAPS
 00000088 dwMinOverlayStretch int
 0000008C dwMaxOverlayStretch int
 00000090 dwMinLiveVideoStretch int
@@ -926,15 +927,15 @@ DDCAPS 0x16C
 000000AC dwSVBCaps       int
 000000B0 dwSVBCKeyCaps   int
 000000B4 dwSVBFXCaps     int
-000000B8 dwSVBRops       dd 8 dup
+000000B8 dwSVBRops       int 8 dup
 000000D8 dwVSBCaps       int
 000000DC dwVSBCKeyCaps   int
 000000E0 dwVSBFXCaps     int
-000000E4 dwVSBRops       dd 8 dup
+000000E4 dwVSBRops       int 8 dup
 00000104 dwSSBCaps       int
 00000108 dwSSBCKeyCaps   int
 0000010C dwSSBFXCaps     int
-00000110 dwSSBRops       dd 8 dup
+00000110 dwSSBRops       int 8 dup
 00000130 dwMaxVideoPorts int
 00000134 dwCurrVideoPorts int
 00000138 dwSVBCaps2      int
@@ -942,7 +943,7 @@ DDCAPS 0x16C
 00000140 dwNLVBCaps2     int
 00000144 dwNLVBCKeyCaps  int
 00000148 dwNLVBFXCaps    int
-0000014C dwNLVBRops      dd 8 dup
+0000014C dwNLVBRops      int 8 dup
 end
 
 
@@ -1055,7 +1056,7 @@ SHP_FILE_HEADER 0x25
 00000018 height          int
 0000001C xOffset         int
 00000020 yOffset         int
-00000024 chData          byte 
+00000024 chData          byte
 end
 
 
@@ -1216,8 +1217,8 @@ end
 
 SOLDIER_MOVEMENT_PARAM 0x48
 00000000 bRandom         int
-00000004 nRatioSquare    dd 8 dup             ; base 10
-00000024 bRatioSquare1   dd 8 dup             ; base 10
+00000004 nRatioSquare    int 8 dup             ; base 10
+00000024 bRatioSquare1   int 8 dup             ; base 10
 00000044 anonymous_17    int
 end
 

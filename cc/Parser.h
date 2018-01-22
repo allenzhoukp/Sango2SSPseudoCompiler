@@ -54,8 +54,8 @@ private:
     stack<string> loopToLabels;
 
     //backward ++/-- (like i++)
-    ExpressionNode* ppNode;
-    ExpressionNode* mmNode;
+    stack<ExpressionNode*> ppNodes;
+    stack<ExpressionNode*> mmNodes;
 
     //outputer
     std::ostringstream out;
@@ -65,6 +65,11 @@ private:
     void loadStructTable ();
 
     bool isPtr (int type);
+    bool isInteger(int type) ;
+    bool isStruct(int type) ;
+    bool isStructPtr(int type);
+    int getStructIdByType(int type);
+
     void require (int tokenPos, bool condition, string errmsg);
     bool see (int tokenPos, string s);
     void match (int& tokenPos, string s);
@@ -132,6 +137,9 @@ public:
     bool tryMatchWhile(int& tokenPos);
     bool tryMatchFor(int& tokenPos);
     bool tryMatchSwitch(int& tokenPos);
+    bool tryMatchLabelDecl (int& tokenPos) ;
+    bool tryMatchJumps (int& tokenPos);
+    bool tryMatchLocalDecl (int& tokenPos) ;
     void line(int& tokenPos);
 
 };

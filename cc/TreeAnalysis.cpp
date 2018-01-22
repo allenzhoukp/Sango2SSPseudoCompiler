@@ -61,49 +61,51 @@ void Parser::outputFuncCall(ExpressionNode* x, int& stackDepth) {
         stackDepth++;
 }
 
+//outputGet/SetValue uses the type of pointer (subtracted ptr).
+//E.g. when output *p, p is string *, type should be string.
 void Parser::outputGetValue(int type) {
     switch(type) {
-    case DataTypes::typeUIntPtr:
+    case DataTypes::typeUInt:
         out << "\t" << "CALL GetInt_Unsigned" << endl;
         break;
-    case DataTypes::typeShortPtr:
+    case DataTypes::typeShort:
         out << "\t" << "CALL GetShort" << endl;
         break;
-    case DataTypes::typeUShortPtr:
+    case DataTypes::typeUShort:
         out << "\t" << "CALL GetShort_Unsigned" << endl;
         break;
-    case DataTypes::typeBytePtr:
+    case DataTypes::typeByte:
         out << "\t" << "CALL GetByte" << endl;
         break;
-    case DataTypes::typeUBytePtr:
+    case DataTypes::typeUByte:
         out << "\t" << "CALL GetByte_Unsigned" << endl;
         break;
-    case DataTypes::typeStringPtr:
+    case DataTypes::typeString:
         out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
         break;
-    default:
+    default:  //int and all pointers
         out << "\t" << "CALL GetInt" << endl;
     }
 }
 
 void Parser::outputSetValue(int type) {
     switch(type) {
-    case DataTypes::typeUIntPtr:
+    case DataTypes::typeUInt:
         out << "\t" << "CALL SetInt_Unsigned" << endl;
         break;
-    case DataTypes::typeShortPtr:
+    case DataTypes::typeShort:
         out << "\t" << "CALL SetShort" << endl;
         break;
-    case DataTypes::typeUShortPtr:
+    case DataTypes::typeUShort:
         out << "\t" << "CALL SetShort_Unsigned" << endl;
         break;
-    case DataTypes::typeBytePtr:
+    case DataTypes::typeByte:
         out << "\t" << "CALL SetByte" << endl;
         break;
-    case DataTypes::typeUBytePtr:
+    case DataTypes::typeUByte:
         out << "\t" << "CALL SetByte_Unsigned" << endl;
         break;
-    case DataTypes::typeStringPtr:
+    case DataTypes::typeString:
         out << "\t" << "CALL SetString" << endl;
         break;
     default:
@@ -115,6 +117,7 @@ void Parser::outputSetValue(int type) {
 void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack) {
 
     if(x->op == "!") {
+        if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
 
         switch(x->left->resultType) {
@@ -129,14 +132,18 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
         }
 
     } else if(x->op == "-") {
+        if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
         out << "\t" << (x->left->resultType == DataTypes::typeFloat ? "NEGF" : "NEG") << endl;
 
     } else if(x->op == "~") {
+        if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
         out << "\t" << "NOT" << endl;
 
     //HOLY SHIT...
+    //This is the only unary operator that will have effect IMMEDIATELY even remainReturnStack=false.
+    //The other one is backward ++/--, but its effect only happens after the entire expression is valued.
     } else if(x->op == "++" || x->op == "--") {
 
         //change this node into an += or -= binaryOp.
@@ -218,31 +225,42 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
 
     //Backward ++/--: direct push (dealt in expr()).
     } else if (x->op == "b") {
+        if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
 
     //Get value. Use functions in sg2lang.h, or SYSCALL 0x200 (for string ptrs).
     //Although it can be an assignment, such case will be dealt with at the parent node.
     //So won't deal with it here.
     } else if (x->op == "*") {
+        if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
-        outputGetValue(x->left->resultType);
+        //Note the param requires a type that subtracts a *. (like int** -> int*)
+        //So use x->resultType.
+        outputGetValue(x->resultType);
 
     //Type cast.
     //int <-> float, int->string, float->string
     } else if (x->op[0] == '(') {
+        if(!remainReturnStack) return;
         int typeTo;
-        sscanf(x->op.c_str(), "%d", &typeTo);
-        if(typeTo == DataTypes::typeString) {
-            if(x->left->resultType == DataTypes::typeFloat)
-                out << "\t" << "INST_4B" << endl;
+        sscanf(x->op.c_str(), "(%d", &typeTo);
+        treeDFS(x->left, stackDepth);
+
+        // Sometimes there may be nothing to cast, like casting float to float, int to int, etc.
+        if(!validateType(typeTo, x->left->resultType)) {
+
+            if(typeTo == DataTypes::typeString) {
+                if(x->left->resultType == DataTypes::typeFloat)
+                    out << "\t" << "INST_4B" << endl;
+                else
+                    out << "\t" << "INST_49" << endl;
+
+            } else if (typeTo == DataTypes::typeFloat)
+                out << "\t" << "LTOF" << endl;
+
             else
-                out << "\t" << "INST_49" << endl;
-
-        } else if (typeTo == DataTypes::typeFloat)
-            out << "\t" << "ITOF" << endl;
-
-        else
-            out << "\t" << "FTOL" << endl;
+                out << "\t" << "FTOL" << endl;
+        }
     }
 }
 
@@ -259,7 +277,8 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
 void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack) {
 
     //Get rid of '=' in the end
-    string calcPart = x->op[x->op.length() - 1] == '=' ? x->op.substr(0, x->op.length() - 1) : x->op;
+    string calcPart = (x->op[x->op.length() - 1] == '=' && x->op != "==" && x->op != "!=" && x->op != ">=" && x->op != "<=")
+                            ? x->op.substr(0, x->op.length() - 1) : x->op;
     string instruction = calcPart == "+" ? "ADD" :
                          calcPart == "-" ? "SUB" :
                          calcPart == "*" ? "MUL" :
@@ -277,7 +296,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                          calcPart == "|" ? "OR" :
                          calcPart == "^" ? "XOR" :
                          calcPart == "&&" ? "ORNZ" :
-                         calcPart == "||" ? "ORZ" : ""; //"" for operator =
+                         calcPart == "||" ? "ORZ" : ""; //"" for operator =, [], ->
 
     //HOLY SHIT...
     if(x->op == "=" || x->op == "+=" || x->op == "-=" || x->op == "*=" || x->op == "/=" ||
@@ -295,7 +314,10 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
         };
 
         auto getNewValue = [&](){
-            if(x->right->resultType != x->resultType) //only two possibilites: float to int, int to float.
+            //only two possibilites: float to int, int to float.
+            //Careful for integers! Result type could be any integer!
+            if(x->right->resultType != x->resultType &&
+                    !(isInteger(x->right->resultType) && isInteger(x->resultType)))
                 out << "\t" << (x->right->resultType == DataTypes::typeFloat ? "FTOL" : "LTOF") << endl;
 
             //do calculation
@@ -366,7 +388,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                 //result remains in stack
                 if(remainReturnStack) {
                     out << "\t" << "PUSHARG 2" << endl;
-                    stackDepth--;
+                    stackDepth++;
                 }
 
             } else {
@@ -399,16 +421,27 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
             };
             if(x->op != "=") {
                 getAddr();
-                outputGetValue(x->left->type);
+                out << "\t" << "POPN 1" << endl;
+                out << "\t" << "PUSHARG 1" << endl; //Address should be pushed in first
 
+                //Get original value
+                out << "\t" << "PUSHARG 1" << endl;
+                stackDepth++;
+                outputGetValue(x->left->resultType); //resultType of -> indicates the function to use.
+
+                //Get right hand side and calc
                 treeDFS(x->right, stackDepth);
                 getNewValue();
                 if(remainReturnStack) {
                     out << "\t" << "POPN 2" << endl;
                     out << "\t" << "PUSHARG 2" << endl;
                 }
-                outputSetValue(x->left->type);
+
+                //Set
+                outputSetValue(x->left->resultType);
                 stackDepth -= 2;
+
+                //Repush calc result
                 if(remainReturnStack) {
                     out << "\t" << "PUSHARG 2" << endl;
                     stackDepth++;
@@ -420,7 +453,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                     out << "\t" << "POPN 2" << endl;
                     out << "\t" << "PUSHARG 2" << endl;
                 }
-                outputSetValue(x->left->type);
+                outputSetValue(x->left->resultType);
                 stackDepth -= 2;
                 if(remainReturnStack) {
                     out << "\t" << "POPN 2" << endl;
@@ -429,8 +462,27 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
             }
         }
 
+    // end assignment branch
+
+    // rvalue version of []. Only locals currently.
+    } else if (x->op == "[]") {
+        if(!remainReturnStack) return;
+        treeDFS(x->right, stackDepth);
+        out << "\t" << "PUSHNR " << x->left->localVar.no
+            << " ; " << x->left->localVar.name << endl;
+
+    // rvalue version of ->. Things get xtremely easier...
+    } else if (x->op == "->") {
+        if(!remainReturnStack) return;
+        treeDFS(x->left, stackDepth);
+        treeDFS(x->right, stackDepth);
+        // *(left result + offset)
+        out << "\t" << "ADD" << endl;
+        stackDepth--;
+        outputGetValue(x->resultType);
 
     } else {
+        if(!remainReturnStack) return;
         //comparisons and + for string:
         if(x->left->resultType == DataTypes::typeString) {
             treeDFS(x->left, stackDepth);
@@ -485,7 +537,7 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
         //Look up in the string table. String constants need to be pushed by 'PUSHSTR stringNo'
         if(getStringNo(x->strValue) == -1)
             newString(x->strValue);
-        out << "\t" << "PUSHSTR " << getStringNo(x->strValue) << " ; " << x->strValue << endl;
+        out << "\t" << "PUSHSTR " << getStringNo(x->strValue) << " ; \"" << x->strValue << "\"" << endl;
         stackDepth++;
         break;
 
@@ -510,7 +562,7 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     case ExpNodeType::syscall:
         for(int i = 0; i < x->sys->paramCount; i++)
             treeDFS(x->params[i], stackDepth);
-        out << "SYSCALL 0x" << std::hex << x->sys->code << std::dec
+        out << "\t" << "SYSCALL 0x" << std::hex << x->sys->code << std::dec
                 << ", (" << x->sys->paramCount << " | (" << x->sys->returnType << " << 16))"
                 << " ; " << x->sys->name << endl;
 
@@ -532,5 +584,28 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
 }
 
 void Parser::expr(int& tokenPos, bool remainReturnStack) {
-    //TODO expr tree analysis
+    // expr tree construction and analysis
+    ExpressionNode* root = NULL;
+    expr(root, tokenPos, 0);
+    int stackDepth = 0;
+    treeDFS(root, stackDepth, remainReturnStack);
+    //match(";");
+
+    ExpressionNode* ppmm;
+    while(!ppNodes.empty()) {
+        ppmm = ppNodes.top();
+        ppmm->op = "++";
+        outputUnaryOp(ppmm, stackDepth, false);
+        ppNodes.pop();
+    }
+    while(!mmNodes.empty()) {
+        ppmm = mmNodes.top();
+        ppmm->op = "--";
+        outputUnaryOp(ppmm, stackDepth, false);
+        mmNodes.pop();
+    }
+    if(stackDepth > 1 || (stackDepth == 1 && !remainReturnStack))
+        printf("Warning: unexpected stack size increase for %d happens at %s, line %d.\n",
+            stackDepth, tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo);
+            
 }
