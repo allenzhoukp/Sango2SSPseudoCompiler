@@ -8,16 +8,16 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
 
     int soldierScreenX = GetObjectScreenX(soldier);
     int soldierScreenY = GetObjectScreenY(soldier);
-    //int log[5];
+    int log[5];
 
     for(int i = 1; i <= shootRange; i++) {
         int target = GetSoldierHandle(ScreenXToBattleX(soldierScreenX) + soldierDir * i, ScreenYToBattleY(soldierScreenY));
-        /*if(target == 0) {
-                log[i] = false;
-                continue;
-        }*/
+        if(target == 0) {
+            log[i - 1] = false;
+            continue;
+        }
 
-        //log[i - 1] = true;
+        log[i - 1] = true;
 
         int targetScreenX = GetObjectScreenX(target);
         int targetScreenY = GetObjectScreenY(target);
