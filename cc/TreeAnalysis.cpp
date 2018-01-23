@@ -562,7 +562,7 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     case ExpNodeType::syscall:
         for(int i = 0; i < x->sys->paramCount; i++)
             treeDFS(x->params[i], stackDepth);
-        out << "\t" << "SYSCALL 0x" << std::hex << x->sys->code << std::dec
+        out << "\t" << "SYSCALL 0x" << std::hex << std::uppercase << x->sys->code << std::dec
                 << ", (" << x->sys->paramCount << " | (" << x->sys->returnType << " << 16))"
                 << " ; " << x->sys->name << endl;
 

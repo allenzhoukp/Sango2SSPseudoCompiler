@@ -4,7 +4,7 @@
 #include <cstring>
 
 void Parser::loadSyscallTable () {
-    FILE* fin = fopen("SYSCALL_TABLE.txt", "r");
+    FILE* fin = fopen("config/SYSCALL_TABLE.txt", "r");
     Syscall syscall;
     char name[MAX_LINE_LEN];
 
@@ -24,7 +24,7 @@ void Parser::loadSyscallTable () {
 }
 
 void Parser::loadIntvTable () {
-    FILE* fin = fopen("INTV_TABLE.txt", "r");
+    FILE* fin = fopen("config/INTV_TABLE.txt", "r");
     Intv intv;
     char name[MAX_LINE_LEN];
 
@@ -39,7 +39,7 @@ void Parser::loadIntvTable () {
 }
 
 void Parser::loadStructTable () {
-    FILE* fin = fopen("STRUCT_TABLE.txt", "r");
+    FILE* fin = fopen("config/STRUCT_TABLE.txt", "r");
 
     char buf[MAX_LINE_LEN];
     char line[MAX_LINE_LEN];
@@ -132,7 +132,7 @@ void Parser::loadStructTable () {
                     tokens[tokenCount].content += *p++;
 
                 tokenCount++;
-                while(isspace(*p) && *p != '\0') *p++;
+                while(isspace(*p) && *p != '\0') p++;
             }
 
             int pos = 0;

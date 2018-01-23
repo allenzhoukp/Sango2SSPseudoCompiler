@@ -24,7 +24,6 @@ bool Parser::tryMatchAsm (int& tokenPos) {
         return false;
 
     string content = token.content;
-    std::size_t pos;
     char buf[MAX_LINE_LEN];
     std::smatch sm;
 

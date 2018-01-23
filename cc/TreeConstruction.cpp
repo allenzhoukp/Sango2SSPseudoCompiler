@@ -180,7 +180,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
 bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
     string name = tokens[tokenPos].content;
     if(funcNameMapping.find(name) != funcNameMapping.end()) {
-        if(x = NULL)
+        if(x == NULL)
             x = expNodePool.newNode();
 
         Function* func = funcNameMapping[name];

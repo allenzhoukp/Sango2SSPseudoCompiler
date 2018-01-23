@@ -1,0 +1,1229 @@
+MSG 0x1C
+00000000 hwnd            int                    ; offset
+00000004 message         int
+00000008 wParam          int
+0000000C lParam          int
+00000010 time            int
+00000014 pt              POINT
+end
+
+
+POINT 0x8
+00000000 x               int
+00000004 y               int
+end
+
+
+tagMSG 0x1C
+00000000 hwnd            int                    ; offset
+00000004 message         int
+00000008 wParam          int
+0000000C lParam          int
+00000010 time            int
+00000014 pt              POINT
+end
+
+
+FILETIME 0x8
+00000000 dwLowDateTime   int
+00000004 dwHighDateTime  int
+end
+
+_SCREEN_MAIN 0x5C
+00000000 x               int
+00000004 y               int
+00000008 nWidth          int
+0000000C nHeight         int
+00000010 pOnCallbackFunc int                    ; offset
+00000014 field_14        int
+00000018 nSubItems       int
+0000001C pSubItems       int                    ; offset
+00000020 nShowingItem    int
+00000024 field_24        int
+00000028 field_28        int
+0000002C field_2C        int
+00000030 field_30        int
+00000034 field_34        int
+00000038 field_38        int
+0000003C field_3C        int
+00000040 field_40        int
+00000044 field_44        int
+00000048 field_48        int
+0000004C field_4C        int
+00000050 field_50        int
+00000054 field_54        int
+00000058 field_58        int
+end
+
+
+DRAW_LINE 0x12
+00000000 pLineBuffer     int
+00000004 field_4         short
+00000006 wWidth          short
+00000008 field_8         short
+0000000A wX              short
+0000000C field_C         short
+0000000E field_E         short
+00000010 field_10        short
+end
+
+
+_TROOP_INDEX_BY_WORD 0x4
+00000000 wIndex          short
+00000002 wHigh           short
+end
+
+
+_TROOP_INDEX 0x4
+00000000 dwIndex         int
+00000000 anonymous_0     _TROOP_INDEX_BY_WORD
+end
+
+
+_AMASK_DDPF 0x4
+00000000 dwRGBAlphaBitMask int
+00000000 dwYUVAlphaBitMask int
+00000000 dwRGBZBitMask   int
+00000000 dwYUVZBitMask   int
+end
+
+
+_BMASK_DDPF 0x4
+00000000 dwBBitMask      int
+00000000 dwVBitMask      int
+end
+
+
+_GMASK_DDPF 0x4
+00000000 dwGBitMask      int
+00000000 dwUBitMask      int
+end
+
+
+_RMASK_DDPF 0x4
+00000000 dwRBitMask      int
+00000000 dwYBitMask      int
+end
+
+
+_BITCOUNT_DDPF 0x4
+00000000 dwRGBBitCount   int
+00000000 dwYUVBitCount   int
+00000000 dwZBufferBitDepth int
+00000000 dwAlphaBitDepth int
+end
+
+
+DDPIXELFORMAT 0x20
+00000000 dwSize          int
+00000004 dwFlags         int
+00000008 dwFourCC        int
+0000000C nBitCount       _BITCOUNT_DDPF
+00000010 rMask           _RMASK_DDPF
+00000014 gMask           _GMASK_DDPF
+00000018 bMask           _BMASK_DDPF
+0000001C aMask           _AMASK_DDPF
+end
+
+
+DDCOLORKEY 0x8
+00000000 dwColorSpaceLowValue int
+00000004 dwColorSpaceHighValue int
+end
+
+
+_REFRESH_RATE_DDSD 0x4
+00000000 dwMipMapCount   int
+00000000 dwZBufferBitDepth int
+00000000 dwRefreshRate   int
+end
+
+
+_LINEAR_SIZE_DDSD 0x4
+00000000 lPitch          int
+00000000 dwLinearSize    int
+end
+
+
+_DDSURFACEDESC 0x6C
+00000000 dwSize          int
+00000004 dwFlags         int
+00000008 dwHeight        int
+0000000C dwWidth         int
+00000010 dwLinearSize    _LINEAR_SIZE_DDSD
+00000014 dwBackBufferCount int
+00000018 anonymous_1     _REFRESH_RATE_DDSD
+0000001C dwAlphaBitDepth int
+00000020 dwReserved      int
+00000024 lpSurface       int                    ; offset
+00000028 ddckCKDestOverlay DDCOLORKEY
+00000030 ddckCKDestBlt   DDCOLORKEY
+00000038 ddckCKSrcOverlay DDCOLORKEY
+00000040 ddckCKSrcBlt    DDCOLORKEY
+00000048 ddpfPixelFormat DDPIXELFORMAT
+00000068 ddsCaps         DDSCAPS
+end
+
+
+DDSCAPS 0x4
+00000000 dwCaps          int
+end
+
+
+IID 0x10
+00000000 Data1           int
+00000004 Data2           short
+00000006 Data3           short
+00000008 Data4           byte 8 dup
+end
+
+
+CLSID 0x10
+00000000 Data1           int
+00000004 Data2           short
+00000006 Data3           short
+00000008 Data4           byte 8 dup
+end
+
+
+GENERAL_IN_ARMY 0x48
+00000000 pGeneral        GENERAL *                    ; offset
+00000004 dwDefeatReason  int
+00000008 dwExpEnemy      int
+0000000C nFormation      int
+00000010 nMajorUp        int
+00000014 nInfantryCount  int
+00000018 nCavalierCount  int
+0000001C nHPMax          int
+00000020 nMPMax          int
+00000024 nHP             int
+00000028 nMP             int
+0000002C nMorale         int
+00000030 nCityDefense    int
+00000034 dwFlag          int
+00000038 dwParam         int
+0000003C nExpIncrease    int
+00000040 dwWiseIndex     int
+00000044 dwWiseGeneral   int
+end
+
+
+ARMY_HEADER 0x1C
+00000000 dwGeneralCount  int
+00000004 dwSelect        int
+00000008 dwCreateFrom    int
+0000000C dwDefenseAttack int
+00000010 nBattleResult   int
+00000014 pTroop          TROOP *                    ; offset
+00000018 pCity           CITY *                    ; offset
+end
+
+
+MAJOR_INFO 0x48
+00000000 pGeneral        GENERAL *
+00000004 field_4         int
+00000008 x1              int
+0000000C y1              int
+00000010 x2              int
+00000014 nInfantryBeforeBattle int
+00000018 nCavalierBeforeBattle int              ; offset
+0000001C dwTroopTypeMask int
+00000020 nFormationBlock int
+00000024 field_24        int
+00000028 pArmy           ARMY_INFO *                    ; offset
+0000002C dwFlags         int
+00000030 field_30        int
+00000034 dwFlags1        int
+00000038 nWiseParameter  int
+0000003C field_3C        int
+00000040 pMother         BATTLE_USER_INFO *                    ; offset
+00000044 pObject         SANGO_OBJECT *                    ; offset
+end
+
+
+SOLDIER_INFO 0x48
+00000000 pGeneral        GENERAL *
+00000004 field_4         int
+00000008 x1              int
+0000000C y1              int
+00000010 x2              int
+00000014 y2              int
+00000018 pObject         SANGO_OBJECT *                    ; offset
+0000001C dwTroopTypeMask int
+00000020 nFormationBlock int
+00000024 nAction         int
+00000028 pArmy           ARMY_INFO *                    ; offset
+0000002C dwFlags         int
+00000030 field_30        int
+00000034 dwFlags1        int
+00000038 nAttackerFrequence int
+0000003C field_3C        int
+00000040 pMother         BATTLE_USER_INFO *                    ; offset
+00000044 pBodyObject     SANGO_OBJECT *                    ; offset
+end
+
+
+tagPOINT 0x8
+00000000 x               int
+00000004 y               int
+end
+
+
+LEVEL_INDEX 0x2
+00000000 chLevel         byte
+00000001 chIndex         byte
+end
+
+
+SCREEN_ITEM 0x38
+00000000 x               int                    ; base 10
+00000004 y               int                    ; base 10
+00000008 width           int                    ; base 10
+0000000C height          int                    ; base 10
+00000010 field_10        int
+00000014 field_14        int
+00000018 pCallback       void *                    ; offset
+0000001C pMainStruct     void *                    ; offset
+00000020 xAnimatePos     int
+00000024 yAnimatePos     int
+00000028 xAnimateStep    int
+0000002C yAnimateStep    int
+00000030 bAnimating      int
+00000034 dwContext       int
+end
+
+
+SCREEN_MAIN 0x5C
+00000000 x               int                    ; base 10
+00000004 y               int                    ; base 10
+00000008 width           int                    ; base 10
+0000000C height          int                    ; base 10
+00000010 pOnCallbackFunc void *                    ; offset
+00000014 dwFlag          int
+00000018 nSubItems       int
+0000001C pSubItems       void *                    ; offset
+00000020 nShowingItem    int
+00000024 field_24        int
+00000028 field_28        int
+0000002C field_2C        int
+00000030 field_30        int
+00000034 field_34        int
+00000038 field_38        int
+0000003C nAnimateCount   int
+00000040 nSrcX           int
+00000044 nSrcY           int
+00000048 field_48        int
+0000004C field_4C        int
+00000050 field_50        int
+00000054 field_54        int
+00000058 field_58        int
+end
+
+
+BATTLE_USER_INFO 0x38F8
+00000000 pMajorInfo      MAJOR_INFO
+00000048 pGeneral        GENERAL *                    ; offset
+0000004C nGatherTick     int
+00000050 dwHP            int
+00000054 dwMP            int
+00000058 nSoldierMax     int
+0000005C nSoldierCount   int
+00000060 nFormation      int
+00000064 field_64        int
+00000068 nCondition      int
+0000006C dwTroopTypeMask int
+00000070 nSoldierAttack  int
+00000074 nGeneralAttack  int
+00000078 field_78        int
+0000007C field_7C        int
+00000080 field_80        int
+00000084 dwFlags1        int
+00000088 nSpeed          int
+0000008C nCurrentTick    int
+00000090 nGatheringSpeed int
+00000094 dwMajorAction   int
+00000098 dwFrontAction   int
+0000009C dwRearAction    int
+000000A0 dwLeftAction    int
+000000A4 dwRightAction   int
+000000A8 dwMidAction     int
+000000AC field_AC        int
+000000B0 field_B0        int
+000000B4 pSoldierInfo    SOLDIER_INFO 200 dup
+000038F4 dwPadding       int
+end
+
+
+CITY 0xAA
+00000000 dwUsed          int
+00000004 szCityName      string
+00000010 pKing           KING *                    ; offset
+00000014 pMajor          GENERAL *                    ; offset
+00000018 pWise           GENERAL *                    ; offset
+0000001C dw1             int
+00000020 dw2             int
+00000024 pFirstGeneral   GENERAL *                    ; offset
+00000028 pSearchGeneral  GENERAL *
+0000002C dwKingFlag      int
+00000030 dwGeneralAlive  int
+00000034 dwGeneralCaptured int
+00000038 dwImportancy    int
+0000003C dwImportancyAround int
+00000040 field_40        int
+00000044 wMaxGeneral     short
+00000046 pPath           PATH * 9 dup              ; offset
+0000006A w1              short
+0000006C wRate           short
+0000006E wCenterX        short
+00000070 wCenterY        short
+00000072 wLeft           short
+00000074 wTop            short
+00000076 wRight          short
+00000078 wBottom         short
+0000007A wFlagX          short
+0000007C wFlagY          short
+0000007E field_7E        int
+00000082 dwSoldierMax    int
+00000086 dwSoldier       int
+0000008A dwPopulation    int
+0000008E dwDefense       int
+00000092 dwMoney         int
+00000096 dwIndex         int
+0000009A dwConscriptCountDownTimer int
+0000009E dwFlagIndex     int
+000000A2 pNextSameKing   CITY *                    ; offset
+000000A6 pNext           CITY *
+end
+
+
+ITEM 0x56
+00000000 szName          string
+00000014 wAttrib         short
+00000016 wWeaponType     short
+00000018 wWeaponObject   short
+0000001A wSearchType     short
+0000001C wSort           short
+0000001E wRate           short
+00000020 wFind           short
+00000022 field_22        short
+00000024 field_24        short
+00000026 szSpirite       string
+00000036 wNeedLevel      short
+00000038 wStr            short
+0000003A wInt            short
+0000003C wMaxHP          short
+0000003E wMaxMP          short
+00000040 wForce          short
+00000042 wFormation      short
+00000044 wSkill          short
+00000046 wSpeed          short
+00000048 wHP             short
+0000004A wMP             short
+0000004C wSpirite        short
+0000004E wLoyal          short
+00000050 wTire           short
+00000052 szDescription   string *                    ; offset ? I do not understand.
+end
+
+
+WNDCLASSA 0x28
+00000000 style           int
+00000004 lpfnWndProc     int                    ; offset
+00000008 cbClsExtra      int
+0000000C cbWndExtra      int
+00000010 hInstance       int                    ; offset
+00000014 hIcon           int                    ; offset
+00000018 hCursor         int                    ; offset
+0000001C hbrBackground   int                    ; offset
+00000020 lpszMenuName    int                    ; offset
+00000024 lpszClassName   int                    ; offset
+end
+
+
+OBJECT_EXTRA_TROOP 0x0
+end
+
+
+OBJECT_EXTRA_MAGIC 0x0
+end
+
+
+SANGO_OBJECT 0xA8
+00000000 dwSign          int
+00000004 dwHandle        int
+00000008 x               int
+0000000C y               int
+00000010 angle           int
+00000014 nStepX          int
+00000018 nStepY          int
+0000001C nStepAngle      int
+00000020 friction       int
+00000024 dwGravity      int
+00000028 nLife           int
+0000002C nDir            int
+00000030 dwFlags         int
+00000034 nAnimation      int
+00000038 dwStepLength    int
+0000003C space1          int
+00000040 space2          int
+00000044 space3          int
+00000048 space4          int
+0000004C ObjectProcessProc int                  ; offset
+00000050 dwCreateTick    int
+00000054 nDelay          int
+00000058 nBrightness     int
+0000005C dwXScale       int
+00000060 dwYScale       int
+00000064 field_64        int
+00000068 field_68        int
+0000006C field_6C        int
+00000070 pDrawingFileItem void *                   ; offset
+00000074 hLinkedObject   SANGO_OBJECT *
+00000078 pPlayingFrame   void *                    ; offset
+0000007C pObjectInfo     void *                    ; offset
+00000080 pNext           void *                    ; offset
+00000084 pMother         MAJOR_INFO *              ; offset
+00000088 field_88        int
+0000008C nPlayingIndex   int
+00000090 nAlpha          int
+00000094 nDirection      int
+00000098 nCallbackSequence int
+0000009C dwCallbackContext int 3 dup
+end
+
+
+KING 0x346
+00000000 szKingName      string
+0000000C pGeneral        GENERAL *                    ; offset
+00000010 dw1             int
+00000014 dw2             int
+00000018 pNextGeneral    GENERAL *                    ; offset
+0000001C dwAIPoints      int
+00000020 dwCityCount     int
+00000024 dwFlag          int
+00000028 dwAICountDown   int
+0000002C dwExp           int
+00000030 dwType          int
+00000034 u2              byte 256 dup
+00000134 wItem           short 256 dup
+00000334 pObject         SANGO_OBJECT *                    ;
+00000338 pCity           CITY *                    ; offset
+0000033C pTroop          TROOP *                    ; offset
+00000340 wSelect         short
+00000342 field_342       short
+00000344 field_344       short
+end
+
+
+OBJECT_INFORMATION 0x48
+00000000 dwSequence      int
+00000004 nType           int
+00000008 nSpace1         int
+0000000C nSpace2         int
+00000010 nSpace3         int
+00000014 nSpace4         int
+00000018 dwFlags         int
+0000001C nLife           int
+00000020 pProcessFunc    void *
+00000024 field_24        int
+00000028 pAnimationTable MAJOR_ANIMATION_TABLE * 	; may vary
+0000002C field_2C        int
+00000030 field_30        int
+00000034 field_34        int
+00000038 field_38        int
+0000003C field_3C        int
+00000040 field_40        int
+00000044 field_44        int
+end
+
+
+TROOP_ANIMATION_TABLE 0x1C
+00000000 pWait           ANIMATION * 				;
+00000004 pWalk           ANIMATION *
+00000008 field_8         ANIMATION *
+0000000C field_C         ANIMATION *
+00000010 field_10        ANIMATION *
+00000014 pWin            ANIMATION *
+00000018 pLose           ANIMATION *
+end
+
+
+FORCE_ANIMATION_TABLE 0x34
+00000000 field_0         ANIMATION *
+00000004 field_4         ANIMATION *
+00000008 field_8         ANIMATION *
+0000000C field_C         ANIMATION *
+00000010 field_10        ANIMATION *
+00000014 field_14        ANIMATION *
+00000018 pWait           ANIMATION *
+0000001C pWalk           ANIMATION *
+00000020 pAttack         ANIMATION *
+00000024 pDefense        ANIMATION *
+00000028 pPain           ANIMATION *
+0000002C pDeath          ANIMATION *
+00000030 pWin            ANIMATION *
+end
+
+
+BASE_ANIMATION_TABLE 0x4
+00000000 pWait           ANIMATION *
+end
+
+
+MAJOR_ANIMATION_TABLE 0x50
+00000000 pFirst          ANIMATION *
+00000004 pWait           ANIMATION *
+00000008 pWalk           ANIMATION *
+0000000C pAttack         ANIMATION *
+00000010 pDefense        ANIMATION *
+00000014 pPain           ANIMATION *
+00000018 pDeath          ANIMATION *
+0000001C pWin            ANIMATION *
+00000020 pAttack2        ANIMATION *
+00000024 pAttack3        ANIMATION *
+00000028 pAttack4        ANIMATION *
+0000002C pAttack5        ANIMATION *
+00000030 pAttack6        ANIMATION *
+00000034 pAttack7        ANIMATION *
+00000038 pAttack8        ANIMATION *
+0000003C pSpell1         ANIMATION *
+00000040 pSpell2         ANIMATION *
+00000044 pShot1          ANIMATION *
+00000048 pShot2          ANIMATION *
+0000004C pShot3          ANIMATION *
+end
+
+
+ANIMATION 0x10
+00000000 field_0         int
+00000004 field_4         int
+00000008 field_8         int
+0000000C field_C         int
+end
+
+
+SANGO2_FRAME 0x16
+00000000 pFrame          int
+00000004 nDelay          int
+00000008 pMother         void *
+0000000C pszSound        int
+00000010 nAction         int
+00000014 wIndex          short
+end
+
+
+SUBSCRIPT 0x38
+00000000 pCallback       void *
+00000004 pProcedureInfo  SANGO_PROCEDURE_INFO *
+00000008 pMainScript     MAINSCRIPT *
+0000000C pParent         void *
+00000010 dwPC            int
+00000014 nCallerStack    int
+00000018 nCurrentStack   int
+0000001C pStack          void *
+00000020 nMaxStack       int
+00000024 pLinkedObjectHandle SANGO_OBJECT *
+00000028 field_28        int
+0000002C field_2C        int
+00000030 field_30        int
+00000034 nLastParameterType int
+end
+
+
+MAINSCRIPT 0x1C
+00000000 pCallback       void *
+00000004 pFileBuffer     void *
+00000008 nProcedureCount int
+0000000C pProcedureInfo  SANGO_PROCEDURE_INFO *
+00000010 nStringCount    int
+00000014 pString         string *
+00000018 pInitializeStack void *
+end
+
+
+ARMY_INFO 0x45C
+00000000 _ah             ARMY_HEADER
+0000001C gi              GENERAL_IN_ARMY 15 dup
+00000454 pWiseGeneral    GENERAL *                    ; offset
+00000458 dwWiseSequence  int
+end
+
+
+GENERAL 0xF7
+00000000 chName          byte 12 dup
+0000000C pFaceSHP        void *                    ; offset
+00000010 wHPMax          short
+00000012 wHP             short
+00000014 wMPMax          short
+00000016 wMP             short
+00000018 wBaseHP         short
+0000001A wBaseMP         short
+0000001C wHPResumeSpeed  short
+0000001E wMPResumeSpeed  short
+00000020 wFatigeResumeSpeed short
+00000022 wMoraleDownSpeed1 short
+00000024 wMoraleUpSpeed2 short
+00000026 wLoyalDownSpeed short
+00000028 field_28        short
+0000002A dwExp           int
+0000002E wLevel          short
+00000030 wStrSrc         short
+00000032 wIntSrc         short
+00000034 wStr            short
+00000036 wInt            short
+00000038 wMorale         short
+0000003A wFatigue        short
+0000003C wLoyal          short
+0000003E wUnknown3       short
+00000040 wSpeed          short
+00000042 wInfantryMax    short
+00000044 wInfantryCount  short
+00000046 wCavalierMax    short
+00000048 wCavalierCount  short
+0000004A wPos            short 5 dup
+00000054 chMagic         byte 8 dup
+0000005C chWise          byte 8 dup
+00000064 chSelectWise    byte
+00000065 skillLvIndex    LEVEL_INDEX 8 dup
+00000075 wiseLvIndex     LEVEL_INDEX 8 dup
+00000085 wUnknown6       short
+00000087 dwValidTroopType int
+0000008B dwCurrentTroopType int
+0000008F nType           short
+00000091 dwStatus        int
+00000095 wPolicied       short
+00000097 field_97        short
+00000099 wItemHorse      short
+0000009B wItemWeapon     short
+0000009D wItemHold       short
+0000009F wWin            short
+000000A1 wLose           short
+000000A3 wContinueWin    short
+000000A5 wMaxContinueWin short
+000000A7 dwCanUseBattleArray int
+000000AB field_AB        int
+000000AF field_AF        int
+000000B3 field_B3        int
+000000B7 field_B7        int
+000000BB field_BB        int
+000000BF pLoyalKing      KING *                    ; offset
+000000C3 pBloodGeneral   GENERAL *                    ; offset
+000000C7 wConstancy      short
+000000C9 wOldConstancy   short
+000000CB pKing           KING *                    ; offset
+000000CF pLastKing       KING *
+000000D3 pTroop          TROOP *                    ; offset
+000000D7 pCity           CITY *                    ; offset
+000000DD pNextSameKing   GENERAL *                    ; offset
+000000DF pNextSameTroop  GENERAL *                    ; offset
+000000E3 pNextSameCity   GENERAL *                    ; offset
+000000E7 pNextSameSearch GENERAL *
+000000EB field_EB        int
+000000EF field_EF        int
+000000F3 pNext           GENERAL *
+end
+
+
+DDSURFACEDESC 0x6C
+00000000 dwSize          int
+00000004 dwFlags         int
+00000008 dwHeight        int
+0000000C dwWidth         int
+00000010 anonymous_0     _LINEAR_SIZE_DDSD
+00000014 dwBackBufferCount int
+00000018 anonymous_1     _REFRESH_RATE_DDSD
+0000001C dwAlphaBitDepth int
+00000020 dwReserved      int
+00000024 lpSurface       int                    ; offset
+00000028 ddckCKDestOverlay DDCOLORKEY
+00000030 ddckCKDestBlt   DDCOLORKEY
+00000038 ddckCKSrcOverlay DDCOLORKEY
+00000040 ddckCKSrcBlt    DDCOLORKEY
+00000048 ddpfPixelFormat DDPIXELFORMAT
+00000068 ddsCaps         DDSCAPS
+end
+
+
+SANGO_SCRIPT_STACK 0x8
+00000000 dwValue         int
+00000004 dwType          int
+end
+
+
+SANGO_PROCEDURE_INFO 0x10
+00000000 dwProcedureAddress int
+00000004 dwReservedStack int
+00000008 dwDescriptionStringIndex int
+0000000C dwScriptIndex   int
+end
+
+
+SANGO_MAIN_PROC 0x8
+00000000 nIndex          int
+00000004 pProcedure      SANGO_PROCEDURE_INFO *                   ; offset (00000000)
+end
+
+
+tagRECT 0x10
+00000000 left            int
+00000004 top             int
+00000008 right           int
+0000000C bottom          int
+end
+
+
+PATH 0x14
+00000000 pStartCity      CITY *
+00000004 pEndCity        CITY *
+00000008 dwLength        int
+0000000C nPoints         int
+00000010 nFirstPointIndex int
+end
+
+
+struct_0 0x14
+00000000 nSearchGeneralRatio int                ; base 10
+00000004 nSearchItemRatio int                   ; base 10
+00000008 nSearchFailedRatio int                 ; base 10
+0000000C nSearchItemRatio_Succ_Unuse int        ; base 10
+00000010 nSearchItemRatio_Fail_Unuse int        ; base 10
+end
+
+
+FORMATION_SOLDIER_POS 0x14
+00000000 wPosFront       int                    ; offset (00000000)
+00000004 wPosRear        int                    ; offset (00000000)
+00000008 wPosMid         int                    ; offset (00000000)
+0000000C wPosLeft        int                    ; offset (00000000)
+00000010 wPosRight       int                    ; offset (00000000)
+end
+
+
+TROOP 0x6C
+00000000 dwType          int
+00000004 anonymous_0     _TROOP_INDEX
+00000008 pKingNode       KING *                    ; offset
+0000000C pMajor          GENERAL *                    ; offset
+00000010 pWise           GENERAL *                    ; offset
+00000014 dw1             int                    ; offset
+00000018 dw2             int                    ; offset
+0000001C pNext           TROOP *                    ; offset
+00000020 dwMoney         int
+00000024 wDir            short
+00000026 wDirX           short
+00000028 x               int
+0000002C y               int
+00000030 wStatus         short
+00000032 field_32        short
+00000034 field_34        short
+00000036 field_36        short
+00000038 pNear           CITY *                    ; offset
+0000003C pSource         CITY *                    ; offset
+00000040 pDest1          CITY *                    ; offset
+00000044 pDest2          CITY *                    ; offset
+00000048 pPath           PATH *                    ; offset
+0000004C dwPointsCount   int
+00000050 nPassedPoints   int
+00000054 nCurrentPointIndex int
+00000058 field_58        int
+0000005C pHorseObject    SANGO_OBJECT *                    ; offset
+00000060 pFlagObject     SANGO_OBJECT *                    ; offset
+00000064 pNextSameKing   TROOP *                    ; offset
+00000068 pNextNode       TROOP *
+end
+
+
+FORMATION_INFORMATION 0xC
+00000000 wFront          short
+00000002 wRear           short
+00000004 wMid            short
+00000006 wLeft           short
+00000008 wRight          short
+0000000A wMajorPos       short
+end
+
+
+CHEAT_NODE 0x10
+00000000 szCheatOn       int                    ; offset (00000000)
+00000004 szCheatOff      int                    ; offset (00000000)
+00000008 field_8         int
+0000000C funcCheat       int                    ; offset (00000000)
+end
+
+
+_WIN32_FIND_DATAA 0x140
+00000000 dwFileAttributes int
+00000004 ftCreationTime  FILETIME
+0000000C ftLastAccessTime FILETIME
+00000014 ftLastWriteTime FILETIME
+0000001C nFileSizeHigh   int
+00000020 nFileSizeLow    int
+00000024 dwReserved0     int
+00000028 dwReserved1     int
+0000002C cFileName       byte 260 dup
+00000130 cAlternateFileName byte 14 dup
+0000013E _padding        byte 2 dup
+end
+
+
+struct_1 0x7
+00000000 s_JDmzl         string             ; string(C)
+end
+
+
+FORCE_INFO 0x38
+00000000 szName          string            ; string(C)
+0000000C nInfantryAttackRange int
+00000010 nCavalierAttackRange int
+00000014 nType           int
+00000018 nInfantrySequence int
+0000001C nCavalierSequence int
+00000020 nDeadSequence   int
+00000024 nShootObjectSequence int
+00000028 nInfantryShootFrequence int
+0000002C nInfantryAttackFrequence int
+00000030 nCavalierShootFrequence int
+00000034 nCavalierAttackFrequence int
+end
+
+
+DDCAPS 0x16C
+00000000 dwSize          int
+00000004 dwCaps          int
+00000008 dwCaps2         int
+0000000C dwCKeyCaps      int
+00000010 dwFXCaps        int
+00000014 dwFXAlphaCaps   int
+00000018 dwPalCaps       int
+0000001C dwSVCaps        int
+00000020 dwAlphaBltConstBitDepths int
+00000024 dwAlphaBltPixelBitDepths int
+00000028 dwAlphaBltSurfaceBitDepths int
+0000002C dwAlphaOverlayConstBitDepths int
+00000030 dwAlphaOverlayPixelBitDepths int
+00000034 dwAlphaOverlaySurfaceBitDepths int
+00000038 dwZBufferBitDepths int
+0000003C dwVidMemTotal   int
+00000040 dwVidMemFree    int
+00000044 dwMaxVisibleOverlays int
+00000048 dwCurrVisibleOverlays int
+0000004C dwNumFourCCCodes int
+00000050 dwAlignBoundarySrc int
+00000054 dwAlignSizeSrc  int
+00000058 dwAlignBoundaryDest int
+0000005C dwAlignSizeDest int
+00000060 dwAlignStrideAlign int
+00000064 dwRops          int 8 dup
+00000084 ddsCaps         DDSCAPS
+00000088 dwMinOverlayStretch int
+0000008C dwMaxOverlayStretch int
+00000090 dwMinLiveVideoStretch int
+00000094 dwMaxLiveVideoStretch int
+00000098 dwMinHwCodecStretch int
+0000009C dwMaxHwCodecStretch int
+000000A0 dwReserved1     int
+000000A4 dwReserved2     int
+000000A8 dwReserved3     int
+000000AC dwSVBCaps       int
+000000B0 dwSVBCKeyCaps   int
+000000B4 dwSVBFXCaps     int
+000000B8 dwSVBRops       int 8 dup
+000000D8 dwVSBCaps       int
+000000DC dwVSBCKeyCaps   int
+000000E0 dwVSBFXCaps     int
+000000E4 dwVSBRops       int 8 dup
+00000104 dwSSBCaps       int
+00000108 dwSSBCKeyCaps   int
+0000010C dwSSBFXCaps     int
+00000110 dwSSBRops       int 8 dup
+00000130 dwMaxVideoPorts int
+00000134 dwCurrVideoPorts int
+00000138 dwSVBCaps2      int
+0000013C dwNLVBCaps      int
+00000140 dwNLVBCaps2     int
+00000144 dwNLVBCKeyCaps  int
+00000148 dwNLVBFXCaps    int
+0000014C dwNLVBRops      int 8 dup
+end
+
+
+PAK_FILE_NODE 0x14
+00000000 hFile           int
+00000004 pFileInfoList   void *
+00000008 dwFileCount     int
+0000000C field_C         int
+00000010 pNext           PAK_FILE_NODE *
+end
+
+
+IDirectDraw2Vtbl 0x60
+00000000 QueryInterface  int                    ; offset
+00000004 AddRef          int                    ; offset
+00000008 Release         int                    ; offset
+0000000C Compact         int                    ; offset
+00000010 CreateClipper   int                    ; offset
+00000014 CreatePalette   int                    ; offset
+00000018 CreateSurface   int                    ; offset
+0000001C DuplicateSurface int                   ; offset
+00000020 EnumDisplayModes int                   ; offset
+00000024 EnumSurfaces    int                    ; offset
+00000028 FlipToGDISurface int                   ; offset
+0000002C GetCaps         int                    ; offset
+00000030 GetDisplayMode  int                    ; offset
+00000034 GetFourCCCodes  int                    ; offset
+00000038 GetGDISurface   int                    ; offset
+0000003C GetMonitorFrequency int                ; offset
+00000040 GetScanLine     int                    ; offset
+00000044 GetVerticalBlankStatus int             ; offset
+00000048 Initialize      int                    ; offset
+0000004C RestoreDisplayMode int                 ; offset
+00000050 SetCooperativeLevel int                ; offset
+00000054 SetDisplayMode  int                    ; offset
+00000058 WaitForVerticalBlank int               ; offset
+0000005C GetAvailableVidMem int                 ; offset
+end
+
+
+IDirectDraw 0x4
+00000000 lpVtbl          int                    ; offset
+end
+
+
+IDirectDrawSurface3Vtbl 0xA0
+00000000 QueryInterface  int                    ; offset
+00000004 AddRef          int                    ; offset
+00000008 Release         int                    ; offset
+0000000C AddAttachedSurface int                 ; offset
+00000010 AddOverlayDirtyRect int                ; offset
+00000014 Blt             int                    ; offset
+00000018 BltBatch        int                    ; offset
+0000001C BltFast         int                    ; offset
+00000020 DeleteAttachedSurface int              ; offset
+00000024 EnumAttachedSurfaces int               ; offset
+00000028 EnumOverlayZOrders int                 ; offset
+0000002C Flip            int                    ; offset
+00000030 GetAttachedSurface int                 ; offset
+00000034 GetBltStatus    int                    ; offset
+00000038 GetCaps         int                    ; offset
+0000003C GetClipper      int                    ; offset
+00000040 GetColorKey     int                    ; offset
+00000044 GetDC           int                    ; offset
+00000048 GetFlipStatus   int                    ; offset
+0000004C GetOverlayPosition int                 ; offset
+00000050 GetPalette      int                    ; offset
+00000054 GetPixelFormat  int                    ; offset
+00000058 GetSurfaceDesc  int                    ; offset
+0000005C Initialize      int                    ; offset
+00000060 IsLost          int                    ; offset
+00000064 Lock            int                    ; offset
+00000068 ReleaseDC       int                    ; offset
+0000006C Restore         int                    ; offset
+00000070 SetClipper      int                    ; offset
+00000074 SetColorKey     int                    ; offset
+00000078 SetOverlayPosition int                 ; offset
+0000007C SetPalette      int                    ; offset
+00000080 Unlock          int                    ; offset
+00000084 UpdateOverlay   int                    ; offset
+00000088 UpdateOverlayDisplay int               ; offset
+0000008C UpdateOverlayZOrder int                ; offset
+00000090 GetDDInterface  int                    ; offset
+00000094 PageLock        int                    ; offset
+00000098 PageUnlock      int                    ; offset
+0000009C SetSurfaceDesc  int                    ; offset
+end
+
+
+PAK_FILE_CACHE 0x24
+00000000 dwSequence      int
+00000004 nOpenFlag       int
+00000008 field_8         int
+0000000C dwFileOffset    int
+00000010 dwFileSize      int
+00000014 pPakFileNode    PAK_FILE_NODE *
+00000018 dwFileIndex     int
+0000001C field_1C        int
+00000020 field_20        int
+end
+
+
+SHP_FILE_HEADER 0x25
+00000000 Type            int
+00000004 dwReserved      int
+00000008 dwVersion       int
+0000000C dwUnknown       int
+00000010 field_10        int
+00000014 width           int
+00000018 height          int
+0000001C xOffset         int
+00000020 yOffset         int
+00000024 chData          byte
+end
+
+
+SANGO_FILE_ITEM 0x18
+00000000 pFileContent    void *                    ; offset
+00000004 field_4         int
+00000008 bHaveSubFile    short
+0000000A wFileType       short
+0000000C nFileLength     int
+00000010 pPrev           SANGO_FILE_ITEM *
+00000014 pNext           SANGO_FILE_ITEM *                    ; offset
+end
+
+
+PAK_FILE_HEADER 0x18
+00000000 dwSign          int
+00000004 dwFileNumber    int
+00000008 dwFileInfoOffset int
+0000000C field_C         int
+00000010 field_10        int
+00000014 field_14        int
+end
+
+
+SCREEN_MAIN_RUNNING 0xC
+00000000 pScreenMain     void *
+00000004 pScreenItem     void *
+00000008 pContext        void *
+end
+
+
+PROMPT_LINE_INFO 0x108
+00000000 nSide           int
+00000004 pShape          void *
+00000008 g_szPromptLineBuffer byte 256 dup
+end
+
+
+struct_2 0x10
+00000000 anonymous_0     int
+00000004 anonymous_1     int
+00000008 anonymous_2     int
+0000000C anonymous_3     int
+end
+
+
+CITY_LENGTH_MAP 0x14
+00000000 dwLength        int
+00000004 bUsed           int
+00000008 pCity           CITY *
+0000000C pNext           CITY_LENGTH_MAP *
+00000010 pPrev           CITY_LENGTH_MAP *
+end
+
+
+TROOP_TOUCH_INFO 0x18
+00000000 nToucherType    int
+00000004 pToucher        void *
+00000008 pToucherIndex   void *
+0000000C nToucheeType    int
+00000010 pTouchee        void *
+00000014 nToucheeIndex   int
+end
+
+
+PSIDE_FUNC_TABLE 0x68
+00000000 pDelete         void *                    ; offset (00000000)
+00000004 pInit           void *                    ; offset (00000000)
+00000008 func_08         void *                    ; offset (00000000)
+0000000C func_0c         void *                    ; offset (00000000)
+00000010 func_10         void *                    ; offset (00000000)
+00000014 func_14         void *                    ; offset (00000000)
+00000018 func_18         void *                    ; offset (00000000)
+0000001C func_1C         void *                    ; offset (00000000)
+00000020 func_20         void *                    ; offset (00000000)
+00000024 func_24         void *                    ; offset (00000000)
+00000028 func_28         void *                    ; offset (00000000)
+0000002C func_2c         void *                    ; offset (00000000)
+00000030 func_30         void *                    ; offset (00000000)
+00000034 func_34         void *                    ; offset (00000000)
+00000038 func_38         void *                    ; offset (00000000)
+0000003C func_3C         void *                    ; offset (00000000)
+00000040 func_40         void *                    ; offset (00000000)
+00000044 func_44         void *                    ; offset (00000000)
+00000048 func_48         void *                    ; offset (00000000)
+0000004C func_4c         void *                    ; offset (00000000)
+00000050 func_50         void *                    ; offset (00000000)
+00000054 func_54         void *                    ; offset (00000000)
+00000058 func_58         void *                    ; offset (00000000)
+0000005C func_5c         void *                    ; offset (00000000)
+00000060 func_60         void *                    ; offset (00000000)
+00000064 func_64         void *                    ; offset (00000000)
+end
+
+
+NMSG 0x8
+00000000 nIndex          int
+00000004 g_ppString      int                    ; offset (00000000)
+end
+
+
+TEMP_LINK 0x100C
+00000000 pGeneralList    GENERAL * 512 dup
+00000800 field_800       int
+00000804 nExtraType      int
+00000808 pExtraData      byte 512 dup
+00001008 nCount          int
+end
+
+
+SANGO_SETTINGS 0x14
+00000000 dwSign          int
+00000004 dwStatus        int
+00000008 dwSoundVolume   int
+0000000C dwMusicVolume   int
+00000010 dwEffect        int
+end
+
+
+COMPUTER_AI_ATTACK_CITY 0x1C
+00000000 nType           int
+00000004 pCityFrom       int
+00000008 pCityTo         int
+0000000C pCityAlly       int
+00000010 nGeneral        int
+00000014 nGeneralAlly    int
+00000018 nImportancy     int
+end
+
+
+COMPUTER_AI_COND 0x40
+00000000 nMoney          int                    ; base 10
+00000004 nForcePercent   int                    ; base 10
+00000008 nNearCityMoney  int                    ; base 10
+0000000C nNearCityGeneralCount int              ; base 10
+00000010 nSourceMinGeneralCount int             ; base 10
+00000014 nTargetMaxGeneralCount int             ; base 10
+00000018 nImportancyDif  int                    ; base 10
+0000001C field_1C        int                    ; base 10
+00000020 nSoldierPercent int                    ; base 10
+00000024 nHPPercent      int                    ; base 10
+00000028 nMPPercent      int                    ; base 10
+0000002C field_2C        int                    ; base 10
+00000030 field_30        int                    ; base 10
+00000034 field_34        int                    ; base 10
+00000038 field_38        int                    ; base 10
+0000003C field_3C        int                    ; base 10
+end
+
+
+INPUT_DATA 0xC
+00000000 field_0         int
+00000004 dwButtonBits    int
+00000008 wMouseX         short
+0000000A wMouseY         short
+end
+
+
+SOLDIER_MOVEMENT_PARAM 0x48
+00000000 bRandom         int
+00000004 nRatioSquare    int 8 dup             ; base 10
+00000024 bRatioSquare1   int 8 dup             ; base 10
+00000044 anonymous_17    int
+end
+
+
+COORD 0x4
+00000000 x               short                    ; base 10
+00000002 y               short
+end

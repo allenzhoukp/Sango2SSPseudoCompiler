@@ -1,6 +1,23 @@
 #include "Lexer.h"
 #include "Panic.h"
 
+void Lexer::preprocessDefine () {
+    //It starts from input pointer.
+    //Brute Force, Chernov! Brute Force!
+    char* temp = new char[MAX_FILE_LEN];
+    for(int i = 0; i < replace.size(); i++) {
+        char *p = curfile->input;
+        char *pos;
+        while((pos = strstr(p, replace[i].first.c_str())) != NULL) {
+            strcpy(temp, pos + replace[i].first.length());
+            strcpy(pos, replace[i].second.c_str());
+            p = pos + replace[i].second.length();
+            strcpy(p, temp);
+        }
+    }
+    delete[] temp;
+}
+
 void Lexer::move (int dist) {
     while(dist--) {
         if(*(curfile->input) == '\0')
@@ -34,6 +51,10 @@ void Lexer::readFile (string fileName) {
 
     fileStack[fileStackTop] = file;
     curfile = &fileStack[fileStackTop++];
+
+    //Preprocessing is done for all texts below the #define macro.
+    //And of course in the new file included.
+    preprocessDefine();
 
     fclose(fin);
 }
@@ -135,6 +156,16 @@ void Lexer::nextMacro () {
         string fileName = cm[1].str();
         move(cm[0].str().length());
         readFile(fileName);
+
+    // match #define ORIGINAL REPLACED
+    } else if (std::regex_search(curfile->input, cm, rDefine,
+            std::regex_constants::match_continuous)){
+        string original = cm[1].str();
+        string replaced = cm[2].str();
+        replace.push_back(std::make_pair(original, replaced));
+        move(cm[0].str().length());
+
+        preprocessDefine();
 
     // other macros treated as comments: skip
     } else if (std::regex_search(curfile->input, cm, rOtherMacro,
@@ -256,4 +287,8 @@ Token* Lexer::next() {
     //tokenCount does not move.
     } else return next();
 
+}
+
+void Lexer::process() {
+    while(next()->content != "EOF");
 }
