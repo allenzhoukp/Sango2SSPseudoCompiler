@@ -210,13 +210,31 @@ void Parser::newLocal(int type, string name) {
     var.type = type;
     var.name = name;
     var.no = currentFunc->localCount + 3; //local no starts from 3.
+    var.isArray = false;
     currentFunc->numberMapping.emplace(name, var.no);
     currentFunc->localCount++;
+}
+
+void Parser::newLocalArray(int type, string name, int len) {
+    Var& var = currentFunc->locals[currentFunc->localCount];
+    var.type = type;
+    var.name = name;
+    var.no = currentFunc->localCount + 3; //local no starts from 3.
+    currentFunc->numberMapping.emplace(name, var.no);
+    currentFunc->localCount++;
+    
+    var.isArray = true;
+    char buf[MAX_LINE_LEN];
+    for(int i = 0; i < len; i++){
+        sprintf(buf, "%d", i);
+        newLocal(type, "__" + name + "_" + string(buf));
+    }
 }
 
 void Parser::initParam(vector<Var> params) {
     for(int i = 0; i < params.size(); i++) {
         params[i].no = -(params.size() - i + 1);  //e.g. 7 params, first (idx=0) param has number -8. idx=1, no=-7, etc.
+        params[i].isArray = false;
 
         currentFunc->params[i] = params[i]; //maintain order in params[]
         currentFunc->numberMapping.emplace(params[i].name, params[i].no);

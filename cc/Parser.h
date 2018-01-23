@@ -85,6 +85,7 @@ private:
     string toCamel (string name);
 
     void newLocal (int type, string name);
+    void newLocalArray (int type, string name, int len);
     void initParam (vector<Var> params);
     int getLocalNoByName (string name);
     Var getLocalByName (string name);

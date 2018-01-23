@@ -43,10 +43,8 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
     int soldierSide = GetSoldierSide(soldier);
     SangoObject** pObjectListRoot = (SangoObject**) 0x4A64A0;
     if (!(GetSoldierCount(soldierSide) == 200)) {
-        SangoObject* pSoldier = (SangoObject *)(*pObjectListRoot + 0x0A8 * (soldier & 0xFFFF));
-        SangoObject* pTarget = (SangoObject *)(*pObjectListRoot + 0x0A8 * (target & 0xFFFF));
-        General* pSelfGeneral = pSoldier->pMother->pGeneral;
-        General* pEnemyGeneral = pTarget->pMother->pGeneral;
+        General* pSelfGeneral = (*pObjectListRoot)[soldier & 0xFFFF].pMother->pGeneral;
+        General* pEnemyGeneral = (*pObjectListRoot)[target & 0xFFFF].pMother->pGeneral;
         int selfSoldierType = pSelfGeneral->dwCurrentTroopType;
         int enemySoldierType = pEnemyGeneral->dwCurrentTroopType;
 
@@ -56,7 +54,7 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
 
         int newSoldier;
         //Chiinty: Requires a special CreateSoldier call
-        if(pTarget->pMother->dwFlags & 4)
+        if((*pObjectListRoot)[soldier & 0xFFFF].pMother->dwFlags & 4)
                 newSoldier = CreateSoldier(soldierSide, ScreenXToBattleX(targetScreenX) + 10000, ScreenYToBattleY(targetScreenY));
         else
                 newSoldier = CreateSoldier(soldierSide, ScreenXToBattleX(targetScreenX), ScreenYToBattleY(targetScreenY));

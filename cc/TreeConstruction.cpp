@@ -331,19 +331,72 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         //Currently, only direct locals supported
         //TODO direct intvs (not for instruction-call-intvs, i.e. GetINV())
-        //TODO pointers (used in an array-like style)
-        require(operatorTokenPos,
-            left->type == ExpNodeType::local,
-            "Operator [] can only be applied to local variables currently");
+        if(left->type == ExpNodeType::local && left->localVar.isArray) {
+            //The right operand of [] is the index.
+            expr(x->right, tokenPos, 0);
+            match(tokenPos, "]");
 
-        //The right operand of [] is the index.
-        expr(x->right, tokenPos, 0);
-        match(tokenPos, "]");
+            x->op = "[]";
+            x->type = ExpNodeType::binaryOp;
+            x->resultType = left->resultType;
+            x->isLvalue = true; //indeed.
 
-        x->op = "[]";
-        x->type = ExpNodeType::binaryOp;
-        x->resultType = left->resultType;
-        x->isLvalue = true; //indeed.
+        //For pointers, it behaves quite like ->.
+        //[] is appended only to a pointer (although can be any pointers except void pointers),
+        //and the result is *(pointer + offset).
+        //For struct pointers, [] results in a struct type. This will incur dotAndArrayInStruct().
+        //  However, this situation is NOT array in struct so it still have priority 8 (back).
+        //In all, it is a special form of ->.
+        } else if (isPtr(left->resultType) && left->resultType != DataTypes::typeVoidPtr) {
+            int type = left->resultType - (1 << 16);
+            int size;
+            StructInfo* info = NULL;
+            if(type == DataTypes::typeInt || type == DataTypes::typeUInt)
+                size = 4;
+            else if(type == DataTypes::typeShort || type == DataTypes::typeUShort)
+                size = 2;
+            else if(type == DataTypes::typeByte || type == DataTypes::typeUByte /* || type == DataTypes::typeString */)
+                size = 1;
+            else if(isPtr(type))
+                size = 4;
+            else {
+                info = getStructInfoByid(getStructIdByType(type));
+                size = info->size;
+            }
+
+            //value in [] will result in offset (value * size). * become x->right and size become y.
+            x->right = expNodePool.newNode();
+            x->right->type = ExpNodeType::binaryOp;
+            x->right->op = "*";
+            x->right->isLvalue = false;
+            x->right->resultType = DataTypes::typeInt;
+
+            ExpressionNode* y = expNodePool.newNode();
+            x->right->right = y;
+            y->type = ExpNodeType::intConst;
+            y->intValue = size;
+            y->isLvalue = false;
+            y->resultType = DataTypes::typeInt;
+
+            expr(x->right->left, tokenPos, 0);
+
+            //->
+            x->type = ExpNodeType::binaryOp;
+            x->resultType = type;
+            x->isLvalue = true; //well... it surely does. Imagine pListRoot[10].dwMp = 100;
+            x->op = "->";
+
+            match(tokenPos, "]");
+
+            //ptr is a struct: cannot be the result. Find dots.
+            if(isStruct(type))
+                x->resultType = dotAndArrayInStruct(x->right, tokenPos, type);
+
+        } else
+            require(operatorTokenPos, false,
+                "Operator [] can only be applied to local variables or non-void pointers currently");
+
+
 
     // Indeed complicated. New operator introduced for this!
     } else if (tryMatch(tokenPos, "->")) {
@@ -365,10 +418,6 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
         else
             x->resultType = directMember.type;
 
-        //TODO !!! looks like there is severe problem here, for the difference between resultType and ptrMemberType.
-        // this is indeed confusing. The more confusing thing is, there is even difference between string and string * in memory!
-        // We need to BE SURE what ptrMemberType of operator -> is.
-        //
         // Let's take an example. In struct A there is some member of int *, and let's name it i.
         // The result type of p->i should be int *. And for the pointer (p + offset(i)), it has an int ** type!
         //
@@ -380,7 +429,6 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
         // Include all types. 0=void, 1=int, 2=string, 3=float, 4=short, 5=byte, 6=uint, 7=ushort, 8=ubyte. 10 + struct id = structures.
         // For pointer, use the high bits. 3 | (2 << 16) is float **.
         // When taking the value of the address, subtract 1 << 16 from the type.
-        // Problem? Huge paraphrasing. Add an isNumeric() (returns type>>16 != 0 || type == int || type == ....). Change all type checks.
 
         x->type = ExpNodeType::binaryOp;
         x->op = "->";
@@ -464,6 +512,10 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
             x->resultType = getLocalByName(token.content).type;
             x->isLvalue = true;
             tokenPos++;
+
+            if(x->localVar.isArray && !see(tokenPos, "["))
+                require(tokenPos, false,
+                    "local arrays can only be accessed by operator []");
 
         //INTVs
         } else if(getIntvNoByName(token.content) != -1) {

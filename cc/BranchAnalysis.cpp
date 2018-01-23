@@ -361,10 +361,10 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
         int localType = type | (star << 16);
         require(tokenPos, getLocalNoByName(name) == -1,
             "there has already been a local variable named " + name);
-        newLocal(localType, name);
         tokenPos++;
 
         if(tryMatch(tokenPos, "=")) {
+            newLocal(localType, name);
             expr(tokenPos, true);
             out << "\t" << "POPN " << getLocalNoByName(name) << " ; " << name << endl;
 
@@ -374,14 +374,11 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
             require(tokenPos, immediate->type == ExpNodeType::intConst,
                 "array length should be an explicit integer constant");
 
-            //it requires a name! Or tryMatchAsm() will be stuck by regex searching.
-            char buf[MAX_LINE_LEN];
-            for(int i = 0; i < immediate->intValue; i++){
-                sprintf(buf, "%d", i);
-                newLocal(localType, "__" + name + "_" + string(buf));
-            }
+            newLocalArray(localType, name, immediate->intValue);
             match(tokenPos, "]");
-        }
+
+        } else
+            newLocal(localType, name);
 
     } while (tryMatch(tokenPos, ","));
 

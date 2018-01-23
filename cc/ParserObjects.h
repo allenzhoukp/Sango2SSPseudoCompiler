@@ -35,6 +35,7 @@ struct Var {
     int type;
     string name;
     int no;
+    bool isArray;
 };
 
 struct Syscall {
