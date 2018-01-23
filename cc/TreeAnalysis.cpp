@@ -223,7 +223,7 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
             changeToAssignment(x->op, x, stackDepth, remainReturnStack);
         }
 
-    //Backward ++/--: direct push (dealt in expr()).
+    //Backward ++/--: direct push (dealt in matchExpr()).
     } else if (x->op == "b") {
         if(!remainReturnStack) return;
         treeDFS(x->left, stackDepth);
@@ -583,13 +583,37 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     }
 }
 
-void Parser::expr(int& tokenPos, bool remainReturnStack) {
+void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackType) {
     // expr tree construction and analysis
     ExpressionNode* root = NULL;
     expr(root, tokenPos, 0);
+
     int stackDepth = 0;
     treeDFS(root, stackDepth, remainReturnStack);
-    //match(";");
+
+    if(remainReturnStack) {
+        switch(returnStackType) {
+
+        case DataTypes::typeFloat:
+            require(tokenPos, root->resultType != DataTypes::typeString,
+                "expected an expression with float value");
+            if(isInteger(root->resultType))
+                out << "\t" << "LTOF" << endl;
+            break;
+
+        //Auto cast to string? I think explicit cast will be better.
+        case DataTypes::typeString:
+            require(tokenPos, root->resultType == DataTypes::typeString,
+                "expected an expression with string value");
+            break;
+
+        default:
+            require(tokenPos, root->resultType != DataTypes::typeString,
+                "expected an expression with integer value (i.e. int, short, byte, unsigned integers and pointers)");
+            if(root->resultType == DataTypes::typeFloat)
+                out << "\t" << "FTOL" << endl;
+        }
+    }
 
     ExpressionNode* ppmm;
     while(!ppNodes.empty()) {
@@ -607,5 +631,5 @@ void Parser::expr(int& tokenPos, bool remainReturnStack) {
     if(stackDepth > 1 || (stackDepth == 1 && !remainReturnStack))
         printf("Warning: unexpected stack size increase for %d happens at %s, line %d.\n",
             stackDepth, tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo);
-            
+
 }

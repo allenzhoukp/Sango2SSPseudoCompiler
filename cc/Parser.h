@@ -63,10 +63,12 @@ private:
     //outputer
     std::ostringstream out;
 
+    //FixIdentifierLoader.cpp: load config files
     void loadSyscallTable ();
     void loadIntvTable ();
     void loadStructTable ();
 
+    //Parser.cpp: Auxillary functions
     bool isPtr (int type);
     bool isInteger(int type) ;
     bool isStruct(int type) ;
@@ -100,7 +102,7 @@ private:
     string getString (int no);
     void newString (string str);
 
-
+    //Expression node pool
     class ExpressionNodePool {
     private:
         ExpressionNode pool[MAX_LINE_LEN * 10];
@@ -112,8 +114,7 @@ private:
 
     } expNodePool;
 
-public:
-    Parser(Token* tokenList, int tokenCnt_);
+    //TreeConstruction.cpp: Construct expression tree in a single line, or expr(level = 0).
     void initExpNodeParamArray (ExpressionNode* x, int len);
     bool tryMatchSyscall(ExpressionNode* &x, int& tokenPos);
     bool tryMatchInst(ExpressionNode* &x, int& tokenPos);
@@ -126,6 +127,7 @@ public:
     void unary(ExpressionNode* &x, int& tokenPos);
     void expr(ExpressionNode* &x, int& tokenPos, int priority);
 
+    //TreeAnalysis.cpp: Destruct expression tree and generate code in a single line, or expr().
     void outputInst(ExpressionNode* x, int& stackDepth);
     void outputFuncCall(ExpressionNode* x, int& stackDepth);
     void outputGetValue(int type);
@@ -133,8 +135,9 @@ public:
     void outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack);
     void outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainReturnStack);
     void treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack = true);
-    void expr(int& tokenPos, bool hasResultStack);
+    void matchExpr(int& tokenPos, bool hasResultStack, int returnStackType = DataTypes::typeInt);
 
+    //BranchAnalysis.cpp: Dealt with branches, like functions, if, loops, asm blocks, etc.
     void outputLabel(string name);
     bool tryMatchAsm(int& tokenPos);
     bool tryMatchIf(int& tokenPos);
@@ -144,10 +147,19 @@ public:
     bool tryMatchLabelDecl (int& tokenPos) ;
     bool tryMatchJumps (int& tokenPos);
     bool tryMatchLocalDecl (int& tokenPos) ;
+    bool tryMatchAsynccall (int& tokenPos);
     void line(int& tokenPos);
 
     void matchFunc(int& tokenPos);
 
+    //Parser.cpp: Output things out of a function.
+    void outputStringDefs ();
+    void outputMagicTable ();
+    void outputStringTable ();
+
+public:
+    Parser(Token* tokenList, int tokenCnt_);
+    string str();
 };
 
 #endif

@@ -222,7 +222,7 @@ void Parser::newLocalArray(int type, string name, int len) {
     var.no = currentFunc->localCount + 3; //local no starts from 3.
     currentFunc->numberMapping.emplace(name, var.no);
     currentFunc->localCount++;
-    
+
     var.isArray = true;
     char buf[MAX_LINE_LEN];
     for(int i = 0; i < len; i++){
@@ -363,6 +363,37 @@ string Parser::toCamel (string name) {
     return name;
 }
 
+void Parser::outputStringDefs () {
+    vector<string> strings;
+    strings.resize(stringCount);
+    for(auto it = stringTable.begin(); it != stringTable.end(); ++it)
+        strings[it->second] = it->first;
+    for(int i = 0; i < stringCount; i++)
+        out << "STRING_" << i << ": DB \"" << strings[i] << "\"" << endl;
+    out << endl;
+}
+
+void Parser::outputMagicTable () {
+    out << "magic_table_addr:" << endl;
+    for(int i = 0; i < funcCount; i++)
+        out << "MAGIC_" << i << ": procedure "
+            << funcs[i].name << " "
+            << funcs[i].paramCount << " "
+            << "STRING_" << getStringNo(funcs[i].name) << " "
+            << funcs[i].callsign << endl;
+    out << endl;
+    out << "magic_table_end:" << endl;
+    out << endl;
+}
+
+void Parser::outputStringTable () {
+    out << "string_table_addr:" << endl;
+    for(int i = 0; i < stringCount; i++)
+        out << "DB STRING_" << i << endl;
+    out << endl;
+    out << "string_table_end:" << endl;
+}
+
 Parser::Parser(Token* tokenList, int tokenCnt_) {
     tokens = tokenList;
     tokenCount = tokenCnt_;
@@ -381,10 +412,29 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
     loadIntvTable();
     loadStructTable();
 
+    //asm header
+    out << "include \"predefine.inc\"" << endl;
+    out << "org 40h" << endl;
+    out << endl;
+
+    //body: functions
     int tokenPos = 0;
     while(tokenPos < tokenCount)
         matchFunc(tokenPos);
 
-    printf("%s", out.str().c_str());
+    //asm trailer
+    outputStringDefs();
+    outputMagicTable();
+    outputStringTable();
 
+    out << "file_end:" << endl;
+    out << "DB \"Script Object Creator: Henryshow\"" << endl;
+    out << "DB \"Pseudo Compiler Author: Allen Zhou\"" << endl;
+
+    //TEST
+    //printf("%s", out.str().c_str());
+}
+
+string Parser::str () {
+    return out.str();
 }

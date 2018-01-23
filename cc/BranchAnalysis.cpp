@@ -74,7 +74,7 @@ bool Parser::tryMatchAsm (int& tokenPos) {
 }
 
 //TODO: if, while, for and switch are NOT TESTED.
-//Temporary dealing with expr() (tree destruction) instead.
+//Temporary dealing with matchExpr() (tree destruction) instead.
 bool Parser::tryMatchIf (int& tokenPos) {
     if(!tryMatch(tokenPos, "if"))
         return false;
@@ -83,7 +83,7 @@ bool Parser::tryMatchIf (int& tokenPos) {
     string ifEnd = emitLabel("if_end");
 
     match(tokenPos, "(");
-    expr(tokenPos, true);
+    matchExpr(tokenPos, true, DataTypes::typeInt);
     match(tokenPos, ")");
 
     out << "\tJZ " << ifElse << "\n";
@@ -127,7 +127,7 @@ bool Parser::tryMatchWhile (int& tokenPos) {
 	// while brace
 	match(tokenPos, "while");
 	match(tokenPos, "(");
-	expr(tokenPos, true);
+	matchExpr(tokenPos, true, DataTypes::typeInt);
 	match(tokenPos, ")");
 
 	// condition not satisfied: break
@@ -170,7 +170,7 @@ bool Parser::tryMatchFor (int& tokenPos) {
 	outputLabel(loopStart);
 
 	//condition
-	expr(tokenPos, true); //won't match ";"
+	matchExpr(tokenPos, true, DataTypes::typeInt); //won't match ";"
 	match(tokenPos, ";");
 	out << "\t" << "JZ " << breakTo << endl;
 
@@ -178,7 +178,7 @@ bool Parser::tryMatchFor (int& tokenPos) {
 	//backup these contents.
 	std::ostringstream increment;
 	out.swap(increment); //previous content of out is now in increment
-	expr(tokenPos, false); //contents will be outputed to out; won't match ";"
+	matchExpr(tokenPos, false); //contents will be outputed to out; won't match ";"
 	out.swap(increment); //swap: out = previous content, increment = content just outputed
 
 	match(tokenPos, ")");
@@ -209,7 +209,7 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 	match(tokenPos, "(");
 
 	//variable
-	expr(tokenPos, true);
+	matchExpr(tokenPos, true, DataTypes::typeInt);
 
 	match(tokenPos, ")");
 
@@ -318,7 +318,7 @@ bool Parser::tryMatchJumps (int& tokenPos) {
 
     } else if (tryMatch(tokenPos, "return")) {
         if(currentFunc->returnType != DataTypes::typeVoid) {
-            expr(tokenPos, true);
+            matchExpr(tokenPos, true, currentFunc->returnType);
             int popToStack = (currentFunc->paramCount == 0 ? -2 : (-1 - currentFunc->paramCount));
             out << "\t" << "POPN " << popToStack << endl;
             out << "\t" << "RETN " << (-2 - popToStack) << endl;
@@ -365,7 +365,7 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
 
         if(tryMatch(tokenPos, "=")) {
             newLocal(localType, name);
-            expr(tokenPos, true);
+            matchExpr(tokenPos, true, localType);
             out << "\t" << "POPN " << getLocalNoByName(name) << " ; " << name << endl;
 
         } else if (tryMatch(tokenPos, "[")) {
@@ -383,6 +383,57 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
     } while (tryMatch(tokenPos, ","));
 
     match(tokenPos, ";");
+    return true;
+}
+
+bool Parser::tryMatchAsynccall (int& tokenPos) {
+    if(!tryMatch(tokenPos, "asynccall"))
+        return false;
+
+    //Get function reference
+    string name = tokens[tokenPos].content;
+    int funcNameID = getStringNo(name);
+
+    require(tokenPos,
+        funcNameID != -1 && funcNameMapping.find(name) != funcNameMapping.end(),
+        "function '" + name + "' not found!");
+
+    Function* func = funcNameMapping[name];
+
+    //output asynccall name
+    out << "\t" << "PUSHSTR " << funcNameID << " ; \"" << name << "\"" << endl;
+
+    //caller body
+    tokenPos++; //skip name
+    match(tokenPos, "(");
+
+    //get params
+    int param = 0;
+    if(!see(tokenPos, ")")) do {
+        matchExpr(tokenPos, true, func->params[0].type);
+        param++;
+    } while (tryMatch(tokenPos, ","));
+
+    std::ostringstream errmsg;
+    errmsg << "the number of parameters does not match. Required " << func->paramCount <<
+        " params, seen " << param;
+    require(tokenPos, param == func->paramCount, errmsg.str());
+
+    match(tokenPos, ")");
+    match(tokenPos, ";");
+
+    //CALLBS! filled with 0
+    while(param < 4) {
+        out << "\t" << "PUSH 0" << endl;
+        param++;
+    }
+
+    //Choose the inst to use.
+    if(param == 4)
+        out << "\t" << "CALLBS" << endl;
+    else
+        out << "\t" << "SYSCALL 0x31" << (param - 5) << ", (" << (param + 1) << " | (0 << 16)) ; CALLBS" << endl;
+
     return true;
 }
 
@@ -405,7 +456,8 @@ void Parser::line(int& tokenPos) {
          tryMatchSwitch(tokenPos) ||
          tryMatchJumps(tokenPos) ||
          tryMatchLocalDecl(tokenPos) ||
-         tryMatchLabelDecl(tokenPos))) {
+         tryMatchLabelDecl(tokenPos) ||
+         tryMatchAsynccall(tokenPos))) {
 
         //blocks
         if(tryMatch(tokenPos, "{")) {
@@ -416,7 +468,7 @@ void Parser::line(int& tokenPos) {
 
         //normal line
         } else {
-            expr(tokenPos, false);
+            matchExpr(tokenPos, false);
             match(tokenPos, ";");
         }
     }
@@ -444,6 +496,9 @@ void Parser::matchFunc(int& tokenPos) {
     require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
         "there has already been a function named " + currentFunc->name);
     funcNameMapping[currentFunc->name] = currentFunc;
+    newString(currentFunc->name); //important: this is for CALLBS use.
+    newLabel(currentFunc->name); //Function name is a label as well, though highly not recommended to jump to it...
+    out << currentFunc->name << ":" << endl; //Output function name
     tokenPos++;
 
     match(tokenPos, "(");
@@ -513,4 +568,5 @@ void Parser::matchFunc(int& tokenPos) {
         out << "\t" << "RETN " << currentFunc->paramCount << endl;
     }
 
+    out << endl;
 }

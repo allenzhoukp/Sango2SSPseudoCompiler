@@ -16,6 +16,7 @@ int main() {
     // }
 
     Parser* parser = new Parser(lexer->tokens, lexer->tokenCount);
+    printf("%s", parser->str().c_str());
 
     return 0;
 }

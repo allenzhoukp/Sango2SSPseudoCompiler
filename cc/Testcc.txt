@@ -1,3 +1,17 @@
+void function Sol13LongSpcSmokeFade(int smoke) {
+    PlaySound(smoke, "S013SND01", 255);
+    Delay(80);
+
+    SetObjectFlags(smoke, 262144); //OF_MIXER
+    SetObjectBrightness(smoke, 16);
+    for(int brightness = 16; brightness > 0; brightness--) {
+        Delay(3);
+        SetObjectBrightness(smoke, brightness);
+    }
+
+    FreeObjectByHandle(smoke);
+}
+
 void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
     int soldier = GetScriptLinkedObject();
     int soldierDir = GetObjectDir(soldier);
@@ -22,6 +36,8 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
         int targetScreenX = GetObjectScreenX(target);
         int targetScreenY = GetObjectScreenY(target);
         int smoke = CreateObjectRaw(targetScreenX, targetScreenY, 0, 0, 504);
+
+        /*
         __asm {
                 PUSHSTR "Sol13LongSpcSmokeFade"
                 PUSHARG smoke
@@ -30,7 +46,9 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
                 PUSH 0
                 CALLBS
         }
-        // asynccall Sol13LongSpcSmokeFade(smoke);
+        */
+        
+        asynccall Sol13LongSpcSmokeFade(smoke);
 
         break;
     }
