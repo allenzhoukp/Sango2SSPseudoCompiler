@@ -1,0 +1,9 @@
+GetGlobalVariable(index)         INST_09
+SetGlobalVariable(value, index)  SETARG
+GetINV(index)                    PUSHINV
+SetINV(value, index)             SETINV
+Delay(time)                      DELAY
+Wait(Function Name)              INST_45
+
+Note: INST_4F/50/52/53 are not supported now.
+Note: switch-case grammar (JCOND) is not supported now.
