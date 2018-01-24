@@ -319,7 +319,8 @@ string Parser::getString (int no) {
 }
 
 void Parser::newString (string str) {
-    stringTable.emplace(str, stringCount++);
+    stringTable.emplace(str, stringCount);
+    stringCount++;
 }
 
 StructInfo* Parser::getStructInfoByid (int id) {

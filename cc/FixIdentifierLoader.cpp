@@ -9,7 +9,7 @@ void Parser::loadSyscallTable () {
     char name[MAX_LINE_LEN];
 
     if(fin == NULL) {
-        printf("Unable to load SYSCALL_TABLE.txt!");
+        printf("Error: Unable to load SYSCALL_TABLE.txt!\n");
         exit(1);
     }
 
@@ -28,8 +28,10 @@ void Parser::loadIntvTable () {
     Intv intv;
     char name[MAX_LINE_LEN];
 
-    if(fin == NULL)
+    if(fin == NULL) {
+        printf("Warning: Unable to load INTV_TABLE.txt. You can't access intvs by name in this case\n");
         return;
+    }
 
     while(fscanf(fin, "%s %x", name, &intv.intvNo) != EOF) {
         intv.name = string(name);
@@ -44,38 +46,10 @@ void Parser::loadStructTable () {
     char buf[MAX_LINE_LEN];
     char line[MAX_LINE_LEN];
 
-    /*
-    while(!feof(fin)) {
-        StructInfo& info = structInfos[structInfoCount];
-        info.id = structInfoCount++;
-        fscanf(fin, "%s", buf);
-        info.name = toCamel(string(buf));
-        printf("%s\n", info.name.c_str());
-        fscanf(fin, "%i", &info.size);
-
-        while(true) {
-            fscanf(fin, "%s", buf);
-            if(strncmp(buf, "end", 3) == 0)
-                break;
-            StructMember& member = info.members[info.memberCount++];
-            sscanf(buf, "%x", &member.offset);
-            fscanf(fin, "%s", buf);
-            member.name = string(buf);
-            member.typeName = "";
-            //copy all non-comments into typeName.
-            char c;
-            while(isspace(c = fgetc(fin)));
-            member.typeName += c;
-            while(true) {
-                c = fgetc(fin);
-                if(c == ';' || c == '\n')
-                    break;
-                member.typeName += c;
-            }
-            while((c = fgetc(fin)) != '\n');
-        }
+    if(fin == NULL) {
+        printf("Warning: Unable to load STRUCT_TABLE.txt. Structure types are inaccessable in this case\n");
+        return;
     }
-    */
 
     while(!feof(fin)) {
         StructInfo& info = structInfos[structInfoCount];

@@ -318,9 +318,10 @@ bool Parser::tryMatchJumps (int& tokenPos) {
     } else if (tryMatch(tokenPos, "return")) {
         if(currentFunc->returnType != DataTypes::typeVoid) {
             matchExpr(tokenPos, true, currentFunc->returnType);
-            int popToStack = (currentFunc->paramCount == 0 ? -2 : (-1 - currentFunc->paramCount));
-            out << "\t" << "POPN " << popToStack << endl;
-            out << "\t" << "RETN " << (-2 - popToStack) << endl;
+            //int popToStack = (currentFunc->paramCount == 0 ? -2 : (-1 - currentFunc->paramCount));
+            //out << "\t" << "POPN " << popToStack << endl;
+            //out << "\t" << "RETN " << (-2 - popToStack) << endl;
+            out << "\t" << "INST_01 " << currentFunc->paramCount << endl;
 
         } else {
             out << "\t" << "RETN " << currentFunc->paramCount << endl;
@@ -485,6 +486,11 @@ void Parser::matchFunc(int& tokenPos) {
     require(tokenPos, currentFunc->returnType != -1,
         "invalid return type: " + typeName);
 
+    //NOTE added a special sign "naked". If such sign seen, the function body must be an __asm token.
+    bool naked = false;
+    if(tryMatch(tokenPos, "naked"))
+        naked = true;
+
     //Downward support: still accepts "function" token.
     tryMatch(tokenPos, "function");
 
@@ -495,7 +501,10 @@ void Parser::matchFunc(int& tokenPos) {
     require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
         "there has already been a function named " + currentFunc->name);
     funcNameMapping[currentFunc->name] = currentFunc;
-    newString(currentFunc->name); //important: this is for CALLBS use.
+
+    if(getStringNo(currentFunc->name) == -1)
+        newString(currentFunc->name); //important: this is for CALLBS use.
+        
     newLabel(currentFunc->name); //Function name is a label as well, though highly not recommended to jump to it...
     out << currentFunc->name << ":" << endl; //Output function name
     tokenPos++;
@@ -543,28 +552,36 @@ void Parser::matchFunc(int& tokenPos) {
         tokenPos++;
     }
 
-    //Backup the output - remember the STACK instruction in the front?
-    std::ostringstream functionContent;
-    out.swap(functionContent);
+    //Naked method: Everything is done by the user!
+    if(naked) {
+        bool asmMatched = tryMatchAsm(tokenPos);
+        require(tokenPos, asmMatched,
+            "a naked method can only have one __asm{} block as the function body");
 
-    //function body.
-    //Now it is possible to avoid bracks! Although really weird...
-    line(tokenPos);
-
-    //Restore the original output.
-    out.swap(functionContent);
-    //Adjust stack position
-    out << "\t" << "STACK " << currentFunc->localCount + 2 << endl;
-
-    //Output function body
-    out << functionContent.str();
-
-    //An extra RETN at the end of funtion when there's no return value
-    if(currentFunc->returnType != DataTypes::typeVoid) {
-        require(tokenPos, lineReturned,
-            "no explicit return at the end of the function body");
     } else {
-        out << "\t" << "RETN " << currentFunc->paramCount << endl;
+        //Backup the output - remember the STACK instruction in the front?
+        std::ostringstream functionContent;
+        out.swap(functionContent);
+
+        //function body.
+        //Now it is possible to avoid bracks! Although really weird...
+        line(tokenPos);
+
+        //Restore the original output.
+        out.swap(functionContent);
+        //Adjust stack position
+        out << "\t" << "STACK " << currentFunc->localCount + 2 << endl;
+
+        //Output function body
+        out << functionContent.str();
+
+        //An extra RETN at the end of funtion when there's no return value
+        if(currentFunc->returnType != DataTypes::typeVoid) {
+            require(tokenPos, lineReturned,
+                "no explicit return at the end of the function body");
+        } else {
+            out << "\t" << "RETN " << currentFunc->paramCount << endl;
+        }
     }
 
     out << endl;

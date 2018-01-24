@@ -200,13 +200,50 @@ bool Lexer::nextOperatorOrComment() {
 }
 
 bool Lexer::nextAsm() {
+    //There is problem for std::regex to process long strings.
+    //For other tokens there's no problem, but an __asm token can be very long...
+    /*
     if(std::regex_search(curfile->input, cm, rAsm, std::regex_constants::match_continuous)) {
         curtoken->type = TokenType::tokenAsm;
         curtoken->content = cm[1].str();
         move(cm[0].str().length());
         return true;
     }
-    return false;
+    */
+
+    if(strncmp(curfile->input, "__asm", 5) != 0)
+        return false;
+    move(5);
+
+    curtoken->type = TokenType::tokenAsm;
+    curtoken->content = "";
+
+    while(isspace(*curfile->input)) move(1);
+    if(*curfile->input != '{')
+        Panic::panic("Expect '{' after '__asm'", curfile->fileName, curfile->curln, curfile->curcol);
+    move(1);
+
+    bool disableRec = false;
+    while(true) {
+        if(*curfile->input == '"' && *(curfile->input - 1) != '\\')
+            disableRec = !disableRec;
+        else if(strncmp(curfile->input, "/*", 2) == 0)
+            disableRec = true;
+        else if(strncmp(curfile->input, "//", 2) == 0) {
+            disableRec = true;
+            move(1); 
+            *curfile->input = ';'; //special treatment: // is invalid in __asm block. switch to ;
+        } else if(*curfile->input == '\n' || strncmp(curfile->input, "*/", 2) == 0)
+            disableRec = false;
+
+        if(!disableRec && *curfile->input == '}' && *(curfile->input - 1) != '\\')
+            break;
+
+        curtoken->content += *curfile->input;
+        move(1);
+    }
+    move(1); //skip }
+    return true;
 }
 
 Lexer::Lexer (string rootFileName) {
@@ -214,6 +251,9 @@ Lexer::Lexer (string rootFileName) {
     tokens = new Token[MAX_FILE_LEN];
     fileStackTop = tokenCount = 0;
     readFile(rootFileName);
+
+    //sg2lang here!
+    readFile("sg2lang.h");
 }
 
 Lexer::~Lexer () {

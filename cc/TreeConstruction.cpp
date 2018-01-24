@@ -188,6 +188,7 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
         x->func = func;
         x->resultType = func->returnType;
         x->isLvalue = false;
+        tokenPos++;
 
         initExpNodeParamArray(x, func->paramCount);
 
@@ -199,6 +200,7 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
             require(tokenPos,
                 validateType(func->params[paramCount].type, x->params[paramCount]->resultType),
                 "parameter type not match");
+            paramCount++;
 
         } while (tryMatch(tokenPos, ","));
 

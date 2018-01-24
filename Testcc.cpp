@@ -88,3 +88,5 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
         FreeObjectByHandle(target);
     }
 }
+
+#include "magic.cpp"

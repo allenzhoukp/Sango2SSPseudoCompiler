@@ -42,23 +42,28 @@ void Parser::outputInst(ExpressionNode* x, int& stackDepth) {
 void Parser::outputFuncCall(ExpressionNode* x, int& stackDepth) {
     //caution: w/return value func requires at least one param!
     //if has return value but no param, a dummy param is required.
+    //ADD: the dummy is history. We have INST_01.
     bool hasReturnValue = x->func->returnType != DataTypes::typeVoid;
-    bool needDummy = hasReturnValue && x->func->paramCount == 0;
-    if(needDummy) {
-        out << "\t" << "PUSH 0 ; dummy" << endl;
-        stackDepth++;
-    }
+    // bool needDummy = hasReturnValue && x->func->paramCount == 0;
+    // if(needDummy) {
+    //     out << "\t" << "PUSH 0 ; dummy" << endl;
+    //     stackDepth++;
+    // }
 
     for(int i = 0; i < x->func->paramCount; i++)
         treeDFS(x->params[i], stackDepth);
-    out << "\t" << "CALL " << x->func->name;
+    out << "\t" << "CALL " << x->func->name << endl;
 
     stackDepth -= x->func->paramCount;
 
     //non-void function, add a stack depth for return value.
     //special: for has-dummy funccall, stack depth remains (origin + 1). No need for adding up.
-    if(hasReturnValue && !needDummy)
-        stackDepth++;
+    //ADD: the dummy is history. We have INST_01.
+    // if(hasReturnValue && !needDummy)
+    //     stackDepth++;
+
+    if(hasReturnValue)
+         stackDepth++;
 }
 
 //outputGet/SetValue uses the type of pointer (subtracted ptr).
@@ -182,7 +187,7 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
         //intv: must be int. Use INCINV.
         } else if (x->left->type == ExpNodeType::intv) {
             out << "\t" << (x->op == "++" ? "INCINV " : "DECINV ") << x->left->intvVar.intvNo
-                << " ; " << x->left->intvVar.name;
+                << " ; " << x->left->intvVar.name << endl;
 
             if(remainReturnStack) {
                 out << "\t" << "PUSHINV " << x->left->intvVar.intvNo
