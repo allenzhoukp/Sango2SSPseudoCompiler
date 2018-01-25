@@ -1,5 +1,6 @@
 #include "Lexer.h"
 #include "Panic.h"
+#include "Localization.h"
 
 void Lexer::preprocessDefine () {
     //It starts from input pointer.
@@ -91,7 +92,7 @@ bool Lexer::nextNumber () {
             sscanf(cm[0].str().c_str(), "%d", &curtoken->_number);
 
     } else {
-        Panic::panic("digit not match", curfile->fileName, curfile->curln, curfile->curcol);
+        Panic::panic(ErrMsg::digitNotMatch, curfile->fileName, curfile->curln, curfile->curcol);
         while(!isspace(*curfile->input))
             move(1);
         return false;
@@ -127,7 +128,7 @@ bool Lexer::nextString () {
         move(1);
 
     }
-    Panic::panic("string not match", curfile->fileName, curfile->curln, curfile->curcol);
+    Panic::panic(ErrMsg::stringNotMatch, curfile->fileName, curfile->curln, curfile->curcol);
     while(!isspace(*curfile->input))
         move(1);
     return false;
@@ -142,7 +143,7 @@ bool Lexer::nextIdent () {
         curtoken->type = TokenType::tokenIdent;
         return true;
     }
-    Panic::panic("ident not match", curfile->fileName, curfile->curln, curfile->curcol);
+    Panic::panic(ErrMsg::identNotMatch, curfile->fileName, curfile->curln, curfile->curcol);
     while(!isspace(*curfile->input))
         move(1);
     return false;
@@ -193,7 +194,7 @@ bool Lexer::nextOperatorOrComment() {
         return true;
     }
 
-    Panic::panic("Invalid operator", curfile->fileName, curfile->curln, curfile->curcol);
+    Panic::panic(ErrMsg::lexerInvalidOp, curfile->fileName, curfile->curln, curfile->curcol);
     while(!isspace(*curfile->input))
         move(1);
     return false;
@@ -220,7 +221,7 @@ bool Lexer::nextAsm() {
 
     while(isspace(*curfile->input)) move(1);
     if(*curfile->input != '{')
-        Panic::panic("Expect '{' after '__asm'", curfile->fileName, curfile->curln, curfile->curcol);
+        Panic::panic(ErrMsg::asmLeftBrace, curfile->fileName, curfile->curln, curfile->curcol);
     move(1);
 
     bool disableRec = false;
@@ -231,7 +232,7 @@ bool Lexer::nextAsm() {
             disableRec = true;
         else if(strncmp(curfile->input, "//", 2) == 0) {
             disableRec = true;
-            move(1); 
+            move(1);
             *curfile->input = ';'; //special treatment: // is invalid in __asm block. switch to ;
         } else if(*curfile->input == '\n' || strncmp(curfile->input, "*/", 2) == 0)
             disableRec = false;

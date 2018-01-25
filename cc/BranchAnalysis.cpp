@@ -1,4 +1,5 @@
 #include "Parser.h"
+#include "Localization.h"
 
 #include <cstdio>
 #include <cstring>
@@ -237,7 +238,7 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 			object(immediate, tokenPos);
 			require(tokenPos,
 				immediate->type == ExpNodeType::intConst,
-				"expected an integer constant here");
+				ErrMsg::requireIntegerConstant);
 			int value = immediate->intValue;
             delete immediate;
 
@@ -293,7 +294,7 @@ bool Parser::tryMatchLabelDecl (int& tokenPos) {
     //Shouldn't match existing label
     //NOTE it is not possible to totally avoid conflict. Those lines in __asm block remains unknown to us.
     require(tokenPos, !findLabel(tokens[tokenPos].content),
-        "label redefined");
+        ErrMsg::labelRedefined);
 
     newLabel(tokens[tokenPos].content);
     tokenPos += 2;
@@ -309,7 +310,7 @@ bool Parser::tryMatchJumps (int& tokenPos) {
 
     } else if (tryMatch(tokenPos, "goto")) {
         if(!findLabel(tokens[tokenPos].content)) {
-            printf("Warning %s, %d:%d: label %s not found in all non-asm blocks. Proceed at your own risk! \n",
+            printf(ErrMsg::labelNotFound,
                 tokens[tokenPos].fileName, tokens[tokenPos].lineNo, tokens[tokenPos].columnNo, tokens[tokenPos].content.c_str());
         }
         out << "\t" << "JMP " << tokens[tokenPos].content << endl;
@@ -349,18 +350,18 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
 
         //identifier token required
         require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
-            "invalid local variable name: it should only contains letters, numbers and '_', and should not start with numbers");
+            ErrMsg::localRequireIdentifier);
 
         //void * required
         if(type == 0)
             require(tokenPos, star != 0,
-                "invalid local variable type: void");
+                ErrMsg::voidLocal);
 
         //create local
         string name = tokens[tokenPos].content;
         int localType = type | (star << 16);
         require(tokenPos, getLocalNoByName(name) == -1,
-            "there has already been a local variable named " + name);
+            ErrMsg::localRedefined + name);
         tokenPos++;
 
         if(tryMatch(tokenPos, "=")) {
@@ -372,7 +373,7 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
             ExpressionNode* immediate = NULL;
             object(immediate, tokenPos);
             require(tokenPos, immediate->type == ExpNodeType::intConst,
-                "array length should be an explicit integer constant");
+                ErrMsg::requireIntegerConstant);
 
             newLocalArray(localType, name, immediate->intValue);
             match(tokenPos, "]");
@@ -396,7 +397,7 @@ bool Parser::tryMatchAsynccall (int& tokenPos) {
 
     require(tokenPos,
         funcNameID != -1 && funcNameMapping.find(name) != funcNameMapping.end(),
-        "function '" + name + "' not found!");
+        ErrMsg::functionNotFound1 + name + ErrMsg::functionNotFound2);
 
     Function* func = funcNameMapping[name];
 
@@ -415,8 +416,8 @@ bool Parser::tryMatchAsynccall (int& tokenPos) {
     } while (tryMatch(tokenPos, ","));
 
     std::ostringstream errmsg;
-    errmsg << "the number of parameters does not match. Required " << func->paramCount <<
-        " params, seen " << param;
+    errmsg << ErrMsg::funcParamNotMatch1 << func->name << ErrMsg::funcParamNotMatch2 << func->paramCount <<
+        ErrMsg::funcParamNotMatch3 << param;
     require(tokenPos, param == func->paramCount, errmsg.str());
 
     match(tokenPos, ")");
@@ -497,14 +498,14 @@ void Parser::matchFunc(int& tokenPos) {
     //Check name conflict and add to function name mapping
     currentFunc->name = tokens[tokenPos].content;
     require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
-        "invalid function name: it should only contains letters, numbers and '_', and should not start with numbers");
+        ErrMsg::funcNameIdentifier);
     require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
-        "there has already been a function named " + currentFunc->name);
+        ErrMsg::funcNameConflict + currentFunc->name);
     funcNameMapping[currentFunc->name] = currentFunc;
 
     if(getStringNo(currentFunc->name) == -1)
         newString(currentFunc->name); //important: this is for CALLBS use.
-        
+
     newLabel(currentFunc->name); //Function name is a label as well, though highly not recommended to jump to it...
     out << currentFunc->name << ":" << endl; //Output function name
     tokenPos++;
@@ -519,17 +520,17 @@ void Parser::matchFunc(int& tokenPos) {
         //typeName
         var.type = getType(tokenPos, true, typeName);
         require(tokenPos - 1, var.type != -1,
-            "invalid type name: " + typeName);
+            ErrMsg::invalidTypeName + typeName);
 
         //parameter name validity and conflicts
         require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
-            "invalid parameter name: it should only contains letters, numbers and '_', and should not start with numbers");
+            ErrMsg::localRequireIdentifier);
 
         var.name = tokens[tokenPos].content;
         for(auto it = params.begin(); it != params.end(); ++it){
             if(it->name == var.name){
                 require(tokenPos, false,
-                    "there has already been a parameter or local variable named " + var.name);
+                    ErrMsg::localRedefined + var.name);
                 break;
             }
         }
@@ -547,7 +548,7 @@ void Parser::matchFunc(int& tokenPos) {
     //match callsign
     if(tryMatch(tokenPos, "callsign")) {
         require(tokenPos, tokens[tokenPos].type == TokenType::tokenNum,
-            "callsign of a function must be an integer");
+            ErrMsg::requireIntegerConstant);
         currentFunc->callsign = tokens[tokenPos]._number;
         tokenPos++;
     }
@@ -556,7 +557,7 @@ void Parser::matchFunc(int& tokenPos) {
     if(naked) {
         bool asmMatched = tryMatchAsm(tokenPos);
         require(tokenPos, asmMatched,
-            "a naked method can only have one __asm{} block as the function body");
+            ErrMsg::nakedRequireAsm);
 
     } else {
         //Backup the output - remember the STACK instruction in the front?
@@ -578,7 +579,7 @@ void Parser::matchFunc(int& tokenPos) {
         //An extra RETN at the end of funtion when there's no return value
         if(currentFunc->returnType != DataTypes::typeVoid) {
             require(tokenPos, lineReturned,
-                "no explicit return at the end of the function body");
+                ErrMsg::noExplicitReturn);
         } else {
             out << "\t" << "RETN " << currentFunc->paramCount << endl;
         }

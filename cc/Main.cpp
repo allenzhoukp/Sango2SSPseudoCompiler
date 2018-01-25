@@ -9,10 +9,11 @@
 
 #include "Lexer.h"
 #include "Parser.h"
+#include "Localization.h"
 
 int main(int argc, char** argv) {
     if(argc != 2 && argc != 3) {
-        printf("Usage: ss <file>");
+        printf("%s", mainMessage.c_str());
         return 1;
     }
 

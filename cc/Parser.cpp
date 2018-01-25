@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "Panic.h"
+#include "Localization.h"
 
 #include <cstdio>
 #include <cstring>
@@ -48,7 +49,7 @@ bool Parser::see (int tokenPos, string s) {
 // match a token. If current token does not match s, panic.
 void Parser::match (int& tokenPos, string s) {
     if(!see(tokenPos, s))
-        Panic::panic("Error: expected " + s + ", found '" + tokens[tokenPos].content + "'",
+        Panic::panic(ErrMsg::require1 + s + ErrMsg::require2 + tokens[tokenPos].content + "'",
             tokens[tokenPos].fileName, tokens[tokenPos].lineNo, tokens[tokenPos].columnNo);
 
     tokenPos++;

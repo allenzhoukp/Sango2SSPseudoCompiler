@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "Panic.h"
+#include "Localization.h"
 
 #include <cstdio>
 #include <cstring>
@@ -58,8 +59,8 @@ bool Parser::tryMatchSyscall(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, ")");
 
         std::ostringstream errmsg;
-        errmsg << "the number of parameters does not match. Required " << syscall->paramCount <<
-            " params, seen " << paramCount;
+        errmsg << ErrMsg::parameterNotMatch1 << syscall->paramCount <<
+            ErrMsg::parameterNotMatch2 << paramCount;
         require(tokenPos - 1,
             paramCount == syscall->paramCount, errmsg.str());
 
@@ -93,7 +94,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         expr(x->params[0], tokenPos, 0);
 
         require(tokenPos, isInteger(x->params[0]->resultType),
-            "GetGlobal() requires an integer parameter");
+            ErrMsg::getGlobalIntParam);
 
         match(tokenPos, ")");
     }
@@ -105,11 +106,11 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 2);
         expr(x->params[0], tokenPos, 0);
         require(tokenPos, isInteger(x->params[0]->resultType),
-            "SetGlobal() requires integer parameters");
+            ErrMsg::setGlobalIntParam);
         match(tokenPos, ",");
         expr(x->params[1], tokenPos, 1);
         require(tokenPos, isInteger(x->params[1]->resultType),
-            "SetGlobal() requires integer parameters");
+            ErrMsg::setGlobalIntParam);
         match(tokenPos, ")");
     }
 
@@ -125,7 +126,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
         require(tokenPos, isInteger(x->params[0]->resultType),
-            "GetIntv() requires an integer parameter");
+            ErrMsg::getIntvIntParam);
         match(tokenPos, ")");
     }
     else if(tryMatch(tokenPos, "SetIntv")) {
@@ -136,11 +137,11 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 2);
         expr(x->params[0], tokenPos, 0);
         require(tokenPos, isInteger(x->params[0]->resultType),
-            "SetGlobal() requires integer parameters");
+            ErrMsg::setGlobalIntParam);
         match(tokenPos, ",");
         expr(x->params[1], tokenPos, 1);
         require(tokenPos, isInteger(x->params[1]->resultType),
-            "SetGlobal() requires integer parameters");
+            ErrMsg::setGlobalIntParam);
         match(tokenPos, ")");
     }
 
@@ -153,7 +154,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
         require(tokenPos, isInteger(x->params[0]->resultType),
-            "Delay() requires an integer parameter");
+            ErrMsg::delayIntParam);
         match(tokenPos, ")");
     }
     else if(tryMatch(tokenPos, "Wait") || tryMatch(tokenPos, "IsRunning")) {
@@ -164,7 +165,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
         require(tokenPos, isInteger(x->params[0]->resultType),
-            name + "() requires a string parameter");
+            name + ErrMsg::instRequireStringParam);
         match(tokenPos, ")");
     }
     else
@@ -199,14 +200,14 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
             expr(x->params[paramCount], tokenPos, 0);
             require(tokenPos,
                 validateType(func->params[paramCount].type, x->params[paramCount]->resultType),
-                "parameter type not match");
+                ErrMsg::paramTypeNotMatch);
             paramCount++;
 
         } while (tryMatch(tokenPos, ","));
 
         std::ostringstream err;
-        err << "function " << func->name << " requires " << func->paramCount <<
-            " parameter(s), found " << paramCount;
+        err << ErrMsg::funcParamNotMatch1 << func->name << ErrMsg::funcParamNotMatch2 << func->paramCount <<
+            ErrMsg::funcParamNotMatch3 << paramCount;
         require(tokenPos, paramCount == func->paramCount,
              err.str());
 
@@ -219,7 +220,7 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
 StructMember Parser::matchMember (int& tokenPos, int structType) {
     StructInfo* info = getStructInfoByid(getStructIdByType(structType));
     require(tokenPos, info->id != -1,
-        "Invalid struct * type");
+        ErrMsg::invalidStructPtr);
     int memberIndex = -1;
     for(int i = 0; i < info->memberCount; i++) {
         if(info->members[i].name == tokens[tokenPos].content) {
@@ -228,7 +229,7 @@ StructMember Parser::matchMember (int& tokenPos, int structType) {
         }
     }
     require(tokenPos, memberIndex != -1,
-        "struct member '" + tokens[tokenPos].content + "' not found in struct '" + info->name + "'");
+        ErrMsg::structMemberNotFound1 + tokens[tokenPos].content + ErrMsg::structMemberNotFound2 + info->name + "'");
 
     tokenPos++;
     return info->members[memberIndex];
@@ -307,13 +308,13 @@ int Parser::dotAndArrayInStruct (ExpressionNode* &nodePos, int& tokenPos, int st
                 getStructInfoByid(getStructIdByType(structOrArrayType))->id != -1)
             y->right->intValue = getStructInfoByid(getStructIdByType(structOrArrayType))->size;
         else
-            require(tokenPos, false, "invalid type for a struct-member array");
+            require(tokenPos, false, ErrMsg::invalidArrayInStructtype);
 
         expr(y->left, tokenPos, 0);
         match(tokenPos, "]");
 
     } else {
-        require(tokenPos, false, "invalid member access: structures or arrays in structures cannot be directly accessed");
+        require(tokenPos, false, ErrMsg::directAccess);
     }
 
     if(isStruct(structOrArrayType) || isResultAnArray)
@@ -396,7 +397,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         } else
             require(operatorTokenPos, false,
-                "Operator [] can only be applied to local variables or non-void pointers currently");
+                ErrMsg::notSupportedArray);
 
 
 
@@ -405,7 +406,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         require(operatorTokenPos,
             isStructPtr(left->resultType),
-            "Operator -> can only be applied to struct *");
+            ErrMsg::invalidArrowOp);
 
         StructMember directMember = matchMember(tokenPos, left->resultType);
         ExpressionNode* directMemberNode = createMemberNode(directMember);
@@ -441,7 +442,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         require(operatorTokenPos,
             left->isLvalue == true,
-            "Operator ++/-- requires an lvalue operand");
+            ErrMsg::ppmmLvalue);
 
         //set global sign.
         if(tokens[operatorTokenPos].content == "++")
@@ -517,7 +518,7 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
 
             if(x->localVar.isArray && !see(tokenPos, "["))
                 require(tokenPos, false,
-                    "local arrays can only be accessed by operator []");
+                    ErrMsg::localArrayDirectAccess);
 
         //INTVs
         } else if(getIntvNoByName(token.content) != -1) {
@@ -534,7 +535,7 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
            x->isLvalue = false;
 
         } else {
-            require(tokenPos, false, "Unknown identifier '" + token.content + "'");
+            require(tokenPos, false, ErrMsg::unknownIdentifier + token.content + "'");
             tokenPos++;
         }
 
@@ -544,7 +545,7 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
         match(tokenPos, ")");
 
     } else {
-        require(tokenPos, false, "Expected an expression, found '" + token.content + "'");
+        require(tokenPos, false, ErrMsg::expectedExpr + token.content + "'");
         tokenPos++;
     }
 
@@ -581,7 +582,7 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         //result type may be float or int. Pointers treated as int.
         //you can't place a negative in front of a string.
         require(currentTokenPos, x->left->resultType != DataTypes::typeString,
-            "A negative sign cannot be placed in front of a string value.");
+            ErrMsg::negativeString);
 
         if(x->left->resultType == DataTypes::typeFloat)
             x->resultType = DataTypes::typeFloat;
@@ -601,7 +602,7 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         //bit operations require integer operands.
         require(currentTokenPos,
             x->left->resultType != DataTypes::typeString && x->left->resultType != DataTypes::typeFloat,
-            "Operator ~ requires an integer operand.");
+            ErrMsg::opNotRequireInt);
 
         x->resultType = DataTypes::typeInt;
         return;
@@ -615,11 +616,11 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
         //Lvalue required!
         require(currentTokenPos,
             x->left->isLvalue,
-            "Operator ++/-- requires an lvalue operand (local variables, global variables, INTVs, etc.)");
+            ErrMsg::ppmmLvalue);
 
         require(currentTokenPos,
             x->left->resultType != DataTypes::typeString,
-            "Operator ++/-- cannot be used on a string");
+            ErrMsg::ppmmStringOperand);
 
         x->isLvalue = false; //You can't do something like (++i) = 6.
         x->resultType = x->left->resultType; //Float, int or ptr.
@@ -630,12 +631,11 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
 
         require(currentTokenPos,
             isPtr(x->left->resultType),
-            "Operator * can only be applied on pointers");
+            ErrMsg::starOnPointers);
 
         require(currentTokenPos,
             !isStructPtr(x->left->resultType) && x->left->resultType != DataTypes::typeVoidPtr,
-            "Operator * cannot be applied on a struct or void pointer. \n"
-            "Note Use operator -> to access struct members");
+            ErrMsg::starOnInvalidPointer);
 
         x->type = ExpNodeType::unaryOp;
         x->op = "*";
@@ -674,7 +674,7 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
                 typeCode == x->left->resultType ||
                     typeCode != DataTypes::typeVoid || x->left->resultType != DataTypes::typeString ||
                     !(isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat),
-                "invalid type cast to (" + typeName + ")");
+                ErrMsg::invalidTypeCast + typeName + ")");
 
             return;
         }
@@ -741,7 +741,7 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
             if(left->resultType == DataTypes::typeString || right->resultType == DataTypes::typeString)
                 require(operatorTokenPos,
                     left->resultType == DataTypes::typeString && right->resultType == DataTypes::typeString,
-                    "Can't apply operator " + x->op + " between a string and a non-string");
+                    ErrMsg::bothStringRequired1 + x->op + ErrMsg::bothStringRequired2);
 
             // logic result.
             // int == float -> float == float
@@ -773,7 +773,7 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
                   x->op == "*=" || x->op == "/=" || x->op == "-=") {
             require(operatorTokenPos,
                 left->resultType != DataTypes::typeString && right->resultType != DataTypes::typeString,
-                "Invalid operand type: string");
+                ErrMsg::invalidStringOperand);
 
             if(x->op[1] != '=')
                 // If one of operands has float value, then the result is float. int otherwise.
@@ -788,13 +788,13 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
                   x->op == "%=" || x->op == "<<=" || x->op == ">>=" || x->op == "&=" || x->op == "|=" || x->op == "^=") {
             require(operatorTokenPos,
                 left->resultType != DataTypes::typeString && right->resultType != DataTypes::typeString,
-                "Invalid operand type: string");
+                ErrMsg::invalidStringOperand);
 
             require(operatorTokenPos,
                 left->resultType != DataTypes::typeFloat && right->resultType != DataTypes::typeFloat,
                 x->op == "%"
-                    ? "Invalid operand type: float (Sango2 does not support % instructions for float)"
-                    : "Invalid operand type: float");
+                    ? ErrMsg::invalidModFloat
+                    : ErrMsg::invalidFloatOperand);
 
             x->resultType = DataTypes::typeInt;
 
@@ -805,7 +805,7 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
         //The-most-weirdo: assignments (requires lvalue)
         if(level == 0)
             require(operatorTokenPos, left->isLvalue,
-                "assignment operator requires an lvalue as left operand");
+                ErrMsg::assignmentLvalue);
 
     }
 }

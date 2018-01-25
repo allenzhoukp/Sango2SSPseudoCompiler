@@ -1,5 +1,6 @@
 #include "Parser.h"
 #include "Panic.h"
+#include "Localization.h"
 
 #include <cstdio>
 #include <cstring>
@@ -601,7 +602,7 @@ void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackTyp
 
         case DataTypes::typeFloat:
             require(tokenPos, root->resultType != DataTypes::typeString,
-                "expected an expression with float value");
+                ErrMsg::expectedFloatExpr);
             if(isInteger(root->resultType))
                 out << "\t" << "LTOF" << endl;
             break;
@@ -609,12 +610,12 @@ void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackTyp
         //Auto cast to string? I think explicit cast will be better.
         case DataTypes::typeString:
             require(tokenPos, root->resultType == DataTypes::typeString,
-                "expected an expression with string value");
+                    ErrMsg::expectedStringExpr);
             break;
 
         default:
             require(tokenPos, root->resultType != DataTypes::typeString,
-                "expected an expression with integer value (i.e. int, short, byte, unsigned integers and pointers)");
+                ErrMsg::expectedIntExpr);
             if(root->resultType == DataTypes::typeFloat)
                 out << "\t" << "FTOL" << endl;
         }
@@ -634,7 +635,7 @@ void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackTyp
         mmNodes.pop();
     }
     if(stackDepth > 1 || (stackDepth == 1 && !remainReturnStack))
-        printf("Warning: unexpected stack size increase for %d happens at %s, line %d.\n",
-            stackDepth, tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo);
+        printf(ErrMsg::stackSizeIncrease,
+            tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo, stackDepth);
 
 }
