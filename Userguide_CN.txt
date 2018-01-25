@@ -1,0 +1,360 @@
+三国2 Smart Script 伪代码编译器
+v0.9.0
+
+1. 说明
+这个编译器用于将C风格代码编译成符合三国2脚本格式的asm文件。
+源代码随编译器程序一同发布。
+编译器程序ss.exe是由cc文件夹下的伪代码，在MinGW32-GCC 6.3.0-1下，使用C++11标准编译的。
+
+压缩包下的文件有：
+a) 核心文件
+ss.exe              编译器本体
+sg2lang.h           包含内存操作所必须函数的头文件
+
+b) 样例文件
+Testcc.cpp 	            例子（源文件）
+
+c) 导入文件
+magic.cpp           可用于include的、原版magic.asm内容的源码
+system.cpp          可用于include的、原版system.asm内容的源码
+
+d) 注册出品内容
+sg2asm.exe          将asm文件编译为so文件的编译器（注册出品）
+predefine.inc       将asm文件编译为so文件所必须的头文件（注册出品，由我修改过）
+magic_inst.txt      指令集和系统调用(SYSCALL)的说明文件（注册出品，由我修改过）
+
+e) 编译器源码 (cc目录)
+
+f) 编译器配置文件 (config目录)
+config/SYSCALL_TABLE.txt    系统调用配置
+config/STRUCT_TABLE.txt     结构体配置（注册idb出品）
+config/INTV_TABLE.txt       INTV配置
+
+g) 其它
+LISENSE                    该源代码所遵守的MIT协议的内容
+Userguide_CN.txt           本说明文件
+makefile                   编译源码用文件
+
+
+
+2. 测试版说明
+该编译器尚为测试版本，可能尚有bug.
+如您发现bug，请及时与作者联系。在百度贴吧 @远帆97 即可，但请不要发私信，那玩意儿不大容易被看到。
+
+
+3. 使用说明
+以下内容将假定使用者具备编程基础，并且掌握至少一门C风格语言（包括但不限于：C, C++, C#, Java, Javascript, Python, Action Script）。
+如果您熟悉Pascal或Basic，编写适于该编译器的伪代码可能较为困难。但限于本人精力，暂时不支持Pascal或Basic风格的代码。
+(1) 将压缩包内文件和伪代码文件放在同一目录下。
+(2) 使用ss <源文件名> <目标文件名>进行编译。
+    i. 您可以在该目录下新建一个后缀名为.bat的文本文件，文件内输入ss <源文件名> <目标文件名>，（不带尖括号），保存后双击运行该bat文件。
+    ii. 您也可以用命令行直接运行该文件。切换到伪代码所在目录，然后输入ss <源文件名> <目标文件名> （不带尖括号），回车运行即可。
+(3) 如果编译一切顺利，ss.exe将会在同一目录下生成正常的目标文件。
+    如果您未指定目标文件名，则会生成ss.asm.
+(4) 生成的ss.asm原则上可直接被sg2asm.exe编译为.so文件。
+    注意：与v0.1 - v0.4版不同，未在源文件中定义的函数、常量（包括predefine.inc中的许多常量）将无法直接调用。
+(5) 如果一切顺利，您现在可以直接用sg2asm.exe将您需要编译的.asm文件编译。根据注册的说明，将会生成<文件名>.cds，将其改名为<文件名>.so即可。
+(6) .so文件复制到三国2目录下的script文件夹。您可能还需要在sango.ini中注册这一文件，如果它的名字不是magic.so或system.so的话。
+
+
+4. 语法结构
+基本语法结构绝大部分与C语言相同，但也存在差异。
+
+(1) 所有代码和变量声明都应在函数当中。
+
+(2) 函数格式：
+    返回值 [function] 函数名 (类型 参数1, 类型 参数2, ...) [callsign 调用代码] {
+        // 代码...
+    }
+    例如：
+    void Sol13LongSpcAttack (int attacker_soldier, int harm) callsign 29013 {
+        // code...
+    }
+    声明了一个名为Sol13LongSpcAttack的函数，无返回值，有两个int型参数 attacker_soldier, harm，调用代码为29013.
+    函数名必须由字母、数字和下划线构成，并且必须以（小写或大写）字母开头。区分大小写。
+    编译器会检查在有返回值的函数中，您是否返回了值。如果函数没有返回值，试图返回一个值会报错。
+    调用代码是可选的。在不声明调用代码的情形下，它将默认为0.
+
+(3) 调用代码即为magic.ini中的SCRIPT代号。
+    （当然，该代号除magic.ini外，也可能被exe代码或别的脚本代码引用。）
+    您也可以在Things.ini中用!XXXXX来调用它，适用的物件范围取决于您的exe。详见我在百度三国群英2吧的兵种特殊攻击一贴：http://tieba.baidu.com/p/3682361722）
+
+(4) 所有局部、全局变量均有类型。
+    程序运行时暗含三种类型：int, float, string (整型、浮点型、字符串型)。
+    除此之外，您也可以声明其它类型，包括：
+        a. 除int外的其他整型。这些整型包括 byte (1位整数), short (2位整数), 以及无符号整数 unsigned / unsigned int, unsigned short, unsigned byte.
+        b. 指针类型。包括: void *, 整型指针，字符串指针，结构体指针，以及指针的指针。
+           （本编译器使用的“指针”和一般意义的指针有一定差别。简单地说，它无法直接指向局部和全局变量，而是指向内存中的地址。）
+        c. 数组类型。
+    编译器会判断运算符的操作数、函数的实参等是否类型匹配。
+    尚不支持直接声明全局变量。如果您确实需要全局变量，请使用GetGlobal/SetGlobal指令。
+    变量名和参数名必须由字母、数字和下划线构成，并且必须以（小写或大写）字母开头。区分大小写。
+
+(5) 局部变量声明格式同C/Java/C#。类型在前，变量名在后。支持声明时直接赋值。
+    例如，以下语句声明了三个int型变量 x, y, z, 并把x初始化为1.
+        int x = 1, y, z;
+    您可以声明一维数组变量。在声明时，需用显式的整数指明数组的长度，方括号需放在变量名后（而不是类型名后）。
+        数组长度必须是常整数。
+        数组不支持立即赋值。
+    由于注册编译器的限制，您暂时无法声明浮点型常数。
+    例如，以下语法是支持的：
+        int i, j, k[10];
+		SangoObject* array[10];
+        string battleChant = "Ura!";
+        float zeroPointOne = 1 / (float) 10;
+	以下语法是不支持的：
+        int numbers[3] = {1,2,3};
+        int[3] length_in_front;
+		float constant_length_array[3*8];
+		void * dynamic_length_array[variable + 9];
+    变量作用域为整个函数。即便您在某个if或while的大括号内声明了变量，它在大括号外仍然有效。
+	在代码中，将函数的参数视同局部变量赋值是允许的。
+
+(6) 支持的运算符包括大部分常用运算符。
+        i.   算数运算符 +,-,*,/,%(求余数),-(取负)
+        ii.  按位运算符 <<(左移), >>(算术右移), &(按位与), |(按位或), ^(异或), ~(取反)
+        iii. 比较运算符 ==, !=, <, <=, >, >=
+        iv.  逻辑运算符 !(非)
+        v.   赋值运算符 =, +=, -=, *=, /=, %=, &=, |=, <<=, >>=, ^=
+        vi.  自增、自减运算符 ++, --
+        vii. 指针运算符 *(取值), ->(取指针所指结构体的参数成员的值)
+        viii.结构体运算符 .(操作结构体成员)
+        ix.  类型转换   (type name)
+
+    部分支持的运算符包括：
+        i.   逻辑运算符 &&, ||
+            （两侧的表达式都一定会被运算。即，a&&b, 即便a已经为假，b的值也会求出来。）
+
+    不支持的运算符包括：
+        i.   取引用运算符 & （您无法将指针直接指向局部或全局变量。）
+        ii.  三目运算符 ?:  （请使用if...else...）
+
+    注1: 类型转换可以实现整型、浮点型和字符串型之间的部分相互转化。如：
+         float one = (float) 1;
+         int i = 1;
+         string output = "i = " + ((string) i) + "; %k%%e%"
+         目前，整型和浮点型之间可互相转化（浮点型转为整型时会舍弃小数部分），并且它们都可以转化为字符串。但字符串不能转化为整型或浮点型。
+         除此之外，类型转换主要用于向编译器提供类型推导的便利。详见(7)。
+
+    注2: 不支持对浮点数使用 % 运算符，这是由于底层不存在MODF指令的缘故。
+         对于算术运算符，如果两操作数之一是浮点数，则结果是浮点数；否则结果是整数。
+         对于比较运算符，只支持同类型之间的比较和整型与浮点型之间的比较。（一个数和一个字符串将如何比较呢？）
+            字符串之间是可以比较的。详见magic_inst.txt中的CMPS、CMPZS、CMPLS、CMPGS、CMPLEFS、CMPGEFS指令。
+         所有按位运算符均仅用于整型。
+         除此之外，+ 运算符可以被用于连接两个字符串。例如， "a" + "b" == "ab" 会返回true.
+
+    注3: 自增、自减、赋值运算符本身有值。因而您可以放心地写出 int j = i++; 这样的语句。
+         （Btw: 这个功能实现起来真是见了鬼一样的麻烦。）
+
+(7) 允许指针类型。
+    本编译器使用的“指针”和一般意义的指针有一定差别。
+        底层上来说，它无法直接指向堆栈（因而无法指向局部变量）和全局变量，而是被用于指向群2EXE运行时的内存。
+    基于以上原因，本编译器不支持取地址运算符 &。
+    尽管如此，指针仍然至关重要。它指向EXE运行时的内存地址；您可以通过*, ->, ., []等运算符对内存中的数据进行方便直观的操作。
+
+    指针类型本质上是一种整型类型，它和整型可以隐式或显式地互相转化。
+    例如，以下代码声明了一个指向SangoObject指针（位于0x4A64A0内存地址处）的指针，并将0x4A64A0赋给intValue变量：
+        SangoObject** pObjectListRoot = (SangoObject**) 0x4A64A0;
+        int intValue = pObjectListRoot;
+
+    指针类型通过*运算符来进行取值。例如，以下代码将会取得0x4A64A0内存地址处的值：
+        SangoObject* firstObject = *(pObjectListRoot);
+
+    目前暂不支持float *型指针。由于目前暂时没有发现这样的需求，此功能被搁置。
+
+    对于结构体类型的指针，您需要知道：
+        1. 您无法声明结构体类型的变量，因为堆栈中无法储存结构体。但您可以声明指向内存中已有结构体的指针。
+        2. 结构体类型无法被当做左值进行赋值，即使您试图在结构体指针前加*运算符来实现此功能。
+        3. 结构体内部成员在config/STRUCT_TABLE.txt中配置。格式如：
+                SOLDIER_INFO 0x48
+                00000000 pGeneral        GENERAL *
+                00000004 field_4         int
+                00000008 x1              int
+                0000000C y1              int
+                00000010 x2              int
+                00000014 y2              int
+                00000018 pObject         SANGO_OBJECT *
+                (......)
+                end
+           声明了一个名为SOLDIER_INFO (您可以写作SoldierInfo；编译器会自动将全大写+下划线的名称转化为骆驼式命名法)
+           的结构体，它的大小为0x48个字节, 有若干个成员。
+           其中，以pObject为例，该成员偏移量为0x18, 类型为SANGO_OBJECT *（指向SangoObject变量的指针）。
+           （您可以忽略关于大小、偏移量之类的底层细节。许多时候，一个结构体的成员名和类型才是程序员关心的核心问题。）
+           （STRUCT_TABLE.txt中的信息直接截取自注册的idb. 它并非完全准确，且有大量未命名成员。
+             因而欢迎您对其中的成员变量名称作出更准确的解释，也欢迎您修改该文件，并将其与群英2修改社区分享。）
+
+        4. 为取得结构体成员的值，您需要使用->运算符。例如：
+                int x1 = pSoldierInfo->x1;
+           这会取得类型为SoldierInfo* 的指针pSoldierInfo指向的结构体中，x1成员的值。
+
+        5. 许多结构体内部有数组成员，或内嵌结构体。最典型的是BATTLE_USER_INFO (BattleUserInfo):
+                BATTLE_USER_INFO 0x38F8
+                00000000 pMajorInfo      MAJOR_INFO
+                00000048 pGeneral        GENERAL *
+                0000004C nGatherTick     int
+                (...)
+                000000B0 field_B0        int
+                000000B4 pSoldierInfo    SOLDIER_INFO 200 dup
+                000038F4 dwPadding       int
+                end
+           它内嵌了一个MAJOR_INFO(MajorInfo)结构体，以及一个长度为200的SOLDIER_INFO(SoldierInfo)数组（也就是200个内嵌结构体）。
+           对于这种情况，您可以使用[], .两个运算符。例如，为取得第100个SoldierInfo的pObject，您可以使用如下代码：
+
+                SangoObject* obj = pBattleUserInfo->pSoldierInfo[100].pObject;
+
+           隐含意义为：使用pBattleUserInfo->pSoldierInfo[100]获得一个结构体；对于此结构体，用.运算符存取成员。
+
+        6. 尽管指针功能强大，但如果您只是用来编写武将技，未必需要涉足指针。
+           所有的物品物件都可以用一种称之为handle的类型进行指代，并且多数SYSCALL只和handle类型打交道。
+           handle类型是一种整型。例如，以下代码取得一个士兵的物件：
+                int attackerSoldier = GetScriptLinkedObject();
+
+(8) 支持的分支结构包括：
+        if...else if...else
+        while
+        do...while
+        for
+        goto
+        switch
+    在for循环的第一部分声明变量是被允许的。同样地，该变量的作用域是整个函数。
+    编译器会检查您定义的标签是否重名，但不包括__asm块中的标签。
+    您的确可以强行goto到另一个函数当中，尽管由于这可能导致RETN指令导致的堆栈混乱，我们强烈不推荐您这么做。
+    您定义的标签并不一定总是合法的，这是因为注册编译器 sg2asm.exe 会拒绝连续三个标签指向同一处，而编译器有时会连续声明2个标签。
+        如果遇到这种情况，您暂时只能以直接改变asm文件的方式将标签精简。
+
+(9) 支持全部原有的系统调用。您可以在config/SYSCALL_TABLE.txt中查看它们的声明。
+    SYSCALL_TABLE.txt每行由4部分组成，从左到右分别是编号、参数个数、返回值类型(0-无，1-整型，3-字符串)、函数名。
+    例如：
+        0x10 5 1 CreateObjectRaw
+    声明了一个编号为0x10，有5个参数，有整型返回值，名字为CreateObjectRaw的函数。
+    如果您需要增加SYSCALL，您可以把现有的、但表中没有的SYSCALL加入到表中。
+    （所有已知的SYSCALL可参见magic_inst.txt文件。）
+    您可以改变config/SYSCALL_TABLE.txt的内容。但通常而言，除了更名和系统调用本身被修改的情况以外，我们不推荐您这么做。
+
+(10) 支持以下系统指令：
+     i.  全局变量操作（全局变量用编号表示；注意，系统已经使用了不少的全局变量，当心冲突。）
+         GetGlobal(int index)                 INST_4F
+         SetGlobal(int index, int value)      INST_52
+     ii. intv操作（很抱歉我不知道注册用该缩写代表什么含义，但您可以用它取得许多信息，如场上的攻击、防守方武将等。详见predefine.inc。）
+         GetIntv(int index)                   PUSHINVR
+         SetIntv(int index, int value)        SETINVR
+     iii. 其它（Delay：使程序暂停一段时间；Wait：等待某个正在运行的函数调用完毕后程序再继续；isRunning：检查函数是否正在运行）
+         Delay(int time)                      DELAY
+         Wait(string functionName)            INST_45
+         isRunning(string functionName)       INST_46
+
+     您可以像调用函数一样正常地调用它们，并且可以在表达式中包括它们。
+     例如：
+         int attackerMajor = GetINV(INTV_ATTACKER_MAJOR);
+     和之前版本不同的是，所有系统指令目前完全支持运行时才能确定值的变量。您可以像正常的函数一样使用它。
+     目前，所有全局变量和intv只有整型。
+
+     您还可以直接像局部变量一样使用部分已定义的intv。这些intv的命名在config/INTV_TABLE.txt中。
+     例如，当该文件部分内容如下时，为取得2号intv的值，您可以直接用intvAttackerMajor代替GetIntv(2)：
+         intvPeroid					0x00
+         intvAttackerMajor		    0x02
+         intvDefenderMajor		    0x03
+         intvMagicAttackValue	    0x04
+     您也可以对intv进行赋值。例如，intvCurrentYear = 200; 将把当前年份设为200年。
+
+(11) 支持同时运行多个函数（即异步调用）。当您以asynccall方式调用函数时，它会和接下来的代码一起执行。
+      （它的另一个比较熟悉的名字是CALLBS，但我觉得Call by String并不能揭示这种函数调用方法的本质。）
+      语法：
+          asynccall 函数名(参数);
+      例如：
+          asynccall Sol13LongSpcSmokeFade(smoke);
+
+      以此法调用的函数返回值没有意义，毕竟调用的函数还没运行完，您的程序就执行到下一行了。
+      因此，您必须使它单独成一行，而不能包括在一个表达式里。
+      例如，下面的写法是不受支持的：
+          int return_value = asynccall GetValue();
+      用此法调用的函数至多有9个参数。
+
+      您不可以以异步调用方式调用系统调用(SYSCALL)或系统指令。这是脚本语言本身所不允许的。
+
+(12) 您可以使用#define 宏定义来替换代码中的内容。格式如下（不包括尖括号）：
+          #define <原内容> <替换内容>
+     然而，您需要非常小心：这本质上是一个简单粗暴的字符串替换过程。
+     例如：
+        #define OBJECT_LIST_ROOT (SangoObject**) 0x4A64A0
+     将会把该行以下所有内容中的 OBJECT_LIST_ROOT 看成 (SangoObject**) 0x4A64A0.
+     通常而言，此方法用于定义常量。
+     #define行不需要分号进行结尾。除非分号确实是您需要替换的内容的一部分，否则请不要在行末加分号。
+
+(13) 您可以使用#include 宏定义来导入其它文件中的内容。格式如下（二者选其一，包括引号或尖括号）：
+          #include "文件名"
+          #include <文件名>
+     请注意，您不需要#include "sg2lang.h"。它会在编译时自动导入。
+     编译器不检测循环嵌套，请务必小心！
+
+(14) 您可以用 // 来定义单行注释，以 /* */ 定义多行注释。
+
+(15) 直接编写底层代码
+     如果您遇到了本编译器不支持的内容，或是您需要严格控制效率，或是别的原因，您可以直接编写底层代码。
+     底层代码需要用__asm{}语句块括起来。如：
+         __asm {
+                 PUSHSTR "Sol13LongSpcSmokeFade"
+                 PUSHARG smoke
+                 PUSH 0
+                 PUSH 0
+                 PUSH 0
+                 CALLBS
+         }
+    您可能已经注意到了代码中直接使用了字符串常量和局部变量名。编译器将对这些进行自动替换，因而您可以不必关心局部变量和字符串的编号这样的细节问题。
+    除此之外，编译器还支持完全用底层方法编写的函数。此类函数需在返回值类型后加入 naked 标识符，并且函数体应只包括一个外面不再套大括号的__asm{}块。如：
+        int naked function GetByte (int address)  __asm {
+            PUSHARG address
+            PUSH INTV_ARRAY_BASE
+            SUB
+            PUSH 2
+            SHR
+            PUSHINVR 0  // data0 = array_base[(address - array_base)]
+            PUSHARG address
+            PUSH INTV_ARRAY_BASE
+            SUB
+            PUSH 0x03
+            AND
+            PUSH 3
+            SHL
+            SHR
+            PUSH 0xFF
+            AND         // result = (data0 >> ((address - array_base) % 4 * 8)) & 0xFF;
+            INST_01 1
+        }
+    编译器不对底层代码进行任何检查。因此，您需要额外注意自己编写的代码。
+
+(16) 暂不支持对全局变量、INTV的间接寻址（数组）操作。您可能仍然需要用直接编写asm代码的形式完成这些功能。
+
+
+5. 编译
+您可能会发现您的代码出现编译错误。这可能是因为您的代码中存在问题，也可能是存在编译器不支持的语法结构，也可能是编译器出错(bug)。
+目前，编译错误信息由GB2312编码的中文输出。如果您的代码页被指定为UTF-8或其它编码，请在命令行中输入：
+    chcp 936
+来指定系统命令行所使用的编码。
+如果您怀疑是bug所致，请及时与我联系。
+一个错误会导致后续的连环错误，因为第一个错误可能会使得编译器无法识别后面的正常代码。因此请先从第一个错误开始改起。
+如果您发现编译器不停地报出若干个相同的错误，请忽略那些相同的错误。
+另外，您也可能发现编译器没有对您的代码错误作出反应。编译器不进行空指针等一些可能导致运行时出错的问题，这类问题不应由编译器负责。
+
+
+6. 运行
+显然，您需要将生成的asm文件通过任何方式编译为.so文件才能运行。
+    本编译器只能生成中间代码（即类汇编的asm格式），但您可以直接在此之后调用sg2asm.exe来生成.so文件。详见开头使用说明部分。
+如果您需要调试，使用调试器进行源代码上的调试是困难的。
+    目前最常见的调试器是注册EXE（您可以在注册网盘上找到v0.522版本的），而它是基于asm格式的代码的。因而您可能仍然需要一些三国2脚本的知识。
+    为应对调试需求，您可以使用系统调用中的Prompt函数，让屏幕上弹出对话框，以显示您需要的信息。
+
+
+7. 鸣谢和声明
+编译器中表达式分析的部分受到了 Sam Nipps 编写的 mini-c 的启发。感谢 Sam Nipps 的工作。(github: https://github.com/Fedjmike/mini-c)
+编译器中Lexer的部分参考了 陈安 的 Parser教程。感谢 陈安 的工作。(https://zhuanlan.zhihu.com/p/26142441)
+源代码在MIT License下开放，详见LICENSE.
+
+
+8. 后续
+该编译器原本是为了“群英2武将技自制教程”进行铺垫，但该教程尚未开始编写。
+考虑到群英2修改界中，有C风格语言编程基础的人并不多，该教程的编写难度可能会很高；目前以我的时间和精力，恐怕未必能保证该教程能顺利完成。不过还是敬请期待。
+
+
+远帆
+2018/1/25

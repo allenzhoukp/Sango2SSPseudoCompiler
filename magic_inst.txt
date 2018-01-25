@@ -1,0 +1,882 @@
+﻿;远帆：这个文件是注册写的，原文未做改动，凡分号后面的内容都是我自己的注释，不能代表注册原意。
+;2017.7.21加注：补充完所有的指令的用途，并测试了一部分。可见该虚拟机可完成的事情还是很多的，尤其是经常被忽略的字符串处理。
+;   现在完全可以用prompt + INST_49来调试了！只需要将需要测试的值推入栈中，然后INST_49转为字符串，即可prompt之。可以手动用ADDS加上一个"%k%%e%"来让它在屏幕上待久一点。
+;2017.7.24加注：补充完除SYSCALL 0x10E外的所有系统调用的用途，并测试了一部分。
+
+架构：
+     无寄存器，只有stack的CPU.
+     每个stack占位 8byte.
+     前4byte = 值
+     后4byte = 值类型 (已知 0-数值型   2-字符串型,值表示字符串的地址)
+
+     每条指令执行结果为1表示继续执行。
+     为0表示中断执行，返回系统。
+          助记符	返回值	参数1	参数2	含义
+Inst_00 : NOP		1		--		--		空操作
+	; 编译器不认，会报错。反汇编出来的东西不删掉NOP编译不了。
+
+Inst_01 :
+	指令流程：
+	1. 读下一个DWORD(参数)	arg_0
+	2. 弹出栈顶	var_0
+	3. ...
+	; 猜想：似乎是以栈顶为返回值的RETN。参数1的值为函数的参数总量。
+	; 例如，某函数3参数1返回值，在返回前压入返回值，然后INST_01 3。
+	; 目前一般用RETN(即INST_02)实现。如果用RETN实现，在上面的例子中，应将返回值POPN -4, 然后RETN 2。
+	; 此指令的具体作用待证实。
+
+Inst_02 ：RETN		1		n		--		函数返回，栈底n个为预置参数，无需释放。
+	; 弹掉n个之前压入的参数。可以留下若干个作为返回值。
+	; 例如，某函数3参数1返回值，结尾应是RETN 2，返回值应放在栈底的arg -4中。
+
+Inst_03 : INCS		1		n		--		堆栈增长n个值
+	; 助记符是STACK
+
+Inst_04	: CALL		1		addr	--		调用addr的子程序
+	指令流程：
+	1. PUSH RetAddr
+	2. PUSH nStackCount
+	3. JMP addr
+
+Inst_05 : ICALL		1		Index	un1		调用内部函数，函数索引和含义参见system call。
+	; 助记符是SYSCALL
+
+Inst_06 : PUSH		1		para1	--		将para1压栈
+
+Inst_07 : PUSHS		1		index	--		将script中的第index个字符串压栈
+	; 助记符是PUSHSTR
+
+Inst_08 : PUSHARG	1		n		--		以当前运行上下文的基本堆栈值为中心，压入第n个参数
+    注意：
+        当n = 0时，为当前上下文的第一个变量
+        当n > 0时，为当前上下文的第n+1个变量
+        当n < 0时，为当前上下文的第n个参数
+
+Inst_09 : INST_09	1		n		--		压入第n个全局变量(?Top_Stack)
+
+Inst_0A : IPUSH		1		n		--		将内部数组(地址0x4A6878)的第n个数值压栈
+	; 助记符是PUSHINV
+
+Inst_0B : POP1		1		n		--		将栈顶的参数弹栈，并移动到第n个变量。 0值为当前栈顶，1为栈顶-1，依次类推。
+	; 助记符是POPN
+
+Inst_0C : POP2		1		n		--		[可能] 将栈顶的参数弹栈，并放到第n个参数。 同Inst_08的中心点
+	; 并不是。按照对sg2asm.exe的反汇编结果，该指令应为SETARG（设置全局变量）。
+	; 即，将栈顶值赋值给指定的全局变量。
+	; 例： PUSH 1 SETARG 9 表示令第9个全局变量的值为1.
+
+Inst_0D : ISET		1		n		--		将内部数组(地址0x4A6878)的第n个参数设为栈顶的值。
+	; 助记符是SETINV
+	指令流程：
+	1. ReadNextDword	--> i
+	2. PopStack		-->value
+	3. InternalArray[i] = value.
+
+
+Inst_0E : POP		1		--		--		栈顶值弹栈并丢弃
+
+Inst_0F : ADD		1		--		--		弹出栈顶2个参数相加并压栈。
+	指令流程：
+	1. PopStack		--> a1
+	2. PopStack		--> a2
+	3. Push (a1+a2)
+
+Inst_10 : ADDF		1		--		--		弹出栈顶2个参数(浮点数)相加并压栈
+	指令流程：
+	1. PopStack		--> f1 : float
+	2. PopStack		--> f2 : float
+	3. Push (f1+f2)
+    ; 警告：所有浮点运算，必需确保两操作数均为浮点数。如果有整数，需手动用LTOF指令转换成浮点数。
+    ; 否则，执行的时候EXE会很开心地直接把整数变量当浮点数变量处理（维持字节不变），产生意外后果。
+
+Inst_11 :
+	; 助记符是ADDS。作用：字符串连接。
+
+Inst_12 : SUB		1		--		--		栈顶2数相减并压栈  (整数)
+	指令流程：
+	1. PopStack		--> a1
+	2. PopStack		--> a2
+	3. Push (a1-a2)
+	;总之是先PUSH的减去后PUSH的就对了。PUSH 3   PUSH 2   SUB得到的是1. 除法和取模（求余）同理。
+
+Inst_13 : SUBF		1		--		--		栈顶2数相减并压栈  (浮点数)
+
+Inst_14 : MUL		1		--		--		栈顶2数相乘并压栈  (整数)
+	指令流程：
+	1. PopStack		--> a1
+	2. PopStack		--> a2
+	3. Push (a1*a2)
+Inst_15 : MULF		1		--		--		栈顶2数相乘并压栈  (浮点数)
+
+Inst_16 : DIV		1		--		--		栈顶2数相除并压栈  (整数)
+	指令流程：
+	1. PopStack		--> a1
+	2. PopStack		--> a2
+	3. Push (a1/a2)
+Inst_17 : DIVF		1		--		--		栈顶2数相除并压栈  (浮点数)
+
+Inst_18 : MOD		1		--		--		栈顶2数相除并将余数压栈  (整数)
+	指令流程：
+	1. PopStack		--> a1
+	2. PopStack		--> a2
+	3. Push (a1%a2)
+
+Inst_19 : OP_19		1		--		--		栈顶2数出栈，并将0压栈 (整数)
+	; 助记符为NOP19. 我怀疑这条指令到底出现过没有。
+
+Inst_1A : NEG		1		--		--		栈顶参数改变符号 (整数)  (注意：取反+1)
+
+Inst_1B : NEGF		1		--		--		栈顶参数改变符号 (浮点数)
+
+Inst_1C : NOT		1		--		--		栈顶参数取反
+
+Inst_1D : INC		1		n		--		当前函数堆栈的倒数第n个参数++。	n = 1时为栈顶
+	; 助记符为INCN.
+
+Inst_1E : INC		1		n		--		上层函数堆栈的第n个参数++。	(参照Inst_08) ?
+	; 助记符为INCARG. （大概指的是全局变量。上层函数是啥？）
+
+Inst_1F : IINC		1		n		--		内部数组的第n个值++
+	; 助记符为INCINV.
+
+Inst_20 : DEC		1		n		--		当前函数堆栈的倒数第n个参数++。	n = 1时为栈顶
+	; 助记符为DECN. 实际上是--，注册复制粘贴忘改了。
+
+Inst_21 : DEC		1		n		--		上层函数堆栈的第n个参数--。
+	; 助记符为DECARG. 类同INCARG.
+
+Inst_22 : IDEC		1		n		--		内部数组的第n个值--
+	; 助记符为DECINV. 类同INCINV.
+
+Inst_23 : AND		1		--		--		栈顶2数相与并压栈
+
+Inst_24 : OR		1		--		--		栈顶2数相或并压栈
+
+Inst_25 : XOR		1		--		--		栈顶2数异或并压栈
+
+Inst_26 : CMP		1		--		--		栈顶2数相等则将1压栈，否则将0压栈
+
+Inst_27 : CMP		1		--		--		栈顶2数相等则将1压栈，否则将0压栈  -- exe如此
+	; 助记符为CMPF
+
+Inst_28 :
+	; 助记符为CMPS。含义大致等于strcmp(str1, str2) == 0（或可能更接近于strncmp(str1, str2, strlen(str1)) == 0）
+    ; 也就是字符串相等时将1压栈，否则将0压栈。
+
+Inst_29 : CMPZ		1		--		--		栈顶2数相等则将0压栈，否则将1压栈
+
+Inst_2A : CMPZ		1		--		--		栈顶2数相等则将0压栈，否则将1压栈
+	; 助记符为CMPZF
+
+Inst_2B :
+	; 助记符为CMPZS
+
+Inst_2C : CMPG		1		--		--		栈顶 > 栈顶-1 则将1压栈，否则将0压栈
+	; 都是先压的和后压的比较。如，PUSH 1   PUSH 0   CMPG将得到1. 下面的几个比较指令同理。
+
+Inst_2D : CMPGF		1		--		--		栈顶 > 栈顶-1 则将1压栈，否则将0压栈 (浮点数)
+
+Inst_2E :
+	; 助记符为CMPGS
+
+Inst_2F : CMPGE		1		--		--		栈顶 >= 栈顶-1 则将1压栈，否则将0压栈
+
+Inst_30 : CMPGEF	1		--		--		栈顶 >= 栈顶-1 则将1压栈，否则将0压栈 (浮点数)
+
+Inst_31 :
+	; 助记符为CMPGEFS (??? 注册你认真的？)
+
+Inst_32 : CMPL		1		--		--		栈顶 < 栈顶-1 则将1压栈，否则将0压栈
+
+Inst_33 : CMPLF		1		--		--		栈顶 < 栈顶-1 则将1压栈，否则将0压栈 (浮点数)
+
+Inst_34 :
+	; 助记符为CMPLS
+Inst_35 : CMPLE		1		--		--		栈顶 <= 栈顶-1 则将1压栈，否则将0压栈
+
+Inst_36 : CMPLEF	1		--		--		栈顶 <= 栈顶-1 则将1压栈，否则将0压栈 (浮点数)
+
+Inst_37 :
+	; 助记符为CMPLEFS (???)
+
+Inst_38 : CMPZ		1		--		--		栈顶为0时，则将1压栈，否则将0压栈
+	; 助记符为ZERO。 按照注册所说的语义，应该等同于逻辑非 !
+
+Inst_39 : CMPZ2		1		--		--		栈顶 or 栈顶-1为0时，则将0压栈，否则将1压栈
+	; 助记符为ORNZ.  按照注册所说的语义，应该等同于逻辑与 &&
+
+Inst_3A : CMPNZ2	1		--		--		栈顶 or 栈顶-1为0时，则将1压栈，否则将0压栈
+	; 助记符为ORZ.   注册的说法错误，应该等同于逻辑或 ||
+	; 参见idb的SF_3A函数，非常清晰。
+
+Inst_3B : JMP		1		addr	--		无条件跳转到addr.
+
+Inst_3C : JNZ		1		addr	--		栈顶值不为0时，跳转到addr.
+
+Inst_3D : JZ		1		addr	--		栈顶值为0时，跳转到addr
+	; 和汇编不同的是，两数相等跳转的话，CMP会得到1，要用JNZ。
+
+Inst_3E : SHL		1		--		--		(栈顶-1) << 栈顶  压栈。
+
+Inst_3F : SAR		1		--		--		(栈顶-1) >> 栈顶  压栈。
+	; 助记符是SHR。
+	; 然而，虽然用了SHR作助记符，该指令实际上仍是SAR，即算术右移。
+
+Inst_40 : JCOND		1		n		addr	栈顶值=n时，跳转到addr
+	; 不会弹栈，可以一路JCOND下去，标准的switch脸。记得所有JCOND结束之后要POP下。
+	; 可以参考奥汀在SYSTEM.ASM里面是怎么写的。
+
+Inst_41 : NOP
+	; 助记符为NOP41. 它确实是NOP. 下面的Inst_43/44相同。
+
+Inst_42 : BUSY		?		n		--		当系统忙时等待n Tick之后继续？   (系统忙时返回0 : 返回到系统，否则返回1 : 继续执行)
+	; 助记符为DELAY. 用法如：PUSH 10   DELAY
+
+Inst_43 : NOP
+
+Inst_44 : NOP
+
+Inst_45 :
+	; 非常常见的一个指令。此指令会阻断当前函数执行，直到所指定的函数执行完毕才继续执行。
+	; 例如，PUSHSTR 36 ; (CreateRushCart)
+	;       INST_45
+	; 表示函数执行至此，暂时停下来（阻塞），直到CreateRushCart函数执行完毕，才继续执行下一行。
+
+Inst_46 :
+    ; 将栈顶字符串弹栈，检查该字符串所指示的函数是否在运行中（包括系统调用的和CALLBS调用的）。若运行中则将1压栈，否则将0压栈。
+    ; 例如，在执行鬼哭时，PUSHSTR str INST_46 当str为"Magic110", "XDuplicator", "XTaiChi", "LockTargetXY"等时会返回1。否则返回0.
+    ; 该指令连着INST_45, 是因为INST_45中也调用了相同函数，来判断指定函数是否正在运行中（因而可以阻塞当前函数，直到目标函数运行完毕）。
+
+Inst_47 : CALLBS	1		n		--      Call Subscript by String
+	; 第一个先压入要调用的函数的字符串编号，然后按常规调用函数的顺序压入参数（同CALL）。
+	; 如果不够四个参数，用0补足。如果多于四个参数，应该用后面的SYSCALL 0x310 - 0x314来代替。
+	; CALLBS调用的函数会与原函数并行执行，互相不干扰，有点像多线程。
+
+Inst_48 : ITOF		1		--		--		栈顶的整形值变为浮点数。
+	; 助记符为LTOF.
+
+Inst_49 :
+    ; 没有助记符，但相当于ITOA （数字转字符串）。
+
+Inst_4A : FTOL		1		--		--		栈顶的浮点数变为整数
+
+;Inst_4B :
+    ; 没有助记符，但相当于GCVT （浮点转字符串）。精度为10位有效数字。
+
+Inst_4C : POP3		1		--		--		栈顶的值弹栈，并将0压栈
+	; 助记符无效，用INST_4C.
+
+Inst_4E : GETVAR_V	1		n		--		局部变量[n+param1]压栈 // 间接寻址
+	；助记符是PUSHNR
+
+Inst_4F : INST_4F	1		n		--		全局变量(?Top_Stack)[n+param1]压栈 // 间接寻址
+    ; 助记符无效，用INST_4F
+
+Inst_50 : IGETN		1		n		--		内部数组的第 (栈顶值 + n)个值压栈
+	; 助记符是PUSHINVR
+
+Inst_51 : SETVAR_V  	1       	n       	--      	局部变量[n+param2] = param1   // 间接寻址
+	；助记符是SETNR
+	；用法似乎是先PUSH值，再PUSH param2，然后SETNR N (ARG[N+param2]= value
+
+Inst_52 : INST_52	1		n		--		全局变量(?Top_Stack)[n+param2] = param1 // 间接寻址
+
+Inst_53 : ISETN		1		n		--		栈顶值写入 INTV[栈顶-1+n]
+    ; 助记符无效，用INST_53
+	; 从INST_4E到INST_53, 作用类似于数组操作，数组下标总不会都是静态的，动态的时候就用到这几个了。
+	; 比如，要操作第[5 + 循环变量argX]个变量时，就会用到INST_4E(PUSHNR)和INST_51(SETNR).
+
+;Inst_54 :
+    ; INCN的间接寻址版。用法如：PUSHARG 6 INST_54 1 表示变量(1 + arg6)自增1.
+
+;Inst_55 :
+    ; INCARG的间接寻址版。
+
+;Inst_56 :
+    ; INCINV的间接寻址版。
+
+;Inst_57:
+    ; DECN的间接寻址版。
+
+;Inst_58 :
+    ; DECARG的间接寻址版。
+
+;Inst_59 :
+    ; DECINV的间接寻址版。
+    ; （大失所望，我还以为注册都未顾及的指令，应该会有一些新的功能……想多了。）
+
+Inst_20 = (var_last -= para1)
+
+Inst26 = var_last == var_last-1 结果压栈 (先弹出2个参数，再压入一个参数)(相等为1，否则为0)
+Inst26 = var_last != var_last-1 结果压栈 (先弹出2个参数，再压入一个参数)(相等为0，否则为1)
+JMP2(INST_3D) = var_last弹栈，如果var_last为0则跳转到参数，否则继续下一条。
+
+Inst2C = var_last < var_last-1 结果压栈 (先弹出2个参数，再压入一个参数) (小于为1，否则为0)
+
+
+Inst_3A : pop var_last, pop var_last-1;
+          if (var_last != 0) push 1
+          else if (var_last-1 != 0) push 1
+          else push 0
+        : push (var_last | var_last-1 != 0)
+
+
+calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
+
+
+;压栈还是比较容易搞昏头。CALLBS和CALL时，先压入的在最底下，后压入的在上面。例如，3个参数的话，最先压的是-4，最后压的是-2.
+;而SYSCALL直接按照括号里面的顺序压栈。先压的就是第一个参数（ebp+8）。两个刚好反过来。
+
+;请注意：以下系统调用，我的注释可能和注册的有冲突。但我强烈建议您主要参考我的注释：注册的注释许多已经年代久远，甚至有的解释已被他本人推翻。
+;所有函数原型请以我的注释为准，通常在一段注释的最后。
+
+;群2的坐标轴是右手系。以正右为x轴正向，朝着背景的方向为y轴正向，正上为z轴正向。目前尚未发现负坐标值，可认为小地图左下方地面处为原点。
+;除“屏幕坐标”（即如上所述较精细的坐标）外还有战场坐标，也就是小地图的格子，一格站一兵或一将。这个坐标尚未发现有z轴，其余与“屏幕坐标”相同。
+    ;换算关系：战场X = 屏幕X / 96, 战场Y = 屏幕Y / 72 （均向下取整）
+;如不加解释，以下所有x/y/z默认为屏幕坐标。
+
+;所有函数中，所有角度均以128为180度, 256为360度循环。具体到nDir，则为0向右（x轴正向），64为指向背景（y轴正向），128向左（x轴负向）。
+
+系统调用：
+1 : 调用给定dwScriptIndex的脚本函数 ; (dwScriptIndex, argument0, argument1, argument2) 后面三个应为 反向压入的 调用该函数的参数，参数数量和目标函数magic表中定义的一致。
+                                  ; 如果参数不足3个，用0补齐。调用的函数的hLinkedObject会和当前函数相同。
+                                  ; 注意虽然SYSCALL要求正向压入参数，但后三个参数却会被反向压入栈。假定有3个参数，那么argument 0~2 对应 -4~-2. 如果有2个参数则0~1对应-3~-2.
+                                  ; 例如，您想调用func_20001(direction, fatherObject).  操作如下：
+                                  ; PUSH 20001
+                                  ; PUSH fatherObject
+                                  ; PUSH direction
+                                  ; PUSH 0
+                                  ; SYSCALL 0x1, (4 | (0 << 16))
+                                  ; 伪代码为 DoScript(20001, fatherObject, direction, 0);
+  ; DoScript (dwScriptIndex, argument0, argument1, argument2)
+
+2 : 显示对话框1 (nDir, pGeneral, szPrompt)
+        ; 很显然这个nDir不是角度啦。测试得dir的取值如下：
+        ; 0 - 从下方弹出对话框，武将头像在左侧，对话框半透明
+        ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，对话框半透明
+        ; 2 - 从下方弹出对话框，武将头像在左侧，强制为（战场上）左方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的左半边会显示空白。
+        ; 3 - 从下方弹出对话款，武将头像在右侧，强制为（战场上）右方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的右半边会显示空白。
+  ; Prompt (dir, pGeneral, strPrompt)
+
+3 : 显示对话框2 -- 增强型？ (nDir, pGeneral, szPrompt)
+  ; Prompt1 (dir, pGeneral, strPrompt)
+
+4 ：显示对话框3 - 指定头像文件(nDir, szHeaderShape, szPrompt)
+  ; PromptWithFace (dir, strFaceShapePath, strPrompt)
+
+5 ：显示对话框4 - 指定头像文件 增强型(nDir, szHeaderShape, szPrompt)
+  ; PromptWithFace1 (dir, strFaceShapePath, strPrompt)
+
+6 ：     ; 这是用来设置对话框中%SX%替换为什么字符串的函数。(?, X, str) 一般配合SYSCALL 0x200（GetGeneralName）使用。
+         ; 第一个参数待考。通常和显示对话框的第一个参数(dir)相同。（讲真，我不是很明白为什么要指定dir，但奥汀都是这么做的，idb里的逻辑也是这么走的。）
+         ; 例如，您想在战场上Prompt如下字符串：“贼将XX纳命来！%k%%e%”，其中XX是敌方武将的名字，并且是在战场上，由右方武将喊出。
+         ; 那么代码大致如下（未经测试，仅供参考）：
+         ; PUSH 4
+         ; PUSH 1
+         ; PUSHINV INTV_DEFENDER_GENERAL
+         ; SYSCALL 0x200, (1 | (3 << 16)) ; GetGeneralName
+         ; SYSCALL 0x6, (3 | (0 << 16)) ; SetSXString
+         ; PUSH 4
+         ; PUSHINV INTV_ATTACKER_GENERAL
+         ; PUSHSTR XXX ; "贼将%S1%纳命来！%k%%e%" //这里XXX应该是分号后字符串的编号。
+         ; SYSCALL 0x3, (3 | (0 << 16)) ; Prompt1
+         ; 伪代码如下（未经测试，仅供参考）：
+         ; SetSXString(4, 1, GetGeneralName(GetINV(INTV_DEFENDER_GENERAL)));
+         ; Prompt1(4, GetINV(INTV_ATTACKER_GENERAL), "贼将%S1%纳命来！%k%%e%");
+  ; SetSXString (dir, index, string)
+
+7 : 批量LoadShape (所有文件名通配string的文件) ; 路径不需要指明shape文件夹，以双反斜杠\\为分隔符，不带.shp后缀。如"magic\\000\\*"
+  ; BatchLoadShape (path)
+
+8 ：设置当前脚本所链接的物件句柄 ; (objectHandle)
+  ; SetScriptLinkedObject (objectHandle)
+
+9 ：显示对话框5 - 指定显示位置、主将、以及消息在message.ini中的序号 (nDir, pGeneral, nMessageIndex)
+  ; PromptWithMessageIndex (dir, pGeneral, nMessageIndex)
+
+A ：显示对话框6 - 指定显示位置、主将、以及消息在message.ini中的序号  增强型 (nDir, pGeneral, nMessageIndex)
+  ; PromptWithMessageIndex1 (dir, pGeneral, nMessageIndex)
+
+B : GetScriptLinkedObjectHandle ;
+  ; GetScriptLinkedObject () returns ScriptLinkedObjectHandle
+
+; 自注：神奇的是，尽管x, y, z, nStepX, nStepY, nStepZ都是int型，但它们实际上只取高2位作整数部分。也就是说，读出来还要 >>= 16 才是真正的x/y/z坐标。
+
+10 : CreateObjectRaw       创建物件，指定X/Y/Angle/Flag/dwSequence
+                         ; 并不是flag, 而是nDir. 此处应为注册失误。 注意在idb中z一律被称为angle.
+   ; CreateObjectRaw (x, y, z, nDir, dwSequence) returns ObjectHandle, or NULL if failed.
+
+11 : CreateObjectBelongTo  创建属于某个物件的子物件
+                         ; x/y都和参照对象相同。zOffset即是z轴坐标相对于参照对象的偏移。
+                         ; 从idb逻辑上看，这个命名是有问题的。实际上只是参照某个对象的坐标创建一个新对象，并未设置hLinkedObject。
+                         ; 由于注册命名的缘故，SYSCALL_TABLE.txt中也支持 CreateObjectBelongTo 的写法。
+   ; CreateObjectByReference (referenceObjectHandle, dwSequence, nDir, zOffset) returns ObjectHandle, or NULL if failed.
+
+12 : IsObjectExist
+                         ; 检查该Handle对应的Object是否存在。（实际上等价于GetObjectByHandle(handle) != NULL）
+   ; IsObjectExist (objectHandle) returns true if exists, false if not exists.
+
+13 : FreeObjectByHandle  ; 销毁物件。
+   ; FreeObjectByHandle (objectHandle)
+
+14 ：设置物件坐标 (dwHandle, x, y, angle)
+   ; SetObjectCoordinate (objectHandle, x, y, z)
+
+15 ：根据物件2的坐标设置物件1的坐标。 MoveObjectByReference(dwHandle1, dwHandle2, nStepAngle, nRadius, nStartAngle)
+                         ; 以物件2坐标 加入z轴偏移zOffset后 为基准点，按相对柱坐标调整物件1的位置.
+                         ; 如果您对柱坐标不熟悉：在xy平面上指定一个方向，该方向与x轴正向（正右）的夹角即是nDir. z轴移动和直角坐标一样。
+   ; MoveObjectByReference_Cylind (objectHandle, referenceObjectHandle, nDir, nRadius, zOffset)
+
+
+16,17 : 坐标系转换 -- 未全明
+
+;16 : 以物件2坐标（z轴偏移zOffset后）为基准点，按相对球坐标调整物件1的位置.
+   ; MoveObjectByReference_Sphere (objectHandle, referenceObjectHandle, phi, theta, nRadius, zOffset)
+   ; 避免歧义：此处规定球坐标到直角坐标的变换为 x = r * cos(theta) * cos(phi), y = r * cos(theta) * sin(phi), z = r * sin(theta)
+   ; 如果您对球坐标不熟悉：从原点指一个方向，该方向与z轴正方向（正上）的夹角即是theta. 该方向投影到水平面（xy平面）上，此时与x轴正向（正右）的夹角即是phi.
+
+;17 : 设置物件移动的速度（每帧移动量）。这是柱坐标下的速度：zStep表示每帧沿z移动多少，radiusStep表示每帧沿物品自己（已经设置好的）nDir方向移动多少。
+   ; SetObjectStep_Cylind (objectHandle, radiusStep, zStep)
+
+18 : SetObjectCoordinate_ByVector(hObject, nAngle_Y_XZ, nAngle_Z_XY, nVectorLength)
+   ; 设置物件移动的速度（每帧移动量）。这是球坐标下的速度：radiusStep表示每帧沿规定方向移动多少。phi和theta的意义和SYSCALL 0x16, 也即MoveObjectByReference_Sphere() 相同。
+   ; SetObjectStep_Sphere (objectHandle, phi, theta, radiusStep)
+
+;19 : MoveObjectTo (dwHandle1, dwHandle2, nStep)
+   ; 让物件1以每帧移动量nStep（矢量长度）向物件2靠近。
+   ; MoveObjectTo (objectHandle, targetHandle, nStep)
+
+1A : GetObjectDir
+   ; GetObjectDir (objectHandle) returns nDir
+
+;1B : 设置 field_5C, field_60 . 似乎是放大或缩小物件（相对于原始尺寸而非当前尺寸）。以65536为1倍大小，131072为2倍，32768为1/2，以此类推。
+   ; 警告：带OF_BIGSHAPE标记的物件，任何缩放均无效。
+   ; SetObjectScale (xScale, yScale)
+
+;1C : 设置pDrawingFileItem. 用字符串指定一个图形的路径，将其载入，然后设置物件的pDrawingFileItem为新载入的图形。这会使得该物件始终被显示为该图形。
+   ; 例如，把主将物件手动载入另一主将模型的某一图形（例如"major//body//RDW10001"）后，他就变成新的主将模型的模样了，也不再有动画效果了，始终保持僵直。
+   ; 一般是用在武将技物件上，可以随时换图。
+   ; SetObjectDrawingFileItem (objectHandle, strShape)
+
+;1D : 设置field_24. 根据idb中 DefaultObjectProcess() 的逻辑，大致判断为重力. 当OF_NOGRAVITY标记未打，且该项为0时，默认值为40960。
+            ; 实际产生加速度（即每帧zStep变化量）为 (该值 >> 16) * 2。（也就是默认重力加速度为1.25）
+            ; 从结果来看，即是以65536为2点重力加速度。
+            ; 所谓重力加速度，即是每帧zStep增加的值。当然不会无限地掉下去，掉到地板（z=0）时速度自动减为0。
+
+   ; SetObjectGravity (objectHandle, dwGravity)
+
+;1E : 设置或清除物件的OF_NOGRAVITY标记. 若设置，即将dwFlags |= 0x10000.
+   ; SetObjectNoGravityFlag (objectHandle, isNoGravity)
+
+;1F : 设置物件剩余生命。生命每帧减1，归零时销毁。但，如果它一开始就是0，则反而是无尽生命（不会自动销毁）。详见idb中的 DefaultObjectProcess().
+   ; SetObjectLife (objectHandle, nLife)
+
+;20 : 设置物件受到的阻力（的加速度大小，如果严格地说的话)。神奇的是它可以为负数，此时物件即使是停着的，也会动起来。
+   ; 所谓加速度就是指每帧速度矢量（也就是 (nStep, nStepY, nStepZ) ）的改变量啦。这里指定的是加速度矢量的大小；加速度矢量的方向总反向于速度矢量。
+   ; 如果物件（的某方向分量）停了下来，该加速度（的某方向分量）也就消失。
+   ; 该属性 field_20 的作用是根据idb中 DefaultObjectProcess() 的逻辑大致判断的，具体代码在sub_4228B3函数中。注意 field_20 和 x/y/z 一样有只使用高2位的特性，SYSCALL会自动<<16.
+   ; SetObjectFriction (objectHandle, nFriction)
+
+;21 : 同20，但不会 <<= 16. （也就是说，这里的第二个参数是阻力*65536. 这允许您设置小于1的阻力。）
+   ; SetObjectFriction1 (objectHandle, frictionTimes65536)
+
+;22 不存在的。
+
+23 : CreateObject_Shadow(1012)
+                       ; 创建一个Things.ini编号为1012的“阴影”对象。
+                       ; 由于强制指定该对象的pDrawingFileItem与父对象当前帧相同，它们会长得一样。
+                           ; （这可能有些奇怪，影子不是黑色的；但注册的命名没有问题：1012号物件在Things.ini中的确就叫“影子”。）
+                       ; 新对象的hLinkedObject是父对象，且具有和父对象相同的x/y/z/nDir.
+                       ; 后两个参数表示物件透明度的改变。每过frames帧下降一次，一次下降100%的fraction分之一。
+                           ; 例如，fraction=16，frames=1，即每帧透明度下降100%的1/16，经过16帧下降为0。
+                       ; 透明度归零后物件将被销毁。
+   ; CreateObject_Shadow(pFatherObject, fraction, frames) returns shadowObjectHandle
+
+
+   ; 自注：关于magic对象的nBrightness/dwCreateTick/nPlayingIndex/nAlpha四个属性，目前已知的逻辑大致是这样：
+   ; nPlayingIndex是否为零，表示该对象是否会自动降低透明度。nPlayingIndex的高位表示每次透明度下降几分之一。nPlayingIndex的低位表示每过几帧下降一次透明度。
+   ; 开始时，nAlpha被设置为16 << 16, dwCreateTick被设置为和nPlayingIndex的低位相等。
+   ; dwCreateTick是个倒计时器, 每帧自减1. 当其减为0时，触发透明度下降，dwCreateTick复原为nPlayingIndex的低位。
+   ; 每次触发透明度下降，nAlpha的高位下降(16.0 / nPlayingIndex的高位)，nBrightness被设置为与nAlpha的高位相等。
+   ; 这一系列操作，主要在 InitializeObjectBrightness(), UpdateObjectBrightness() 与 MagicObjectOnTick() 三个函数中，因而可能只适用于MagicObject。别的物件或许稍有不同。
+   ;        （例如，nAlpha的低位似乎在ForceSoldierObject上被用作counter使用，代替了dwCreateTick的作用。）
+   ; 目前怀疑这是一类对物件属性的“重复利用”，或许涉及继承。nPlayingIndex这个名字在这个例子中根本就是不知所云。它可能在别的地方担任别的功效，因而被注册起了这个名字。
+
+
+24 : CreateObject_Shadow(1012)  与23类似，多一个参数
+                        ; 同23，除了多一个参数用来设置方向（nDir）。
+   ; CreateObject_Shadow1(pFatherObject, fraction, frames, nDir) returns shadowObjectHandle
+
+
+25 : 设置物件方向 (左右)
+                        ; 并不。该字段(field_94) 和 nDir 不是一回事。设置nDir的工作是SYSCALL 0x30 (SetObjectDir)干的。
+                        ; 用途是为物件设置缩小动画，也就是每帧将xScale和yScale向0靠近 scaleChange 这么多。之前提到过，scale以65536为1倍大小。
+                        ; 例如，scaleChange = 256 时，对一个xScale = yScale = 65536 (100%) 的对象而言，调用该函数之后，需要256帧该对象才会缩小至消失。
+                        ; scaleChange可以为负值，这样就是放大了。
+                        ; 警告：带OF_BIGSHAPE标记的物件，任何缩放均无效。
+   ; SetObjectScaleShrink (objectHandle, scaleChange)
+
+26 : SetObjectBrightness 移动物件shadow?
+                        ; 正儿八经的SetObjectBrightness在下面27号。
+                        ; 给物件增加淡出效果。类似于23自带的淡出效果，初始为100%透明度，然后每frames帧透明度下降100%的fraction分之一。透明度降为0后销毁。
+                        ; 当然，有一点不同：该函数调用后物件会带上OF_MIXER的Flag.
+   ; SetObjectFadeOut (objectHandle, fraction, frames)
+
+27 : 设置物件亮度
+                        ; 真·设置物件Brightness。注册钦定的！
+                        ;（话说回来，我一直觉得注册在这里用的Brightness应该是透明度来着。不过对WHITELIGHT标记的物件应该差不多。）
+   ; SetObjectBrightness (objectHandle, nBrightness)
+
+28 : Offset物件 (cx, cy, cangle, cContext?)
+                        ; 将物件移动(dx, dy, dz)的坐标，也即x += dx, y += dy, z += dz。
+   ; MoveObject (objectHandle, dx, dy, dz)
+
+29 : 设置物件flag (set bit)  ; 不会破坏原有的flags. 也就是或上（|=）新flag的意思。
+   ; SetObjectFlags (objectHandle, flags)
+
+2A : 设置物件flag (直接set)
+                        ; 并不，实际上是个Getter. 明晃晃的只有一个arg_0注册你瞅哪儿去了……
+   ; GetObjectFlags (objectHandle) returns flags
+
+2B : 清除物件flag (clear bit)  ; 清除参数里带有的所有flag (flag &= ~flagsToClear)
+   ; ClearObjectFlags (objectHandle, flagsToClear)
+
+2C : 设置callback sequence.
+                        ; 所谓回调，就是武将技物件砸到人了，可以判定伤害的时候，调用的函数。注意压入的是callsign，也就是Script编号（鬼哭=610的那个）。
+                        ; 至于砸到人怎么判，实际上是根据物件的Flags里面有没有OF_ENEMYFORCE, OF_ENEMYGENERAL, OF_MYFORCE, OF_MYGENERAL几个标记，对应砸敌人兵、将、自己兵、将。
+                            ; 当然flags是可以与（也就是加）在一起的，所以就有了OF_ATTACKENEMY, OF_ATTACKMY, OF_ATTACKALL这仨，表示砸别人、砸自己和通杀。
+   ; SetCallbackProcedure (objectHandle, callbackFuncCallsign)
+
+2D : 获得物件的sequence. (在things.ini中的sequence)
+   ; GetObjectSequence (objectHandle) returns sequence
+
+2E : 设置callback context  ( i , value)
+                        ; 所谓CallbackContext, 就是你有什么要告诉回调函数的东西，可以用这个按编号i存起来，然后回调函数中再根据编号读出来。
+                        ; 编号从0开始。实际上从SANGO_OBJECT的结构体大小来看，只能存3个，差评。
+   ; SetCallbackContext (objectHandle, i, value)
+
+2F : 获得callback context  ( i , value)
+   ; GetCallbackContext (objectHandle, i) returns value
+
+;30 : 设置方向的. 0为正右（x轴正向），64指向背景（y轴正向），128为正左。以128为180度，256为360度循环。
+   ; SetObjectDir (objectHandle, nDir)
+
+;31 : （猜测）用来设置堆叠顺序。默认为-1。一旦设置为正数，则一定会被摆放在战场所有物件的后面（但仍在背景的前面）。
+   ; 如果是正数，那么数字越小越靠后。为0时消失（但不会销毁，类似于visible=false）。注意这个数是short类型（WORD），要小于等于32767.
+   ; SetObjectLayer (objectHandle, nLayer);
+
+   ; 自注：这破玩意儿(field_66)整个idb里除了初始化和SYSCALL 0x31就特么出现过一次(sub_43FF4E)，调用它的和它调用的函数没一个是有名字的。看代码根本猜不出是干什么的。
+   ; 以上结果是实验法实验出来的，并不一定可靠。不过，从实用的角度说，整个magic.asm里面用到它的地方都是把它设为2, 所以似乎也无需过分深究。
+
+
+100 : 设置视角位置 X/Y
+    ; SetViewCamera (x, y)
+
+;101 : 获取物件战场X坐标。投诉注册偷懒，直接把这个命名为GetObjectXY. 这名字简直糟糕透顶。实际上要101和102加起来才是。
+    ; GetObjectBattleX (objectHandle) returns battleX
+
+102 : 获得物件位置 X/Y (地址) ; 这个才是获取物件战场Y坐标。
+    ; GetObjectBattleY (objectHandle) returns battleY
+
+103 : BattleXToScreenX ; 战场坐标转换为屏幕坐标。当然，只能得到整值。
+    ; BattleXToScreenX (battleX) returns screenX
+
+104 : BattleYToScreenY ; 同上。注意，用于X和Y的两个函数不可混用（换算标准有不同）。
+    ; BattleYToScreenY (battleY) returns screenY
+
+105 : GetMajorScreenX ; 获得物件屏幕坐标。实际上对所有物件都适用，注册自己有重新命名。
+    ; GetObjectScreenX (objectHandle) returns screenX
+
+106 : GetMajorScreenY ; 同上。
+    ; GetObjectScreenY (objectHandle) returns screenY
+
+;107 : 很自然就是得到物件屏幕Z坐标了。（并没有战场z这种东西，但为了强迫症还是保持同样的形式吧……）
+    ; GetObjectScreenZ (objectHandle) returns z
+
+108 : 屏幕坐标X转换为战场坐标X
+    ; ScreenXToBattleX (battleX) returns screenX
+
+109 : ScreenYToBattleY ; 和BattleYToScreenY一样，注意X/Y不可混用。
+    ; ScreenYToBattleY (battleY) returns screenY
+
+;10A和10B都不存在。
+
+10C : GetSoldierCount(bRight) ; 获得某一方还有多少兵。注意注册花样玩脱，实际上参数为1的时候得到的是左边（玩家的敌方）的兵数。
+                              ; 用的时候传入 PUSHINV INTV_IS_LEFT （或者GetINV(INTV_IS_LEFT)，如果您用我的伪代码编译器的话）就可以。
+                                      ; 这个INTV原来在注册那里叫INTV_IS_RIGHT...想必被坑的不止我一个。
+    ; GetSoldierCount(isLeft) returns soldierCount
+
+10D : 获得随机的活着士兵的hObject(bRight) ; hObject也就是物件handle啦。同上，参数是isLeft.
+    ; GetRandomSoldierHandleFromAlive(isLeft) returns soldierHandle
+
+;10E : 将物件2的OBJECT设置为物件1的field_88. 完全不可理喻。
+    ; 这个字段在ForceSoldier(Major)ObjectProcess中用来和GlobalTick比较，在ForceHorseProcess中用来转移一个nDir值，在sub_43DA1A（兵种死亡时调用）中被赋予一个nDir值。
+    ; 但总之和一个物件指针都没什么关系。
+    ; 目前为止也没有人用过这个函数，当它不存在好了。
+    ; SYSCALL_0x010E (object1Handle, object2Handle)
+
+;10F : 以某个物件的坐标设置摄像机的相对位置（也即，对准(object.x + xOffset, object.y + yOffset)）
+    ; SetCameraByReference (objectHandle, xOffset, yOffset)
+
+110 : Clear4A6660 -- 允许敌方施放武将技
+    ; EnablePlayMagic()
+
+;111 : GetCameraX ; 得到摄像机X坐标
+    ; GetCameraX() returns cameraX
+
+;112 : GetCameraY ; 得到摄像机Y坐标
+    ; GetCameraY() returns cameraY
+
+113 : 得到指定战场xy坐标处的士兵pObject的field_44的值  -- GetSoldierHandleByXY
+                            ; 实际上对主将也有效。这里改了新的名字，不过SYSCALL_TABLE.txt里面也保留了原名GetSoldierHandle，用哪个都可以。
+    ; GetForceHandle(battleX, battleY) returns forceHandle
+
+;114 : 有一个参数。无论参数为何，都会允许释放武将技、允许战场操作、设置背景亮度为100%；如果参数为true，会弹出菜单。
+     ; magic.asm未见使用。system.asm中，劝降成功后，设置战斗结果完毕，会调用一次这玩意儿，使得游戏退出战场；开战前两边互相叫嚣之后，用它弹出菜单。
+     ; 感觉好难概括……瞎JB起名了。
+     ; AllowBattleOperation (popMenu)
+
+115 : 得到pObject的所属军队，0 = right, 1 = left, -1 = unknown or none.
+                           ; 从注册的注释也可以看出，虽然注册起名为GetSoldierSide, 但对主将也有效的。
+                           ; 这里改了新的名字，不过SYSCALL_TABLE.txt里面也保留了原名GetSoldierSide，用哪个都可以。
+    ; GetForceSide (objectHandle) returns side
+
+116 : 得到主将的等级(bRight) ; 同10C/10D, 参数是isLeft, 不是isRight.
+    ; GetMajorLevel (isLeft)
+
+117 : 得到主将HP (0 = Self, 1 = Enemy) ;Self和Enemy指右边和左边。同10C/10D, 参数是isLeft.
+    ; GetMajorHP (isLeft)
+
+118 : 设置主将HP ? ; 如果hp大于hp_max, 则直接满血，不会溢出。
+    ; SetMajorHP (isLeft, hp)
+
+;119 : 在指定战场坐标处创建一个士兵。默认为低级兵。如果您按照我的办法修改过，将battleX加上10000（十进制）即可生成高级兵。
+                                               ; 见“【修改】伏兵高级兵……的一种拙劣解决方案” (https://tieba.baidu.com/p/4111317607)
+                                               ; 例如，isLeft=1, battleX = 10005 (5 + 10000), battleY = 0 时，
+                                               ; 可获得战场坐标(5, 0)处属于左边（红方）的高级兵，兵种与红方当前兵种相同。
+                                               ; 注：如果您想创建特定兵种的士兵，请参考以下操作（伪代码）。这些操作应在创建士兵之前完成。操作完后记得还原。这段操作来自注册的代码。
+                                               ; SetINV(soldierObjectSequence, 20); //将20号INTV设为兵种sequence
+                                               ; SetINV(1, 19);                     //将19号INTV设为1
+                                               ; SetInt(soldierType, pSelfGeneral + 0x8B); //将主将的dwCurrentTroopType设为对应的兵种类型。
+
+    ; CreateSoldier (isLeft, battleX, battleY) returns soldierHandle
+
+120 : SetObjectAnimate  设置物件动画
+    ; 就是动画序列的意思，对应着 Wait, Walk, Attack 啥的。有一套对应表，要填入动画序列对应的代号，注意是十六进制的。
+    ; 以下来自idb中enum一栏，SANGO2_OBJECT_ANIMATION_FLAGS 一项。
+                    ; OAF_WAIT         = 1
+                    ; OAF_WALK         = 2
+                    ; OAF_ATTACK       = 4
+                    ; OAF_DEFENSE      = 8
+                    ; OAF_PAIN         = 0x10
+                    ; OAF_DEATH        = 0x20
+                    ; OAF_WIN          = 0x40
+                    ; OAF_ATTACK2      = 0x800
+                    ; OAF_ATTACK3      = 0x1000
+                    ; OAF_ATTACK4      = 0x2000
+                    ; OAF_ATTACK5      = 0x4000
+                    ; OAF_SPELL1       = 0x8000
+                    ; OAF_SPELL2       = 0x10000
+                    ; OAF_SHOT1        = 0x20000
+                    ; OAF_SHOT2        = 0x40000
+                    ; OAF_SHOT3        = 0x80000
+                    ; OAF_ATTACK6      = 0x100000
+                    ; OAF_ATTACK7      = 0x200000
+                    ; OAF_ATTACK8      = 0x400000
+    ; 例如，查得Attack5（半月斩挥斩动作）对应0x4000，想要发武将技的武将做出这个动作，可以如下操作：
+            ; PUSHINV INTV_ATTACKER_MAJOR
+            ; PUSH 0x4000
+            ; SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
+            ; 对应的伪代码为： SetObjectAnimate(GetINV(INTV_ATTACKER_MAJOR), 0x4000);
+    ; SetObjectAnimate (objectHandle, nAnimationCode)
+
+121 ：AddAttackCounter ; 将指定目标定身若干时间。从源码上猜想是20*interval的时间. 根据magic.asm，放一般的武将技会停下来那一下的interval是2，狂雷定身是5.
+    ; AddAttackCounter (objectHandle, interval);
+
+122 : SetAttackCounterTo9999 ; 全场定身，直至……总之是很久就对了。对双方武将士兵同时起效。
+    ; SetAttackCounterTo9999 ()
+
+123 : ResroteAttackCounter ; 配合上一条使用，解除全场定身。
+    ; RestoreAttackCounter ()
+
+;124 : 立即结束战斗。如果是战斗中调用的话，往往就可以观赏到传说中的“结果不明”了。
+    ; EndBattle ()
+
+;125 : 对主将造成伤害。我试了一下，对小兵的确不管用。
+    ; DoHarmToMajor (defenderHandle, attackerHandle, harm)
+
+;127 : 集……好吧这名字，注册你赢了。指定一个武将物件，将其集气条下降amount%.
+    ; DecreaseGatherTick(majorHandle, amount)
+
+128 ：设置BattleUserInfo->Field_54为参数2. (eg : Heal函数中，参数1为4A6878[0x02], 参数2为1)  -- 可能为设置无敌状态
+                ; 别“可能”啦，就是（见ForceMajorObjectProcess(), loc_43F435一段代码，很明显在field_54为1时，豁免伤害结果）。这个字段被起名为dwMP...应该是注册出错了。
+                ; 只对主将有效。isOverwhelming只有为1时才是无敌，其它值都是非无敌。
+                ; 另：注册拼错这个词了(overehelming, 应为 overwhelming)。目前在SYSCALL_TABLE.txt中设置为正确的和错误的都有效。
+    ; SetOverwhelming (majorHandle, isOverwhelming)
+
+129 : 返回指定方最后一个活着的小兵的handle.
+    ; 这个有点刁钻。实际上是返回指定方最“关键”的小兵的handle.
+    ; “关键度”和该小兵周围的自己人人数，以及他们离自己的远近有关。所以该函数倾向于返回人堆里面的那位。
+    ; “关键度”如下计算：如果有个小兵在目标兵周围7*7范围内，目标兵关键度就增加(7 - 两小兵曼哈顿距离)。详见SetScreenObjectByXYAndAdjustImportancyArray()函数(sub_43B028).
+    ; 也就是说，以*为中心（目标兵），周围对应位置存在一个小兵，对中心小兵的“关键度”贡献如下：
+    ; 1 2 3 4 3 2 1
+    ; 2 3 4 5 4 3 2
+    ; 3 4 5 6 5 4 3
+    ; 4 5 6 * 6 5 4
+    ; 3 4 5 6 5 4 3
+    ; 2 3 4 5 4 3 2
+    ; 1 2 3 4 3 2 1
+
+    ; GetMostImportantSoldier (isLeft) returns soldierHandle
+
+12A : 得到以(x,y)为中心，(width,height)大小的矩形内，给定方的士兵的数量。
+    ; 不太准确。应该是x在[x0-width, x0+width]内，y在[y0-height, y0+height]的矩形区域。而且……主将也算的。
+    ; 因注册idb之故，这里SYSCALL_TABLE.txt里面也同时支持写GetForceCountInRect和写GetSoldierCountInRect.
+    ; GetForceCountInRect (isLeft, x0, y0, width, height) returns forceCount
+
+12B : 得到以(x,y)为中心，(width,height)大小的矩形内，给定方的第n个士兵的handle.
+    ; 同上。算第n个的算法是，从左上角开始，以横着扫的方式扫描，扫到一个计数一个。同理，主将也算。
+    ; 也同时支持写GetNthForceInRect和GetNthSoldierInRect
+    ; GetNthForceInRect (isLeft, x0, y0, width, height, n) returns forceHandle
+
+12D : 得到战场宽度  71
+    ; GetBattleWidth() returns 71
+
+12E : 得到战场高度  14
+    ; GetBattleHeight() returns 14
+
+12F : 设置背景亮度
+    ; SetBackgroundBrightness (nBrightness)
+
+130 : 得到背景亮度
+    ; GetBackgroundBrightness () returns g_nBackgroundBrightness
+
+131 : 设置4A6660变量为1  -- 阻止敌方施放武将技
+    ; DisablePlayMagic()
+
+;132 : 得到战场宽度的屏幕坐标值 6816
+    ; GetBattleWidthInScreenX() returns 6816 (= 71 * 96)
+
+;133 : 得到战场高度的屏幕坐标值 1008
+    ; GetBattleHeightInScreenY() returns 1008 (= 14 * 72)
+
+134 : 杀死指定的hObject
+        ; 对主将也有效。SYSCALL_TABLE.txt里面也支持写KillSoldier。
+        ; 默认是有返回值的，但返回值没有太大意义，有好几种可能性（显然是根本没有return语句）。
+                        ; SYSCALL_TABLE中将返回值删去。(原有magic.asm里因为返回值数量是被写死的，多余的POP语句并不会产生影响。)
+    ; KillForce(forceHandle)
+
+;135 : （猜测）锁定背景亮度。亮度值以16为100%，0为0%。在magic.asm中唯一一次出现是在DownBrightness()（天空变黑）。
+                          ; 自注：娘的，虚函数太可怕了……非得Ollydbg上阵才看得见虚函数表，偏偏我汇编还苦手。最后还是直接测试效果得的结论。
+    ; LockBrightness (nBrightness)
+
+;136 : （猜测）解锁背景亮度。与上一条配合使用。在magic.asm中唯一一次出现是在RaiseBrightness() （天空变亮）。
+    ; UnlockBrightness ()
+
+;137 : （猜测）锁定R/G/B三个通道的亮度。三个参数对应R/G/B通道，以180为100%亮度，以0为0%。(180,180,180)为原始图像，(0,0,0)为全黑。
+                ; 用上一条SYSCALL 0x136 (UnlockBrightness) 取消效果。
+                ; 如果调用了一次该函数，未用SYSCALL 0x136取消，就再调用一次的话，将只有地板受影响，而背景部分维持原有的效果。
+    ; LockRGBChannelBrightness (RBrightness, GBrightness, BBrightness)
+
+;138 : 十面埋伏（使某一方主将无法退兵）
+    ; DisableEscape (isLeft)
+
+;139 : 设置战斗结果。已有asm代码中只在劝降的时候见到该调用。
+            ; 以下来自idb中enum一栏，BATTLE_RESULT 一项。
+            ; BR_PLAYER_LOSE   = 1
+            ; BR_PLAYER_WIN    = 2
+            ; BR_PLAYER_MAJOR_DOWN  = 4
+            ; BR_COMPUTER_MAJOR_DOWN  = 8
+            ; BR_DRAW          = 0x10
+            ; BR_PLAYER_MAJOR_SURRENDER  = 0x100
+            ; BR_COMPUTER_MAJOR_SURRENDER  = 0x200
+    ; SetBattleResult (result)
+
+200 : Get武将名称(pGeneral)
+    ; 实际上，这条系统调用只是原封不动地把指针再返回而已，这是因为name属性在GENERAL结构中的偏移就是0x0. 所以，它可以用来读取内存中的任意地址的字符串。
+    ; 因此我给了这条系统调用两个原型。
+    ; GetGeneralName (pGeneral) returns strGeneralName
+    ; GetString (stringAddress) returns string
+
+201 : int(sin(arg1)*arg2+0.5) ; 计算Asinα（四舍五入为整数）. 角度α是群2特色的以128为180度，256为360度循环。
+                              ; 也可以理解为，对一个长度为A、nDir为α的向量，求其x分量。
+    ; CalcSin (alpha, A) returns A * sin (alpha)
+
+202 : int(cos(arg1)*arg2+0.5) ; 计算Acosα（四舍五入为整数）. 同上。
+                              ; 也可以理解为，对一个长度为A、nDir为α的向量，求其y分量。
+    ; CalcCos (alpha, A) returns A * cos (alpha)
+
+
+    ;注意：以下三条函数是摄像机对准的【中心】坐标。当然，对SYSCALL 0x205 (SetBigmapCamera)，有保护机制防止把摄像机对到大地图外面去。
+
+;203 : 返回进入大地图时，摄像机对准的中心点的X坐标。（技术细节：returns 360 + g_nScreenStartX）
+    ; GetBigmapStartX () returns cameraCenterX
+
+;204 : 返回进入大地图时，摄像机对准的中心点的Y坐标。（技术细节：returns 240 + g_nScreenStartX）
+    ; GetBigmapStartY () returns cameraCenterY
+
+;205 : 将大地图摄像机中心点对准指定的 (x, y) 。
+    ; SetBigmapCamera (x, y)
+
+206 : Get武将类型(0 : 武力or智力 > 90 / 1: 武力or智力>75 / 2: other)
+                ; 参数是武将指针。这个决定了开战时喊的话，比如2类对上0类的话，就可能会喊“完了！完了！搞不好今天要死在这里了！”。
+    ; GetGeneralType (pGeneral) returns generalType
+
+;207 : 得到Magic.ini中，武将技对应的TITLE值（字符串型）。参数是武将技sequence. 比如鬼哭对应"大将军"。
+    ; 并没什么卵用……也许可以用来在发武将技之前中二地喊出一段话？
+    ; GetMagicTitle (sequence)
+
+;208 : 似乎用来退出至主选单。但我试了好几次，不论是在大地图上还是在战场上，都无一例外弹框。所以还是别用了……
+    ; @deprecated
+    ; ExitToMainScreen ()
+
+    ;下面三个函数，老实讲除了system.asm里它们出现的位置以外，作用有限。
+    ;如果还能干什么特别的话……嗯，拿来做剧情，午后问斩时突然一人跑来高呼刀下留人啥的？
+
+;209 : 斩首。仅适用于招降画面使用。
+    ; 这里为了避免和system.asm中的函数撞名，我加上了一个后缀，表示实际“执行”。下同。
+    ; KillGeneral_Perform ()
+
+;210 : 释放。仅适用于招降画面使用。
+    ; FreeGeneral_Perform ()
+
+;211 : 招降。仅适用于招降画面使用。从YieldGeneral()的结果来看，其实并不能决定到底是成功还是失败……只是让函数继续而已。
+    ; YieldGeneral_Perform ()
+
+;212 : 返回主选单中“设定选项”（还记得主选单上还有第三个按钮吗？）中，“效果开关”是不是开着的。
+    ; IsCurrentEffectOn () returns isCurrentEffectOn
+
+300 : PlaySound  ; 有源地播放音乐。音频文件不需要指明sound文件夹，直接写文件名，不带后缀名。（也就是说音频文件必须在sound文件夹下）。
+                 ; 音量以255为最大，0为静音.
+                 ; 目前已知可以播放wav格式，具体要求尚不清楚。除非经过测试无问题，建议尽量遵守原版文件的采样率和码率。
+    ; PlaySound (sourceObjectHandle, strSoundFileName, volume)
+
+301 : PlaySound1 ; 无源地播放音乐（即，不管镜头对准哪儿，声音都一样大）。其余同上。
+    ; PlaySound1 (strSoundFileName, volume)
+
+;302 : 向Dbg打印字符串（调用系统DbgPrintf函数）。
+    ; 似乎没卵用。有人试过在WinDbg下调试群2么？
+    ; DbgPrint (string)
+
+303 ：Arg1 + Rand(arg2-arg1+1); 返回一个在arg1-arg2之间的随机值。 ;两头闭区间，也就是都可以取到。
+    ; Rand (lowerBound, higherBound)
+
+;310 - 315 : 取得ScriptLinkedObjectHandle，然后再CallSubscriptByString，区别在于参数数量不同（递增）。
+    ; 也就是支持多于4个参数的CALLBS.
+    ; 不提供原型了。如果您正在用我的伪代码编译器，asynccall 会自动根据您调用的函数的参数数量，编译出合适的SYSCALL来。
+
+;380 : 向Dbg打印当前Script的SP.
+    ; 似乎没卵用。有人试过在WinDbg下调试群2么？
+    ; DbgPrintCurrentScriptSP ()
+
+4A6A78:
+4A6878 - 0 :
+4A687C - 1 :
+4A6880 - 2 : 我方主将对应Object
+4A6884 - 3 : 敌方主将对应Object
+4A6888 - 4 : g_nMagicAttack
+4A688C - 5 : 0: left  /  1: right
+4A6890 - 6 :
+4A6894 - 7 : 我方主将pGeneral结构指针
+4A6898 - 8 : 敌方主将pGeneral结构指针
+4A689C - 9 : 我方君主pGeneral结构指针
