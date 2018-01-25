@@ -27,7 +27,9 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
     int log[5];
 
     for(int i = 1; i <= shootRange; i++) {
-        int target = GetSoldierHandle(ScreenXToBattleX(soldierScreenX) + soldierDir * i, ScreenYToBattleY(soldierScreenY));
+        int target = GetSoldierHandle(
+            ScreenXToBattleX(soldierScreenX) + soldierDir * i,
+            ScreenYToBattleY(soldierScreenY));
         if(target == 0) {
             log[i - 1] = false;
             continue;
@@ -68,22 +70,26 @@ void function Sol13LongSpcAttack (int shootRange) callsign 29013 {
         int selfSoldierType = pSelfGeneral->dwCurrentTroopType;
         int enemySoldierType = pEnemyGeneral->dwCurrentTroopType;
 
-        SetIntv(GetObjectSequence(target), 20);
-        SetIntv(1, 19);
+        SetIntv(20, GetObjectSequence(target));
+        SetIntv(19, 1);
         pSelfGeneral->dwCurrentTroopType = enemySoldierType;
 
         int newSoldier;
         //Chiinty: Requires a special CreateSoldier call
         if((*pObjectListRoot)[soldier & 0xFFFF].pMother->dwFlags & 4)
-                newSoldier = CreateSoldier(soldierSide, ScreenXToBattleX(targetScreenX) + 10000, ScreenYToBattleY(targetScreenY));
+                newSoldier = CreateSoldier(soldierSide,
+                                        ScreenXToBattleX(targetScreenX) + 10000,
+                                        ScreenYToBattleY(targetScreenY));
         else
-                newSoldier = CreateSoldier(soldierSide, ScreenXToBattleX(targetScreenX), ScreenYToBattleY(targetScreenY));
+                newSoldier = CreateSoldier(soldierSide,
+                                        ScreenXToBattleX(targetScreenX),
+                                        ScreenYToBattleY(targetScreenY));
         SetObjectCoordinate(newSoldier, targetScreenX, targetScreenY, 0);
         SetObjectDir(newSoldier, targetDir);
 
         pSelfGeneral->dwCurrentTroopType = selfSoldierType;
-        SetIntv(20, 0);
-        SetIntv(19, 0);
+        SetIntv(0, 20);
+        SetIntv(0, 19);
 
         FreeObjectByHandle(target);
     }

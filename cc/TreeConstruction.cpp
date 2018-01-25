@@ -524,7 +524,8 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
         } else if(getIntvNoByName(token.content) != -1) {
             x->type = ExpNodeType::intv;
             x->intvVar = getIntvByName(token.content);
-            x->resultType = getIntvByName(token.content).type;
+            //x->resultType = getIntvByName(token.content).type;
+            x->resultType = DataTypes::typeInt;
             x->isLvalue = true; //INTV can be lvalue! SETINV!
             tokenPos++;
 
