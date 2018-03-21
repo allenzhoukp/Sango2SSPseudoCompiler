@@ -410,6 +410,7 @@ Parser::Parser(Token* tokenList, int tokenCnt_) {
     numericNameToCode.emplace("short", 2);
     numericNameToCode.emplace("byte", 4);
 
+    loadConfig();
     loadSyscallTable();
     loadIntvTable();
     loadStructTable();

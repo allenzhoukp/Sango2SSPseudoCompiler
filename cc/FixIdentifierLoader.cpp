@@ -2,6 +2,26 @@
 
 #include <cstdio>
 #include <cstring>
+#include <regex>
+
+void Parser::loadConfig () {
+    FILE* fin = fopen("config/CONFIG.txt", "r");
+    char line[MAX_LINE_LEN];
+    std::regex rProp { R"(([_0-9A-Za-z]+)\s*=\s*([_0-9A-Za-z]+))" };
+    std::cmatch cm;
+
+    while(!feof(fin)) {
+        fgets(line, MAX_LINE_LEN, fin);
+        if(!std::regex_search(line, cm, rProp))
+            continue;
+        string key = cm[1];
+        string value = cm[2];
+        configs[key] = value;
+    }
+
+    fclose(fin);
+
+}
 
 void Parser::loadSyscallTable () {
     FILE* fin = fopen("config/SYSCALL_TABLE.txt", "r");

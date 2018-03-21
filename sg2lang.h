@@ -8,6 +8,13 @@
 
 
 
+// Since my 1.05+ has introduced all memory operations in the SYSCALL table,
+// all the following functions are no longer in use.
+// However, if the user is still using the old Sango2 EXE file,
+// those functions are needed to be introduced.
+// If the user is using non 1.05+ EXE, remember to set use_exe_memory_io = 0.
+
+
 // I paraphrase the Getter methods to improve efficiency from GetData_NotAligned().
 // GetInt() codes are mostly the same as
 // the original GetData_NotAligned() of Henryshow,
@@ -28,7 +35,7 @@
 #define INTV_ARRAY_BASE	0x4A6878
 
 // Get the 1-byte UNSIGNED integer from the target address.
-int naked function GetByte (int address)  __asm {
+int naked function GetByte_Old (int address)  __asm {
     PUSHARG address
     PUSH INTV_ARRAY_BASE
     SUB
@@ -49,7 +56,7 @@ int naked function GetByte (int address)  __asm {
 }
 
 // Get the 1-byte integer from the target address.
-int function GetByte_Signed (int address) {
+int function GetByte_Signed_Old (int address) {
     int result = GetByte (address);
     if(result & 0x80)               //sign bit is 1
         return result | 0xFFFFFF00;
@@ -57,7 +64,7 @@ int function GetByte_Signed (int address) {
 }
 
 // Get the 2-byte UNSIGNED integer from the target address.
-int naked function GetShort (int address) __asm {
+int naked function GetShort_Old (int address) __asm {
     PUSHARG address
     PUSH 0x03
     AND
@@ -111,14 +118,14 @@ LANG_GET_SHORT_1:
 }
 
 // Get the 2-byte integer from the target address.
-int function GetShort_Signed (int address) {
+int function GetShort_Signed_Old (int address) {
     int result = GetShort (address);
     if(result & 0x8000)               //sign bit is 1
         return result | 0xFFFF0000;
     return result;
 }
 
-int naked function GetInt(int address) __asm {
+int naked function GetInt_Old(int address) __asm {
     // GetData_NotAligned has already done well enough, except for the problem of SAR.
     // ...and some litle optimizations.
     // readability? what does that mean?
@@ -199,7 +206,7 @@ GET_ADDR_TAIL_V2_0:
 }
 
 // SetData_NotAligned() has been renamed (and slightly modified)
-void naked function SetInt(int address, int value) __asm {
+void naked function SetInt_Old(int address, int value) __asm {
     // ; Parameters:
     // ; arg 0 : return PC
     // ; arg -1 : caller SP
@@ -367,14 +374,14 @@ SET_DATA_END:
 
 // Write the 2-byte integer value to target address.
 // the higher 2 bytes of argument value will be ignored.
-void function SetShort(int address, int value) {
+void function SetShort_Old(int address, int value) {
     SetInt(address,
         (GetShort(address + 2) << 16) | (value & 0x0000FFFF));
 }
 
 // Write the 1-byte integer value to target address.
 // the higher 3 bytes of argument value will be ignored.
-void function SetByte(int address, int value) {
+void function SetByte_Old(int address, int value) {
     SetInt(address,
         (GetInt(address) & 0xFFFFFF00) | (value & 0x000000FF));
 }
@@ -382,7 +389,7 @@ void function SetByte(int address, int value) {
 // Write string (in stack) to target address.
 // Use a brute-force style: Target syscall 0x213, always set before use
 //                          (no global flag indicates whether it is set).
-void function SetString(int address, string value) {
+void function SetString_Old(int address, string value) {
     //0x46DC60 = strcpy
     SetInt(0x4A71FC, 0x46DC60); // 0x4A69B0(SYSCALL_ARRAY_BASE) + 0x213 * 4
 

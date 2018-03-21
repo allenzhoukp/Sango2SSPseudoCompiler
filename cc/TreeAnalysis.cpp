@@ -69,53 +69,106 @@ void Parser::outputFuncCall(ExpressionNode* x, int& stackDepth) {
 
 //outputGet/SetValue uses the type of pointer (subtracted ptr).
 //E.g. when output *p, p is string *, type should be string.
+
+//v0.91: Corrected all unsigned into signed. (Default is signed in the history, but unsigned after.)
+//v0.91: Add exe memory io function. Signed is the default one now.
+//       Note: Unsigned int is no different with Signed int. (Since we have max 4-bit integer in stack.)
 void Parser::outputGetValue(int type) {
-    switch(type) {
-    case DataTypes::typeUInt:
-        out << "\t" << "CALL GetInt_Unsigned" << endl;
-        break;
-    case DataTypes::typeShort:
-        out << "\t" << "CALL GetShort" << endl;
-        break;
-    case DataTypes::typeUShort:
-        out << "\t" << "CALL GetShort_Unsigned" << endl;
-        break;
-    case DataTypes::typeByte:
-        out << "\t" << "CALL GetByte" << endl;
-        break;
-    case DataTypes::typeUByte:
-        out << "\t" << "CALL GetByte_Unsigned" << endl;
-        break;
-    case DataTypes::typeString:
-        out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
-        break;
-    default:  //int and all pointers
-        out << "\t" << "CALL GetInt" << endl;
+    string useExeIO = configs["use_exe_memory_io"];
+    if(useExeIO == "1" || useExeIO == "true") {
+        switch(type) {
+        case DataTypes::typeShort:
+            out << "\t" << "SYSCALL 0x215, (1 | (1 << 16)) ; GetShort" << endl;
+            break;
+        case DataTypes::typeUShort:
+            out << "\t" << "SYSCALL 0x215, (1 | (1 << 16)) ; GetShort" << endl;
+            out << "\t" << "PUSH 0xFFFF" << endl;
+            out << "\t" << "AND" << endl;
+            break;
+        case DataTypes::typeByte:
+            out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
+            out << "\t" << "PUSH 0xFF" << endl;
+            out << "\t" << "AND" << endl;
+            break;
+        case DataTypes::typeUByte:
+            out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
+            break;
+        case DataTypes::typeString:
+            out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
+            break;
+        default:  //int, uint and all pointers
+            out << "\t" << "SYSCALL 0x214, (1 | (1 << 16)) ; GetInt" << endl;
+        }
+
+    } else {
+        switch(type) {
+        case DataTypes::typeUInt:
+            out << "\t" << "CALL GetInt_Old" << endl;
+            break;
+        case DataTypes::typeShort:
+            out << "\t" << "CALL GetShort_Signed_Old" << endl;
+            break;
+        case DataTypes::typeUShort:
+            out << "\t" << "CALL GetShort_Old" << endl;
+            break;
+        case DataTypes::typeByte:
+            out << "\t" << "CALL GetByte_Signed_Old" << endl;
+            break;
+        case DataTypes::typeUByte:
+            out << "\t" << "CALL GetByte_Old" << endl;
+            break;
+        case DataTypes::typeString:
+            out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
+            break;
+        default:  //int and all pointers
+            out << "\t" << "CALL GetInt_Signed_Old" << endl;
+        }
     }
 }
 
+//v0.91: Delete all unnecessary unsigned setter.
+//v0.91: Add exe memory io into function.
 void Parser::outputSetValue(int type) {
-    switch(type) {
-    case DataTypes::typeUInt:
-        out << "\t" << "CALL SetInt_Unsigned" << endl;
-        break;
-    case DataTypes::typeShort:
-        out << "\t" << "CALL SetShort" << endl;
-        break;
-    case DataTypes::typeUShort:
-        out << "\t" << "CALL SetShort_Unsigned" << endl;
-        break;
-    case DataTypes::typeByte:
-        out << "\t" << "CALL SetByte" << endl;
-        break;
-    case DataTypes::typeUByte:
-        out << "\t" << "CALL SetByte_Unsigned" << endl;
-        break;
-    case DataTypes::typeString:
-        out << "\t" << "CALL SetString" << endl;
-        break;
-    default:
-        out << "\t" << "CALL SetInt" << endl;
+    string useExeIO = configs["use_exe_memory_io"];
+    if(useExeIO == "1" || useExeIO == "true") {
+        switch(type) {
+        case DataTypes::typeShort:
+        case DataTypes::typeUShort:
+            out << "\t" << "SYSCALL 0x218, (2 | (0 << 16)) ; SetShort" << endl;
+            break;
+
+        case DataTypes::typeByte:
+        case DataTypes::typeUByte:
+            out << "\t" << "SYSCALL 0x219, (2 | (0 << 16)) ; SetByte" << endl;
+            break;
+
+        case DataTypes::typeString:
+            out << "\t" << "SYSCALL 0x213, (2 | (0 << 16)) ; SetString" << endl;
+            break;
+
+        default:
+            out << "\t" << "SYSCALL 0x217, (2 | (0 << 16)) ; SetInt" << endl;
+        }
+
+    } else {
+        switch(type) {
+        case DataTypes::typeShort:
+        case DataTypes::typeUShort:
+            out << "\t" << "CALL SetShort_Old" << endl;
+            break;
+
+        case DataTypes::typeByte:
+        case DataTypes::typeUByte:
+            out << "\t" << "CALL SetByte_Old" << endl;
+            break;
+
+        case DataTypes::typeString:
+            out << "\t" << "CALL SetString_Old" << endl;
+            break;
+
+        default:
+            out << "\t" << "CALL SetInt_Old" << endl;
+        }
     }
 }
 

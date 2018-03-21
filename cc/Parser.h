@@ -18,6 +18,9 @@ private:
     const static int MAX_LINE_LEN = 1024;
     const static int MAX_FUNC_LEN = 1024;
 
+    //Config properties
+    map<string, string> configs;
+
     //Token list
     Token* tokens;
     int tokenCount;
@@ -64,6 +67,7 @@ private:
     std::ostringstream out;
 
     //FixIdentifierLoader.cpp: load config files
+    void loadConfig ();
     void loadSyscallTable ();
     void loadIntvTable ();
     void loadStructTable ();

@@ -650,7 +650,7 @@ end
 
 
 GENERAL 0xF7
-00000000 chName          byte 12 dup
+00000000 chName          string
 0000000C pFaceSHP        void *                    ; offset
 00000010 wHPMax          short
 00000012 wHP             short
@@ -860,8 +860,8 @@ _WIN32_FIND_DATAA 0x140
 00000020 nFileSizeLow    int
 00000024 dwReserved0     int
 00000028 dwReserved1     int
-0000002C cFileName       byte 260 dup
-00000130 cAlternateFileName byte 14 dup
+0000002C cFileName       string
+00000130 cAlternateFileName string
 0000013E _padding        byte 2 dup
 end
 

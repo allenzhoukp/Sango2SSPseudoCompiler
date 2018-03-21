@@ -1,18 +1,18 @@
 三国2 Smart Script 伪代码编译器
-v0.9.0
+v0.9.1
 
 1. 说明
 这个编译器用于将C风格代码编译成符合三国2脚本格式的asm文件。
 源代码随编译器程序一同发布。
-编译器程序ss.exe是由cc文件夹下的伪代码，在MinGW32-GCC 6.3.0-1下，使用C++11标准编译的。
+编译器程序ss.exe是由cc文件夹下的代码，在MinGW32-GCC 6.3.0-1下，使用C++11标准编译的。
 
 压缩包下的文件有：
 a) 核心文件
 ss.exe              编译器本体
-sg2lang.h           包含内存操作所必须函数的头文件
+sg2lang.h           编译必需的支持文件
 
 b) 样例文件
-Testcc.cpp 	            例子（源文件）
+Testcc.cpp 	        例子（源文件）
 
 c) 导入文件
 magic.cpp           可用于include的、原版magic.asm内容的源码
@@ -26,6 +26,7 @@ magic_inst.txt      指令集和系统调用(SYSCALL)的说明文件（注册出
 e) 编译器源码 (cc目录)
 
 f) 编译器配置文件 (config目录)
+config/CONFIG.txt           整体配置
 config/SYSCALL_TABLE.txt    系统调用配置
 config/STRUCT_TABLE.txt     结构体配置（注册idb出品）
 config/INTV_TABLE.txt       INTV配置
@@ -40,6 +41,12 @@ makefile                   编译源码用文件
 2. 测试版说明
 该编译器尚为测试版本，可能尚有bug.
 如您发现bug，请及时与作者联系。在百度贴吧 @远帆97 即可，但请不要发私信，那玩意儿不大容易被看到。
+
+v0.9.1修改内容：
+添加了v1.05+修正版exe下的直接内存操作支持。
+！！警告！！
+如果您使用的EXE不是v1.05+修正版，请将CONFIG.txt中的 use_exe_memory_io = 1 改为 0。
+否则，您的大部分内存操作代码将不起作用。
 
 
 3. 使用说明
@@ -66,6 +73,7 @@ makefile                   编译源码用文件
     返回值 [function] 函数名 (类型 参数1, 类型 参数2, ...) [callsign 调用代码] {
         // 代码...
     }
+    []表示可选。（即，可以写也可以不写。）
     例如：
     void Sol13LongSpcAttack (int attacker_soldier, int harm) callsign 29013 {
         // code...
@@ -105,6 +113,7 @@ makefile                   编译源码用文件
 	以下语法是不支持的：
         int numbers[3] = {1,2,3};
         int[3] length_in_front;
+        float num = 0.1;
 		float constant_length_array[3*8];
 		void * dynamic_length_array[variable + 9];
     变量作用域为整个函数。即便您在某个if或while的大括号内声明了变量，它在大括号外仍然有效。
@@ -209,6 +218,13 @@ makefile                   编译源码用文件
            handle类型是一种整型。例如，以下代码取得一个士兵的物件：
                 int attackerSoldier = GetScriptLinkedObject();
 
+        7. 目前不建议您直接调用底层函数操作内存。
+           由于v0.9.1引入的特性，目前存在两套内存操作函数；旧的函数在sg2lang.h中，带有_Old下划线。
+           然而，这些函数有可能会在之后被改动，导致您的代码不被兼容。
+           如果您只是想得到对应内存地址的值，可以手动为指针赋值，然后用*运算符取值：
+           int* addr = 0x4A6878;
+           int value = *addr; //得到0x4A6878地址处4个字节的整数值
+
 (8) 支持的分支结构包括：
         if...else if...else
         while
@@ -245,7 +261,7 @@ makefile                   编译源码用文件
 
      您可以像调用函数一样正常地调用它们，并且可以在表达式中包括它们。
      例如：
-         int attackerMajor = GetINV(INTV_ATTACKER_MAJOR);
+         int attackerMajor = GetIntv(INTV_ATTACKER_MAJOR);
      和之前版本不同的是，所有系统指令目前完全支持运行时才能确定值的变量。您可以像正常的函数一样使用它。
      目前，所有全局变量和intv只有整型。
 
