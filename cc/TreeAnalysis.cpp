@@ -102,9 +102,6 @@ void Parser::outputGetValue(int type) {
 
     } else {
         switch(type) {
-        case DataTypes::typeUInt:
-            out << "\t" << "CALL GetInt_Old" << endl;
-            break;
         case DataTypes::typeShort:
             out << "\t" << "CALL GetShort_Signed_Old" << endl;
             break;
@@ -120,8 +117,8 @@ void Parser::outputGetValue(int type) {
         case DataTypes::typeString:
             out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
             break;
-        default:  //int and all pointers
-            out << "\t" << "CALL GetInt_Signed_Old" << endl;
+        default:  //int, uint and all pointers
+            out << "\t" << "CALL GetInt_Old" << endl;
         }
     }
 }

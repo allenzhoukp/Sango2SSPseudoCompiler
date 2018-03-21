@@ -451,7 +451,7 @@ B : GetScriptLinkedObjectHandle ;
 
 ;1B : 设置 field_5C, field_60 . 似乎是放大或缩小物件（相对于原始尺寸而非当前尺寸）。以65536为1倍大小，131072为2倍，32768为1/2，以此类推。
    ; 警告：带OF_BIGSHAPE标记的物件，任何缩放均无效。
-   ; SetObjectScale (xScale, yScale)
+   ; SetObjectScale (objectHandle, xScale, yScale)
 
 ;1C : 设置pDrawingFileItem. 用字符串指定一个图形的路径，将其载入，然后设置物件的pDrawingFileItem为新载入的图形。这会使得该物件始终被显示为该图形。
    ; 例如，把主将物件手动载入另一主将模型的某一图形（例如"major//body//RDW10001"）后，他就变成新的主将模型的模样了，也不再有动画效果了，始终保持僵直。
