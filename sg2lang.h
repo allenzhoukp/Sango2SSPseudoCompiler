@@ -57,7 +57,7 @@ int naked function GetByte_Old (int address)  __asm {
 
 // Get the 1-byte integer from the target address.
 int function GetByte_Signed_Old (int address) {
-    int result = GetByte (address);
+    int result = GetByte_Old (address);
     if(result & 0x80)               //sign bit is 1
         return result | 0xFFFFFF00;
     return result;
@@ -119,7 +119,7 @@ LANG_GET_SHORT_1:
 
 // Get the 2-byte integer from the target address.
 int function GetShort_Signed_Old (int address) {
-    int result = GetShort (address);
+    int result = GetShort_Old (address);
     if(result & 0x8000)               //sign bit is 1
         return result | 0xFFFF0000;
     return result;
@@ -375,15 +375,15 @@ SET_DATA_END:
 // Write the 2-byte integer value to target address.
 // the higher 2 bytes of argument value will be ignored.
 void function SetShort_Old(int address, int value) {
-    SetInt(address,
-        (GetShort(address + 2) << 16) | (value & 0x0000FFFF));
+    SetInt_Old(address,
+        (GetShort_Old(address + 2) << 16) | (value & 0x0000FFFF));
 }
 
 // Write the 1-byte integer value to target address.
 // the higher 3 bytes of argument value will be ignored.
 void function SetByte_Old(int address, int value) {
-    SetInt(address,
-        (GetInt(address) & 0xFFFFFF00) | (value & 0x000000FF));
+    SetInt_Old(address,
+        (GetInt_Old(address) & 0xFFFFFF00) | (value & 0x000000FF));
 }
 
 // Write string (in stack) to target address.
@@ -391,7 +391,7 @@ void function SetByte_Old(int address, int value) {
 //                          (no global flag indicates whether it is set).
 void function SetString_Old(int address, string value) {
     //0x46DC60 = strcpy
-    SetInt(0x4A71FC, 0x46DC60); // 0x4A69B0(SYSCALL_ARRAY_BASE) + 0x213 * 4
+    SetInt_Old(0x4A71FC, 0x46DC60); // 0x4A69B0(SYSCALL_ARRAY_BASE) + 0x213 * 4
 
     __asm {
         PUSHARG address

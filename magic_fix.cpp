@@ -15564,26 +15564,29 @@ LOC_1B2E8:
 	// Check if this one is a major. If it is not, it could be added to array 1.
 	// SangoObject* nthForceObject = *((SangoObject**) 0x4A64A0) + 0x0A8 * (nthForce & 0xFFFF);
 	//
-	// if(!(nthForceObject->pMother->dwFlags & 1)) { // !IsMajor(nthForceObject->pMother)
+	// if(!(nthForceObject->pMother->dwFlags & 1)) { ; !IsMajor(nthForceObject->pMother)
 	//     a1[q++] = nthForce;
 	// }
 
 	//new code
-	//the following code is generated, though with minor parahrasing.
+	//the following code is generated, though with minor paraphrasing.
 	PUSH 0x4A64A0
-	CALL GetInt_Old
+	//CALL GetInt_Old
+	SYSCALL 0x214, (1 | (1 << 16)) ;GetInt
 	PUSH 0x0A8
 	PUSHARG 239 ; nthForce
 	PUSH 0xFFFF
 	AND
 	MUL
 	ADD
-	PUSH 132 // SangoObject->pMother
+	PUSH 132 ; SangoObject->pMother
 	ADD
-	CALL GetInt_Old
-	PUSH 44  // XXInfo->dwFlags
+	//CALL GetInt_Old
+	SYSCALL 0x214, (1 | (1 << 16)) ;GetInt
+	PUSH 44  ; XXInfo->dwFlags
 	ADD
-	CALL GetInt_Old
+	//CALL GetInt_Old
+	SYSCALL 0x214, (1 | (1 << 16)) ;GetInt
 	PUSH 1
 	AND
 	ZERO
@@ -15597,7 +15600,7 @@ t1521617341_195_else:
 t1521617341_196_if_end:
 	//new code ends
 
-	//PUSHARG 233	//original code deleted
+	//PUSHARG 233	;original code deleted
 	//SETNR 1
 	INCN 233
 	JMP LOC_1B2E8
@@ -22476,48 +22479,76 @@ LOC_2771C:
 
 }
 
-void naked function CheckHalfMoonNew (int arg_0, int arg_1) __asm{
-	STACK 1
-LOC_2772C:
-	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
-	JZ LOC_2781C
-	PUSH 1
-	DELAY
-	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
-	POPN 1
-	PUSHINV 5 ; INTV_IS_LEFT
-	PUSH 1
-	CMP
-	JZ LOC_277DC
-	PUSHARG 1
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
-	PUSH 100
-	SUB
-	CMPG
-	JZ LOC_277D4
-	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	JMP LOC_2781C
-LOC_277D4:
-	JMP LOC_27814
-LOC_277DC:
-	PUSHARG 1
-	PUSH 100
-	CMPL
-	JZ LOC_27814
-	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	JMP LOC_2781C
-LOC_27814:
-	JMP LOC_2772C
-LOC_2781C:
-	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	RETN 2
+//Replace this function into Pseudocode and paraphrase.
+//Add a new condition for the magic to end: if it has been a long time.
+//(Time limit could be seen in function HalfMoonNewMotion().
+// To simplify, the time it will take is |startX - targetX| / 36.
+// So this magic should not last longer than GetBattleWidthInScreenX() / 36. )
+void function CheckHalfMoonNew (int moon, int spark) {
+								//-3,           -2
+	int timer = 0;
+	while(IsObjectExist(moon)) {
+		Delay(1);
+		timer++;
+		int x = GetObjectScreenX(moon);
+		if(intvIsLeft) {
+			if(x > GetBattleWidthInScreenX() - 100)
+				break;
 
+		} else {
+			if(x < 100)
+				break;
+		}
+		//Prevent the magic lasting forever!
+		if(timer > GetBattleWidthInScreenX() / 36 + 1)
+			break;
+	}
+	FreeObjectByHandle(moon);
+	FreeObjectByHandle(spark);
 }
+
+// void naked function CheckHalfMoonNew (int arg_0, int arg_1) __asm{
+// 	STACK 1
+// LOC_2772C:
+// 	PUSHARG -3
+// 	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
+// 	JZ LOC_2781C
+// 	PUSH 1
+// 	DELAY
+// 	PUSHARG -3
+// 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
+// 	POPN 1
+// 	PUSHINV 5 ; INTV_IS_LEFT
+// 	PUSH 1
+// 	CMP
+// 	JZ LOC_277DC
+// 	PUSHARG 1
+// 	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
+// 	PUSH 100
+// 	SUB
+// 	CMPG
+// 	JZ LOC_277D4
+// 	PUSHARG -3
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	JMP LOC_2781C
+// LOC_277D4:
+// 	JMP LOC_27814
+// LOC_277DC:
+// 	PUSHARG 1
+// 	PUSH 100
+// 	CMPL
+// 	JZ LOC_27814
+// 	PUSHARG -3
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	JMP LOC_2781C
+// LOC_27814:
+// 	JMP LOC_2772C
+// LOC_2781C:
+// 	PUSHARG -2
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	RETN 2
+//
+// }
 
 void naked function HalfMoonNewMotion (int arg_0, int arg_1, int arg_2, int arg_3) __asm{
 	STACK 12

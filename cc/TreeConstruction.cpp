@@ -164,7 +164,7 @@ bool Parser::tryMatchInst(ExpressionNode* &x, int& tokenPos){
         match(tokenPos, "(");
         initExpNodeParamArray(x, 1);
         expr(x->params[0], tokenPos, 0);
-        require(tokenPos, isInteger(x->params[0]->resultType),
+        require(tokenPos, x->params[0]->resultType == DataTypes::typeString,
             name + ErrMsg::instRequireStringParam);
         match(tokenPos, ")");
     }
