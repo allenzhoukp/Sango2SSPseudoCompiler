@@ -65,10 +65,11 @@ int main(int argc, char** argv) {
             system(del1.c_str());
 
             // outfileBase.cds will be renamed to outfileBase.so. Replace existing file.
-            string del2 ("del " + outfileBase + ".so");
-            system(del2.c_str());
-            string rename ("rename " + outfileBase + ".cds " + outfileBase + ".so");
+            string rename ("copy " + outfileBase + ".cds " + outfileBase + ".so /y");
             system(rename.c_str());
+            string del2 ("del " + outfileBase + ".cds");
+            system(del2.c_str());
+            
         }
     }
  
