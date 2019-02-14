@@ -14,6 +14,8 @@ using std::endl;
 
 Parser::ExpressionNodePool::ExpressionNodePool() {
     clear();
+    for(int i = 0; i < MAX_LINE_LEN * 10; i++)
+        pool[i].params = NULL;
 }
 
 ExpressionNode* Parser::ExpressionNodePool::newNode() {
@@ -29,7 +31,8 @@ void Parser::ExpressionNodePool::clear() {
 }
 
 void Parser::initExpNodeParamArray (ExpressionNode* x, int len) {
-    x->params = new ExpressionNode*[MAX_FUNC_LEN + 1];
+    if (x->params == NULL)
+        x->params = new ExpressionNode*[MAX_FUNC_LEN + 1];
     memset(x->params, 0, sizeof(ExpressionNode *) * (MAX_FUNC_LEN + 1));
 }
 

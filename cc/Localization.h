@@ -141,7 +141,8 @@ namespace ErrMsg {
 
     const string requireIntegerConstant = "此处应有常整数";
     const string labelRedefined = "同名标签已被定义";
-    const char labelNotFound[] = "Warning %s, %d:%d: 标签 %s 无法在所有非 __asm 块中找到。请谨慎。\n";
+    const char labelNotFound[] = "";
+    // const char labelNotFound[] = "Warning %s, %d:%d: 标签 %s 无法在所有非 __asm 块中找到。请谨慎。\n";
     const string localRequireIdentifier = "无效变量名：变量名应仅包含字母、数字和下划线，并且不能以数字开头";
     const string voidLocal = "无效局部变量类型：void";
     const string localRedefined = "同名局部变量已被定义： ";

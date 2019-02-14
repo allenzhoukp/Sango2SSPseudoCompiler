@@ -7,10 +7,13 @@
 #include <stack>
 #include <vector>
 #include <sstream>
+#include <unordered_map>
+#include <fstream>
 
 using std::vector;
 using std::set;
 using std::stack;
+using std::unordered_map;
 
 class Parser {
 private:
@@ -44,12 +47,12 @@ private:
     set<string> labels;
     int labelNo = 0;
 
-    map<string, int> stringTable;
+    unordered_map<string, int> stringTable;
     int stringCount = 0;
 
     Function funcs[MAX_FUNC_LEN];
     int funcCount = 0;
-    map<string, Function*> funcNameMapping;
+    unordered_map<string, Function*> funcNameMapping;
     Function* currentFunc;
 
     //for multiple loop/switch: top stack indicates the label to jump to
@@ -64,6 +67,7 @@ private:
     stack<ExpressionNode*> mmNodes;
 
     //outputer
+    // std::ofstream out;
     std::ostringstream out;
 
     //FixIdentifierLoader.cpp: load config files
@@ -162,7 +166,8 @@ private:
     void outputStringTable ();
 
 public:
-    Parser(Token* tokenList, int tokenCnt_);
+    Parser();
+    void init(Token* tokenList, int tokenCnt_);
     string str();
 };
 

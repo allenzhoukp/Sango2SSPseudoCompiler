@@ -1806,7 +1806,7 @@ void function PromptChildGenTalk (General* pChild) {
 	} while(GetGlobal(1) != 0);
 	SetGlobal(1, 1);
 
-	General* pParent = pChild->pBloodGeneral;
+	General* pParent = pChild->pBloodGeneral;	// Note: will crash if using old exe-memory IO. No idea why for now.
 	General* pKingGeneral = pParent->pKing->pGeneral;
 
 	SetSXString(0, 3, GetGeneralName(pChild));	// %S3%
@@ -1834,9 +1834,7 @@ void function PromptChildGenTalk (General* pChild) {
 		PromptWithMessageIndex1(0, pParent, Rand(904, 907));		// e.g. "這是應該的，希望他能不負大人所望！%k%%e%"
 	}
 
-
 	Delay(1);
-
 	SetGlobal(1, 0);
 }
 

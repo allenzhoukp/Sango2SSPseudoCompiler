@@ -10,6 +10,10 @@
 #include "Lexer.h"
 #include "Parser.h"
 #include "Localization.h"
+#include <fstream>
+
+// To prevent massive heap allocation, move parser here.
+Parser parser;
 
 int main(int argc, char** argv) {
     if(argc != 2 && argc != 3) {
@@ -17,13 +21,15 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    FILE* fout = fopen(argc == 3 ? argv[2] : "ss.asm", "w");
+    std::ofstream out(argc == 3 ? argv[2] : "ss.asm");
+    // FILE* fout = fopen(argc == 3 ? argv[2] : "ss.asm", "w");
 
     Lexer* lexer = new Lexer(argv[1]);
     lexer->process();
 
-    Parser* parser = new Parser(lexer->tokens, lexer->tokenCount);
-    fprintf(fout, "%s", parser->str().c_str());
+    parser.init(lexer->tokens, lexer->tokenCount);
+    // fprintf(fout, "%s", parser.str().c_str());
+    out << parser.str();
 
     return 0;
 }

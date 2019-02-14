@@ -396,7 +396,9 @@ void Parser::outputStringTable () {
     out << "string_table_end:" << endl;
 }
 
-Parser::Parser(Token* tokenList, int tokenCnt_) {
+Parser::Parser(){};
+
+void Parser::init(Token* tokenList, int tokenCnt_) {
     tokens = tokenList;
     tokenCount = tokenCnt_;
 

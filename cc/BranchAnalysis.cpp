@@ -226,6 +226,7 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 	std::ostringstream *content = new std::ostringstream[MAX_FUNC_LEN];
 	string *labels = new string[MAX_FUNC_LEN];
 	int branchCount = 0;
+    bool hasDefault = false;
 
 	while(!tryMatch(tokenPos, "}")) {
 
@@ -240,7 +241,7 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 				immediate->type == ExpNodeType::intConst,
 				ErrMsg::requireIntegerConstant);
 			int value = immediate->intValue;
-            delete immediate;
+            // delete immediate;
 
             char buf[MAX_FUNC_LEN];
 			sprintf(buf, "switch_case_%d", value);
@@ -253,6 +254,7 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 			out << "\t" << "POP" << endl;
 			out << "\t" << "JMP " << defaultCase << endl;
 			labels[branchCount] = defaultCase;
+            hasDefault = true;
 		}
 
 		match(tokenPos, ":");
@@ -275,11 +277,19 @@ bool Parser::tryMatchSwitch (int& tokenPos) {
 		}
 	}
 
+    // If there isn't a default case, an extra jump to the end-of-switch is necessary.
+    if(!hasDefault) {
+        out << "\t" << "POP" << endl;
+        out << "\t" << "JMP " << switchEnd << endl;
+    }
+
 	//output label and content
 	for(int i = 0; i < branchCount; i++) {
 		outputLabel(labels[i]);
 		out << content[i].str();
 	}
+
+    outputLabel(switchEnd);
 
 	breakToLabels.pop();
 	delete[] labels;
@@ -297,6 +307,8 @@ bool Parser::tryMatchLabelDecl (int& tokenPos) {
         ErrMsg::labelRedefined);
 
     newLabel(tokens[tokenPos].content);
+    // Don't forget to output the label!
+    outputLabel(tokens[tokenPos].content);
     tokenPos += 2;
     return true;
 }
@@ -501,7 +513,7 @@ void Parser::matchFunc(int& tokenPos) {
         ErrMsg::funcNameIdentifier);
     require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
         ErrMsg::funcNameConflict + currentFunc->name);
-    funcNameMapping[currentFunc->name] = currentFunc;
+    funcNameMapping.emplace(std::pair<string, Function*>(currentFunc->name, currentFunc));
 
     if(getStringNo(currentFunc->name) == -1)
         newString(currentFunc->name); //important: this is for CALLBS use.

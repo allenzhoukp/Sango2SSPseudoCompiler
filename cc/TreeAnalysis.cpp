@@ -640,10 +640,11 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
 }
 
 void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackType) {
-    // expr tree construction and analysis
+    // expr tree construction 
     ExpressionNode* root = NULL;
     expr(root, tokenPos, 0);
 
+    // expr tree analysis
     int stackDepth = 0;
     treeDFS(root, stackDepth, remainReturnStack);
 
@@ -684,8 +685,15 @@ void Parser::matchExpr(int& tokenPos, bool remainReturnStack, int returnStackTyp
         outputUnaryOp(ppmm, stackDepth, false);
         mmNodes.pop();
     }
-    if(stackDepth > 1 || (stackDepth == 1 && !remainReturnStack))
-        printf(ErrMsg::stackSizeIncrease,
-            tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo, stackDepth);
+    if(stackDepth > 1 || (stackDepth == 1 && !remainReturnStack)) {
+        // printf(ErrMsg::stackSizeIncrease,
+        //     tokens[tokenPos].fileName.c_str(), tokens[tokenPos].lineNo, stackDepth);
+        int stacksToPop = remainReturnStack ? stackDepth - 1 : stackDepth;
+        while (stacksToPop--)
+            out << "\t" << "POP" << endl;
+    }
 
+    // once the tree is used up, all remaining nodes are useless. 
+    // restore all nodes back into the pool.
+    expNodePool.clear();
 }
