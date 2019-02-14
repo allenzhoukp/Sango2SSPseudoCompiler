@@ -296,7 +296,10 @@ void Parser::newLabel (string name) {
 
 string Parser::emitLabel (string name) {
     std::ostringstream labelName;
-    labelName << "t" << time(0) << "_" << labelNo << "_" << name;
+    if (configs["use_timed_label"] == "1") 
+        labelName << "t" << time(0) / 60 << "_" << labelNo << "_" << name;
+    else
+        labelName << "l" << labelNo << "_" << name;
     name = labelName.str();
     newLabel(name);
     return name;

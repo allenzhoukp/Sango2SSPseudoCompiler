@@ -13,6 +13,7 @@ private:
     static const int MAX_ERR_CNT = 20;
 
 public:
+    static bool success;
     static void panic (string message, string fileName, int lineNo, int columnNo);
 
 };

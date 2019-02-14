@@ -10,26 +10,67 @@
 #include "Lexer.h"
 #include "Parser.h"
 #include "Localization.h"
+#include "Panic.h"
 #include <fstream>
 
 // To prevent massive heap allocation, move parser here.
 Parser parser;
 
 int main(int argc, char** argv) {
-    if(argc != 2 && argc != 3) {
+    if(argc != 2 && argc != 3 && argc != 4) {
         printf("%s", mainMessage.c_str());
         return 1;
     }
 
-    std::ofstream out(argc == 3 ? argv[2] : "ss.asm");
-    // FILE* fout = fopen(argc == 3 ? argv[2] : "ss.asm", "w");
+    printf("Sango2 Smart Script Pseudo Compiler v0.9.3\n");
+
+    char* infileName = new char[MAX_LOCAL_NUM];
+    for (int i = 0; i <= strlen(argv[1]); i++) {
+        if (argv[1][i] == '.' || argv[1][i] == '\0') {
+            strncpy(infileName, argv[1], i);
+            infileName[i] = '\0';
+            break;
+        }
+    }
+    string str_infileName (infileName);
+    string defaultOutfile = str_infileName + ".asm";
+    string outfile (argc == 3 && argv[2][0] != '-' ? argv[2] : defaultOutfile);
+
+    std::ofstream out(outfile);
+    // FILE* fout = fopen(argc == 3 ? argv[2] : defaultOutfile, "w");
 
     Lexer* lexer = new Lexer(argv[1]);
     lexer->process();
 
     parser.init(lexer->tokens, lexer->tokenCount);
     // fprintf(fout, "%s", parser.str().c_str());
+
+    if (!Panic::success) {
+        printf("Assembly file generation failed. \n");
+        return 1;
+    }
+    printf("Assembly file generation completed. \n");
     out << parser.str();
 
+    if (argc == 4 || (argc == 3 && argv[2][0] == '-')) {
+        if (strcmp(argv[argc - 1], "-auto") == 0 || strcmp(argv[argc - 1], "-a") == 0) {
+            // call sg2asm to compile outfileBase.asm to outfileBase.cds and outfileBase.lst
+            string sg2asm ("sg2asm " + outfile);
+            system(sg2asm.c_str());
+            
+            string outfileBase = outfile.substr(0, outfile.length() - 4);
+
+            // outfileBase.lst is useless. 
+            string del1 ("del " + outfileBase + ".lst");
+            system(del1.c_str());
+
+            // outfileBase.cds will be renamed to outfileBase.so. Replace existing file.
+            string del2 ("del " + outfileBase + ".so");
+            system(del2.c_str());
+            string rename ("rename " + outfileBase + ".cds " + outfileBase + ".so");
+            system(rename.c_str());
+        }
+    }
+ 
     return 0;
 }
