@@ -8,6 +8,7 @@
 #include <regex>
 #include <vector>
 #include <algorithm>
+#include <set>
 
 #include "Token.h"
 
@@ -24,6 +25,8 @@ private:
     const int MAX_FILE_LEN = 1 << 20;
 
     vector<std::pair<string, string> > replace;
+
+    std::set<string> fileIncluded;
 
     cmatch cm;
     // regex r_digit{ R"((\d*\.?\d+|\d+\.?\d*)([e][+-]?\d+)?)" };

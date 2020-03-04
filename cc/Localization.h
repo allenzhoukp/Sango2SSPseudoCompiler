@@ -20,6 +20,8 @@ namespace ErrMsg {
     const string lexerInvalidOp = "Invalid operator";
     const string asmLeftBrace = "Expect '{' after '__asm'";
 
+    const string fileNotExist = "Could not find";
+
     const string require1 = "Error: expected ";
     const string require2 = ", found '";
 
@@ -94,6 +96,8 @@ namespace ErrMsg {
     const string identNotMatch = "无法匹配标识符";
     const string lexerInvalidOp = "无效运算符";
     const string asmLeftBrace = "在'__asm'后应有'{'";
+
+    const string fileNotExist = "无法找到include的文件";
 
     const string require1 = "应有'";
     const string require2 = "', 实际检测到 '";

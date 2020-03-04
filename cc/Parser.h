@@ -165,6 +165,9 @@ private:
     void outputMagicTable ();
     void outputStringTable ();
 
+    //Parser.cpp: reduce labels.
+    string reduceLabels(string output);
+
 public:
     Parser();
     void init(Token* tokenList, int tokenCnt_);

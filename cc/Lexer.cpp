@@ -51,9 +51,25 @@ void Lexer::move (int dist) {
 }
 
 void Lexer::readFile (string fileName) {
+
+    // skip included file
+    if (fileIncluded.find(fileName) != fileIncluded.end()) {
+        return;
+    }
+
     File file;
     file.fileName = fileName;
     FILE* fin = fopen(fileName.c_str(), "r");
+
+    // panic if file does not exist, and it is not sg2lang.h
+    if (!fin) {
+        if (fileName != "sg2lang.h")
+            Panic::panic(ErrMsg::fileNotExist + " " + fileName,
+                curfile->fileName, curfile->curln, curfile->curcol);
+        return;
+    }
+
+    fileIncluded.insert(fileName);
 
     file.fileContent = new char[MAX_FILE_LEN];
     file.input = file.fileContent;

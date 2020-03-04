@@ -399,6 +399,52 @@ void Parser::outputStringTable () {
     out << "string_table_end:" << endl;
 }
 
+// Reduced redundant labels - Henryshow compiler only support 
+// 3 consecutive labels. Might raise problems.
+string Parser::reduceLabels (string output) {
+
+    if (configs["reduce_redundant_labels"] != "1")
+        return output;
+
+    // construct regexs
+    string strRegexLabel;
+    if (configs["use_timed_label"] == "1")
+        strRegexLabel = R"((t\d+_\d+_\w+):\s*)";
+    else 
+        strRegexLabel = R"((l\d+_\w+):\s*)";
+    std::regex rLabel { strRegexLabel };
+    std::regex rConsecutiveLabels { "(" + strRegexLabel + "\\n){2,}" };
+    std::smatch sm, sm2;
+
+    // find all consecutive labels
+
+    while(std::regex_search(output, sm, rConsecutiveLabels)) {
+        string consecutive = sm.str();
+        string firstLabel = "";
+        // get all labels in the consecutive sequence
+        while(std::regex_search(consecutive, sm2, rLabel)) {
+            // replace all non-first labels into first labels
+            // (will go through all jumps)
+            if (firstLabel == "") firstLabel = sm2[1];
+            else {
+                string currentLabel = sm2[1];
+                size_t start_pos = 0;
+                while((start_pos = output.find(currentLabel, start_pos)) != string::npos){
+                    output.replace(start_pos, currentLabel.length(), firstLabel);
+                    start_pos += firstLabel.length();
+                }
+            }
+            consecutive = sm2.suffix();
+        }
+        // replace the label into a single one
+        std::regex_search(output, sm, rConsecutiveLabels);
+        output.replace(sm.position(), sm.str().length(), firstLabel + ":\n");
+
+    }
+    return output;
+}
+
+
 Parser::Parser(){};
 
 void Parser::init(Token* tokenList, int tokenCnt_) {
@@ -444,5 +490,5 @@ void Parser::init(Token* tokenList, int tokenCnt_) {
 }
 
 string Parser::str () {
-    return out.str();
+    return reduceLabels(out.str());
 }

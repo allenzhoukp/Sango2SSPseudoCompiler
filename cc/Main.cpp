@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
         printf("Assembly file generation failed. \n");
         return 1;
     }
-    printf("Assembly file generation completed. \n");
     out << parser.str();
+    printf("Assembly file generation completed. \n");
 
     if (argc == 4 || (argc == 3 && argv[2][0] == '-')) {
         if (strcmp(argv[argc - 1], "-auto") == 0 || strcmp(argv[argc - 1], "-a") == 0) {
