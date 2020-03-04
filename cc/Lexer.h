@@ -42,7 +42,9 @@ private:
     //regex rOperator2chars { R"()"};
     //regex rOperator1char { R"()"};
 
-    void preprocessDefine();
+    char* preprocessDefineTemp = new char[MAX_FILE_LEN];
+    void preprocessDefineExisting();
+    void preprocessDefineNew(std::pair<string, string> r);
 
     void move(int dist);
     void readFile(string FileName);

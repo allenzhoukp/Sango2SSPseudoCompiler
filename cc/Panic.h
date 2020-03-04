@@ -10,7 +10,7 @@ using std::string;
 class Panic {
 private:
     static int errmsgCount;
-    static const int MAX_ERR_CNT = 20;
+    static const int MAX_ERR_CNT = 1;
 
 public:
     static bool success;

@@ -672,12 +672,13 @@ void Parser::unary(ExpressionNode* &x, int& tokenPos){
             //fix: should be unary() (type cast has quite a high priority!)
             unary(x->left, tokenPos);
 
-            //Failed cast: float -> ptr, string -> everything, everything -> void
+            //Failed cast: float/string -> ptr, everything -> void
             //Don't give actual instruction for now.
             require(currentTokenPos,
                 typeCode == x->left->resultType ||
-                    typeCode != DataTypes::typeVoid || x->left->resultType != DataTypes::typeString ||
-                    !(isPtr(typeCode) && x->left->resultType == DataTypes::typeFloat),
+                    (typeCode != DataTypes::typeVoid && 
+                    !(isPtr(typeCode) && (x->left->resultType == DataTypes::typeFloat || 
+                                          x->left->resultType == DataTypes::typeString))),
                 ErrMsg::invalidTypeCast + typeName + ")");
 
             return;

@@ -7,6 +7,50 @@
 // Notice: When compiling for MAGIC.SO, this file is required to be included in the file!
 // --------------------
 
+#define OAF_WAIT      1
+#define OAF_WALK      2
+#define OAF_DEFENSE   8
+#define OAF_PAIN      0x10
+#define OAF_DEATH     0x20
+#define OAF_WIN       0x40
+#define OAF_ATTACK2   0x800
+#define OAF_ATTACK3   0x1000
+#define OAF_ATTACK4   0x2000
+#define OAF_ATTACK5   0x4000
+#define OAF_SPELL1    0x8000
+#define OAF_SPELL2    0x10000
+#define OAF_SHOT1     0x20000
+#define OAF_SHOT2     0x40000
+#define OAF_SHOT3     0x80000
+#define OAF_ATTACK6   0x100000
+#define OAF_ATTACK7   0x200000
+#define OAF_ATTACK8   0x400000
+#define OAF_ATTACK    4
+
+#define OF_MAN              0x00000001
+#define OF_MISSILE          0x00000002
+#define OF_BACKGROUND       0x00000004
+#define OF_CAVALRY          0x00000008
+#define OF_BLOCKMAN         0x00000010
+#define OF_BLOCKMISSILE     0x00000020
+#define OF_BIGSHAPE         0x00000040
+#define OF_TRIGGERMAN       0x00000100
+#define OF_TRIGGERMISSILE   0x00000200
+#define OF_NOGRAVITY        0x00010000
+#define OF_NONSYNCHRONISM   0x00020000
+#define OF_MIXER            0x00040000
+#define OF_WHITELIGHT       0x00080000
+#define OF_DARKLIGHT        0x00100000
+#define OF_ENEMYGENERAL     0x01000000
+#define OF_ENEMYFORCE       0x02000000
+#define OF_MYGENERAL        0x04000000
+#define OF_MYFORCE          0x08000000
+#define OF_ATTACKENEMY      0x03000000
+#define OF_ATTACKMY         0x0c000000
+#define OF_ATTACKALL        0x0F000000
+#define OF_TARGET           0x00200000
+#define OF_BOMB             0x00400000
+
 void naked function DelayAmbientSound (int arg_0, int arg_1, int arg_2) __asm{
 LOC_40:
 	PUSH 1

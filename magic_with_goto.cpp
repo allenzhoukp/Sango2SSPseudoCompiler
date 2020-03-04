@@ -17,10 +17,10 @@ LOC_90:
 	v1 = GetSoldierCount((a0 ^ 1));
 	if (!(v1 > 0)) goto LOC_234;
 	v2 = ((v1 / 2) + 1);
-	v4 = GetRandomSoldierHandleFromAlive((a0 ^ 1));
+	v4 = GetRandomSoldierFromAlive((a0 ^ 1));
 	v3 = GetObjectScreenX(v4);
 LOC_148:
-	v4 = GetRandomSoldierHandleFromAlive((a0 ^ 1));
+	v4 = GetRandomSoldierFromAlive((a0 ^ 1));
 	v5 = GetObjectScreenX(v4);
 	if (!(a0 == 1)) goto LOC_1DC;
 	if (!(v3 > v5)) goto LOC_1D4;
@@ -52,10 +52,10 @@ LOC_290:
 	v1 = GetSoldierCount((a0 ^ 1));
 	if (!(v1 > 0)) goto LOC_434;
 	v2 = ((v1 / 2) + 1);
-	v4 = GetRandomSoldierHandleFromAlive((a0 ^ 1));
+	v4 = GetRandomSoldierFromAlive((a0 ^ 1));
 	v3 = GetObjectScreenX(v4);
 LOC_348:
-	v4 = GetRandomSoldierHandleFromAlive((a0 ^ 1));
+	v4 = GetRandomSoldierFromAlive((a0 ^ 1));
 	v5 = GetObjectScreenX(v4);
 	if (!(a0 == 1)) goto LOC_3DC;
 	if (!(v3 > v5)) goto LOC_3D4;
@@ -92,7 +92,7 @@ void ProduceShadowTime(int a0, int a1) {
 	int v1;
 	v1 = a1;
 LOC_51C:
-	CreateObject_Shadow(a0, 12, 1);
+	CreateShadowObject(a0, 12, 1);
 	if (!(!IsObjectExist(a0))) goto LOC_56C;
 	goto LOC_59C;
 LOC_56C:
@@ -111,8 +111,8 @@ void MovingShadow(int a0, int a1, int a2, int a3, int a4) {
 	SetCallbackProcedure(v2, a4);
 	v1 = 1;
 LOC_628:
-	CreateObject_Shadow1(v2, 4, 1, 8192);
-	MoveObjectByReference_Cylind(v2, a0, a3, (v1 * 16), 0);
+	CreateShadowObject1(v2, 4, 1, 8192);
+	SetCoordinateByReference_Cylind(v2, a0, a3, (v1 * 16), 0);
 	Delay(1);
 	v1++;
 	if ((v1 <= a1)) goto LOC_628;
@@ -124,7 +124,7 @@ void LockByCenter(int a0, int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v2;
 LOC_6F4:
 	v2 = CreateObjectByReference(a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(v2, a0, a2, a3, 0);
+	SetCoordinateByReference_Cylind(v2, a0, a2, a3, 0);
 	SetObjectFlags(v2, a5);
 	SetCallbackProcedure(v2, a6);
 	Delay(a4);
@@ -167,7 +167,7 @@ LOC_9CC:
 	if (!(!IsObjectExist(a0))) goto LOC_9F4;
 	goto LOC_A58;
 LOC_9F4:
-	MoveObjectByReference_Cylind(v2, a0, 0, 0, v4);
+	SetCoordinateByReference_Cylind(v2, a0, 0, 0, v4);
 	Delay(1);
 	v1--;
 	if ((v1 >= 0)) goto LOC_9CC;
@@ -485,7 +485,7 @@ void FireMan(int a0, int a1, int a2) {
 	v1 = 0;
 LOC_1C44:
 	if (!(v1 < a2)) goto LOC_1CE0;
-	MoveObjectByReference_Cylind(v3, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v3, a0, 0, 0, 0);
 	Delay(1);
 	if (!(IsObjectExist(a0) == 0)) goto LOC_1CD0;
 	goto LOC_1CE0;
@@ -501,7 +501,7 @@ void CreateBlood(int a0, int a1, int a2) {
 	int v1;
 	v1 = CreateObjectByReference(a0, 10012, 0, a1);
 	SetObjectScale(v1, 32768, 32768);
-	SetObjectStep_Sphere(v1, a2, Rand(24, 40), 7);
+	SetObjectSpeed_Sphere(v1, a2, Rand(24, 40), 7);
 	Delay(2);
 	SetObjectFadeOut(v1, 8, 1);
 	return;
@@ -531,7 +531,7 @@ LOC_1EE8:
 	if (!(v2 < a2)) goto LOC_202C;
 	v1 = CreateObjectByReference(a1, 10003, Rand(0, 255), a3);
 	SetObjectScale(v1, 12288, 12288);
-	SetObjectStep_Cylind(v1, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(v1, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(v1, 8192);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 256);
@@ -553,7 +553,7 @@ LOC_2070:
 	v1 = CreateObjectByReference(a1, 10003, Rand(0, 255), a3);
 	v3 = Rand(8192, 12288);
 	SetObjectScale(v1, v3, v3);
-	SetObjectStep_Cylind(v1, Rand(3, 7), Rand((-1), 5));
+	SetObjectSpeed_Cylind(v1, Rand(3, 7), Rand((-1), 5));
 	SetObjectFriction1(v1, 8192);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 256);
@@ -572,7 +572,7 @@ LOC_221C:
 	if (!(v2 < a2)) goto LOC_2360;
 	v1 = CreateObjectByReference(a1, 10013, Rand(0, 255), a3);
 	SetObjectScale(v1, 12288, 12288);
-	SetObjectStep_Cylind(v1, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(v1, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(v1, 8192);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 256);
@@ -591,7 +591,7 @@ LOC_23A4:
 	if (!(v2 < a2)) goto LOC_24E8;
 	v1 = CreateObjectByReference(a1, 10014, Rand(0, 255), a3);
 	SetObjectScale(v1, 12288, 12288);
-	SetObjectStep_Cylind(v1, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(v1, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(v1, 8192);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 256);
@@ -646,7 +646,7 @@ void CreateDot(int a0) {
 	Delay(Rand(2, 8));
 	v1 = CreateObjectByReference(a0, 10004, 0, 0);
 	SetObjectCoordinate(v1, (v2 + Rand((-60), 60)), (v3 + Rand((-60), 60)), (v4 + Rand((-60), 60)));
-	MoveObjectTo(v1, a0, Rand(3, 5));
+	ApproachObjectTowards(v1, a0, Rand(3, 5));
 	SetObjectFadeOut(v1, 16, 1);
 	return;
 }
@@ -748,7 +748,7 @@ LOC_2E44:
 LOC_2EC8:
 	v1 = CreateObjectByReference(a0, v6, a1, 0);
 	SetObjectCoordinate(v1, v2, v3, v4);
-	MoveObjectTo(v1, a0, Rand(3, 5));
+	ApproachObjectTowards(v1, a0, Rand(3, 5));
 	SetObjectFadeOut(v1, 16, 1);
 	return;
 }
@@ -781,8 +781,8 @@ LOC_2A20:
 void PowerExplode(int a0, int a1) {
 	int v1;
 	v1 = CreateObjectByReference(a0, 10011, 0, 0);
-	SetObjectStep_Sphere(v1, 0, (a1 * 32), 2);
-	CreateObject_Shadow(v1, 4, 2);
+	SetObjectSpeed_Sphere(v1, 0, (a1 * 32), 2);
+	CreateShadowObject(v1, 4, 2);
 	Delay(5);
 	SetObjectFadeOut(v1, 16, 1);
 	return;
@@ -799,8 +799,8 @@ LOC_309C:
 LOC_30B0:
 	v1 = CreateObjectByReference(a0, 10010, 0, 0);
 	a1 = (a1 * 47);
-	MoveObjectByReference_Cylind(v1, a0, 0, a1, 110);
-	SetObjectBrightness(v1, 12);
+	SetCoordinateByReference_Cylind(v1, a0, 0, a1, 110);
+	SetObjectOpacity(v1, 12);
 	asynccall CreateDots(v1);
 	Delay(10);
 	asynccall CreateLines(v1);
@@ -808,7 +808,7 @@ LOC_30B0:
 	v2 = 11;
 LOC_31D0:
 	if (!(v2 >= 0)) goto LOC_3224;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2--;
 	goto LOC_31D0;
@@ -819,13 +819,13 @@ LOC_3224:
 void StepShow(int a0, int a1) {
 	int v1;
 	SetObjectFlags(a0, 262144);
-	SetObjectBrightness(a0, 0);
+	SetObjectOpacity(a0, 0);
 	Delay(20);
 	v1 = 1;
 LOC_3288:
 	if (!(v1 <= 16)) goto LOC_32DC;
 	Delay(a1);
-	SetObjectBrightness(a0, v1);
+	SetObjectOpacity(a0, v1);
 	v1++;
 	goto LOC_3288;
 LOC_32DC:
@@ -902,7 +902,7 @@ void NoMoreSoldierCallback(int a0, int a1) callsign 1000 {
 LOC_372C:
 	v2 = 83;
 LOC_373C:
-	SetObjectStep_Sphere(v1, 0, v2, 5);
+	SetObjectSpeed_Sphere(v1, 0, v2, 5);
 	SetObjectFadeOut(v1, 16, 3);
 	FreeObjectByHandle(a0);
 	return;
@@ -943,7 +943,7 @@ LOC_3D70:
 LOC_3DA4:
 	MoveObject(v1, a1, a2, a3);
 	SetObjectScale(v1, 32768, 20480);
-	SetObjectStep_Cylind(v1, 14, Rand(1, 2));
+	SetObjectSpeed_Cylind(v1, 14, Rand(1, 2));
 	Delay(1);
 	SetObjectFadeOut(v1, 16, 1);
 	SetObjectScaleShrink(v1, ((-2048) - a4));
@@ -981,8 +981,8 @@ void HalfMoonAll(int a0, int a1, int a2, int a3, int a4) {
 	int v1;
 	int v2;
 	v1 = CreateObjectByReference(a0, 11001, a1, 0);
-	MoveObjectByReference_Cylind(v1, a0, a3, a4, 1);
-	SetObjectStep_Sphere(v1, a1, 0, a2);
+	SetCoordinateByReference_Cylind(v1, a0, a3, a4, 1);
+	SetObjectSpeed_Sphere(v1, a1, 0, a2);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, 1001);
 	asynccall ShowHalfMoonSmoke(v1);
@@ -1060,8 +1060,8 @@ LOC_4108:
 	SetOverwhelming(v1, 0);
 	PlaySound(v1, "m001snd01", 255);
 	v4 = CreateObjectByReference(v1, 11001, v5, 0);
-	MoveObjectByReference_Cylind(v4, v1, v5, 64, 1);
-	SetObjectStep_Sphere(v4, v5, 0, v6);
+	SetCoordinateByReference_Cylind(v4, v1, v5, 64, 1);
+	SetObjectSpeed_Sphere(v4, v5, 0, v6);
 	SetObjectFlags(v4, (16777216 | 33554432));
 	SetCallbackProcedure(v4, 1001);
 	asynccall ShowHalfMoonSmoke(v4);
@@ -1117,10 +1117,10 @@ LOC_4710:
 	v2 = (v7 / 2);
 LOC_472C:
 	if (!(a0 == 1)) goto LOC_4774;
-	v3 = GetSoldierHandle(v1, v2);
+	v3 = GetForceHandleByXY(v1, v2);
 	goto LOC_47B0;
 LOC_4774:
-	v3 = GetSoldierHandle(((v6 - 1) - v1), v2);
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), v2);
 LOC_47B0:
 	if (!(v3 == 0)) goto LOC_48E4;
 	if (!(a0 == 1)) goto LOC_4848;
@@ -1136,10 +1136,10 @@ LOC_48B8:
 	return;
 LOC_48E4:
 	if (!(intvIsLeft == 1)) goto LOC_4944;
-	v3 = GetSoldierHandle(v1, ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(v1, ((v7 - 1) - v2));
 	goto LOC_4998;
 LOC_4944:
-	v3 = GetSoldierHandle(((v6 - 1) - v1), ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), ((v7 - 1) - v2));
 LOC_4998:
 	if (!(v3 == 0)) goto LOC_4AFC;
 	if (!(a0 == 1)) goto LOC_4A48;
@@ -1244,7 +1244,7 @@ void BombLight(int a0, int a1) {
 	goto LOC_5468;
 LOC_4FFC:
 	v1 = CreateObjectByReference(a0, 7019, v2, 50);
-	SetObjectBrightness(v1, 6);
+	SetObjectOpacity(v1, 6);
 	SetObjectScale(v1, 131072, 131072);
 	Delay(10);
 	SetObjectFadeOut(v1, 16, 1);
@@ -1286,7 +1286,7 @@ LOC_5388:
 	v4 = (v4 + 3072);
 	v5 = (v5 - 3840);
 	if (!(v3 == 4)) goto LOC_5450;
-	SetObjectStep_Cylind(v1, (-1), 0);
+	SetObjectSpeed_Cylind(v1, (-1), 0);
 LOC_5450:
 	v3++;
 	goto LOC_5388;
@@ -1301,8 +1301,8 @@ void ShootObjectCallback(int a0, int a1) callsign 3001 {
 	int v9;
 	int v10;
 	if (!(a1 == intvDefenderMajor)) goto LOC_578C;
-	v8 = GetCallbackContext(a0, 0);
-	v9 = GetCallbackContext(a0, 1);
+	v8 = GetObjectContext(a0, 0);
+	v9 = GetObjectContext(a0, 1);
 	v10 = GetObjectDir(a0);
 	if (!(v8 == 1)) goto LOC_5530;
 	DecreaseGatherTick(a1, 50);
@@ -1384,9 +1384,9 @@ LOC_59B8:
 LOC_5A40:
 	MoveObject(v1, 8, 0, 0);
 LOC_5A6C:
-	SetObjectStep_Sphere(v1, a2, 0, a3);
+	SetObjectSpeed_Sphere(v1, a2, 0, a3);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, a5);
+	SetObjectOpacity(v1, a5);
 	SetObjectScale(v1, a4, a4);
 	Delay(2);
 	SetObjectFadeOut(v1, 60, 1);
@@ -1412,7 +1412,7 @@ void FireTail(int a0, int a1, int a2) {
 LOC_5C5C:
 	MoveObject(v1, 16, 0, 0);
 LOC_5C88:
-	SetObjectStep_Sphere(v1, a1, 0, a2);
+	SetObjectSpeed_Sphere(v1, a1, 0, a2);
 LOC_5CB4:
 	if (!IsObjectExist(a0)) goto LOC_5D34;
 	asynccall ScaleShadow(v1, 13010, a1, (a2 - 2), 20480, 14);
@@ -1432,8 +1432,8 @@ void FlyLight(int a0, int a1, int a2, int a3, int a4) {
 	v5 = 0;
 	v3 = GetObjectDir(a0);
 	v2 = CreateObjectByReference(a0, a1, v3, 0);
-	MoveObjectByReference_Cylind(v2, a0, v3, 0, 0);
-	SetObjectStep_Sphere(v2, v3, 0, 16);
+	SetCoordinateByReference_Cylind(v2, a0, v3, 0, 0);
+	SetObjectSpeed_Sphere(v2, v3, 0, 16);
 	if (!(a3 == 0)) goto LOC_5ECC;
 	if (!(a4 == 0)) goto LOC_5EA8;
 	SetObjectScale(v2, 49152, 49152);
@@ -1446,8 +1446,8 @@ LOC_5EC4:
 LOC_5ECC:
 	if (!(a4 == 0)) goto LOC_6028;
 	v5 = CreateObjectByReference(v2, 13011, v3, 0);
-	MoveObjectByReference_Cylind(v5, v2, v3, 0, 0);
-	SetObjectStep_Sphere(v5, v3, 0, 16);
+	SetCoordinateByReference_Cylind(v5, v2, v3, 0, 0);
+	SetObjectSpeed_Sphere(v5, v3, 0, 16);
 	if (!(intvIsLeft == 1)) goto LOC_5FCC;
 	MoveObject(v5, 9, 0, 0);
 	goto LOC_5FFC;
@@ -1539,15 +1539,15 @@ LOC_646C:
 	PlaySound(v1, "m003snd03", 255);
 LOC_64D4:
 	v4 = CreateObjectByReference(v1, (13001 + (a0 * 2)), v5, 0);
-	SetCallbackContext(v4, 0, a0);
-	SetCallbackContext(v4, 1, a1);
+	SetObjectContext(v4, 0, a0);
+	SetObjectContext(v4, 1, a1);
 	if (!(a0 != 2)) goto LOC_65C0;
-	MoveObjectByReference_Cylind(v4, v1, v5, 80, 80);
+	SetCoordinateByReference_Cylind(v4, v1, v5, 80, 80);
 	goto LOC_6600;
 LOC_65C0:
-	MoveObjectByReference_Cylind(v4, v1, v5, 36, (80 - 11));
+	SetCoordinateByReference_Cylind(v4, v1, v5, 36, (80 - 11));
 LOC_6600:
-	SetObjectStep_Sphere(v4, v5, 0, 16);
+	SetObjectSpeed_Sphere(v4, v5, 0, 16);
 	SetObjectFlags(v4, (16777216 + (33554432 * (a0 == 2))));
 	SetCallbackProcedure(v4, 3001);
 	if (!(a1 == 0)) goto LOC_6700;
@@ -1586,7 +1586,7 @@ void CreateRushCart(int a0, int a1, int a2, int a3, int a4) {
 	SetObjectCoordinate(v1, a0, a1, 0);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, 4001);
-	SetObjectStep_Sphere(v1, a3, 0, 8);
+	SetObjectSpeed_Sphere(v1, a3, 0, 8);
 	SetObjectScale(v1, 98304, 98304);
 	if (!a4) goto LOC_6A1C;
 	asynccall LockCameraLineDelay(v1, ((2 - a4) * 80), intvIsLeft, 280);
@@ -1671,7 +1671,7 @@ void LockTargetTime3(int a0, int a1, int a2, int a3, int a4) {
 	SetCallbackProcedure(v2, a4);
 	v1 = a2;
 LOC_7218:
-	MoveObjectByReference_Cylind(v2, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v2, a0, 0, 0, 0);
 	Delay(1);
 	v1--;
 	if ((v1 >= 0)) goto LOC_7218;
@@ -1772,16 +1772,16 @@ void ThunderAttach(int a0) {
 	v2 = GetObjectBattleY(a0);
 	v5 = GetObjectScreenX(a0);
 	v6 = GetObjectScreenY(a0);
-	v3 = GetSoldierHandle((v1 + 1), v2);
-	v4 = GetSoldierHandle((v1 - 1), v2);
+	v3 = GetForceHandleByXY((v1 + 1), v2);
+	v4 = GetForceHandleByXY((v1 - 1), v2);
 	if (!v3) goto LOC_7DA4;
-	if (!(GetCallbackContext(v3, 0) != 14409)) goto LOC_7DA4;
-	SetCallbackContext(v3, 0, 14409);
+	if (!(GetObjectContext(v3, 0) != 14409)) goto LOC_7DA4;
+	SetObjectContext(v3, 0, 14409);
 	asynccall ThunderAttachAttack(v3, v5, v6);
 LOC_7DA4:
 	if (!v4) goto LOC_7E34;
-	if (!(GetCallbackContext(v4, 0) != 14409)) goto LOC_7E34;
-	SetCallbackContext(v4, 0, 14409);
+	if (!(GetObjectContext(v4, 0) != 14409)) goto LOC_7E34;
+	SetObjectContext(v4, 0, 14409);
 	asynccall ThunderAttachAttack(v4, v5, v6);
 LOC_7E34:
 	return;
@@ -1818,7 +1818,7 @@ void LockTargetTime(int a0, int a1, int a2) {
 	SetObjectScale(v2, 98304, 65536);
 	v1 = a2;
 LOC_8098:
-	MoveObjectByReference_Cylind(v2, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v2, a0, 0, 0, 0);
 	Delay(1);
 	v1--;
 	if ((v1 >= 0)) goto LOC_8098;
@@ -1836,7 +1836,7 @@ LOC_817C:
 	if (!v1) goto LOC_82B4;
 	v2 = CreateObjectByReference(v3, 10013, Rand(0, 255), a2);
 	SetObjectScale(v2, 12288, 12288);
-	SetObjectStep_Cylind(v2, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(v2, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(v2, 8192);
 	SetObjectFadeOut(v2, 32, 1);
 	SetObjectScaleShrink(v2, 256);
@@ -1950,13 +1950,13 @@ LOC_889C:
 	goto LOC_8A84;
 LOC_8924:
 	if (!(v8 > 8)) goto LOC_8970;
-	v5 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v5 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	goto LOC_8A84;
 LOC_8970:
 	v14 = GetSoldierCountInRect((intvIsLeft ^ 1), v12, v13, 3, 4);
 	v5 = GetNthSoldierInRect((intvIsLeft ^ 1), v12, v13, 3, 4, Rand(0, (v14 - 1)));
 	if (!((v5 == 0) || (v5 == intvDefenderMajor))) goto LOC_8A84;
-	v5 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v5 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 LOC_8A84:
 	v9 = GetObjectScreenX(v5);
 	v10 = GetObjectScreenY(v5);
@@ -2148,13 +2148,13 @@ void FlyArrowLU() callsign 6003 {
 	int v2;
 	v2 = GetScriptLinkedObject();
 	v1 = CreateObjectByReference(v2, 16003, 128, 0);
-	MoveObjectByReference_Cylind(v1, v2, 128, 64, 104);
-	SetObjectStep_Sphere(v1, 128, 32, 32);
+	SetCoordinateByReference_Cylind(v1, v2, 128, 64, 104);
+	SetObjectSpeed_Sphere(v1, 128, 32, 32);
 	PlaySound(v1, "arrow", 255);
 	if (!(GetGlobal(6) == 1)) goto LOC_9840;
 	v1 = CreateObjectByReference(v2, 16009, 128, 0);
-	MoveObjectByReference_Cylind(v1, v2, 128, 64, 104);
-	SetObjectStep_Sphere(v1, 128, 32, 32);
+	SetCoordinateByReference_Cylind(v1, v2, 128, 64, 104);
+	SetObjectSpeed_Sphere(v1, 128, 32, 32);
 LOC_9840:
 	return;
 }
@@ -2164,13 +2164,13 @@ void FlyArrowRU() callsign 6004 {
 	int v2;
 	v2 = GetScriptLinkedObject();
 	v1 = CreateObjectByReference(intvAttackerMajor, 16003, 0, 0);
-	MoveObjectByReference_Cylind(v1, v2, 0, 64, 104);
-	SetObjectStep_Sphere(v1, 128, 96, 32);
+	SetCoordinateByReference_Cylind(v1, v2, 0, 64, 104);
+	SetObjectSpeed_Sphere(v1, 128, 96, 32);
 	PlaySound(v1, "arrow", 255);
 	if (!(GetGlobal(6) == 1)) goto LOC_99CC;
 	v1 = CreateObjectByReference(v2, 16009, 0, 0);
-	MoveObjectByReference_Cylind(v1, v2, 0, 64, 104);
-	SetObjectStep_Sphere(v1, 128, 96, 32);
+	SetCoordinateByReference_Cylind(v1, v2, 0, 64, 104);
+	SetObjectSpeed_Sphere(v1, 128, 96, 32);
 LOC_99CC:
 	return;
 }
@@ -2180,7 +2180,7 @@ void FlyArrowLB2(int a0, int a1, int a2, int a3, int a4) {
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16004, 128, 0);
 	SetObjectCoordinate(v1, (a0 + 260), a1, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	if (!a4) goto LOC_9AB8;
 	SetCallbackProcedure(v1, 6001);
 	goto LOC_9B00;
@@ -2194,7 +2194,7 @@ LOC_9B00:
 LOC_9B48:
 	v1 = CreateObjectByReference(intvAttackerMajor, 16010, 128, 0);
 	SetObjectCoordinate(v1, (a0 + 260), a1, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 LOC_9BE4:
 	return;
 }
@@ -2204,7 +2204,7 @@ void FlyArrowRB2(int a0, int a1, int a2, int a3, int a4) {
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16007, 0, 0);
 	SetObjectCoordinate(v1, (a0 - 260), a1, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	if (!a4) goto LOC_9CD0;
 	SetCallbackProcedure(v1, 6001);
 	goto LOC_9D18;
@@ -2218,7 +2218,7 @@ LOC_9D18:
 LOC_9D60:
 	v1 = CreateObjectByReference(intvAttackerMajor, 16010, 0, 0);
 	SetObjectCoordinate(v1, (a0 - 260), a1, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 LOC_9DFC:
 	return;
 }
@@ -2227,16 +2227,16 @@ void FlyArrowLB1(int a0, int a1, int a2, int a3) {
 	int v1;
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16004, 128, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, (260 + 24), 0, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	SetCallbackProcedure(v1, 6001);
 	if (!(a3 == 1)) goto LOC_A00C;
 	SetCallbackProcedure(v1, 6002);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16010, 128, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, (260 + 24), 0, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 LOC_A00C:
 	return;
 }
@@ -2245,16 +2245,16 @@ void FlyArrowRB1(int a0, int a1, int a2, int a3) {
 	int v1;
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16007, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, ((-260) - 24), 0, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	SetCallbackProcedure(v1, 6001);
 	if (!(a3 == 1)) goto LOC_A224;
 	SetCallbackProcedure(v1, 6002);
 	v1 = CreateObjectByReference(intvAttackerMajor, 16010, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, ((-260) - 24), 0, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 LOC_A224:
 	return;
 }
@@ -2390,7 +2390,7 @@ LOC_ACE0:
 	v1 = (a0 - v10);
 LOC_AD34:
 	if (!(v1 > 0)) goto LOC_AF28;
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	v4 = GetObjectScreenX(v3);
 	v5 = GetObjectScreenY(v3);
 	if (!(v2 == 0)) goto LOC_AE04;
@@ -2456,7 +2456,7 @@ LOC_B2A4:
 	v5 = Rand(200, 600);
 	v7 = ScreenXToBattleX(v4);
 	v8 = ScreenYToBattleY(v5);
-	if (!GetSoldierHandle(v7, v8)) goto LOC_B418;
+	if (!GetForceHandleByXY(v7, v8)) goto LOC_B418;
 	v8 = BattleXToScreenX(v8);
 	if (!Rand(0, 1)) goto LOC_B3DC;
 	v5 = (v8 - (8 * Rand(1, 2)));
@@ -2532,18 +2532,18 @@ void StoneEmitterCmd3() callsign 7005 {
 	v3 = GetScriptLinkedObject();
 	v4 = GetObjectDir(v3);
 	v1 = CreateObjectByReference(v3, 17003, v4, 0);
-	MoveObjectByReference_Cylind(v1, v3, 0, 0, 117);
-	SetObjectStep_Cylind(v1, 30, 30);
-	v5 = GetCallbackContext(v3, 0);
+	SetCoordinateByReference_Cylind(v1, v3, 0, 0, 117);
+	SetObjectSpeed_Cylind(v1, 30, 30);
+	v5 = GetObjectContext(v3, 0);
 	if (!v5) goto LOC_B980;
 	FreeObjectByHandle(v5);
 	v5 = CreateObjectByReference(v1, 17022, v4, 0);
-	SetObjectStep_Cylind(v5, 30, 30);
+	SetObjectSpeed_Cylind(v5, 30, 30);
 LOC_B980:
 	Delay(2);
 	v2 = CreateObjectByReference(v3, 17004, v4, 0);
-	MoveObjectByReference_Cylind(v2, v3, 0, 0, 0);
-	SetObjectStep_Cylind(v2, 30, 0);
+	SetCoordinateByReference_Cylind(v2, v3, 0, 0, 0);
+	SetObjectSpeed_Cylind(v2, 30, 0);
 	SetObjectFadeOut(v2, 32, 1);
 	SetObjectScaleShrink(v2, 1024);
 	Delay(32);
@@ -2575,7 +2575,7 @@ void Func7005(int a0) {
 	int v1;
 	int v2;
 	v1 = 65536;
-	SetObjectStep_Cylind(a0, Rand(4, 6), Rand(8, 12));
+	SetObjectSpeed_Cylind(a0, Rand(4, 6), Rand(8, 12));
 	SetObjectGravity(a0, 24576);
 	SetObjectFriction1(a0, 8192);
 	v2 = Rand(20, 30);
@@ -2644,7 +2644,7 @@ void Func7006(int a0) {
 	int v1;
 	int v2;
 	v1 = 65536;
-	SetObjectStep_Cylind(a0, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(a0, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(a0, 8192);
 	v2 = Rand(30, 40);
 LOC_C310:
@@ -2698,11 +2698,11 @@ LOC_C410:
 	v1 = CreateObjectByReference(intvAttackerMajor, 17002, a3, 0);
 LOC_C444:
 	SetObjectCoordinate(v1, a0, a1, 0);
-	SetCallbackContext(v1, 0, 0);
+	SetObjectContext(v1, 0, 0);
 	if (!(a4 == 1)) goto LOC_C5AC;
 	v2 = CreateObjectByReference(v1, 17021, a3, 0);
 	SetObjectScale(v2, 81920, 81920);
-	SetCallbackContext(v1, 0, v2);
+	SetObjectContext(v1, 0, v2);
 	if (!(intvIsLeft == 1)) goto LOC_C580;
 	MoveObject(v2, (-63), 0, 42);
 	goto LOC_C5AC;
@@ -2727,7 +2727,7 @@ LOC_C618:
 LOC_C680:
 	if (!(a3 < 16)) goto LOC_C6C0;
 	a3++;
-	SetObjectBrightness(a0, a3);
+	SetObjectOpacity(a0, a3);
 LOC_C6C0:
 	goto LOC_C5BC;
 LOC_C6C8:
@@ -2746,20 +2746,20 @@ LOC_C750:
 	v1 = CreateObjectByReference(intvAttackerMajor, 17014, 128, 0);
 LOC_C784:
 	SetObjectCoordinate(v1, (a0 + 260), a1, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, a4);
 	v2 = CreateObjectByReference(intvAttackerMajor, 17004, 128, 0);
 	SetObjectCoordinate(v2, (a0 + 264), a1, 0);
-	SetObjectStep_Cylind(v2, 23, 0);
+	SetObjectSpeed_Cylind(v2, 23, 0);
 	SetObjectScale(v2, 32768, 32768);
 	SetObjectFlags(v2, 262144);
-	SetObjectBrightness(v2, 4);
+	SetObjectOpacity(v2, 4);
 	asynccall TraceStoneShadow(v2, v1, 32768, 4);
 	if (!(a3 == 1)) goto LOC_CA18;
 	v1 = CreateObjectByReference(intvAttackerMajor, 17013, 128, 0);
 	SetObjectCoordinate(v1, (a0 + 260), a1, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	SetObjectScale(v1, 98304, 98304);
 LOC_CA18:
 	return;
@@ -2776,20 +2776,20 @@ LOC_CA8C:
 	v1 = CreateObjectByReference(intvAttackerMajor, 17015, 128, 0);
 LOC_CAC0:
 	SetObjectCoordinate(v1, (a0 - 260), a1, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, a4);
 	v2 = CreateObjectByReference(intvAttackerMajor, 17004, 0, 0);
 	SetObjectCoordinate(v2, (a0 - 264), a1, 0);
-	SetObjectStep_Cylind(v2, 23, 0);
+	SetObjectSpeed_Cylind(v2, 23, 0);
 	SetObjectScale(v2, 32768, 32768);
 	SetObjectFlags(v2, 262144);
-	SetObjectBrightness(v2, 4);
+	SetObjectOpacity(v2, 4);
 	asynccall TraceStoneShadow(v2, v1, 32768, 4);
 	if (!(a3 == 1)) goto LOC_CD54;
 	v1 = CreateObjectByReference(intvAttackerMajor, 17013, 0, 0);
 	SetObjectCoordinate(v1, (a0 - 260), a1, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	SetObjectScale(v1, 98304, 98304);
 LOC_CD54:
 	return;
@@ -2814,24 +2814,24 @@ LOC_CE34:
 	SetObjectCoordinate(v3, ((v2 + 264) + 24), a1, 0);
 	goto LOC_CFF8;
 LOC_CF20:
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, (260 + 24), 0, 260);
-	MoveObjectByReference_Cylind(v3, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v3, a0, 0, 0, 0);
 	SetObjectCoordinate(v3, (264 + 24), 0, 0);
 LOC_CFF8:
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, a4);
-	SetObjectStep_Cylind(v3, 23, 0);
+	SetObjectSpeed_Cylind(v3, 23, 0);
 	SetObjectScale(v3, 32768, 32768);
 	SetObjectFlags(v3, 262144);
-	SetObjectBrightness(v3, 4);
+	SetObjectOpacity(v3, 4);
 	asynccall TraceStoneShadow(v3, v1, 32768, 4);
 	if (!(a3 == 1)) goto LOC_D21C;
 	v1 = CreateObjectByReference(intvAttackerMajor, 17013, 128, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, (260 + 24), 0, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	SetObjectScale(v1, 98304, 98304);
 LOC_D21C:
 	return;
@@ -2856,24 +2856,24 @@ LOC_D2FC:
 	SetObjectCoordinate(v3, ((v2 - 264) - 24), a1, 0);
 	goto LOC_D4C8;
 LOC_D3E8:
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, ((-260) - 24), 0, 260);
-	MoveObjectByReference_Cylind(v3, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v3, a0, 0, 0, 0);
 	SetObjectCoordinate(v3, ((-264) - 24), 0, 0);
 LOC_D4C8:
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, a4);
-	SetObjectStep_Cylind(v3, 23, 0);
+	SetObjectSpeed_Cylind(v3, 23, 0);
 	SetObjectScale(v3, 32768, 32768);
 	SetObjectFlags(v3, 262144);
-	SetObjectBrightness(v3, 4);
+	SetObjectOpacity(v3, 4);
 	asynccall TraceStoneShadow(v3, v1, 32768, 4);
 	if (!(a3 == 1)) goto LOC_D6F0;
 	v1 = CreateObjectByReference(intvAttackerMajor, 17013, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, ((-260) - 24), 0, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	SetObjectScale(v1, 98304, 98304);
 LOC_D6F0:
 	return;
@@ -2960,7 +2960,7 @@ LOC_DD94:
 	v2 = 0;
 	v1 = (a2 - v10);
 LOC_DDE8:
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	v4 = GetObjectScreenX(v3);
 	v5 = GetObjectScreenY(v3);
 	if (!(v2 == 0)) goto LOC_DE9C;
@@ -3048,8 +3048,8 @@ void ProduceAirCircle(int a0, int a1, int a2) {
 	int v2;
 LOC_E480:
 	v1 = CreateObjectByReference(a0, a1, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
-	SetObjectBrightness(v1, 8);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
+	SetObjectOpacity(v1, 8);
 	SetObjectLayer(v1, 2);
 	v2 = 1;
 LOC_E538:
@@ -3074,7 +3074,7 @@ void CreateExplodeRound(int a0, int a1) {
 	v1 = CreateObjectByReference(a0, 18004, 0, 0);
 	MoveObject(v1, Rand((-4), 4), Rand(0, 8), 0);
 	SetObjectScale(v1, 65536, 65536);
-	SetObjectStep_Cylind(v1, 0, Rand(4, 5));
+	SetObjectSpeed_Cylind(v1, 0, Rand(4, 5));
 	SetObjectScaleShrink(v1, 2176);
 	SetObjectFadeOut(v1, 32, 1);
 	return;
@@ -3088,7 +3088,7 @@ void ProduceRound(int a0, int a1, int a2, int a3) {
 	v1 = CreateObjectByReference(a0, a1, v2, 0);
 	SetCallbackProcedure(v1, a3);
 	SetObjectFlags(v1, 50331648);
-	MoveObjectByReference_Cylind(v1, a0, v2, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, v2, a2, 0);
 	asynccall CreateExplodeRound(v1, Rand(0, 1));
 	asynccall CreateExplodeRound(v1, Rand(2, 3));
 	asynccall CreateExplodeRound(v1, Rand(4, 5));
@@ -3177,9 +3177,9 @@ void CreateEightWay(int a0, int a1, int a2, int a3, int a4) {
 	v2 = 0;
 LOC_EF00:
 	if (!(v2 < (a1 * 2))) goto LOC_F0C0;
-	SetObjectBrightness(v1, v4);
+	SetObjectOpacity(v1, v4);
 	SetObjectScale(v1, 98304, v3);
-	MoveObjectByReference_Cylind(v1, a0, a3, ((v2 + 1) * v5), 0);
+	SetCoordinateByReference_Cylind(v1, a0, a3, ((v2 + 1) * v5), 0);
 	Delay(2);
 	v3 = (v3 + 2048);
 	v4 = (v4 + v6);
@@ -3279,7 +3279,7 @@ LOC_F4EC:
 	ClearObjectFlags(v1, 65536);
 	SetObjectGravity(v1, 10752);
 	SetObjectScale(v1, 98304, 98304);
-	SetObjectStep_Sphere(v1, Rand(0, 256), Rand((64 - 32), (64 + 32)), 6);
+	SetObjectSpeed_Sphere(v1, Rand(0, 256), Rand((64 - 32), (64 + 32)), 6);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 512);
 	v2++;
@@ -3298,7 +3298,7 @@ LOC_F688:
 	ClearObjectFlags(v1, 65536);
 	SetObjectGravity(v1, 10752);
 	SetObjectScale(v1, 98304, 98304);
-	SetObjectStep_Sphere(v1, Rand(0, 256), Rand((64 - 32), (64 + 32)), 7);
+	SetObjectSpeed_Sphere(v1, Rand(0, 256), Rand((64 - 32), (64 + 32)), 7);
 	SetObjectFadeOut(v1, 32, 1);
 	SetObjectScaleShrink(v1, 512);
 	v2++;
@@ -3323,7 +3323,7 @@ LOC_F824:
 	goto LOC_FAFC;
 LOC_F8B0:
 	SetObjectFlags(a0, 65536);
-	SetObjectStep_Sphere(a0, a1, Rand(46, 54), Rand(6, 8));
+	SetObjectSpeed_Sphere(a0, a1, Rand(46, 54), Rand(6, 8));
 	Delay(3);
 	ClearObjectFlags(a0, 65536);
 	SetObjectGravity(a0, 49152);
@@ -3331,7 +3331,7 @@ LOC_F8B0:
 	goto LOC_FAFC;
 LOC_F974:
 	SetObjectFlags(a0, 65536);
-	SetObjectStep_Sphere(a0, a1, Rand(42, 50), Rand(4, 6));
+	SetObjectSpeed_Sphere(a0, a1, Rand(42, 50), Rand(4, 6));
 	Delay(2);
 	ClearObjectFlags(a0, 65536);
 	SetObjectGravity(a0, 32768);
@@ -3339,7 +3339,7 @@ LOC_F974:
 	goto LOC_FAFC;
 LOC_FA38:
 	SetObjectFlags(a0, 65536);
-	SetObjectStep_Sphere(a0, a1, Rand(40, 44), Rand(2, 4));
+	SetObjectSpeed_Sphere(a0, a1, Rand(40, 44), Rand(2, 4));
 	Delay(1);
 	ClearObjectFlags(a0, 65536);
 	SetObjectGravity(a0, 16384);
@@ -3363,11 +3363,11 @@ LOC_FB88:
 	a2 = (-a2);
 	v2 = 128;
 LOC_FBAC:
-	MoveObjectByReference_Cylind(v1, a0, v2, a2, a3);
+	SetCoordinateByReference_Cylind(v1, a0, v2, a2, a3);
 	SetObjectScale(v1, Rand(43008, 73728), Rand(61440, 73728));
 	SetObjectScaleShrink(v1, 512);
 	Delay(2);
-	SetObjectStep_Sphere(v1, a5, Rand(52, 60), Rand(6, 8));
+	SetObjectSpeed_Sphere(v1, a5, Rand(52, 60), Rand(6, 8));
 	asynccall TraceStone(v1, a5);
 	SetObjectFadeOut(v1, 48, 1);
 	return;
@@ -3384,7 +3384,7 @@ void function ProduceSomethingXY(int a0, int a1, int a2, int a3, int a4, int a5)
 	DoScript(a4, v1, a3, 0);
 LOC_FD78:
 	SetObjectCoordinate(v1, a0, a1, 0);
-	SetObjectStep_Sphere(v1, a3, 0, 0);
+	SetObjectSpeed_Sphere(v1, a3, 0, 0);
 	SetObjectScale(v1, 98304, 98304);
 	if (!a5) goto LOC_104FC;
 	Delay(12);
@@ -3530,13 +3530,13 @@ void TornadorCallback(int a0, int a1) callsign 11001 {
 	int v3;
 	int v4;
 	SetObjectFlags(a1, 65536);
-	SetObjectStep_Cylind(a1, 0, Rand(6, 10));
+	SetObjectSpeed_Cylind(a1, 0, Rand(6, 10));
 	v1 = Rand(0, 255);
 	v4 = Rand(0, 18);
 LOC_10DAC:
 	v3 = GetObjectScreenZ(a0);
 	v2 = GetObjectScreenZ(a1);
-	MoveObjectByReference_Cylind(a1, a0, v1, v4, (v2 - v3));
+	SetCoordinateByReference_Cylind(a1, a0, v1, v4, (v2 - v3));
 	Delay(1);
 	v1 = ((v1 + 16) & 255);
 	if (!(v2 > 240)) goto LOC_10E7C;
@@ -3563,7 +3563,7 @@ LOC_10EF4:
 LOC_10F4C:
 	v2 = CalcCos(v1, a3);
 LOC_10F70:
-	MoveObjectByReference_Cylind(a1, a0, 0, v2, a2);
+	SetCoordinateByReference_Cylind(a1, a0, 0, v2, a2);
 	Delay(1);
 	v1 = ((v1 + 4) & 255);
 	goto LOC_10EF4;
@@ -3577,13 +3577,13 @@ void TornadoStoneMotion(int a0, int a1) {
 	int v3;
 	int v4;
 	SetObjectFlags(a1, 65536);
-	SetObjectStep_Cylind(a1, 0, Rand(4, 12));
+	SetObjectSpeed_Cylind(a1, 0, Rand(4, 12));
 	v1 = Rand(0, 255);
 	v4 = Rand(40, 80);
 LOC_1108C:
 	v3 = GetObjectScreenZ(a0);
 	v2 = GetObjectScreenZ(a1);
-	MoveObjectByReference_Cylind(a1, a0, v1, v4, (v2 - v3));
+	SetCoordinateByReference_Cylind(a1, a0, v1, v4, (v2 - v3));
 	Delay(1);
 	v1 = ((v1 + 4) & 255);
 	if (!(v2 > 240)) goto LOC_1115C;
@@ -3611,9 +3611,9 @@ void TornadoStone(int a0) {
 void BottomSmoke(int a0) {
 	int v1;
 	v1 = CreateObjectByReference(a0, 7050, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, Rand(128, 255), Rand(16, 32), 0);
+	SetCoordinateByReference_Cylind(v1, a0, Rand(128, 255), Rand(16, 32), 0);
 	SetObjectScale(v1, 16384, 18432);
-	SetObjectStep_Cylind(v1, 0, Rand(4, 12));
+	SetObjectSpeed_Cylind(v1, 0, Rand(4, 12));
 	SetObjectFadeOut(v1, 12, 1);
 	SetObjectScaleShrink(v1, (-512));
 	return;
@@ -3624,7 +3624,7 @@ void BottomMotion(int a0, int a1) {
 	v1 = 0;
 LOC_1140C:
 	if (!IsObjectExist(a1)) goto LOC_114CC;
-	MoveObjectByReference_Cylind(a1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(a1, a0, 0, 0, 0);
 	if (!((v1 % 5) == 0)) goto LOC_114B0;
 	asynccall TornadoStone(a1);
 LOC_114B0:
@@ -3688,7 +3688,7 @@ LOC_118C4:
 	v3 = Rand(1, 3);
 LOC_118E8:
 	if (!IsObjectExist(a1)) goto LOC_119B8;
-	MoveObjectByReference_Cylind(a0, a1, a2, a3, 0);
+	SetCoordinateByReference_Cylind(a0, a1, a2, a3, 0);
 	Delay(1);
 	a2 = ((a2 + v3) & 255);
 	if (!((a2 % v1) == 0)) goto LOC_119B0;
@@ -3704,7 +3704,7 @@ int CreateDummyRef(int a0, int a1, int a2) {
 	int v1;
 LOC_119D4:
 	v1 = CreateObjectByReference(a0, 2501, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectFlags(v1, (33554432 + 134217728));
 	SetCallbackProcedure(v1, 11001);
 	return v1;
@@ -3874,7 +3874,7 @@ LOC_122E8:
 LOC_122F8:
 	v8 = GetMostImportantSoldier((intvIsLeft ^ 1));
 	if (!(v8 == 0)) goto LOC_12390;
-	v8 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v8 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v8 == 0)) goto LOC_12390;
 	v8 = intvDefenderMajor;
 LOC_12390:
@@ -3907,13 +3907,13 @@ LOC_12624:
 	v12 = GetNthSoldierInRect((intvIsLeft ^ 1), v1, v2, v11, v11, Rand(1, v10));
 LOC_12768:
 	if (!(v12 == 0)) goto LOC_127D8;
-	v12 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v12 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v12 == 0)) goto LOC_127D8;
 	v12 = intvDefenderMajor;
 LOC_127D8:
 	goto LOC_12834;
 LOC_127E0:
-	v12 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v12 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v12 == 0)) goto LOC_12834;
 	v12 = intvDefenderMajor;
 LOC_12834:
@@ -3924,7 +3924,7 @@ LOC_12834:
 	v16 = GetSpeed(v14, v15, v1, v2);
 	SetGlobal(14, (v16 * 2));
 	SetGlobal(15, GetDir(v14, v15, v1, v2));
-	MoveObjectTo(v9, v12, v16);
+	ApproachObjectTowards(v9, v12, v16);
 	asynccall WaitTarget(v9, v1, v2);
 	Wait("WaitTarget");
 	goto LOC_125B8;
@@ -3993,10 +3993,10 @@ void MoveDuplicator(int a0, int a1, int a2) {
 	int v3;
 	v3 = GetObjectDir(a0);
 	v2 = CreateObjectByReference(a0, a1, v3, 0);
-	MoveObjectByReference_Cylind(v2, a0, v3, (48 + 64), 0);
+	SetCoordinateByReference_Cylind(v2, a0, v3, (48 + 64), 0);
 	v1 = a2;
 LOC_12DE0:
-	MoveObjectByReference_Cylind(v2, a0, v3, (48 + 64), 0);
+	SetCoordinateByReference_Cylind(v2, a0, v3, (48 + 64), 0);
 	Delay(1);
 	if (!(!IsObjectExist(a0))) goto LOC_12E54;
 	goto LOC_12E78;
@@ -4020,9 +4020,9 @@ LOC_12F40:
 LOC_12FC8:
 	MoveObject(v1, 8, 0, 0);
 LOC_12FF4:
-	SetObjectStep_Sphere(v1, a2, 0, a3);
+	SetObjectSpeed_Sphere(v1, a2, 0, a3);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, a4);
+	SetObjectOpacity(v1, a4);
 	Delay(2);
 	SetObjectFadeOut(v1, 20, 1);
 LOC_13088:
@@ -4084,7 +4084,7 @@ LOC_13234:
 	SetOverwhelming(intvAttackerMajor, 0);
 	Delay(10);
 	v2 = CreateObjectByReference(intvAttackerMajor, 22002, v8, 0);
-	SetObjectStep_Sphere(v2, v8, 0, 16);
+	SetObjectSpeed_Sphere(v2, v8, 0, 16);
 	SetObjectFlags(v2, (16777216 + 33554432));
 	SetCallbackProcedure(v2, 12001);
 	asynccall ProduceShadowTime(v2, 9999);
@@ -4095,7 +4095,7 @@ LOC_13234:
 	v3 = 0;
 	asynccall TraceDuplicator(v2, intvDefenderMajor);
 LOC_134DC:
-	SetObjectStep_Sphere(v2, v8, 0, (v5 / 16));
+	SetObjectSpeed_Sphere(v2, v8, 0, (v5 / 16));
 	if (!(v5 < (24 * 16))) goto LOC_13574;
 	v5 = (v5 + v4);
 	v4 = (v4 + 1);
@@ -4132,7 +4132,7 @@ LOC_13700:
 	v2 = 0;
 LOC_1372C:
 	if (!(v2 < 15)) goto LOC_137F8;
-	v3 = GetSoldierHandle(v1, v2);
+	v3 = GetForceHandleByXY(v1, v2);
 	if (!(v3 && (v3 != intvDefenderMajor))) goto LOC_137E8;
 	v4 = GetSoldierSide(v3);
 	if (!(a0 == v4)) goto LOC_137E8;
@@ -4152,9 +4152,9 @@ void Func13001(int a0) {
 	MoveObject(a0, 0, 0, 256);
 	Delay(2);
 	SetObjectScale(a0, 65536, 65536);
-	SetObjectStep_Sphere(a0, 128, 192, 3);
+	SetObjectSpeed_Sphere(a0, 128, 192, 3);
 	Delay(64);
-	SetObjectStep_Sphere(a0, 128, 192, 0);
+	SetObjectSpeed_Sphere(a0, 128, 192, 0);
 	Delay(64);
 	v1 = 0;
 LOC_138F4:
@@ -4216,10 +4216,10 @@ LOC_13C70:
 	v7 = GetSoldierCount((intvIsLeft ^ 1));
 	if (!(v7 > 0)) goto LOC_13E0C;
 	v1 = ((v7 / 2) + 1);
-	v2 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v2 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	v5 = GetObjectScreenX(v2);
 LOC_13D20:
-	v2 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v2 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	v3 = GetObjectScreenX(v2);
 	if (!(intvIsLeft == 1)) goto LOC_13DB4;
 	if (!(v5 > v3)) goto LOC_13DAC;
@@ -4297,7 +4297,7 @@ LOC_14490:
 	v2 = 0;
 LOC_14504:
 	if (!(v2 <= 20)) goto LOC_14588;
-	MoveObjectByReference_Cylind(v1, a0, a1, (48 + (v2 * 4)), 64);
+	SetCoordinateByReference_Cylind(v1, a0, a1, (48 + (v2 * 4)), 64);
 	Delay(1);
 	v2++;
 	goto LOC_14504;
@@ -4324,10 +4324,10 @@ LOC_145B4:
 	v5 = GetObjectScreenY(intvAttackerMajor);
 	SetViewCamera(v4, (v5 - 120));
 	if (!(intvIsLeft == 1)) goto LOC_146F0;
-	v2 = GetSoldierHandle(((v4 / 96) + 1), (v5 / 72));
+	v2 = GetForceHandleByXY(((v4 / 96) + 1), (v5 / 72));
 	goto LOC_14738;
 LOC_146F0:
-	v2 = GetSoldierHandle(((v4 / 96) - 1), (v5 / 72));
+	v2 = GetForceHandleByXY(((v4 / 96) - 1), (v5 / 72));
 LOC_14738:
 	if (!(v2 == intvDefenderMajor)) goto LOC_1476C;
 	v6 = 1;
@@ -4345,10 +4345,10 @@ LOC_147C0:
 	v5 = GetObjectScreenY(intvAttackerMajor);
 	SetViewCamera(v4, (v5 - 120));
 	if (!(intvIsLeft == 0)) goto LOC_1488C;
-	v2 = GetSoldierHandle(((v4 / 96) - 1), (v5 / 72));
+	v2 = GetForceHandleByXY(((v4 / 96) - 1), (v5 / 72));
 	goto LOC_148D4;
 LOC_1488C:
-	v2 = GetSoldierHandle(((v4 / 96) + 1), (v5 / 72));
+	v2 = GetForceHandleByXY(((v4 / 96) + 1), (v5 / 72));
 LOC_148D4:
 	if (!(v2 == intvDefenderMajor)) goto LOC_14E08;
 	AddAttackCounter(intvAttackerMajor, 4);
@@ -4359,7 +4359,7 @@ LOC_148D4:
 	PlaySound1("att07", 255);
 	PlaySound(intvAttackerMajor, "yell01", 255);
 	v2 = CreateObjectByReference(intvAttackerMajor, 24001, v7, 0);
-	MoveObjectByReference_Cylind(v2, intvAttackerMajor, v7, 58, 30);
+	SetCoordinateByReference_Cylind(v2, intvAttackerMajor, v7, 58, 30);
 	Delay(20);
 	SetObjectFadeOut(v2, 16, 1);
 	v1 = 20;
@@ -4397,7 +4397,7 @@ LOC_14E08:
 	PlaySound1("att07", 255);
 	PlaySound(intvAttackerMajor, "yell01", 255);
 	v2 = CreateObjectByReference(intvAttackerMajor, 24001, v7, 0);
-	MoveObjectByReference_Cylind(v2, intvAttackerMajor, v7, 58, 30);
+	SetCoordinateByReference_Cylind(v2, intvAttackerMajor, v7, 58, 30);
 	Delay(20);
 	SetObjectFadeOut(v2, 16, 1);
 	SetGlobal(16, 2);
@@ -4439,7 +4439,7 @@ LOC_15184:
 	v1 = CreateObjectByReference(a1, Rand(25001, 25002), Rand(0, 255), 0);
 	SetObjectGravity(v1, 10752);
 	SetObjectScale(v1, 32768, 32768);
-	SetObjectStep_Sphere(v1, Rand(0, 256), Rand(16, (128 - 16)), 4);
+	SetObjectSpeed_Sphere(v1, Rand(0, 256), Rand(16, (128 - 16)), 4);
 	SetObjectFadeOut(v1, 64, 1);
 	SetObjectScaleShrink(v1, 512);
 	v2++;
@@ -4476,7 +4476,7 @@ LOC_15484:
 	v4 = CreateObjectRaw(v1, v2, 0, Rand(0, 255), Rand(25001, 25002));
 	SetObjectGravity(v4, 10752);
 	SetObjectScale(v4, 32768, 32768);
-	SetObjectStep_Sphere(v4, Rand(0, 256), Rand(16, 32), 4);
+	SetObjectSpeed_Sphere(v4, Rand(0, 256), Rand(16, 32), 4);
 	SetObjectFadeOut(v4, 16, 1);
 	SetObjectScaleShrink(v4, 512);
 	v3++;
@@ -4509,7 +4509,7 @@ LOC_156B4:
 	if (!v8) goto LOC_15884;
 	Delay(Rand(0, 4));
 	v1 = CreateObjectByReference(v8, 25005, a2, 280);
-	SetObjectStep_Sphere(v1, 0, 192, 60);
+	SetObjectSpeed_Sphere(v1, 0, 192, 60);
 	SetObjectFlags(v1, 33554432);
 	SetCallbackProcedure(v1, 15001);
 	PlaySound(v1, "att04", 128);
@@ -4526,8 +4526,8 @@ LOC_158A4:
 	if (!(v2 < 24)) goto LOC_159FC;
 	Delay(Rand(2, 6));
 	v1 = CreateObjectByReference(a0, 25005, a2, 0);
-	MoveObjectByReference_Cylind(v1, a0, Rand(0, 255), Rand(64, 130), 280);
-	SetObjectStep_Sphere(v1, 0, 192, 16);
+	SetCoordinateByReference_Cylind(v1, a0, Rand(0, 255), Rand(64, 130), 280);
+	SetObjectSpeed_Sphere(v1, 0, 192, 16);
 	PlaySound(v1, "att04", 128);
 	asynccall TraceSmallSword(v1);
 	v2++;
@@ -4585,7 +4585,7 @@ LOC_16108:
 	v3 = (a0 + Rand((-48), 48));
 	v4 = (a1 + Rand((-16), 16));
 	v6 = CreateObjectRaw(v3, v4, v5, Rand(0, 255), Rand(25009, 25010));
-	SetObjectStep_Cylind(v6, Rand(10, 16), Rand(10, 16));
+	SetObjectSpeed_Cylind(v6, Rand(10, 16), Rand(10, 16));
 LOC_16250:
 	Delay(1);
 	v1++;
@@ -4602,7 +4602,7 @@ void CreateBigSword(int a0, int a1) {
 	v3 = CreateObjectByReference(a0, 25006, a1, 0);
 	MoveObject(v3, 0, 0, 300);
 	SetObjectScale(v3, 65536, 65536);
-	SetObjectStep_Sphere(v3, 0, 192, 40);
+	SetObjectSpeed_Sphere(v3, 0, 192, 40);
 	SetObjectFlags(v3, (16777216 + 33554432));
 	SetCallbackProcedure(v3, 15001);
 	v4 = 1;
@@ -4633,7 +4633,7 @@ void SwordAttack(int a0, int a1) {
 	v2 = GetMostImportantSoldier((intvIsLeft ^ 1));
 LOC_1653C:
 	if (!(v2 == 0)) goto LOC_16580;
-	v2 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v2 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 LOC_16580:
 	goto LOC_16598;
 LOC_16588:
@@ -4652,7 +4652,7 @@ LOC_16598:
 void ProduceSwordShadow(int a0, int a1, int a2) {
 LOC_16688:
 	if (!IsObjectExist(a0)) goto LOC_166E0;
-	CreateObject_Shadow(a0, a1, a2);
+	CreateShadowObject(a0, a1, a2);
 	Delay(3);
 	goto LOC_16688;
 LOC_166E0:
@@ -4683,9 +4683,9 @@ LOC_167EC:
 	Delay(30);
 	v5 = CreateObjectByReference(a0, 25004, a3, 0);
 	FreeObjectByHandle(a0);
-	SetObjectStep_Sphere(v5, 0, 64, (-1));
+	SetObjectSpeed_Sphere(v5, 0, 64, (-1));
 	Delay(25);
-	SetObjectStep_Sphere(v5, 0, 64, 16);
+	SetObjectSpeed_Sphere(v5, 0, 64, 16);
 	asynccall ProduceSwordShadow(v5, 16, 1);
 	SetObjectLife(v5, 60);
 	return;
@@ -4694,8 +4694,8 @@ LOC_167EC:
 void PrepareSword(int a0, int a1, int a2) {
 	int v1;
 	v1 = CreateObjectByReference(a0, 25003, a2, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, 128, 64);
-	SetObjectStep_Sphere(v1, 0, 64, 1);
+	SetCoordinateByReference_Cylind(v1, a0, a1, 128, 64);
+	SetObjectSpeed_Sphere(v1, 0, 64, 1);
 	SetObjectScale(v1, 256, 256);
 	asynccall LargerSword(v1, 65536, 65536, a2);
 	return;
@@ -4787,15 +4787,15 @@ void CreateHolyBall(int a0, int a1, int a2) {
 	v1 = CreateObjectByReference(a0, a2, 0, a1);
 	v2 = Rand(49152, 81920);
 	SetObjectScale(v1, v2, v2);
-	MoveObjectByReference_Cylind(v1, a0, Rand(0, 255), Rand(8, 38), a1);
+	SetCoordinateByReference_Cylind(v1, a0, Rand(0, 255), Rand(8, 38), a1);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, 0);
-	SetObjectStep_Cylind(v1, 0, Rand(1, 7));
+	SetObjectOpacity(v1, 0);
+	SetObjectSpeed_Cylind(v1, 0, Rand(1, 7));
 	v3 = 1;
 LOC_16FB8:
 	if (!(v3 <= 8)) goto LOC_1700C;
 	Delay(1);
-	SetObjectBrightness(v1, v3);
+	SetObjectOpacity(v1, v3);
 	v3++;
 	goto LOC_16FB8;
 LOC_1700C:
@@ -4810,7 +4810,7 @@ void RoundHolyBall(int a0, int a1, int a2, int a3) {
 	int v1;
 	v1 = CreateObjectByReference(a0, a3, 0, a1);
 	SetObjectScale(v1, 81920, 81920);
-	MoveObjectByReference_Cylind(v1, a0, 192, 16, a1);
+	SetCoordinateByReference_Cylind(v1, a0, 192, 16, a1);
 	MoveObject(v1, a2, 0, 0);
 	Delay(2);
 	SetObjectFadeOut(v1, 8, 1);
@@ -4888,7 +4888,7 @@ LOC_17304:
 LOC_17318:
 	v1 = CreateObjectByReference(a0, v4, 0, 220);
 	SetObjectScale(v1, 2048, 65536);
-	MoveObjectByReference_Cylind(v1, a0, 192, 16, 240);
+	SetCoordinateByReference_Cylind(v1, a0, 192, 16, 240);
 	MoveObject(v1, v5, 0, 0);
 	SetObjectGravity(v1, 98304);
 	v2 = 0;
@@ -4968,7 +4968,7 @@ void CreateStart(int a0, int a1) {
 	v2 = 0;
 LOC_17A18:
 	if (!(v2 < 16)) goto LOC_17A6C;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2++;
 	goto LOC_17A18;
@@ -5078,7 +5078,7 @@ void sc4501(int a0, int a1) {
 	v5 = 0;
 	PlaySound1("m017snd01", 255);
 LOC_17BF0:
-	SetObjectStep_Sphere(v2, v4, 0, 7);
+	SetObjectSpeed_Sphere(v2, v4, 0, 7);
 	v6 = GetObjectScreenX(v2);
 	v7 = GetObjectScreenY(v2);
 	v8 = CalcSin(v5, 32);
@@ -5207,7 +5207,7 @@ LOC_18BF4:
 LOC_18CD4:
 	if (!(a0 > 2)) goto LOC_18E58;
 	v9 = CreateObjectByReference(v2, 2501, v11, 0);
-	v8 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v8 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v8 == 0)) goto LOC_18D78;
 	v8 = intvDefenderMajor;
 LOC_18D78:
@@ -5220,7 +5220,7 @@ LOC_18D78:
 LOC_18E58:
 	if (!(a0 > 3)) goto LOC_18FD0;
 	v10 = CreateObjectByReference(v2, 2501, v11, 0);
-	v8 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v8 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v8 == 0)) goto LOC_18EFC;
 	v8 = intvDefenderMajor;
 LOC_18EFC:
@@ -5282,7 +5282,7 @@ LOC_19484:
 	v2 = (a1 + Rand((-48), 48));
 	v3 = (a2 + Rand((-16), 16));
 	v6 = CreateObjectRaw(v2, v3, (a3 + 20), 0, Rand(28002, 28004));
-	SetObjectStep_Cylind(v6, 0, Rand(10, 30));
+	SetObjectSpeed_Cylind(v6, 0, Rand(10, 30));
 	PlaySound1("m016a", 255);
 	Delay(Rand(0, 5));
 	v1++;
@@ -5351,7 +5351,7 @@ void sc2512(int a0) {
 	int v1;
 	int v2;
 	v1 = 16384;
-	SetObjectStep_Cylind(a0, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(a0, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(a0, 8192);
 	v2 = Rand(30, 40);
 LOC_19848:
@@ -5376,8 +5376,8 @@ void sc3604() callsign 18002 {
 	asynccall MovingShadow(v3, GetGlobal(21), 28011, 128, 18001);
 	asynccall MovingShadow(v3, GetGlobal(21), 28011, 64, 18001);
 	asynccall MovingShadow(v3, GetGlobal(21), 28011, 192, 18001);
-	SetObjectStep_Cylind(v3, 0, 0);
-	SetObjectNoGravityFlag(v3, 0);
+	SetObjectSpeed_Cylind(v3, 0, 0);
+	SetObjectHasGravity(v3, 0);
 	v2 = 0;
 LOC_19A4C:
 	if (!(v2 < 20)) goto LOC_19B10;
@@ -5472,7 +5472,7 @@ LOC_1A08C:
 	v7 = (v1 + Rand((-48), 48));
 	v8 = (v2 + Rand((-16), 16));
 	v13 = CreateObjectRaw(v7, v8, v9, Rand(0, 255), Rand(28008, 28009));
-	SetObjectStep_Cylind(v13, Rand(10, 16), Rand(10, 16));
+	SetObjectSpeed_Cylind(v13, Rand(10, 16), Rand(10, 16));
 LOC_1A1D4:
 	Delay(1);
 	switch (v4) { 
@@ -5556,7 +5556,7 @@ LOC_1A70C:
 void CreateBowLight(int a0, int a1, int a2, int a3) {
 	int v1;
 	v1 = CreateObjectByReference(a0, a1, a2, 0);
-	SetObjectStep_Sphere(v1, a2, 0, a3);
+	SetObjectSpeed_Sphere(v1, a2, 0, a3);
 	SetObjectScale(v1, 24576, 16384);
 LOC_1A7A0:
 	if (!IsObjectExist(a0)) goto LOC_1A7D0;
@@ -5572,17 +5572,17 @@ int CreateBow(int a0, int a1) {
 LOC_1A7FC:
 	v1 = CreateObjectByReference(a0, 29001, a1, 0);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, 0);
+	SetObjectOpacity(v1, 0);
 	SetObjectFlags(v1, (16777216 + 33554432));
 	SetCallbackProcedure(v1, 19001);
-	MoveObjectByReference_Cylind(v1, a0, a1, 80, 80);
+	SetCoordinateByReference_Cylind(v1, a0, a1, 80, 80);
 	return v1;
 }
 
 void TraceBow(int a0, int a1) {
 	int v1;
 	ClearObjectFlags(a0, 262144);
-	SetObjectStep_Sphere(a0, a1, 0, 16);
+	SetObjectSpeed_Sphere(a0, a1, 0, 16);
 	asynccall CreateBowLight(a0, 29002, a1, 16);
 LOC_1A974:
 	if (!IsObjectExist(a0)) goto LOC_1AA14;
@@ -5685,7 +5685,7 @@ void BlackHoleCallback(int a0, int a1) {
 	int v1;
 	int v2;
 	v1 = GetObjectScreenY(a0);
-	MoveObjectTo(a1, a0, Rand(16, 25));
+	ApproachObjectTowards(a1, a0, Rand(16, 25));
 LOC_1AF38:
 	if (!IsObjectExist(a0)) goto LOC_1AFE0;
 	Delay(1);
@@ -5702,11 +5702,11 @@ LOC_1AFE0:
 
 void KillMan(int a0, int a1) {
 	int v2;
-	SetCallbackContext(a0, 0, 123);
+	SetObjectContext(a0, 0, 123);
 	v2 = 0;
 LOC_1B038:
 	if (!(v2 < 20)) goto LOC_1B0A8;
-	MoveObjectTo(a0, a1, Rand(4, 5));
+	ApproachObjectTowards(a0, a1, Rand(4, 5));
 	Delay(1);
 	v2++;
 	goto LOC_1B038;
@@ -5714,7 +5714,7 @@ LOC_1B0A8:
 	v2 = 0;
 LOC_1B0B8:
 	if (!(v2 < 30)) goto LOC_1B128;
-	MoveObjectTo(a0, a1, Rand(2, 3));
+	ApproachObjectTowards(a0, a1, Rand(2, 3));
 	Delay(1);
 	v2++;
 	goto LOC_1B0B8;
@@ -5782,7 +5782,7 @@ LOC_1B494:
 	v233 = 0;
 LOC_1B4A4:
 	if (!(v233 < v232)) goto LOC_1B5A8;
-	if (!((GetCallbackContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor))) goto LOC_1B54C;
+	if (!((GetObjectContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor))) goto LOC_1B54C;
 	asynccall KillMan(v1[v233], a0);
 LOC_1B54C:
 	v245 = Rand(3, 4);
@@ -5809,8 +5809,8 @@ void CreateBlackHoleBall(int a0) {
 LOC_1B668:
 	if (!GetGlobal(25)) goto LOC_1B7A4;
 	v1 = CreateObjectByReference(a0, 30013, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, Rand(152, 232), Rand(200, 300), Rand((-80), 80));
-	MoveObjectTo(v1, a0, Rand(7, 12));
+	SetCoordinateByReference_Cylind(v1, a0, Rand(152, 232), Rand(200, 300), Rand((-80), 80));
+	ApproachObjectTowards(v1, a0, Rand(7, 12));
 	SetObjectFadeOut(v1, 16, 1);
 	Delay(Rand(10, 18));
 	goto LOC_1B668;
@@ -5822,12 +5822,12 @@ void CreateBlackHoleStar(int a0, int a1, int a2, int a3, int a4) {
 	int v1;
 	v1 = CreateObjectByReference(a0, a1, 0, 0);
 	SetObjectScale(v1, 131072, 131072);
-	MoveObjectByReference_Sphere(v1, a0, 0, a3, a2, 0);
-	MoveObjectTo(v1, a0, a4);
+	SetCoordinateByReference_Sphere(v1, a0, 0, a3, a2, 0);
+	ApproachObjectTowards(v1, a0, a4);
 	SetObjectFadeOut(v1, (a2 / a4), 1);
 LOC_1BA20:
 	if (!IsObjectExist(v1)) goto LOC_1BAA8;
-	CreateObject_Shadow(v1, 4, 1);
+	CreateShadowObject(v1, 4, 1);
 	Delay(1);
 	if (!(GetGlobal(25) == 0)) goto LOC_1BAA0;
 	FreeObjectByHandle(v1);
@@ -5969,7 +5969,7 @@ void FireRingCallback(int a0, int a1) callsign 20001 {
 	int v1;
 	int v2;
 	if (!(a1 == intvDefenderMajor)) goto LOC_1C450;
-	v2 = GetCallbackContext(a0, 0);
+	v2 = GetObjectContext(a0, 0);
 	if (!GetGlobal(26 + v2)) goto LOC_1C39C;
 	v1 = (GetGlobal(30) / GetGlobal(26 + v2));
 LOC_1C39C:
@@ -5994,7 +5994,7 @@ void CreateFire(int a0) {
 LOC_1C530:
 	if (!IsObjectExist(a0)) goto LOC_1C594;
 	Delay(1);
-	MoveObjectByReference_Cylind(v1, a0, 192, 8, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 192, 8, 0);
 	goto LOC_1C530;
 LOC_1C594:
 	SetObjectFadeOut(v1, 8, 1);
@@ -6014,7 +6014,7 @@ void FireRingMotion2(int a0, int a1, int a2, int a3, int a4) {
 	v5 = 5;
 LOC_1C618:
 	if (!IsObjectExist(a0)) goto LOC_1C7DC;
-	MoveObjectByReference_Cylind(a0, a1, a2, v4, a4);
+	SetCoordinateByReference_Cylind(a0, a1, a2, v4, a4);
 	Delay(1);
 	if (!(a4 >= 80)) goto LOC_1C6AC;
 	v3 = (-1);
@@ -6051,7 +6051,7 @@ void FireRingMotion(int a0, int a1, int a2, int a3, int a4, int a5) {
 	v3 = 1;
 LOC_1C81C:
 	if (!IsObjectExist(a0)) goto LOC_1C960;
-	MoveObjectByReference_Cylind(a0, a1, a2, a3, a4);
+	SetCoordinateByReference_Cylind(a0, a1, a2, a3, a4);
 	Delay(1);
 	if (!(a4 >= 80)) goto LOC_1C8B0;
 	v3 = (-1);
@@ -6077,14 +6077,14 @@ void CreateFireRing(int a0, int a1, int a2, int a3, int a4, int a5, int a6) {
 	v2 = 0;
 	a1 = (a1 & 255);
 	v1 = CreateObjectByReference(a0, 31002, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, a3);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, a3);
 	SetCallbackProcedure(v1, 20001);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	if (!(intvIsLeft == 1)) goto LOC_1CA90;
-	SetCallbackContext(v1, 0, 0);
+	SetObjectContext(v1, 0, 0);
 	goto LOC_1CAB4;
 LOC_1CA90:
-	SetCallbackContext(v1, 0, 1);
+	SetObjectContext(v1, 0, 1);
 LOC_1CAB4:
 	asynccall StepShow(v1, 8);
 	asynccall CreateFire(v1);
@@ -6228,8 +6228,8 @@ void CreateIceShatter(int a0, int a1, int a2, int a3) {
 	Delay(Rand(0, 3));
 	v1 = CreateObjectByReference(a0, Rand(32003, 32005), 0, 0);
 	SetObjectScale(v1, Rand(12288, 20480), Rand(12288, 20480));
-	MoveObjectByReference_Cylind(v1, a0, Rand(128, 255), 30, a1);
-	SetObjectStep_Sphere(v1, 0, a2, a3);
+	SetCoordinateByReference_Cylind(v1, a0, Rand(128, 255), 30, a1);
+	SetObjectSpeed_Sphere(v1, 0, a2, a3);
 	Delay((a1 / 20));
 	SetObjectFadeOut(v1, 8, 1);
 	return;
@@ -6240,7 +6240,7 @@ void CreateFogSpeed(int a0, int a1, int a2, int a3, int a4) {
 	Delay(Rand(1, 6));
 	v1 = CreateObjectRaw(a0, a1, 0, 0, 32001);
 	SetObjectScale(v1, 32768, 32768);
-	SetObjectStep_Sphere(v1, 0, a2, a3);
+	SetObjectSpeed_Sphere(v1, 0, a2, a3);
 	SetObjectScaleShrink(v1, (-1024));
 	Delay(a4);
 	SetObjectFadeOut(v1, 16, 1);
@@ -6329,7 +6329,7 @@ LOC_1E680:
 	v3 = GetMostImportantSoldier((intvIsLeft ^ 1));
 	goto LOC_1E71C;
 LOC_1E6F4:
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 LOC_1E71C:
 	if (!(v3 == 0)) goto LOC_1E748;
 	v3 = intvDefenderMajor;
@@ -6401,7 +6401,7 @@ void OnFireCallback(int a0, int a1) callsign 23001 {
 	int v1;
 	int v2;
 	if (!((a1 == intvDefenderMajor) || (a1 == intvAttackerMajor))) goto LOC_1F314;
-	v2 = GetCallbackContext(a0, 0);
+	v2 = GetObjectContext(a0, 0);
 	if (!GetGlobal(32 + v2)) goto LOC_1F278;
 	v1 = (GetGlobal(34) / GetGlobal(32 + v2));
 LOC_1F278:
@@ -6427,7 +6427,7 @@ void CreateOnFireSmoke(int a0, int a1, int a2, int a3, int a4, int a5, int a6, i
 LOC_1F3F4:
 	SetObjectScale(v1, 53248, 53248);
 LOC_1F418:
-	SetObjectStep_Sphere(v1, 0, a5, a4);
+	SetObjectSpeed_Sphere(v1, 0, a5, a4);
 	Delay(2);
 	SetObjectScaleShrink(v1, (-a6));
 	if (!(a7 == 0)) goto LOC_1F4A0;
@@ -6447,10 +6447,10 @@ void CreateOnFireFire(int a0, int a1, int a2) {
 	SetObjectFlags(v1, 251658240);
 	SetCallbackProcedure(v1, 23001);
 	if (!(intvIsLeft == 1)) goto LOC_1F5C8;
-	SetCallbackContext(v1, 0, 0);
+	SetObjectContext(v1, 0, 0);
 	goto LOC_1F5EC;
 LOC_1F5C8:
-	SetCallbackContext(v1, 0, 1);
+	SetObjectContext(v1, 0, 1);
 LOC_1F5EC:
 	v2 = 4096;
 LOC_1F5FC:
@@ -6581,7 +6581,7 @@ LOC_1FD50:
 	v8 = 0;
 LOC_1FE88:
 	if (!(v8 < v6)) goto LOC_20110;
-	v7 = GetRandomSoldierHandleFromAlive((v5 ^ 1));
+	v7 = GetRandomSoldierFromAlive((v5 ^ 1));
 	if (!(v7 == 0)) goto LOC_20040;
 	v1 = GetObjectScreenX(v4);
 	v2 = GetObjectScreenY(v4);
@@ -6641,10 +6641,10 @@ LOC_20220:
 	v2 = (v7 / 2);
 LOC_2023C:
 	if (!(a0 == 1)) goto LOC_2029C;
-	v3 = GetSoldierHandle(((v6 - 1) - v1), v2);
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), v2);
 	goto LOC_202C0;
 LOC_2029C:
-	v3 = GetSoldierHandle(v1, v2);
+	v3 = GetForceHandleByXY(v1, v2);
 LOC_202C0:
 	if (!(v3 == 0)) goto LOC_203F4;
 	if (!(a0 == 1)) goto LOC_20370;
@@ -6660,10 +6660,10 @@ LOC_203C8:
 	return;
 LOC_203F4:
 	if (!(intvIsLeft == 1)) goto LOC_2046C;
-	v3 = GetSoldierHandle(((v6 - 1) - v1), ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), ((v7 - 1) - v2));
 	goto LOC_204A8;
 LOC_2046C:
-	v3 = GetSoldierHandle(v1, ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(v1, ((v7 - 1) - v2));
 LOC_204A8:
 	if (!(v3 == 0)) goto LOC_2060C;
 	if (!(a0 == 1)) goto LOC_20570;
@@ -6815,7 +6815,7 @@ void CreateTaichi(int a0, int a1) {
 	v2 = 0;
 LOC_214D4:
 	if (!(v2 <= 16)) goto LOC_21528;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2++;
 	goto LOC_214D4;
@@ -6833,7 +6833,7 @@ LOC_215D0:
 	v2 = 16;
 LOC_215EC:
 	if (!(v2 >= 0)) goto LOC_21640;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2--;
 	goto LOC_215EC;
@@ -6979,7 +6979,7 @@ LOC_22090:
 	v3 = (GetObjectScreenY(a0) - 16);
 	KillSoldier(a0);
 	SetObjectFlags(a0, 65536);
-	SetObjectStep_Cylind(a0, 0, 8);
+	SetObjectSpeed_Cylind(a0, 0, 8);
 LOC_2212C:
 	v1 = GetObjectScreenZ(a0);
 	SetObjectCoordinate(a0, (v2 + Rand((-12), 12)), (v3 + Rand((-9), 2)), (v1 + Rand((-3), 3)));
@@ -7001,10 +7001,10 @@ void SpoutKillEdge(int a0, int a1) {
 	int v5;
 	a0 = ScreenXToBattleX(a0);
 	a1 = ScreenXToBattleX(a1);
-	v1[0] = GetSoldierHandle((a0 + 1), a1);
-	v1[1] = GetSoldierHandle(a0, (a1 + 1));
-	v1[2] = GetSoldierHandle((a0 - 1), a1);
-	v1[3] = GetSoldierHandle(a0, (a1 - 1));
+	v1[0] = GetForceHandleByXY((a0 + 1), a1);
+	v1[1] = GetForceHandleByXY(a0, (a1 + 1));
+	v1[2] = GetForceHandleByXY((a0 - 1), a1);
+	v1[3] = GetForceHandleByXY(a0, (a1 - 1));
 	v5 = 0;
 LOC_22394:
 	if (!(v5 < 4)) goto LOC_22484;
@@ -7023,7 +7023,7 @@ LOC_22484:
 LOC_22494:
 	if (!(v5 < 4)) goto LOC_22538;
 	if (!(v1[v5] != 0)) goto LOC_22528;
-	SetObjectStep_Sphere(v1[v5], (v5 * 64), Rand(10, 36), 8);
+	SetObjectSpeed_Sphere(v1[v5], (v5 * 64), Rand(10, 36), 8);
 LOC_22528:
 	v5++;
 	goto LOC_22494;
@@ -7062,7 +7062,7 @@ LOC_22644:
 	v3 = Rand(0, 255);
 	v4 = Rand(32768, 49152);
 	SetObjectScale(v1, v4, v4);
-	SetObjectStep_Sphere(v1, v3, Rand(32, 50), 6);
+	SetObjectSpeed_Sphere(v1, v3, Rand(32, 50), 6);
 	asynccall TraceStoneBomb(v1);
 	Delay(Rand(0, 2));
 	v2++;
@@ -7199,7 +7199,7 @@ LOC_23038:
 	v3 = 0;
 LOC_23194:
 	if (!(v3 < 3)) goto LOC_23374;
-	v4 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v4 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!v4) goto LOC_23280;
 	v1 = GetObjectScreenX(v4);
 	v2 = GetObjectScreenY(v4);
@@ -7229,7 +7229,7 @@ void FireCowCallback(int a0, int a1) callsign 27001 {
 	int v3;
 	if (!(a1 == intvDefenderMajor)) goto LOC_234FC;
 	SetObjectFadeOut(a0, 2, 1);
-	v3 = GetCallbackContext(a0, 1);
+	v3 = GetObjectContext(a0, 1);
 	if (!GetGlobal(39 + v3)) goto LOC_23460;
 	v2 = (intvMagicAttackValue / GetGlobal(39 + v3));
 LOC_23460:
@@ -7244,13 +7244,13 @@ LOC_234FC:
 	asynccall FireMan(a1, 10015, 60);
 	asynccall Blood(a1, 16);
 LOC_23574:
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	v1--;
 	if (!(v1 <= 0)) goto LOC_235E8;
 	SetObjectFadeOut(a0, 2, 1);
 	goto LOC_2360C;
 LOC_235E8:
-	SetCallbackContext(a0, 0, v1);
+	SetObjectContext(a0, 0, v1);
 LOC_2360C:
 	return;
 }
@@ -7261,16 +7261,16 @@ void AttachFireToCow(int a0, int a1) {
 	v1 = CreateObjectByReference(a0, 37002, a1, 50);
 	SetObjectScale(v1, 131072, 131072);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, 12);
+	SetObjectOpacity(v1, 12);
 	v2 = CreateObjectByReference(a0, 37002, a1, 50);
 	SetObjectScale(v2, 131072, 131072);
 	SetObjectFlags(v2, 262144);
-	SetObjectBrightness(v2, 12);
+	SetObjectOpacity(v2, 12);
 LOC_2373C:
 	if (!IsObjectExist(a0)) goto LOC_23898;
-	MoveObjectByReference_Cylind(v1, a0, a1, 24, 50);
+	SetCoordinateByReference_Cylind(v1, a0, a1, 24, 50);
 	MoveObject(v1, Rand((-8), 8), 0, Rand((-8), 8));
-	MoveObjectByReference_Cylind(v2, a0, (a1 - 128), 20, 50);
+	SetCoordinateByReference_Cylind(v2, a0, (a1 - 128), 20, 50);
 	MoveObject(v2, Rand((-8), 8), 0, Rand((-8), 8));
 	Delay(1);
 	goto LOC_2373C;
@@ -7285,15 +7285,15 @@ void CreateFireCow(int a0, int a1, int a2, int a3, int a4) {
 	int v2;
 	int v3;
 	v1 = CreateObjectRaw((a0 + (8 * Rand((-6), 6))), (a1 + (8 * Rand((-8), 8))), 0, a2, 37001);
-	SetObjectStep_Sphere(v1, a2, 0, (8 + Rand((-2), 2)));
+	SetObjectSpeed_Sphere(v1, a2, 0, (8 + Rand((-2), 2)));
 	SetCallbackProcedure(v1, 27001);
 	SetObjectFlags(v1, (33554432 + 16777216));
-	SetCallbackContext(v1, 0, (8 + Rand((-2), 4)));
+	SetObjectContext(v1, 0, (8 + Rand((-2), 4)));
 	if (!(a3 == 1)) goto LOC_23A90;
-	SetCallbackContext(v1, 1, 0);
+	SetObjectContext(v1, 1, 0);
 	goto LOC_23AB4;
 LOC_23A90:
-	SetCallbackContext(v1, 1, 1);
+	SetObjectContext(v1, 1, 1);
 LOC_23AB4:
 	asynccall AttachFireToCow(v1, (a2 + 128));
 	if (!a4) goto LOC_23B40;
@@ -7417,8 +7417,8 @@ void CreateRollStoneBreak(int a0, int a1) {
 	v2 = Rand(0, 255);
 	v1 = CreateObjectByReference(a0, Rand(38002, 38008), v2, a1);
 	SetObjectGravity(v1, 18432);
-	MoveObjectByReference_Cylind(v1, a0, v2, 12, a1);
-	SetObjectStep_Sphere(v1, v2, Rand(38, 60), Rand(6, 10));
+	SetCoordinateByReference_Cylind(v1, a0, v2, 12, a1);
+	SetObjectSpeed_Sphere(v1, v2, Rand(38, 60), Rand(6, 10));
 	Delay(8);
 	SetObjectFadeOut(v1, 16, 2);
 	return;
@@ -7434,8 +7434,8 @@ void RollDownCallback(int a0, int a1) callsign 28001 {
 	int v7;
 	int v8;
 	int v9;
-	v2 = GetCallbackContext(a0, 1);
-	v3 = GetCallbackContext(a0, 2);
+	v2 = GetObjectContext(a0, 1);
+	v3 = GetObjectContext(a0, 2);
 	if (!(a1 == intvDefenderMajor)) goto LOC_24BAC;
 	if (!GetGlobal(41)) goto LOC_24934;
 	v9 = (intvMagicAttackValue / GetGlobal(41));
@@ -7445,7 +7445,7 @@ LOC_24934:
 	SetGlobal(41, (GetGlobal(41) * 2));
 LOC_2498C:
 	if (!(v2 == 0)) goto LOC_249CC;
-	a0 = GetCallbackContext(a0, 0);
+	a0 = GetObjectContext(a0, 0);
 LOC_249CC:
 	if (!(GetGlobal(1) == 0)) goto LOC_24A08;
 	DelayAmbientSound("m028snd02", 255, 10);
@@ -7492,9 +7492,9 @@ LOC_24BCC:
 	SetObjectFriction(v3, 0);
 LOC_24E68:
 	if (!(v2 == 0)) goto LOC_24EA8;
-	a0 = GetCallbackContext(a0, 0);
+	a0 = GetObjectContext(a0, 0);
 LOC_24EA8:
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	v1--;
 	if (!(v1 <= 0)) goto LOC_250C8;
 	if (!(GetGlobal(1) == 0)) goto LOC_24F2C;
@@ -7516,7 +7516,7 @@ LOC_25068:
 	FreeObjectByHandle(a0);
 	goto LOC_250EC;
 LOC_250C8:
-	SetCallbackContext(a0, 0, v1);
+	SetObjectContext(a0, 0, v1);
 LOC_250EC:
 	return;
 }
@@ -7526,29 +7526,29 @@ void CreateRollStone(int a0, int a1, int a2) {
 	int v2;
 	int v3;
 	v3 = CreateObjectRaw((a0 + 96), (a1 + 8), 0, 0, 2501);
-	SetObjectStep_Sphere(v3, 192, 0, a2);
+	SetObjectSpeed_Sphere(v3, 192, 0, a2);
 	SetObjectFlags(v3, 50331648);
 	SetCallbackProcedure(v3, 28001);
-	SetCallbackContext(v3, 0, 0);
-	SetCallbackContext(v3, 1, 0);
-	SetCallbackContext(v3, 2, 0);
+	SetObjectContext(v3, 0, 0);
+	SetObjectContext(v3, 1, 0);
+	SetObjectContext(v3, 2, 0);
 	v2 = CreateObjectRaw((a0 - 96), (a1 + 8), 0, 0, 2501);
-	SetObjectStep_Sphere(v2, 192, 0, a2);
+	SetObjectSpeed_Sphere(v2, 192, 0, a2);
 	SetObjectFlags(v2, 50331648);
 	SetCallbackProcedure(v2, 28001);
-	SetCallbackContext(v2, 0, 0);
-	SetCallbackContext(v2, 1, 0);
-	SetCallbackContext(v2, 2, 0);
+	SetObjectContext(v2, 0, 0);
+	SetObjectContext(v2, 1, 0);
+	SetObjectContext(v2, 2, 0);
 	v1 = CreateObjectRaw(a0, a1, 0, 0, 38001);
-	SetObjectStep_Sphere(v1, 192, 0, a2);
+	SetObjectSpeed_Sphere(v1, 192, 0, a2);
 	SetObjectScale(v1, 49152, 49152);
 	SetObjectFlags(v1, 50331648);
 	SetCallbackProcedure(v1, 28001);
-	SetCallbackContext(v1, 0, 8);
-	SetCallbackContext(v1, 1, v2);
-	SetCallbackContext(v1, 2, v3);
-	SetCallbackContext(v2, 0, v1);
-	SetCallbackContext(v3, 0, v1);
+	SetObjectContext(v1, 0, 8);
+	SetObjectContext(v1, 1, v2);
+	SetObjectContext(v1, 2, v3);
+	SetObjectContext(v2, 0, v1);
+	SetObjectContext(v3, 0, v1);
 LOC_2560C:
 	if (!(GetObjectScreenY(v1) > 0)) goto LOC_25648;
 	Delay(2);
@@ -7568,7 +7568,7 @@ void TracingCamera(int a0, int a1, int a2, int a3, int a4) {
 	Delay(a3);
 	v1 = CreateObjectRaw(a0, (GetBattleHeightInScreenY() - 100), 0, 0, 2501);
 	v2 = CreateObjectRaw(a1, 400, 0, 0, 2501);
-	MoveObjectTo(v1, v2, a2);
+	ApproachObjectTowards(v1, v2, a2);
 	if (!(a4 == 1)) goto LOC_25808;
 LOC_25778:
 	v3 = GetObjectScreenX(v1);
@@ -7698,9 +7698,9 @@ void CreatePaBomb(int a0, int a1, int a2) {
 	int v5;
 	Delay((Rand(0, 10) * 3));
 	v4 = CreateObjectByReference(a0, 39011, 0, 220);
-	MoveObjectByReference_Cylind(v4, a0, a2, a1, 220);
+	SetCoordinateByReference_Cylind(v4, a0, a2, a1, 220);
 	SetObjectScale(v4, 4096, 65536);
-	SetObjectStep_Cylind(v4, 0, (-20));
+	SetObjectSpeed_Cylind(v4, 0, (-20));
 	v5 = 1;
 LOC_260F0:
 	if (!(v5 <= 10)) goto LOC_26170;
@@ -7711,7 +7711,7 @@ LOC_260F0:
 LOC_26170:
 	SetObjectFadeOut(v4, 8, 1);
 	v1 = CreateObjectByReference(a0, 39002, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a2, a1, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a2, a1, 0);
 	SetObjectScale(v1, 4096, 4096);
 	SetCallbackProcedure(v1, 29001);
 	SetObjectFlags(v1, (33554432 + 16777216));
@@ -7775,7 +7775,7 @@ void CreateBigPaBomb(int a0) {
 LOC_2676C:
 	PlaySound1("m029snd02", 255);
 	v1 = CreateObjectByReference(a0, 39012, 0, 220);
-	SetObjectStep_Cylind(v1, 0, (-20));
+	SetObjectSpeed_Cylind(v1, 0, (-20));
 LOC_267EC:
 	Delay(1);
 	v2 = GetObjectScreenZ(v1);
@@ -7796,11 +7796,11 @@ void CreateRotateLight(int a0, int a1, int a2, int a3) {
 	int v3;
 LOC_26924:
 	v1 = CreateObjectByReference(a0, 39016, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetObjectScale(v1, 49152, 32768);
 	v3 = CreateObjectByReference(a0, 39017, 0, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
 	SetObjectScale(v3, 49152, 20480);
 	v2 = 0;
 LOC_26A7C:
@@ -7810,9 +7810,9 @@ LOC_26A7C:
 	a2 = (a2 + 2);
 LOC_26B04:
 	Delay(1);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(a3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(a3, a0, a1, a2, 0);
 	v2++;
 	goto LOC_26A7C;
 LOC_26BBC:
@@ -7825,9 +7825,9 @@ void CreateRotateBomb(int a0, int a1, int a2) {
 	int v1;
 	int v2;
 	v1 = CreateObjectByReference(a0, 39015, 0, 220);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 220);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 220);
 	SetObjectScale(v1, 49152, 65536);
-	SetObjectStep_Cylind(v1, 0, (-20));
+	SetObjectSpeed_Cylind(v1, 0, (-20));
 LOC_26CC8:
 	Delay(1);
 	v2 = GetObjectScreenZ(v1);
@@ -7844,7 +7844,7 @@ void CreatePaLight(int a0, int a1, int a2, int a3) {
 	Delay(9);
 	FreeObjectByHandle(v1);
 	v1 = CreateObjectByReference(a0, a1, 128, 45);
-	SetObjectStep_Cylind(v1, 0, 16);
+	SetObjectSpeed_Cylind(v1, 0, 16);
 	asynccall ProduceShadowTime(v1, 9999);
 	Delay(18);
 	FreeObjectByHandle(v1);
@@ -7863,7 +7863,7 @@ void CreatePa(int a0, int a1) {
 	v2 = 0;
 LOC_26F24:
 	if (!(v2 <= 16)) goto LOC_26F78;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2++;
 	goto LOC_26F24;
@@ -7910,7 +7910,7 @@ LOC_27290:
 	v2 = 8;
 LOC_272B8:
 	if (!(v2 >= 0)) goto LOC_2730C;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(2);
 	v2--;
 	goto LOC_272B8;
@@ -8038,14 +8038,14 @@ LOC_27AB8:
 	v5 = (v4 - CalcSin(((v8 * 128) / v10), a2));
 LOC_27B00:
 	SetObjectCoordinate(a0, v6, v5, v7);
-	MoveObjectByReference_Cylind(a1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(a1, a0, 0, 0, 0);
 	Delay(1);
 	v8++;
 	goto LOC_279F0;
 LOC_27B7C:
 	if (!(((float)v10) != v12)) goto LOC_27BFC;
 	SetObjectCoordinate(a0, v3, v4, v7);
-	MoveObjectByReference_Cylind(a1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(a1, a0, 0, 0, 0);
 LOC_27BFC:
 	if (!IsObjectExist(a0)) goto LOC_27DA8;
 	SetObjectFadeOut(a0, 16, 1);
@@ -8060,7 +8060,7 @@ LOC_27CFC:
 	v5 = (v4 - CalcSin(v8, a2));
 LOC_27D2C:
 	SetObjectCoordinate(a0, v6, v5, v7);
-	MoveObjectByReference_Cylind(a1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(a1, a0, 0, 0, 0);
 	Delay(1);
 	v8++;
 	goto LOC_27C4C;
@@ -8083,20 +8083,20 @@ void CreateHalfMoonNew(int a0, int a1, int a2, int a3, int a4, int a5) {
 	int v2;
 	int v4;
 	v1 = CreateObjectByReference(a0, 40001, a1, 0);
-	MoveObjectByReference_Cylind(v1, a0, a2, a3, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a2, a3, 0);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetCallbackProcedure(v1, 30001);
 	SetObjectScale(v1, 49152, 49152);
 	v2 = CreateObjectByReference(v1, 40002, a1, 0);
-	MoveObjectByReference_Cylind(v2, v1, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v2, v1, 0, 0, 0);
 	v4 = GetGeneralWidth();
 	asynccall CheckHalfMoonNew(v1, v2);
 	if (!a4) goto LOC_27FE8;
 	asynccall LockCameraSimple(v1, (-330));
 LOC_27FE8:
 	if (!(v4 < 1200)) goto LOC_28054;
-	MoveObjectTo(v1, intvDefenderMajor, 30);
-	MoveObjectTo(v2, intvDefenderMajor, 30);
+	ApproachObjectTowards(v1, intvDefenderMajor, 30);
+	ApproachObjectTowards(v2, intvDefenderMajor, 30);
 	goto LOC_28080;
 LOC_28054:
 	asynccall HalfMoonNewMotion(v1, v2, a3, a5);
@@ -8206,13 +8206,13 @@ void CreateFirePillarSource(int a0, int a1, int a2) {
 	int v1;
 	int v2;
 	v1 = CreateObjectByReference(a0, 41001, 0, 8);
-	MoveObjectByReference_Cylind(v1, a0, a2, a1, 8);
+	SetCoordinateByReference_Cylind(v1, a0, a2, a1, 8);
 	PlaySound1("m031snd03", 255);
 	Delay(8);
 	v2 = a1;
 LOC_2882C:
 	if (!(v2 > 0)) goto LOC_288D4;
-	MoveObjectByReference_Cylind(v1, a0, a2, v2, 8);
+	SetCoordinateByReference_Cylind(v1, a0, a2, v2, 8);
 	Delay(1);
 	a2 = ((a2 + 1) & 255);
 	v2 = (v2 - 4);
@@ -8228,12 +8228,12 @@ void CreateFirePillarLight(int a0, int a1, int a2, int a3, int a4) {
 	int v3;
 LOC_28900:
 	v1 = CreateObjectByReference(a0, 41009, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetCallbackProcedure(v1, 31001);
 	SetObjectScale(v1, 32768, 24576);
 	v3 = CreateObjectByReference(a0, 41010, 0, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
 	SetObjectScale(v3, 32768, 16384);
 	v2 = 0;
 LOC_28A74:
@@ -8241,9 +8241,9 @@ LOC_28A74:
 	a1 = ((a1 + 4) & 255);
 	a2 = (a2 + 6);
 	Delay(1);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(a3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(a3, a0, a1, a2, 0);
 	if (!(v2 == (a4 - 16))) goto LOC_28BEC;
 	SetObjectFadeOut(v1, 16, 1);
 	SetObjectFadeOut(v3, 16, 1);
@@ -8258,7 +8258,7 @@ void CreateFirePillarBomb(int a0, int a1, int a2, int a3) {
 	int v1;
 	a0 = CreateObjectByReference(a0, 2501, 0, 0);
 	v1 = CreateObjectByReference(a0, 41008, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectScale(v1, 32768, 65536);
 	SetObjectFadeOut(v1, a3, 1);
 	CreateFirePillarLight(a0, a1, a2, v1, a3);
@@ -8369,7 +8369,7 @@ LOC_299C0:
 void SparkCallback(int a0, int a1) callsign 32001 {
 	int v1;
 	int v2;
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	if (!(v1 == 4660)) goto LOC_29AD4;
 	v2 = 2;
 	goto LOC_29AE4;
@@ -8432,7 +8432,7 @@ LOC_29DC4:
 	SetObjectScale(v1, 98304, 98304);
 	SetCallbackProcedure(v1, 32001);
 	SetObjectFlags(v1, (16777216 + 33554432));
-	SetCallbackContext(v1, 0, 4660);
+	SetObjectContext(v1, 0, 4660);
 	Delay(4);
 	SetObjectFadeOut(v1, 8, 1);
 	v1 = CreateObjectByReference(a0, 42002, 0, 48);
@@ -8562,9 +8562,9 @@ LOC_2A874:
 LOC_2A8A0:
 	if (!(v2 < 256)) goto LOC_2AA1C;
 	v1 = CreateObjectByReference(a0, 43004, 0, 8);
-	MoveObjectByReference_Cylind(v1, a0, v2, 64, 8);
-	SetObjectStep_Sphere(v1, v2, 44, 12);
-	SetObjectBrightness(v1, (16 - (v3 * 2)));
+	SetCoordinateByReference_Cylind(v1, a0, v2, 64, 8);
+	SetObjectSpeed_Sphere(v1, v2, 44, 12);
+	SetObjectOpacity(v1, (16 - (v3 * 2)));
 	SetObjectScaleShrink(v1, (-2048));
 	SetObjectGravity(v1, a1);
 	asynccall TraceFlash(v1, (v3 == 5), 1);
@@ -8613,8 +8613,8 @@ void ShootCannon() callsign 33002 {
 	v4 = GetObjectDir(v2);
 	v1 = CreateObjectByReference(v2, 43002, v4, 0);
 	SetObjectScale(v1, 61440, 61440);
-	MoveObjectByReference_Cylind(v1, v2, v4, 45, 85);
-	SetObjectStep_Cylind(v1, 30, 30);
+	SetCoordinateByReference_Cylind(v1, v2, v4, 45, 85);
+	SetObjectSpeed_Cylind(v1, 30, 30);
 	Delay(2);
 	Delay(32);
 	FreeObjectByHandle(v1);
@@ -8636,7 +8636,7 @@ LOC_2AD98:
 LOC_2AE00:
 	if (!(a3 < 16)) goto LOC_2AE40;
 	a3++;
-	SetObjectBrightness(a0, a3);
+	SetObjectOpacity(a0, a3);
 LOC_2AE40:
 	goto LOC_2AD3C;
 LOC_2AE48:
@@ -8649,7 +8649,7 @@ void FlyCannonLB1(int a0, int a1, int a2) {
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 43006, 0, 0);
 	SetObjectCoordinate(v1, (a0 + 260), a1, 260);
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	asynccall TraceCannon(v1);
 	return;
 }
@@ -8659,7 +8659,7 @@ void FlyCannonRB1(int a0, int a1, int a2) {
 	Delay(a2);
 	v1 = CreateObjectByReference(intvAttackerMajor, 43006, 128, 0);
 	SetObjectCoordinate(v1, (a0 - 260), a1, 260);
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	asynccall TraceCannon(v1);
 	return;
 }
@@ -8675,10 +8675,10 @@ void FlyCannonLB2(int a0, int a1, int a2) {
 	SetObjectCoordinate(v1, ((v2 + 260) + 24), a1, 260);
 	goto LOC_2B18C;
 LOC_2B120:
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, (260 + 24), 0, 260);
 LOC_2B18C:
-	SetObjectStep_Sphere(v1, 128, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 128, (-32), 32);
 	asynccall TraceCannon(v1);
 	return;
 }
@@ -8694,10 +8694,10 @@ void FlyCannonRB2(int a0, int a1, int a2) {
 	SetObjectCoordinate(v1, ((v2 - 260) - 24), a1, 260);
 	goto LOC_2B354;
 LOC_2B2E4:
-	MoveObjectByReference_Cylind(v1, a0, 0, 0, 0);
+	SetCoordinateByReference_Cylind(v1, a0, 0, 0, 0);
 	MoveObject(v1, ((-260) - 24), 0, 260);
 LOC_2B354:
-	SetObjectStep_Sphere(v1, 0, (-32), 32);
+	SetObjectSpeed_Sphere(v1, 0, (-32), 32);
 	asynccall TraceCannon(v1);
 	return;
 }
@@ -8712,7 +8712,7 @@ LOC_2B424:
 	v1 = CreateObjectByReference(intvAttackerMajor, 43001, a3, 0);
 LOC_2B458:
 	SetObjectCoordinate(v1, a0, a1, 0);
-	SetCallbackContext(v1, 0, 0);
+	SetObjectContext(v1, 0, 0);
 	return;
 }
 
@@ -8802,7 +8802,7 @@ LOC_2BB0C:
 	v5 = 0;
 	v4 = (v8 - v11);
 LOC_2BB60:
-	v9 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v9 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	v14 = GetObjectScreenX(v9);
 	v15 = GetObjectScreenY(v9);
 	if (!(v5 == 0)) goto LOC_2BC14;
@@ -8887,7 +8887,7 @@ LOC_2C1C8:
 void CreatePowerExplode(int a0, int a1, int a2, int a3, int a4, int a5) {
 	int v1;
 	v1 = CreateObjectRaw(a0, a1, a2, a3, 44003);
-	SetObjectStep_Sphere(v1, a3, (2 * Rand(8, 32)), a4);
+	SetObjectSpeed_Sphere(v1, a3, (2 * Rand(8, 32)), a4);
 	SetObjectScale(v1, 32768, 32768);
 	SetObjectScaleShrink(v1, (-512));
 	Delay(a5);
@@ -8899,11 +8899,11 @@ void CreatePowerSmoke(int a0, int a1, int a2, int a3, int a4, int a5, int a6) {
 	int v1;
 	if (!a6) goto LOC_2C384;
 	v1 = CreateObjectRaw(a0, a1, a2, 0, 44004);
-	SetObjectStep_Sphere(v1, a3, (2 * Rand(4, 28)), a4);
+	SetObjectSpeed_Sphere(v1, a3, (2 * Rand(4, 28)), a4);
 	goto LOC_2C40C;
 LOC_2C384:
 	v1 = CreateObjectRaw(a0, a1, a2, 0, 44002);
-	SetObjectStep_Sphere(v1, a3, (2 * Rand(0, 32)), a4);
+	SetObjectSpeed_Sphere(v1, a3, (2 * Rand(0, 32)), a4);
 LOC_2C40C:
 	Delay((a5 - 4));
 	SetObjectScaleShrink(v1, (-1024));
@@ -8919,8 +8919,8 @@ void CreatePowderBreak(int a0, int a1) {
 	v2 = Rand(0, 255);
 	v1 = CreateObjectByReference(a0, Rand(44005, 44011), v2, 20);
 	SetObjectGravity(v1, 18432);
-	MoveObjectByReference_Cylind(v1, a0, v2, 4, Rand(20, 30));
-	SetObjectStep_Sphere(v1, v2, Rand(36, 54), Rand(6, 10));
+	SetCoordinateByReference_Cylind(v1, a0, v2, 4, Rand(20, 30));
+	SetObjectSpeed_Sphere(v1, v2, Rand(36, 54), Rand(6, 10));
 	PlaySound(intvDefenderMajor, "m034snd01", 255);
 	Delay(8);
 	SetObjectFadeOut(v1, 16, 2);
@@ -8935,7 +8935,7 @@ void CreatePower(int a0, int a1, int a2) {
 	v2 = 0;
 LOC_2C680:
 	if (!(v2 <= 16)) goto LOC_2C6D4;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2++;
 	goto LOC_2C680;
@@ -9015,7 +9015,7 @@ LOC_2CF54:
 	v4 = 0;
 LOC_2CF64:
 	if (!(v4 < v5)) goto LOC_2D314;
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!v3) goto LOC_2D040;
 	v1 = (GetObjectScreenX(v3) + Rand((-8), 8));
 	v2 = (GetObjectScreenY(v3) + Rand((-8), 8));
@@ -9190,7 +9190,7 @@ void CreateSlashByTarget(int a0, int a1, int a2, int a3) {
 	int v3;
 	v3 = 4096;
 	v1 = CreateObjectByReference(a0, (46001 + a2), 128, a1);
-	MoveObjectByReference_Cylind(v1, a0, (192 - (a2 * 16)), Rand(80, 180), a1);
+	SetCoordinateByReference_Cylind(v1, a0, (192 - (a2 * 16)), Rand(80, 180), a1);
 	SetObjectFlags(v1, 262144);
 	v2 = 0;
 LOC_2DE34:
@@ -9198,7 +9198,7 @@ LOC_2DE34:
 	if (!(v3 < 49152)) goto LOC_2DE90;
 	SetObjectScale(v1, v3, v3);
 LOC_2DE90:
-	SetObjectBrightness(v1, (v2 / 2));
+	SetObjectOpacity(v1, (v2 / 2));
 	Delay(1);
 	v3 = (v3 + 2048);
 	v2++;
@@ -9207,7 +9207,7 @@ LOC_2DEF0:
 	ClearObjectFlags(v1, 262144);
 	Delay(24);
 	PlaySound1("m036snd02", 255);
-	SetObjectStep_Sphere(v1, (64 - (a2 * 16)), 0, 12);
+	SetObjectSpeed_Sphere(v1, (64 - (a2 * 16)), 0, 12);
 	SetObjectFlags(v1, 50331648);
 	SetCallbackProcedure(v1, 36001);
 	SetObjectFadeOut(v1, 48, 1);
@@ -9229,7 +9229,7 @@ LOC_2E090:
 	if (!(v3 < 49152)) goto LOC_2E0EC;
 	SetObjectScale(v1, v3, v3);
 LOC_2E0EC:
-	SetObjectBrightness(v1, (v2 / 2));
+	SetObjectOpacity(v1, (v2 / 2));
 	Delay(1);
 	v3 = (v3 + 2048);
 	v2++;
@@ -9238,7 +9238,7 @@ LOC_2E14C:
 	ClearObjectFlags(v1, 262144);
 	Delay(24);
 	PlaySound1("m036snd02", 255);
-	SetObjectStep_Sphere(v1, (64 - (a3 * 16)), 0, 12);
+	SetObjectSpeed_Sphere(v1, (64 - (a3 * 16)), 0, 12);
 	if (!a5) goto LOC_2E21C;
 	SetObjectFlags(v1, 50331648);
 	SetCallbackProcedure(v1, 36001);
@@ -9315,7 +9315,7 @@ LOC_2E810:
 	v3 = GetMostImportantSoldier((intvIsLeft ^ 1));
 	goto LOC_2E8A0;
 LOC_2E878:
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 LOC_2E8A0:
 	if (!(v3 == 0)) goto LOC_2E8CC;
 	v3 = intvDefenderMajor;
@@ -9602,7 +9602,7 @@ LOC_2FE2C:
 	v2 = 0;
 LOC_2FE58:
 	if (!(v2 < 3)) goto LOC_2FF08;
-	MoveObjectByReference_Cylind(v3[((v1 * 3) + v2)], a0, ((32 * v1) + v27), (60 + (v2 * 32)), a1);
+	SetCoordinateByReference_Cylind(v3[((v1 * 3) + v2)], a0, ((32 * v1) + v27), (60 + (v2 * 32)), a1);
 	v2++;
 	goto LOC_2FE58;
 LOC_2FF08:
@@ -9635,10 +9635,10 @@ LOC_2FF94:
 LOC_2FFE8:
 	if (!(v66 < 16)) goto LOC_30144;
 	v2[v66] = CreateObjectByReference(v1, (48001 + v66), 128, a2);
-	MoveObjectByReference_Cylind(v2[v66], v1, (64 - (16 * v66)), 0, a2);
+	SetCoordinateByReference_Cylind(v2[v66], v1, (64 - (16 * v66)), 0, a2);
 	SetObjectScale(v2[v66], 40960, 40960);
 	SetObjectFlags(v2[v66], 128);
-	SetCallbackContext(v2[v66], 0, ((v66 % 4) * 2));
+	SetObjectContext(v2[v66], 0, ((v66 % 4) * 2));
 	v66++;
 	goto LOC_2FFE8;
 LOC_30144:
@@ -9648,7 +9648,7 @@ LOC_30154:
 	v66 = 0;
 LOC_30180:
 	if (!(v66 < 16)) goto LOC_30340;
-	v69 = GetCallbackContext(v2[v66], 0);
+	v69 = GetObjectContext(v2[v66], 0);
 	if (!(v69 == 0)) goto LOC_30218;
 	ClearObjectFlags(v2[v66], 128);
 	v69--;
@@ -9661,9 +9661,9 @@ LOC_30218:
 LOC_3028C:
 	v69--;
 LOC_30294:
-	SetCallbackContext(v2[v66], 0, v69);
+	SetObjectContext(v2[v66], 0, v69);
 	if (!(v67 <= 90)) goto LOC_30330;
-	MoveObjectByReference_Cylind(v2[v66], v1, (64 - (16 * v66)), v67, a2);
+	SetCoordinateByReference_Cylind(v2[v66], v1, (64 - (16 * v66)), v67, a2);
 LOC_30330:
 	v66++;
 	goto LOC_30180;
@@ -9687,9 +9687,9 @@ LOC_303FC:
 LOC_30428:
 	if (!(v66 < 8)) goto LOC_30610;
 	v2[v66] = CreateObjectByReference(v1, (48017 + (v66 * 2)), 128, a2);
-	MoveObjectByReference_Cylind(v2[v66], v1, (64 - (32 * v66)), 90, a2);
+	SetCoordinateByReference_Cylind(v2[v66], v1, (64 - (32 * v66)), 90, a2);
 	SetObjectScale(v2[v66], 40960, 40960);
-	SetObjectStep_Sphere(v2[v66], (64 - (32 * v66)), 0, 10);
+	SetObjectSpeed_Sphere(v2[v66], (64 - (32 * v66)), 0, 10);
 	if (!((v66 & 1) == 0)) goto LOC_305B8;
 	SetObjectFlags(v2[v66], 50331648);
 	goto LOC_305DC;
@@ -9751,8 +9751,8 @@ void CreateRollTubBreak(int a0) {
 	v2 = Rand(0, 255);
 	v1 = CreateObjectByReference(a0, Rand(49002, 49008), v2, 20);
 	SetObjectGravity(v1, 16384);
-	MoveObjectByReference_Cylind(v1, a0, v2, 4, Rand(20, 30));
-	SetObjectStep_Sphere(v1, v2, Rand(36, 60), Rand(8, 12));
+	SetCoordinateByReference_Cylind(v1, a0, v2, 4, Rand(20, 30));
+	SetObjectSpeed_Sphere(v1, v2, Rand(36, 60), Rand(8, 12));
 	Delay(8);
 	SetObjectFadeOut(v1, 16, 2);
 	return;
@@ -9792,12 +9792,12 @@ void CreateRollTub(int a0, int a1, int a2) {
 	v1 = CreateObjectRaw(a0, a1, 0, 0, 49001);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetCallbackProcedure(v1, 39001);
-	SetObjectStep_Sphere(v1, 192, 0, Rand(4, 6));
+	SetObjectSpeed_Sphere(v1, 192, 0, Rand(4, 6));
 	SetObjectFlags(v1, 262144);
 	v3 = 0;
 LOC_30D08:
 	if (!(v3 <= 16)) goto LOC_30D5C;
-	SetObjectBrightness(v1, v3);
+	SetObjectOpacity(v1, v3);
 	Delay(2);
 	v3++;
 	goto LOC_30D08;
@@ -9891,7 +9891,7 @@ void EarthquakeCallback(int a0, int a1) callsign 40001 {
 void CreateQuakeSmoke(int a0, int a1, int a2, int a3, int a4) {
 	int v1;
 	v1 = CreateObjectRaw(a0, a1, a2, 0, 50002);
-	SetObjectStep_Cylind(v1, 0, a3);
+	SetObjectSpeed_Cylind(v1, 0, a3);
 	Delay((a4 - 4));
 	SetObjectScaleShrink(v1, (-512));
 	Delay(4);
@@ -10000,7 +10000,7 @@ LOC_31BA8:
 	v3 = GetMostImportantSoldier((intvIsLeft ^ 1));
 	goto LOC_31C48;
 LOC_31C20:
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 LOC_31C48:
 	if (!((v3 == 0) || (v3 == intvDefenderMajor))) goto LOC_31D1C;
 	v1 = (GetObjectScreenX(intvDefenderMajor) + (10 * Rand((-40), 40)));
@@ -10039,15 +10039,15 @@ LOC_31EEC:
 LOC_31EF4:
 	Hurt(a0, a1, 0);
 LOC_31F14:
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	v1--;
 	if (!(v1 <= 0)) goto LOC_31FB4;
-	v2 = GetCallbackContext(a0, 1);
+	v2 = GetObjectContext(a0, 1);
 	FreeObjectByHandle(a0);
 	SetGlobal(55 + v2, 0);
 	goto LOC_31FD8;
 LOC_31FB4:
-	SetCallbackContext(a0, 0, v1);
+	SetObjectContext(a0, 0, v1);
 LOC_31FD8:
 	return;
 }
@@ -10063,8 +10063,8 @@ LOC_32014:
 	v1 = CreateObjectRaw(a0, a1, 0, a2, 51001);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetCallbackProcedure(v1, 41001);
-	SetCallbackContext(v1, 0, 3);
-	SetCallbackContext(v1, 1, a3);
+	SetObjectContext(v1, 0, 3);
+	SetObjectContext(v1, 1, a3);
 	SetGlobal(55 + a3, v1);
 	return;
 }
@@ -10253,7 +10253,7 @@ LOC_32E78:
 	v2 = (a1 + Rand((-48), 48));
 	v3 = (a2 + Rand((-16), 16));
 	v6 = CreateObjectRaw(v2, v3, (a3 + 20), 0, Rand(28002, 28004));
-	SetObjectStep_Cylind(v6, 0, Rand(10, 30));
+	SetObjectSpeed_Cylind(v6, 0, Rand(10, 30));
 	PlaySound1("m016a", 255);
 	Delay(Rand(0, 5));
 	v1++;
@@ -10322,7 +10322,7 @@ void Xsc2512(int a0) {
 	int v1;
 	int v2;
 	v1 = 16384;
-	SetObjectStep_Cylind(a0, Rand(4, 12), Rand((-2), 8));
+	SetObjectSpeed_Cylind(a0, Rand(4, 12), Rand((-2), 8));
 	SetObjectFriction1(a0, 8192);
 	v2 = Rand(30, 40);
 LOC_3323C:
@@ -10347,8 +10347,8 @@ void Xsc3604() callsign 42002 {
 	asynccall MovingShadow(v3, GetGlobal(115), 28011, 128, 42001);
 	asynccall MovingShadow(v3, GetGlobal(115), 28011, 64, 42001);
 	asynccall MovingShadow(v3, GetGlobal(115), 28011, 192, 42001);
-	SetObjectStep_Cylind(v3, 0, 0);
-	SetObjectNoGravityFlag(v3, 0);
+	SetObjectSpeed_Cylind(v3, 0, 0);
+	SetObjectHasGravity(v3, 0);
 	v2 = 0;
 LOC_33440:
 	if (!(v2 < 20)) goto LOC_33504;
@@ -10431,7 +10431,7 @@ LOC_33984:
 	v7 = (v1 + Rand((-48), 48));
 	v8 = (v2 + Rand((-16), 16));
 	v13 = CreateObjectRaw(v7, v8, v9, Rand(0, 255), Rand(28008, 28009));
-	SetObjectStep_Cylind(v13, Rand(10, 16), Rand(10, 16));
+	SetObjectSpeed_Cylind(v13, Rand(10, 16), Rand(10, 16));
 LOC_33ACC:
 	Delay(1);
 	switch (v4) { 
@@ -10505,13 +10505,13 @@ LOC_33EFC:
 	asynccall FireMan(a1, 10015, 60);
 	asynccall Blood(a1, 16);
 LOC_33F74:
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	v1--;
 	if (!(v1 <= 0)) goto LOC_33FE8;
 	SetObjectFadeOut(a0, 2, 1);
 	goto LOC_3400C;
 LOC_33FE8:
-	SetCallbackContext(a0, 0, v1);
+	SetObjectContext(a0, 0, v1);
 LOC_3400C:
 	return;
 }
@@ -10522,16 +10522,16 @@ void XAttachFireToCow(int a0, int a1) {
 	v1 = CreateObjectByReference(a0, 37002, a1, 50);
 	SetObjectScale(v1, 131072, 131072);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, 12);
+	SetObjectOpacity(v1, 12);
 	v2 = CreateObjectByReference(a0, 37002, a1, 50);
 	SetObjectScale(v2, 131072, 131072);
 	SetObjectFlags(v2, 262144);
-	SetObjectBrightness(v2, 12);
+	SetObjectOpacity(v2, 12);
 LOC_3413C:
 	if (!IsObjectExist(a0)) goto LOC_34298;
-	MoveObjectByReference_Cylind(v1, a0, a1, 24, 50);
+	SetCoordinateByReference_Cylind(v1, a0, a1, 24, 50);
 	MoveObject(v1, Rand((-8), 8), 0, Rand((-8), 8));
-	MoveObjectByReference_Cylind(v2, a0, (a1 - 128), 20, 50);
+	SetCoordinateByReference_Cylind(v2, a0, (a1 - 128), 20, 50);
 	MoveObject(v2, Rand((-8), 8), 0, Rand((-8), 8));
 	Delay(1);
 	goto LOC_3413C;
@@ -10546,10 +10546,10 @@ void XCreateFireCow(int a0, int a1, int a2, int a3, int a4) {
 	int v2;
 	int v3;
 	v1 = CreateObjectRaw((a0 + (8 * Rand((-6), 6))), (a1 + (8 * Rand((-8), 8))), 0, a2, 37001);
-	SetObjectStep_Sphere(v1, a2, 0, (8 + Rand((-2), 2)));
+	SetObjectSpeed_Sphere(v1, a2, 0, (8 + Rand((-2), 2)));
 	SetCallbackProcedure(v1, 42003);
 	SetObjectFlags(v1, (33554432 + 16777216));
-	SetCallbackContext(v1, 0, (8 + Rand((-4), 4)));
+	SetObjectContext(v1, 0, (8 + Rand((-4), 4)));
 	asynccall XAttachFireToCow(v1, (a2 + 128));
 	v3 = 1;
 LOC_34490:
@@ -10645,7 +10645,7 @@ LOC_3503C:
 void XSparkCallback(int a0, int a1) callsign 42004 {
 	int v1;
 	int v2;
-	v1 = GetCallbackContext(a0, 0);
+	v1 = GetObjectContext(a0, 0);
 	if (!(v1 == 4660)) goto LOC_35120;
 	v2 = 2;
 	goto LOC_35130;
@@ -10708,7 +10708,7 @@ LOC_35410:
 	SetObjectScale(v1, 98304, 98304);
 	SetCallbackProcedure(v1, 42004);
 	SetObjectFlags(v1, (16777216 + 33554432));
-	SetCallbackContext(v1, 0, 4660);
+	SetObjectContext(v1, 0, 4660);
 	Delay(4);
 	SetObjectFadeOut(v1, 8, 1);
 	v1 = CreateObjectByReference(a0, 42002, 0, 48);
@@ -10830,13 +10830,13 @@ void XCreateFirePillarSource(int a0, int a1, int a2) {
 	int v1;
 	int v2;
 	v1 = CreateObjectByReference(a0, 41001, 0, 8);
-	MoveObjectByReference_Cylind(v1, a0, a2, a1, 8);
+	SetCoordinateByReference_Cylind(v1, a0, a2, a1, 8);
 	PlaySound1("m031snd03", 255);
 	Delay(8);
 	v2 = a1;
 LOC_35ED8:
 	if (!(v2 > 0)) goto LOC_35F80;
-	MoveObjectByReference_Cylind(v1, a0, a2, v2, 8);
+	SetCoordinateByReference_Cylind(v1, a0, a2, v2, 8);
 	Delay(1);
 	a2 = ((a2 + 1) & 255);
 	v2 = (v2 - 8);
@@ -10852,12 +10852,12 @@ void XCreateFirePillarLight(int a0, int a1, int a2, int a3, int a4) {
 	int v3;
 LOC_35FAC:
 	v1 = CreateObjectByReference(a0, 41009, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectFlags(v1, (33554432 + 16777216));
 	SetCallbackProcedure(v1, 43001);
 	SetObjectScale(v1, 32768, 24576);
 	v3 = CreateObjectByReference(a0, 41010, 0, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
 	SetObjectScale(v3, 32768, 16384);
 	v2 = 0;
 LOC_36120:
@@ -10865,9 +10865,9 @@ LOC_36120:
 	a1 = ((a1 + 4) & 255);
 	a2 = (a2 + 6);
 	Delay(1);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(v3, a0, a1, a2, 0);
-	MoveObjectByReference_Cylind(a3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v3, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(a3, a0, a1, a2, 0);
 	if (!(v2 == (a4 - 16))) goto LOC_36298;
 	SetObjectFadeOut(v1, 16, 1);
 	SetObjectFadeOut(v3, 16, 1);
@@ -10882,7 +10882,7 @@ void XCreateFirePillarBomb(int a0, int a1, int a2, int a3) {
 	int v1;
 	a0 = CreateObjectByReference(a0, 2501, 0, 0);
 	v1 = CreateObjectByReference(a0, 41008, 0, 0);
-	MoveObjectByReference_Cylind(v1, a0, a1, a2, 0);
+	SetCoordinateByReference_Cylind(v1, a0, a1, a2, 0);
 	SetObjectScale(v1, 32768, 65536);
 	SetObjectFadeOut(v1, a3, 1);
 	XCreateFirePillarLight(a0, a1, a2, v1, a3);
@@ -11039,7 +11039,7 @@ void XCreateTaichi(int a0, int a1) {
 	v2 = 0;
 LOC_37A18:
 	if (!(v2 <= 16)) goto LOC_37A6C;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2++;
 	goto LOC_37A18;
@@ -11057,7 +11057,7 @@ LOC_37B14:
 	v2 = 16;
 LOC_37B30:
 	if (!(v2 >= 0)) goto LOC_37B84;
-	SetObjectBrightness(v1, v2);
+	SetObjectOpacity(v1, v2);
 	Delay(1);
 	v2--;
 	goto LOC_37B30;
@@ -11092,7 +11092,7 @@ LOC_37C00:
 LOC_37C38:
 	if (!(v5 < 5)) goto LOC_388AC;
 	if (!(v5 == 0)) goto LOC_37D24;
-	v3 = GetRandomSoldierHandleFromAlive((intvIsLeft ^ 1));
+	v3 = GetRandomSoldierFromAlive((intvIsLeft ^ 1));
 	if (!(v3 == 0)) goto LOC_37CC4;
 	v3 = intvDefenderMajor;
 LOC_37CC4:
@@ -11270,10 +11270,10 @@ void XMoveDuplicator(int a0, int a1, int a2) {
 	int v3;
 	v3 = GetObjectDir(a0);
 	v2 = CreateObjectByReference(a0, a1, v3, 0);
-	MoveObjectByReference_Cylind(v2, a0, v3, (48 + 64), 0);
+	SetCoordinateByReference_Cylind(v2, a0, v3, (48 + 64), 0);
 	v1 = a2;
 LOC_38D00:
-	MoveObjectByReference_Cylind(v2, a0, v3, (48 + 64), 0);
+	SetCoordinateByReference_Cylind(v2, a0, v3, (48 + 64), 0);
 	Delay(1);
 	if (!(!IsObjectExist(a0))) goto LOC_38D74;
 	goto LOC_38D98;
@@ -11297,9 +11297,9 @@ LOC_38E60:
 LOC_38EE8:
 	MoveObject(v1, 8, 0, 0);
 LOC_38F14:
-	SetObjectStep_Sphere(v1, a2, 0, a3);
+	SetObjectSpeed_Sphere(v1, a2, 0, a3);
 	SetObjectFlags(v1, 262144);
-	SetObjectBrightness(v1, a4);
+	SetObjectOpacity(v1, a4);
 	Delay(2);
 	SetObjectFadeOut(v1, 20, 1);
 LOC_38FA8:
@@ -11350,7 +11350,7 @@ LOC_39108:
 	v7 = GetObjectScreenY(intvAttackerMajor);
 	PlaySound(intvAttackerMajor, "att07", 255);
 	v2 = CreateObjectByReference(intvAttackerMajor, 22002, v8, 0);
-	SetObjectStep_Sphere(v2, v8, 0, 16);
+	SetObjectSpeed_Sphere(v2, v8, 0, 16);
 	SetObjectFlags(v2, (16777216 + 33554432));
 	SetCallbackProcedure(v2, 43003);
 	asynccall ProduceShadowTime(v2, 9999);
@@ -11360,7 +11360,7 @@ LOC_39108:
 	v3 = 0;
 	asynccall XTraceDuplicator(v2, intvDefenderMajor);
 LOC_392BC:
-	SetObjectStep_Sphere(v2, v8, 0, (v5 / 16));
+	SetObjectSpeed_Sphere(v2, v8, 0, (v5 / 16));
 	if (!(v5 < (24 * 16))) goto LOC_39354;
 	v5 = (v5 + v4);
 	v4 = (v4 + 1);
@@ -11432,10 +11432,10 @@ LOC_39750:
 	v2 = (v7 / 2);
 LOC_3976C:
 	if (!(a0 == 1)) goto LOC_397B4;
-	v3 = GetSoldierHandle(v1, v2);
+	v3 = GetForceHandleByXY(v1, v2);
 	goto LOC_397F0;
 LOC_397B4:
-	v3 = GetSoldierHandle(((v6 - 1) - v1), v2);
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), v2);
 LOC_397F0:
 	if (!(v3 == 0)) goto LOC_39924;
 	if (!(a0 == 1)) goto LOC_39888;
@@ -11451,10 +11451,10 @@ LOC_398F8:
 	return;
 LOC_39924:
 	if (!(intvIsLeft == 1)) goto LOC_39984;
-	v3 = GetSoldierHandle(v1, ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(v1, ((v7 - 1) - v2));
 	goto LOC_399D8;
 LOC_39984:
-	v3 = GetSoldierHandle(((v6 - 1) - v1), ((v7 - 1) - v2));
+	v3 = GetForceHandleByXY(((v6 - 1) - v1), ((v7 - 1) - v2));
 LOC_399D8:
 	if (!(v3 == 0)) goto LOC_39B3C;
 	if (!(a0 == 1)) goto LOC_39A88;

@@ -15,6 +15,7 @@ using std::endl;
 void Parser::outputInst(ExpressionNode* x, int& stackDepth) {
     //GetGlobal(), SetGlobal(), GetIntv(), SetIntv(), Delay(), Wait(), IsRunning()
     //INST_4F,     INST_52,     PUSHINVR,  INST_53,   DELAY,   INST_45,INST_46
+    //v0.9.4: fix SetGlobal outputing INST_53 bug. 
     if(x->name == "GetGlobal" || x->name == "GetIntv") {
         treeDFS(x->params[0], stackDepth);
         out << "\t" << (x->name == "GetGlobal" ? "INST_4F 0" : "PUSHINVR 0") << endl;
@@ -23,7 +24,7 @@ void Parser::outputInst(ExpressionNode* x, int& stackDepth) {
         //value is pushed first.
         treeDFS(x->params[1], stackDepth);
         treeDFS(x->params[0], stackDepth);
-        out << "\t" << (x->name == "GetGlobal" ? "INST_52 0" : "INST_53 0")  << endl;
+        out << "\t" << (x->name == "SetGlobal" ? "INST_52 0" : "INST_53 0")  << endl;
         stackDepth -= 2;
 
     } else if(x->name == "Delay" || x->name == "Wait") {

@@ -2,21 +2,35 @@
 #include "Panic.h"
 #include "Localization.h"
 
-void Lexer::preprocessDefine () {
+void Lexer::preprocessDefineExisting () {
     //It starts from input pointer.
     //Brute Force, Chernov! Brute Force!
-    char* temp = new char[MAX_FILE_LEN];
+    
     for(int i = 0; i < replace.size(); i++) {
+        auto r = replace[i];
         char *p = curfile->input;
         char *pos;
-        while((pos = strstr(p, replace[i].first.c_str())) != NULL) {
-            strcpy(temp, pos + replace[i].first.length());
-            strcpy(pos, replace[i].second.c_str());
-            p = pos + replace[i].second.length();
-            strcpy(p, temp);
+        while((pos = strstr(p, r.first.c_str())) != NULL) {
+            strcpy(preprocessDefineTemp, pos + r.first.length());
+            strcpy(pos, r.second.c_str());
+            p = pos + r.second.length();
+            strcpy(p, preprocessDefineTemp);
         }
     }
-    delete[] temp;
+}
+
+void Lexer::preprocessDefineNew (std::pair<string, string> r) {
+    for (int i = 0; i < fileStackTop; i++) {
+        char *p = fileStack[i].input;
+        char *pos;
+        while((pos = strstr(p, r.first.c_str())) != NULL) {
+            strcpy(preprocessDefineTemp, pos + r.first.length());
+            strcpy(pos, r.second.c_str());
+            p = pos + r.second.length();
+            strcpy(p, preprocessDefineTemp);
+        }
+    }
+    
 }
 
 void Lexer::move (int dist) {
@@ -55,7 +69,7 @@ void Lexer::readFile (string fileName) {
 
     //Preprocessing is done for all texts below the #define macro.
     //And of course in the new file included.
-    preprocessDefine();
+    preprocessDefineExisting();
 
     fclose(fin);
 }
@@ -163,10 +177,11 @@ void Lexer::nextMacro () {
             std::regex_constants::match_continuous)){
         string original = cm[1].str();
         string replaced = cm[2].str();
-        replace.push_back(std::make_pair(original, replaced));
+        auto replacement = std::make_pair(original, replaced);
+        replace.push_back(replacement);
         move(cm[0].str().length());
 
-        preprocessDefine();
+        preprocessDefineNew(replacement);
 
     // other macros treated as comments: skip
     } else if (std::regex_search(curfile->input, cm, rOtherMacro,

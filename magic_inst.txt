@@ -339,19 +339,12 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
 
 系统调用：
 1 : 调用给定dwScriptIndex的脚本函数 ; (dwScriptIndex, argument0, argument1, argument2) 后面三个应为 反向压入的 调用该函数的参数，参数数量和目标函数magic表中定义的一致。
-                                  ; 如果参数不足3个，用0补齐。调用的函数的hLinkedObject会和当前函数相同。
-                                  ; 注意虽然SYSCALL要求正向压入参数，但后三个参数却会被反向压入栈。假定有3个参数，那么argument 0~2 对应 -4~-2. 如果有2个参数则0~1对应-3~-2.
-                                  ; 例如，您想调用func_20001(direction, fatherObject).  操作如下：
-                                  ; PUSH 20001
-                                  ; PUSH fatherObject
-                                  ; PUSH direction
-                                  ; PUSH 0
-                                  ; SYSCALL 0x1, (4 | (0 << 16))
-                                  ; 伪代码为 DoScript(20001, fatherObject, direction, 0);
-  ; DoScript (dwScriptIndex, argument0, argument1, argument2)
+        ; 如果参数不足3个，用0补齐。调用的函数的hLinkedObject会和当前函数相同。
+        ; 除非是跨so文件调用脚本，这个系统函数是很少被用到的。asynccall可以解决大多数问题。
+  ; DoScript (callsign, arg0, argument1, argument2)
 
 2 : 显示对话框1 (nDir, pGeneral, szPrompt)
-        ; 很显然这个nDir不是角度啦。测试得dir的取值如下：
+        ; 很显然这个nDir不是角度啦。测试得其取值如下：
         ; 0 - 从下方弹出对话框，武将头像在左侧，对话框半透明
         ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，对话框半透明
         ; 2 - 从下方弹出对话框，武将头像在左侧，强制为（战场上）左方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的左半边会显示空白。
@@ -369,20 +362,10 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
 
 6 ：     ; 这是用来设置对话框中%SX%替换为什么字符串的函数。(?, X, str) 一般配合SYSCALL 0x200（GetGeneralName）使用。
          ; 第一个参数待考。通常和显示对话框的第一个参数(dir)相同。（讲真，我不是很明白为什么要指定dir，但奥汀都是这么做的，idb里的逻辑也是这么走的。）
-         ; 例如，您想在战场上Prompt如下字符串：“贼将XX纳命来！%k%%e%”，其中XX是敌方武将的名字，并且是在战场上，由右方武将喊出。
+         ; 例如，您想在战场上Prompt如下字符串：“贼将XX纳命来！%k%%e%”，其中XX是左方武将的名字，并且是在战场上，由右方武将喊出。
          ; 那么代码大致如下（未经测试，仅供参考）：
-         ; PUSH 4
-         ; PUSH 1
-         ; PUSHINV INTV_DEFENDER_GENERAL
-         ; SYSCALL 0x200, (1 | (3 << 16)) ; GetGeneralName
-         ; SYSCALL 0x6, (3 | (0 << 16)) ; SetSXString
-         ; PUSH 4
-         ; PUSHINV INTV_ATTACKER_GENERAL
-         ; PUSHSTR XXX ; "贼将%S1%纳命来！%k%%e%" //这里XXX应该是分号后字符串的编号。
-         ; SYSCALL 0x3, (3 | (0 << 16)) ; Prompt1
-         ; 伪代码如下（未经测试，仅供参考）：
-         ; SetSXString(4, 1, GetGeneralName(GetINV(INTV_DEFENDER_GENERAL)));
-         ; Prompt1(4, GetINV(INTV_ATTACKER_GENERAL), "贼将%S1%纳命来！%k%%e%");
+         ; SetSXString(4, 1, GetGeneralName(intvLeftGeneral)));
+         ; Prompt1(4, intvRightGeneral, "贼将%S1%纳命来！%k%%e%");
   ; SetSXString (dir, index, string)
 
 7 : 批量LoadShape (所有文件名通配string的文件) ; 路径不需要指明shape文件夹，以双反斜杠\\为分隔符，不带.shp后缀。如"magic\\000\\*"
@@ -404,13 +387,13 @@ B : GetScriptLinkedObjectHandle ;
 
 10 : CreateObjectRaw       创建物件，指定X/Y/Angle/Flag/dwSequence
                          ; 并不是flag, 而是nDir. 此处应为注册失误。 注意在idb中z一律被称为angle.
-   ; CreateObjectRaw (x, y, z, nDir, dwSequence) returns ObjectHandle, or NULL if failed.
+   ; CreateObjectRaw (x, y, z, nDir, dwSequence) returns objectHandle, or NULL if failed.
 
 11 : CreateObjectBelongTo  创建属于某个物件的子物件
                          ; x/y都和参照对象相同。zOffset即是z轴坐标相对于参照对象的偏移。
-                         ; 从idb逻辑上看，这个命名是有问题的。实际上只是参照某个对象的坐标创建一个新对象，并未设置hLinkedObject。
+                         ; 从idb逻辑上看，这个命名是有问题的。实际上只是参照某个对象的坐标创建一个新对象，并未设置父物件。
                          ; 由于注册命名的缘故，SYSCALL_TABLE.txt中也支持 CreateObjectBelongTo 的写法。
-   ; CreateObjectByReference (referenceObjectHandle, dwSequence, nDir, zOffset) returns ObjectHandle, or NULL if failed.
+   ; CreateObjectByReference (referenceObject, dwSequence, nDir, zOffset) returns objectHandle, or NULL if failed.
 
 12 : IsObjectExist
                          ; 检查该Handle对应的Object是否存在。（实际上等价于GetObjectByHandle(handle) != NULL）
@@ -418,33 +401,47 @@ B : GetScriptLinkedObjectHandle ;
 
 13 : FreeObjectByHandle  ; 销毁物件。
    ; FreeObjectByHandle (objectHandle)
+   ; FreeObject (objectHandle)
 
 14 ：设置物件坐标 (dwHandle, x, y, angle)
    ; SetObjectCoordinate (objectHandle, x, y, z)
+   ; SetCoordinate (objectHandle, x, y, z)
 
 15 ：根据物件2的坐标设置物件1的坐标。 MoveObjectByReference(dwHandle1, dwHandle2, nStepAngle, nRadius, nStartAngle)
                          ; 以物件2坐标 加入z轴偏移zOffset后 为基准点，按相对柱坐标调整物件1的位置.
                          ; 如果您对柱坐标不熟悉：在xy平面上指定一个方向，该方向与x轴正向（正右）的夹角即是nDir. z轴移动和直角坐标一样。
+                         ; 名称调整：考虑到MoveCamera，设置坐标的一律使用Set，缓慢移动的一律使用Move。
+   ; SetCoordinateByReference_Cylind (objectHandle, referenceObjectHandle, nDir, nRadius, zOffset)
+   ; SetObjectCoordinateByReference_Cylind (objectHandle, referenceObjectHandle, nDir, nRadius, zOffset)
    ; MoveObjectByReference_Cylind (objectHandle, referenceObjectHandle, nDir, nRadius, zOffset)
 
 
 16,17 : 坐标系转换 -- 未全明
 
 ;16 : 以物件2坐标（z轴偏移zOffset后）为基准点，按相对球坐标调整物件1的位置.
-   ; MoveObjectByReference_Sphere (objectHandle, referenceObjectHandle, phi, theta, nRadius, zOffset)
-   ; 避免歧义：此处规定球坐标到直角坐标的变换为 x = r * cos(theta) * cos(phi), y = r * cos(theta) * sin(phi), z = r * sin(theta)
+   ; SetCoordinateByReference_Sphere (objectHandle, referenceObjectHandle, theta, phi, nRadius, zOffset)
+   ; SetObjectCoordinateByReference_Sphere (objectHandle, referenceObjectHandle, theta, phi, nRadius, zOffset)
+   ; MoveObjectByReference_Sphere (objectHandle, referenceObjectHandle, theta, phi, nRadius, zOffset)
+   ; 避免歧义：此处规定球坐标到直角坐标的变换为 
+   ;    x = r * cos(phi) * cos(theta)
+   ;    y = r * cos(phi) * sin(theta)
+   ;    z = r * sin(phi)
    ; 如果您对球坐标不熟悉：从原点指一个方向，该方向与z轴正方向（正上）的夹角即是theta. 该方向投影到水平面（xy平面）上，此时与x轴正向（正右）的夹角即是phi.
 
-;17 : 设置物件移动的速度（每帧移动量）。这是柱坐标下的速度：zStep表示每帧沿z移动多少，radiusStep表示每帧沿物品自己（已经设置好的）nDir方向移动多少。
-   ; SetObjectStep_Cylind (objectHandle, radiusStep, zStep)
+;17 : 设置物件移动的速度（每帧移动量）。这是柱坐标下的速度：zSpeed表示每帧沿z移动多少，radiusSpeed表示每帧沿物品自己（已经设置好的）nDir方向移动多少。
+   ; 名称调整：支持Speed的写法。
+   ; SetObjectStep_Cylind (objectHandle, radiusSpeed, zSpeed)
+   ; SetObjectSpeed_Cylind (objectHandle, radiusSpeed, zSpeed)
 
 18 : SetObjectCoordinate_ByVector(hObject, nAngle_Y_XZ, nAngle_Z_XY, nVectorLength)
-   ; 设置物件移动的速度（每帧移动量）。这是球坐标下的速度：radiusStep表示每帧沿规定方向移动多少。phi和theta的意义和SYSCALL 0x16, 也即MoveObjectByReference_Sphere() 相同。
-   ; SetObjectStep_Sphere (objectHandle, phi, theta, radiusStep)
+   ; 设置物件移动的速度（每帧移动量）。这是球坐标下的速度：radiusSpeed表示每帧沿规定方向移动多少。phi和theta的意义和SYSCALL 0x16, 也即SetCoordinateByReference_Sphere() 相同。
+   ; SetObjectSpeed_Sphere (objectHandle, theta, phi, radiusSpeed)
+   ; SetObjectStep_Sphere (objectHandle, theta, phi, radiusSpeed)
 
-;19 : MoveObjectTo (dwHandle1, dwHandle2, nStep)
-   ; 让物件1以每帧移动量nStep（矢量长度）向物件2靠近。
-   ; MoveObjectTo (objectHandle, targetHandle, nStep)
+;19 : ApproachObjectTowards (dwHandle1, dwHandle2, nStep)
+   ; 让物件1以每帧移动量nSpeed（矢量长度）向物件2靠近。
+   ; ApproachObjectTowards (objectHandle, targetHandle, nSpeed)
+   ; MoveObjectTo (objectHandle, targetHandle, nSpeed)
 
 1A : GetObjectDir
    ; GetObjectDir (objectHandle) returns nDir
@@ -465,8 +462,8 @@ B : GetScriptLinkedObjectHandle ;
 
    ; SetObjectGravity (objectHandle, dwGravity)
 
-;1E : 设置或清除物件的OF_NOGRAVITY标记. 若设置，即将dwFlags |= 0x10000.
-   ; SetObjectNoGravityFlag (objectHandle, isNoGravity)
+;1E : 设置或清除物件的OF_NOGRAVITY标记，指定该物件是（1）否（0）受重力影响。
+   ; SetObjectHasGravity (objectHandle, hasGravity)
 
 ;1F : 设置物件剩余生命。生命每帧减1，归零时销毁。但，如果它一开始就是0，则反而是无尽生命（不会自动销毁）。详见idb中的 DefaultObjectProcess().
    ; SetObjectLife (objectHandle, nLife)
@@ -483,13 +480,14 @@ B : GetScriptLinkedObjectHandle ;
 ;22 不存在的。
 
 23 : CreateObject_Shadow(1012)
-                       ; 创建一个Things.ini编号为1012的“阴影”对象。
+                       ; 创建一个Things.ini编号为1012的“影子”对象。
                        ; 由于强制指定该对象的pDrawingFileItem与父对象当前帧相同，它们会长得一样。
                            ; （这可能有些奇怪，影子不是黑色的；但注册的命名没有问题：1012号物件在Things.ini中的确就叫“影子”。）
                        ; 新对象的hLinkedObject是父对象，且具有和父对象相同的x/y/z/nDir.
                        ; 后两个参数表示物件透明度的改变。每过frames帧下降一次，一次下降100%的fraction分之一。
                            ; 例如，fraction=16，frames=1，即每帧透明度下降100%的1/16，经过16帧下降为0。
                        ; 透明度归零后物件将被销毁。
+   ; CreateShadowObject(pFatherObject, fraction, frames) returns shadowObjectHandle
    ; CreateObject_Shadow(pFatherObject, fraction, frames) returns shadowObjectHandle
 
 
@@ -505,27 +503,29 @@ B : GetScriptLinkedObjectHandle ;
 
 24 : CreateObject_Shadow(1012)  与23类似，多一个参数
                         ; 同23，除了多一个参数用来设置方向（nDir）。
+   ; CreateShadowObject1(pFatherObject, fraction, frames, nDir) returns shadowObjectHandle
    ; CreateObject_Shadow1(pFatherObject, fraction, frames, nDir) returns shadowObjectHandle
 
 
 25 : 设置物件方向 (左右)
-                        ; 并不。该字段(field_94) 和 nDir 不是一回事。设置nDir的工作是SYSCALL 0x30 (SetObjectDir)干的。
-                        ; 用途是为物件设置缩小动画，也就是每帧将xScale和yScale向0靠近 scaleChange 这么多。之前提到过，scale以65536为1倍大小。
-                        ; 例如，scaleChange = 256 时，对一个xScale = yScale = 65536 (100%) 的对象而言，调用该函数之后，需要256帧该对象才会缩小至消失。
-                        ; scaleChange可以为负值，这样就是放大了。
-                        ; 警告：带OF_BIGSHAPE标记的物件，任何缩放均无效。
+            ; 并不。该字段(field_94) 和 nDir 不是一回事。设置nDir的工作是SYSCALL 0x30 (SetObjectDir)干的。
+            ; 用途是为物件设置缩小动画，也就是每帧将xScale和yScale向0靠近 scaleChange 这么多。之前提到过，scale以65536为1倍大小。
+            ; 例如，scaleChange = 256 时，对一个xScale = yScale = 65536 (100%) 的对象而言，调用该函数之后，需要256帧该对象才会缩小至消失。
+            ; scaleChange可以为负值，这样就是放大了。
+            ; 警告：带OF_BIGSHAPE标记的物件，任何缩放均无效。
    ; SetObjectScaleShrink (objectHandle, scaleChange)
 
 26 : SetObjectBrightness 移动物件shadow?
-                        ; 正儿八经的SetObjectBrightness在下面27号。
-                        ; 给物件增加淡出效果。类似于23自带的淡出效果，初始为100%透明度，然后每frames帧透明度下降100%的fraction分之一。透明度降为0后销毁。
-                        ; 当然，有一点不同：该函数调用后物件会带上OF_MIXER的Flag.
+            ; 正儿八经的SetObjectBrightness在下面27号。
+            ; 给物件增加淡出效果。类似于23自带的淡出效果，初始为100%透明度，然后每frames帧透明度下降100%的fraction分之一。透明度降为0后销毁。
+            ; 当然，有一点不同：该函数调用后物件会带上OF_MIXER的Flag.
    ; SetObjectFadeOut (objectHandle, fraction, frames)
 
 27 : 设置物件亮度
                         ; 真·设置物件Brightness。注册钦定的！
                         ;（话说回来，我一直觉得注册在这里用的Brightness应该是透明度来着。不过对WHITELIGHT标记的物件应该差不多。）
    ; SetObjectBrightness (objectHandle, nBrightness)
+   ; SetObjectOpacity (objectHandle, nOpacity)
 
 28 : Offset物件 (cx, cy, cangle, cContext?)
                         ; 将物件移动(dx, dy, dz)的坐标，也即x += dx, y += dy, z += dz。
@@ -542,21 +542,25 @@ B : GetScriptLinkedObjectHandle ;
    ; ClearObjectFlags (objectHandle, flagsToClear)
 
 2C : 设置callback sequence.
-                        ; 所谓回调，就是武将技物件砸到人了，可以判定伤害的时候，调用的函数。注意压入的是callsign，也就是Script编号（鬼哭=610的那个）。
-                        ; 至于砸到人怎么判，实际上是根据物件的Flags里面有没有OF_ENEMYFORCE, OF_ENEMYGENERAL, OF_MYFORCE, OF_MYGENERAL几个标记，对应砸敌人兵、将、自己兵、将。
-                            ; 当然flags是可以与（也就是加）在一起的，所以就有了OF_ATTACKENEMY, OF_ATTACKMY, OF_ATTACKALL这仨，表示砸别人、砸自己和通杀。
+        ; 所谓回调，就是武将技物件砸到人了，可以判定伤害的时候，调用的函数。
+        ; 注意压入的是callsign，也就是Script编号（鬼哭=610的那个）。
+        ; 至于砸到人怎么判，实际上是根据物件的Flags里面有没有OF_ENEMYFORCE, OF_ENEMYGENERAL, OF_MYFORCE, OF_MYGENERAL几个标记，对应砸敌人兵、将、自己兵、将。
+        ; 当然flags是可以与（也就是加）在一起的，所以就有了OF_ATTACKENEMY, OF_ATTACKMY, OF_ATTACKALL这仨，表示砸别人、砸自己和通杀。
    ; SetCallbackProcedure (objectHandle, callbackFuncCallsign)
 
 2D : 获得物件的sequence. (在things.ini中的sequence)
    ; GetObjectSequence (objectHandle) returns sequence
 
 2E : 设置callback context  ( i , value)
-                        ; 所谓CallbackContext, 就是你有什么要告诉回调函数的东西，可以用这个按编号i存起来，然后回调函数中再根据编号读出来。
-                        ; 编号从0开始。实际上从SANGO_OBJECT的结构体大小来看，只能存3个，差评。
+                ; 所谓CallbackContext, 就是你有什么要告诉回调函数的东西，可以用这个按编号i存起来，然后回调函数中再根据编号读出来。
+                ; 事实上，它并不仅用于回调函数，可以用来存任何东西。因此加一个命名SetObjectContext.
+                ; i的取值范围为0-2。从SANGO_OBJECT的结构体大小来看，只能存3个，差评。
    ; SetCallbackContext (objectHandle, i, value)
+   ; SetObjectContext (objectHandle, i, value)
 
 2F : 获得callback context  ( i , value)
    ; GetCallbackContext (objectHandle, i) returns value
+   ; GetObjectContext (objectHandle, i) returns value
 
 ;30 : 设置方向的. 0为正右（x轴正向），64指向背景（y轴正向），128为正左。以128为180度，256为360度循环。
    ; SetObjectDir (objectHandle, nDir)
@@ -602,18 +606,19 @@ B : GetScriptLinkedObjectHandle ;
 ;10A和10B都不存在。
 
 10C : GetSoldierCount(bRight) ; 获得某一方还有多少兵。注意注册花样玩脱，实际上参数为1的时候得到的是左边（玩家的敌方）的兵数。
-                              ; 用的时候传入 PUSHINV INTV_IS_LEFT （或者GetINV(INTV_IS_LEFT)，如果您用我的伪代码编译器的话）就可以。
-                                      ; 这个INTV原来在注册那里叫INTV_IS_RIGHT...想必被坑的不止我一个。
+                              ; 用的时候传入 intvIsLeft 就可以。
+                                ; 这个INTV原来在注册那里叫INTV_IS_RIGHT...想必被坑的不止我一个。
     ; GetSoldierCount(isLeft) returns soldierCount
 
 10D : 获得随机的活着士兵的hObject(bRight) ; hObject也就是物件handle啦。同上，参数是isLeft.
     ; GetRandomSoldierHandleFromAlive(isLeft) returns soldierHandle
+    ; GetRandomSoldierFromAlive(isLeft) returns soldierHandle
 
-;10E : 将物件2的OBJECT设置为物件1的field_88. 完全不可理喻。
-    ; 这个字段在ForceSoldier(Major)ObjectProcess中用来和GlobalTick比较，在ForceHorseProcess中用来转移一个nDir值，在sub_43DA1A（兵种死亡时调用）中被赋予一个nDir值。
-    ; 但总之和一个物件指针都没什么关系。
-    ; 目前为止也没有人用过这个函数，当它不存在好了。
-    ; SYSCALL_0x010E (object1Handle, object2Handle)
+;10E : 设置物件的打击目标物件（OF_TARGET使用）。
+    ; 详见MagicObjectOnTick (40A8CC)函数。
+    ; 简单来说，如果物件指定了打击目标物件，并且指定了OF_TARGET标记，则当击中时，播放该物件的OAF_DEATH序列。
+    ; 注：未测试是否有效。原版武将技没有使用过这个函数。
+    ; SetObjectTarget (objectHandle, targetHandle)
 
 ;10F : 以某个物件的坐标设置摄像机的相对位置（也即，对准(object.x + xOffset, object.y + yOffset)）
     ; SetCameraByReference (objectHandle, xOffset, yOffset)
@@ -630,6 +635,7 @@ B : GetScriptLinkedObjectHandle ;
 113 : 得到指定战场xy坐标处的士兵pObject的field_44的值  -- GetSoldierHandleByXY
                             ; 实际上对主将也有效。这里改了新的名字，不过SYSCALL_TABLE.txt里面也保留了原名GetSoldierHandle，用哪个都可以。
     ; GetForceHandle(battleX, battleY) returns forceHandle
+    ; GetForceHandleByXY(battleX, battleY) returns forceHandle
 
 ;114 : 有一个参数。无论参数为何，都会允许释放武将技、允许战场操作、设置背景亮度为100%；如果参数为true，会弹出菜单。
      ; magic.asm未见使用。system.asm中，劝降成功后，设置战斗结果完毕，会调用一次这玩意儿，使得游戏退出战场；开战前两边互相叫嚣之后，用它弹出菜单。
@@ -650,14 +656,11 @@ B : GetScriptLinkedObjectHandle ;
 118 : 设置主将HP ? ; 如果hp大于hp_max, 则直接满血，不会溢出。
     ; SetMajorHP (isLeft, hp)
 
-;119 : 在指定战场坐标处创建一个士兵。默认为低级兵。如果您按照我的办法修改过，将battleX加上10000（十进制）即可生成高级兵。
-                                               ; 见“【修改】伏兵高级兵……的一种拙劣解决方案” (https://tieba.baidu.com/p/4111317607)
-                                               ; 例如，isLeft=1, battleX = 10005 (5 + 10000), battleY = 0 时，
-                                               ; 可获得战场坐标(5, 0)处属于左边（红方）的高级兵，兵种与红方当前兵种相同。
-                                               ; 注：如果您想创建特定兵种的士兵，请参考以下操作（伪代码）。这些操作应在创建士兵之前完成。操作完后记得还原。这段操作来自注册的代码。
-                                               ; SetINV(soldierObjectSequence, 20); //将20号INTV设为兵种sequence
-                                               ; SetINV(1, 19);                     //将19号INTV设为1
-                                               ; SetInt(soldierType, pSelfGeneral + 0x8B); //将主将的dwCurrentTroopType设为对应的兵种类型。
+;119 : 在指定战场坐标处创建一个士兵。默认为低级兵。如果您使用1.05+或者已打上脚本支持补丁，将battleX加上0x10000即可生成高级兵。
+        ; 例如，isLeft=1, battleX = 65541 (0x10000 + 5), battleY = 0 时，
+        ; 可获得战场坐标(5, 0)处属于左边（红方）的高级兵，兵种与红方当前兵种相同。
+        ; 注：如果您想创建特定兵种的士兵，请将己方的兵种设置为指定兵种。操作完后记得还原。
+        ; pSelfGeneral->dwCurrentTroopType = soldierType;
 
     ; CreateSoldier (isLeft, battleX, battleY) returns soldierHandle
 
@@ -684,13 +687,12 @@ B : GetScriptLinkedObjectHandle ;
                     ; OAF_ATTACK7      = 0x200000
                     ; OAF_ATTACK8      = 0x400000
     ; 例如，查得Attack5（半月斩挥斩动作）对应0x4000，想要发武将技的武将做出这个动作，可以如下操作：
-            ; PUSHINV INTV_ATTACKER_MAJOR
-            ; PUSH 0x4000
-            ; SYSCALL 0x120, (2 | (0 << 16)) ; SetObjectAnimate
-            ; 对应的伪代码为： SetObjectAnimate(GetINV(INTV_ATTACKER_MAJOR), 0x4000);
+            ; SetObjectAnimate(intvAttackerMajor, 0x4000);
+            ; 目前magic.cpp中已加入这些常量的#define，因此可以直接写OAF_ATTACK5.
     ; SetObjectAnimate (objectHandle, nAnimationCode)
 
-121 ：AddAttackCounter ; 将指定目标定身若干时间。从源码上猜想是20*interval的时间. 根据magic.asm，放一般的武将技会停下来那一下的interval是2，狂雷定身是5.
+121 ：AddAttackCounter ; 将指定目标定身若干时间。从源码上看，一个单位是40 Tick. 
+        ; 根据magic.asm，放一般的武将技会停下来那一下的interval是2，狂雷定身是5.
     ; AddAttackCounter (objectHandle, interval);
 
 122 : SetAttackCounterTo9999 ; 全场定身，直至……总之是很久就对了。对双方武将士兵同时起效。
@@ -761,10 +763,11 @@ B : GetScriptLinkedObjectHandle ;
     ; GetBattleHeightInScreenY() returns 1008 (= 14 * 72)
 
 134 : 杀死指定的hObject
-        ; 对主将也有效。SYSCALL_TABLE.txt里面也支持写KillSoldier。
+        ; 对主将也有效。也支持写KillSoldier，因为一般不会用它来杀主将（血条不会归零）。
         ; 默认是有返回值的，但返回值没有太大意义，有好几种可能性（显然是根本没有return语句）。
                         ; SYSCALL_TABLE中将返回值删去。(原有magic.asm里因为返回值数量是被写死的，多余的POP语句并不会产生影响。)
     ; KillForce(forceHandle)
+    ; KillSoldier(forceHandle)
 
 ;135 : （猜测）锁定背景亮度。亮度值以16为100%，0为0%。在magic.asm中唯一一次出现是在DownBrightness()（天空变黑）。
                           ; 自注：娘的，虚函数太可怕了……非得Ollydbg上阵才看得见虚函数表，偏偏我汇编还苦手。最后还是直接测试效果得的结论。

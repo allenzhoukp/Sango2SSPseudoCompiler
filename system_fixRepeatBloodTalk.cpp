@@ -1841,6 +1841,7 @@ void function PromptChildGenTalk (General* pChild) {
 // Facade method.
 // This indirect asynccall is for mutual exclusion.
 void function ChildGeneralTalk (General* pChild) callsign 10 {
+	Delay(((int) pChild) % 7);
 	Wait("PromptChildGenTalk");
 	asynccall PromptChildGenTalk(pChild);
 }
