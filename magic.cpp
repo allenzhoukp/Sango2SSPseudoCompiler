@@ -1,6 +1,8 @@
 // --------------------
-// This is the adjusted original disassembled code from MAGIC.SO.
-// Most codes remain their assembly form.
+// This is the (further) adjusted original disassembled code from MAGIC.SO.
+// The aim is to fix the bugs it originally contains.
+// For example, the black hole can (incorrectly) affect majors in some cases originally.
+// Most other codes remain their assembly form.
 // The arguments are assumed to be int, since I don't have time to check the types of all of them.
 // Notice: When compiling for MAGIC.SO, this file is required to be included in the file!
 // --------------------
@@ -81,7 +83,7 @@ LOC_90:
 	DIV
 	PUSH 1
 	ADD
-	POPN 2
+	POPN 2	//Enemy soldier count / 2 + 1
 	PUSHARG -2
 	PUSH 1
 	XOR
@@ -15530,6 +15532,7 @@ LOC_1B128:
 
 }
 
+//This function has been modified.
 void naked function Engulf (int arg_0, int arg_1, int arg_2, int arg_3) __asm{
 	STACK 245
 	PUSH 0
@@ -15539,7 +15542,7 @@ void naked function Engulf (int arg_0, int arg_1, int arg_2, int arg_3) __asm{
 	POPN 236
 	PUSHARG -3
 	SYSCALL 0x108, (1 | (1 << 16)) ; ScreenXToBattleX
-	POPN 237
+	POPN 237   //(236,237): center point
 	PUSHARG -2
 	PUSH 0
 	CMP
@@ -15547,9 +15550,9 @@ void naked function Engulf (int arg_0, int arg_1, int arg_2, int arg_3) __asm{
 	PUSH 3
 	POPN 241
 	PUSH 9
-	POPN 242
+	POPN 242  //(241,242): width and height
 	PUSH 8
-	POPN 243
+	POPN 243  //243: outer loop times.
 	JMP LOC_1B248
 LOC_1B218:
 	PUSH 4
@@ -15560,7 +15563,7 @@ LOC_1B218:
 	POPN 243
 LOC_1B248:
 	PUSH 0
-	POPN 234
+	POPN 234  //234: i    for(i = 0; i < a243; i++) begin
 LOC_1B258:
 	PUSHARG 234
 	PUSHARG 243
@@ -15575,12 +15578,16 @@ LOC_1B258:
 	PUSHARG 242
 	SYSCALL 0x12A, (5 | (1 << 16)) ; 0x012A
 	POPN 232
-	PUSHARG 232
+	PUSHARG 232  //232: enemy count in the rect.
 	PUSH 0
 	CMPG
 	JZ LOC_1B5A8
+
+	PUSH 0       //new code
+	POPN 238     //new code: int q = 0;
+
 	PUSH 0
-	POPN 233
+	POPN 233     //for (j = 0; j < a232; j++) begin
 LOC_1B2E8:
 	PUSHARG 233
 	PUSHARG 232
@@ -15595,11 +15602,43 @@ LOC_1B2E8:
 	PUSHARG 242
 	PUSHARG 233
 	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
-	PUSHARG 233
+
+	POPN 239	//new code: int nthForce = GetNthForceInRect(..., j);
+
+	// Check if this one is a major. If it is not, it could be added to array 1.
+	// 
+	//
+	// if(nthForce != intvAttackerMajor && nthForce != intvDefenderMajor) {
+	//     a1[q++] = nthForce;
+	// }
+
+	//new code
+	PUSHARG 239
+	PUSHINV 2	; intvAttackerMajor
+	CMPZ
+	PUSHARG 239
+	PUSHINV 3 	; intvDefenderMajor
+	CMPZ
+	ORNZ
+	JZ t1521617341_195_else
+t1521617341_194_if:
+	PUSHARG 239
+	PUSHARG 238
 	SETNR 1
+	INCN 238
+t1521617341_195_else:
+t1521617341_196_if_end:
+	//new code ends
+
+	//PUSHARG 233	;original code deleted
+	//SETNR 1
 	INCN 233
 	JMP LOC_1B2E8
 LOC_1B36C:
+
+	PUSHARG 238  //new code: a232 (total affected force) = q (number of soldiers in a232 forces)
+	POPN 232     //new code
+
 	PUSH 0
 	POPN 233
 LOC_1B37C:
@@ -15869,22 +15908,22 @@ LOC_1BAB0:
 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 2
 	PUSHARG -4
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY  //Attacker Major X/Y in 2/4
 	POPN 4
 	PUSHARG -3
 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 3
 	PUSHARG -3
-	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY
+	SYSCALL 0x106, (1 | (1 << 16)) ; GetObjectScreenY //Defender Major X/Y in 3/5
 	POPN 5
 	PUSHINV 5 ; INTV_IS_LEFT
-	CALL GetSoldierMaxX2
+	CALL GetSoldierMaxX2 //Get the soldier X on the front.
 	POPN 11
 	PUSHARG 11
 	PUSH 1
 	NEG
 	CMP
-	JZ LOC_1BB90
+	JZ LOC_1BB90 //No enemy soldiers: a2 is at the middle point between two majors.
 	PUSHARG 2
 	PUSHARG 3
 	ADD
@@ -15892,17 +15931,17 @@ LOC_1BAB0:
 	DIV
 	POPN 2
 	JMP LOC_1BBEC
-LOC_1BB90:
+LOC_1BB90:      //Otherwise
 	PUSHINV 5 ; INTV_IS_LEFT
 	PUSH 1
 	CMP
-	JZ LOC_1BBD0
+	JZ LOC_1BBD0  //Left: a2 = target soldier X + 200
 	PUSHARG 11
 	PUSH 200
 	ADD
 	POPN 2
 	JMP LOC_1BBEC
-LOC_1BBD0:
+LOC_1BBD0:       //Right: a2 = target soldier X - 200
 	PUSHARG 11
 	PUSH 200
 	SUB
@@ -15917,19 +15956,19 @@ LOC_1BBEC:
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 10
-	CALL MoveCamera
-	PUSHARG -2
+	CALL MoveCamera  //Move camera to (x=a2, y=middle line)
+	PUSHARG -2       //The level of the black hole
 	PUSH 0
 	CMP
 	JZ LOC_1BCA0
 	PUSHARG 2
-	PUSHARG 4
+	PUSHARG 4       //Camera Position w/ y += 700 (shift towards the background)
 	PUSH 700
 	ADD
 	PUSH 100
 	PUSH 128
 	PUSH 30012
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw  //Create black hole @ a9
 	POPN 9
 	JMP LOC_1BCE8
 LOC_1BCA0:
@@ -15940,11 +15979,11 @@ LOC_1BCA0:
 	PUSH 100
 	PUSH 128
 	PUSH 30014
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw  //Create black hole @ a9
 	POPN 9
 LOC_1BCE8:
 	PUSH 0
-	POPN 6
+	POPN 6        //for (i = 0; i < 0x1A000; i += 0x1000) begin
 LOC_1BCF8:
 	PUSHARG 6
 	PUSH 106496
@@ -15953,7 +15992,7 @@ LOC_1BCF8:
 	PUSHARG 6
 	PUSH 24576
 	CMPL
-	JZ LOC_1BD44
+	JZ LOC_1BD44   //if(i < 0x6000) Delay(6); else Delay(1);
 	PUSH 6
 	DELAY
 	JMP LOC_1BD50
@@ -15964,11 +16003,11 @@ LOC_1BD50:
 	PUSHARG 6
 	PUSH 24576
 	CMP
-	JZ LOC_1BE20
+	JZ LOC_1BE20   //if(i == 0x6000) {
 	PUSHARG 9
 	PUSH 16
 	PUSH 2
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026  //Add fade out to the black hole. 1/16 in every 2 frames.
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 716
@@ -15985,23 +16024,23 @@ LOC_1BD50:
 	PUSH 100
 	PUSH 128
 	PUSH 30001
-	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw
+	SYSCALL 0x10, (5 | (1 << 16)) ; CreateObjectRaw //...I think they are just visual effects. @a7, a1.
 	POPN 1
-LOC_1BE20:
+LOC_1BE20:       //}
 	PUSHARG 6
 	PUSH 24576
 	CMPGE
-	JZ LOC_1BE8C
+	JZ LOC_1BE8C  //if i >= 0x6000 then
 	PUSHARG 7
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B  //scale up these effects using i.
 	PUSHARG 1
 	PUSHARG 6
 	PUSHARG 6
 	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
 	JMP LOC_1BEC8
-LOC_1BE8C:
+LOC_1BE8C:        //else
 	PUSHARG 9
 	PUSHARG 6
 	PUSH 12
@@ -16009,20 +16048,20 @@ LOC_1BE8C:
 	PUSHARG 6
 	PUSH 12
 	MUL
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B  //scale up a9 in 12*i.
 LOC_1BEC8:
 	PUSHARG 6
 	PUSH 4096
 	ADD
 	POPN 6
 	JMP LOC_1BCF8
-LOC_1BEEC:
+LOC_1BEEC:         //end for
 	PUSH 1
-	SETARG 25
+	SETARG 25      //Global 25 = 1
 	PUSHARG -2
 	PUSH 0
 	CMPG
-	JZ LOC_1BF84
+	JZ LOC_1BF84   //if level > 0
 	PUSHARG 2
 	PUSHARG 4
 	PUSH 700
@@ -16035,7 +16074,7 @@ LOC_1BEEC:
 	PUSHARG 10
 	PUSH 94208
 	PUSH 94208
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B   //Create 30015 obj @ a10 and scale to 1.7
 LOC_1BF84:
 	PUSHSTR "CreateBlackHoleStars"
 	PUSHARG 7
@@ -16043,14 +16082,14 @@ LOC_1BF84:
 	PUSH 0
 	PUSH 0
 	CALLBS
-	PUSHSTR "Engulf"
+	PUSHSTR "Engulf"     //Swallow! (an object, x, y, level)
 	PUSHARG 1
 	PUSHARG 2
 	PUSHARG 4
 	PUSHARG -2
 	CALLBS
 	PUSHSTR "Engulf"
-	INST_45
+	INST_45              //Wait for Engulf...
 	PUSH 150
 	DELAY
 	PUSHARG -2
@@ -16058,12 +16097,12 @@ LOC_1BF84:
 	CMPG
 	JZ LOC_1C024
 	PUSHARG 10
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle   //Kill a10
 LOC_1C024:
 	PUSH 0
-	SETARG 25
+	SETARG 25    //Global 25 = 0
 	PUSH 131072
-	POPN 6
+	POPN 6      //for(i = 0x20000; i >= 0; i -= 0x2800) begin
 LOC_1C044:
 	PUSHARG 6
 	PUSH 0
@@ -16076,7 +16115,7 @@ LOC_1C044:
 	PUSHARG 7
 	PUSHARG 6
 	PUSHARG 6
-	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B
+	SYSCALL 0x1B, (3 | (0 << 16)) ; 0x001B  //a1 and a7 shrink
 	PUSH 1
 	DELAY
 	PUSHARG 6
@@ -16084,7 +16123,7 @@ LOC_1C044:
 	SUB
 	POPN 6
 	JMP LOC_1C044
-LOC_1C0D8:
+LOC_1C0D8:    //end for
 	PUSHARG 1
 	PUSH 2
 	PUSH 1
@@ -16092,7 +16131,7 @@ LOC_1C0D8:
 	PUSHARG 7
 	PUSH 2
 	PUSH 1
-	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026
+	SYSCALL 0x26, (3 | (0 << 16)) ; 0x0026  //Fade out a1 and a7
 	RETN 3
 
 }
@@ -22470,48 +22509,76 @@ LOC_2771C:
 
 }
 
-void naked function CheckHalfMoonNew (int arg_0, int arg_1) __asm{
-	STACK 1
-LOC_2772C:
-	PUSHARG -3
-	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
-	JZ LOC_2781C
-	PUSH 1
-	DELAY
-	PUSHARG -3
-	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
-	POPN 1
-	PUSHINV 5 ; INTV_IS_LEFT
-	PUSH 1
-	CMP
-	JZ LOC_277DC
-	PUSHARG 1
-	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
-	PUSH 100
-	SUB
-	CMPG
-	JZ LOC_277D4
-	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	JMP LOC_2781C
-LOC_277D4:
-	JMP LOC_27814
-LOC_277DC:
-	PUSHARG 1
-	PUSH 100
-	CMPL
-	JZ LOC_27814
-	PUSHARG -3
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	JMP LOC_2781C
-LOC_27814:
-	JMP LOC_2772C
-LOC_2781C:
-	PUSHARG -2
-	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
-	RETN 2
+//Replace this function into Pseudocode and paraphrase.
+//Add a new condition for the magic to end: if it has been a long time.
+//(Time limit could be seen in function HalfMoonNewMotion().
+// To simplify, the time it will take is |startX - targetX| / 36.
+// So this magic should not last longer than GetBattleWidthInScreenX() / 36. )
+void function CheckHalfMoonNew (int moon, int spark) {
+								//-3,           -2
+	int timer = 0;
+	while(IsObjectExist(moon)) {
+		Delay(1);
+		timer++;
+		int x = GetObjectScreenX(moon);
+		if(intvIsLeft) {
+			if(x > GetBattleWidthInScreenX() - 100)
+				break;
 
+		} else {
+			if(x < 100)
+				break;
+		}
+		//Prevent the magic lasting forever!
+		if(timer > GetBattleWidthInScreenX() / 36 + 1)
+			break;
+	}
+	FreeObjectByHandle(moon);
+	FreeObjectByHandle(spark);
 }
+
+// void naked function CheckHalfMoonNew (int arg_0, int arg_1) __asm{
+// 	STACK 1
+// LOC_2772C:
+// 	PUSHARG -3
+// 	SYSCALL 0x12, (1 | (1 << 16)) ; IsObjectExist
+// 	JZ LOC_2781C
+// 	PUSH 1
+// 	DELAY
+// 	PUSHARG -3
+// 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
+// 	POPN 1
+// 	PUSHINV 5 ; INTV_IS_LEFT
+// 	PUSH 1
+// 	CMP
+// 	JZ LOC_277DC
+// 	PUSHARG 1
+// 	SYSCALL 0x132, (0 | (1 << 16)) ; 0x0132
+// 	PUSH 100
+// 	SUB
+// 	CMPG
+// 	JZ LOC_277D4
+// 	PUSHARG -3
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	JMP LOC_2781C
+// LOC_277D4:
+// 	JMP LOC_27814
+// LOC_277DC:
+// 	PUSHARG 1
+// 	PUSH 100
+// 	CMPL
+// 	JZ LOC_27814
+// 	PUSHARG -3
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	JMP LOC_2781C
+// LOC_27814:
+// 	JMP LOC_2772C
+// LOC_2781C:
+// 	PUSHARG -2
+// 	SYSCALL 0x13, (1 | (0 << 16)) ; FreeObjectByHandle
+// 	RETN 2
+//
+// }
 
 void naked function HalfMoonNewMotion (int arg_0, int arg_1, int arg_2, int arg_3) __asm{
 	STACK 12

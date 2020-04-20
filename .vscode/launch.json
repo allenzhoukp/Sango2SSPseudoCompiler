@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}\\ss.exe",
-            "args": ["magic.cpp"],
+            "args": ["magic_structured.cpp"],
             "stopAtEntry": false,
             "cwd": "${workspaceRoot}",
             "environment": [],

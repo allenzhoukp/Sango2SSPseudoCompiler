@@ -25,7 +25,10 @@ int main(int argc, char** argv) {
     printf("Sango2 Smart Script Pseudo Compiler v0.9.5\n");
 
     char* infileName = new char[MAX_LOCAL_NUM];
+    if (infileName[0] == '.' && (infileName[1] == '/' || infileName[1] == '\\'))
+        infileName += 2;
     for (int i = 0; i <= strlen(argv[1]); i++) {
+        if (argv[1][i] == '/') argv[1][i] = '\\';
         if (argv[1][i] == '.' || argv[1][i] == '\0') {
             strncpy(infileName, argv[1], i);
             infileName[i] = '\0';
@@ -51,6 +54,7 @@ int main(int argc, char** argv) {
     }
     out << parser.str();
     printf("Assembly file generation completed. \n");
+    out.close();
 
     if (argc == 4 || (argc == 3 && argv[2][0] == '-')) {
         if (strcmp(argv[argc - 1], "-auto") == 0 || strcmp(argv[argc - 1], "-a") == 0) {
@@ -61,13 +65,13 @@ int main(int argc, char** argv) {
             string outfileBase = outfile.substr(0, outfile.length() - 4);
 
             // outfileBase.lst is useless. 
-            string del1 ("del " + outfileBase + ".lst");
+            string del1 ("del \"" + outfileBase + ".lst\"");
             system(del1.c_str());
 
             // outfileBase.cds will be renamed to outfileBase.so. Replace existing file.
-            string rename ("copy " + outfileBase + ".cds " + outfileBase + ".so /y");
+            string rename ("copy \"" + outfileBase + ".cds\" \"" + outfileBase + ".so\" /y");
             system(rename.c_str());
-            string del2 ("del " + outfileBase + ".cds");
+            string del2 ("del \"" + outfileBase + ".cds\"");
             system(del2.c_str());
             
         }

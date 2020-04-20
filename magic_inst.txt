@@ -737,7 +737,7 @@ B : GetScriptLinkedObjectHandle ;
     ; GetForceCountInRect (isLeft, x0, y0, width, height) returns forceCount
 
 12B : 得到以(x,y)为中心，(width,height)大小的矩形内，给定方的第n个士兵的handle.
-    ; 同上。算第n个的算法是，从左上角开始，以横着扫的方式扫描，扫到一个计数一个。同理，主将也算。
+    ; 同上。算第n个的算法是，从左上角开始，以竖着扫的方式扫描，扫到一个计数一个。同理，主将也算。
     ; 也同时支持写GetNthForceInRect和GetNthSoldierInRect
     ; GetNthForceInRect (isLeft, x0, y0, width, height, n) returns forceHandle
 

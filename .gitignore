@@ -5,3 +5,5 @@
 *.so
 Magic116_Prompt.cpp
 genlongatk.cpp
+lijing.cpp
+Tools/intToFloat.cpp
