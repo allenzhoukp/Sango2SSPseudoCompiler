@@ -639,52 +639,52 @@ void CreateLine(int a0, int a1)  {
     v4 = GetObjectScreenZ(a0);
     Delay(Rand(2, 8));
     switch (a1) {
-case 0:
+    case 0:
         v6 = 10005;
         a1 = 128;
         v5 = Rand(51, 72);
         v2 = (v2 + v5);
         break;
-case 1:
+    case 1:
         v6 = 10006;
         a1 = 128;
         v5 = Rand(52, 77);
         v2 = (v2 + v5);
         v4 = (v4 + v5);
         break;
-case 2:
+    case 2:
         v6 = 10007;
         a1 = 0;
         v5 = Rand(50, 71);
         v4 = (v4 + v5);
         break;
-case 3:
+    case 3:
         v6 = 10006;
         a1 = 0;
         v5 = Rand(50, 70);
         v2 = (v2 - v5);
         v4 = (v4 + v5);
         break;
-case 4:
+    case 4:
         v6 = 10005;
         a1 = 0;
         v5 = Rand(52, 70);
         v2 = (v2 - v5);
         break;
-case 5:
+    case 5:
         v6 = 10009;
         a1 = 0;
         v5 = Rand(52, 73);
         v2 = (v2 - v5);
         v4 = (v4 - v5);
         break;
-case 6:
+    case 6:
         v6 = 10008;
         a1 = 0;
         v5 = Rand(51, 77);
         v4 = (v4 - v5);
         break;
-case 7:
+    case 7:
         v6 = 10009;
         a1 = 128;
         v5 = Rand(50, 70);
@@ -1390,6 +1390,7 @@ void ShootObject(int a0, int a1)  {
         Delay(15);
         PlaySound(v1, "m003snd02", 255);
         break;
+    default:
         SetObjectAnimate(v1, OAF_SHOT2);
         SetOverwhelming(v1, 0);
         Delay(15);
@@ -4779,6 +4780,7 @@ void sc3602(int a0, int a1, int a2, int a3)  {
     case 1:
         v5 = 20;
         break;
+    default:
         v5 = 20;
         break;
     }
@@ -4930,6 +4932,7 @@ void CallDragon(int a0)  {
         v11 = 100;
         SetGlobal(21, 220);
         break;
+    default:
         asynccall sc3601(a0, v10, v1, v2, v3);
         v11 = (100 + 95);
         SetGlobal(21, 330);
@@ -5097,6 +5100,7 @@ void RunningBow(int a0)  {
         v16 = 7;
         SetGlobal(23, 7);
         break;
+    default:
         v16 = 9;
         SetGlobal(23, 9);
         break;
@@ -5911,6 +5915,7 @@ void OnFire(int a0)  {
     case 1:
         v6 = 9;
         break;
+    default:
         v6 = 13;
         break;
     }
@@ -6879,6 +6884,7 @@ void RollDown(int a0)  {
         v8 = 14;
         v9 = 8;
         break;
+    default:
         v8 = 16;
         v9 = 8;
         break;
@@ -7880,20 +7886,21 @@ void FireWork(int a0)  {
         v3 = 0;
     }
     switch (a0) {
-        case 0:
+    case 0:
         v6 = 2;
         v4 = 4;
         v8 = 3;
-            break;
-        case 1:
+        break;
+    case 1:
         v6 = 1;
         v4 = 4;
         v8 = 5;
-            break;
+        break;
+    default:
         v6 = 2;
         v4 = 4;
         v8 = 7;
-            break;
+        break;
     }
     do {
         v7 = Rand(1, 30);
@@ -8103,14 +8110,15 @@ void Powder(int a0)  {
     Delay(20);
     SetOverwhelming(intvAttackerMajor, 0);
     switch (a0) {
-        case 0:
+    case 0:
         v5 = 2;
-            break;
-        case 1:
+        break;
+    case 1:
         v5 = 5;
-            break;
+        break;
+    default:
         v5 = 7;
-            break;
+        break;
     }
     v4 = 0;
     while (((v4 < v5))) {
@@ -9162,14 +9170,15 @@ void Xsc3602(int a0, int a1, int a2, int a3)  {
     int v5;
     int v6;
     switch (a0) {
-        case 0:
+    case 0:
         v5 = 10;
-            break;
-        case 1:
+        break;
+    case 1:
         v5 = 20;
-            break;
+        break;
+    default:
         v5 = 20;
-            break;
+        break;
     }
     v1 = 0;
     while (((v1 < v5))) {
@@ -9297,20 +9306,21 @@ void XCallDragon(int a0)  {
     v3 = GetObjectScreenZ(intvAttackerMajor);
     PlaySound1("m018snd01", 255);
     switch (a0) {
-        case 0:
+    case 0:
         asynccall Xsc3602(a0, v1, v2, v3);
         v11 = 50;
         SetGlobal(115, 110);
-            break;
-        case 1:
+        break;
+    case 1:
         asynccall Xsc3602(a0, v1, v2, v3);
         v11 = 100;
         SetGlobal(115, 220);
-            break;
+        break;
+    default:
         asynccall Xsc3601(a0, v10, v1, v2, v3);
         v11 = (100 + 95);
         SetGlobal(115, 330);
-            break;
+        break;
     }
     v4 = 0;
     while (((v4 < v11))) {
