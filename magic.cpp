@@ -1,12 +1,12 @@
 // --------------------
-// This is the (further) adjusted original disassembled code from MAGIC.SO.
-// The aim is to fix the bugs it originally contains.
-// For example, the black hole can (incorrectly) affect majors in some cases originally.
+// This is the adjusted original disassembled code from MAGIC.SO.
+// Bug Fixed: 1) BlackHole can engulf majors; 2) HalfMoonNew could last forever.
+// Constant Added for all OAF (animation) and OF (flags) constants.
 // Most other codes remain their assembly form.
-// The arguments are assumed to be int, since I don't have time to check the types of all of them.
-// Notice: When compiling for MAGIC.SO, this file is required to be included in the file!
+// If you want to compile for MAGIC.SO, this file is required to be included in the file.
 // --------------------
 
+// To prevent OAF_ATTACK# becomes 4#, OAF_ATTACK must be placed below all other OAF_ATTACK#'s. 
 #define OAF_WAIT      1
 #define OAF_WALK      2
 #define OAF_DEFENSE   8
@@ -15582,10 +15582,6 @@ LOC_1B258:
 	PUSH 0
 	CMPG
 	JZ LOC_1B5A8
-
-	PUSH 0       //new code
-	POPN 238     //new code: int q = 0;
-
 	PUSH 0
 	POPN 233     //for (j = 0; j < a232; j++) begin
 LOC_1B2E8:
@@ -15602,43 +15598,11 @@ LOC_1B2E8:
 	PUSHARG 242
 	PUSHARG 233
 	SYSCALL 0x12B, (6 | (1 << 16)) ; 0x012B
-
-	POPN 239	//new code: int nthForce = GetNthForceInRect(..., j);
-
-	// Check if this one is a major. If it is not, it could be added to array 1.
-	// 
-	//
-	// if(nthForce != intvAttackerMajor && nthForce != intvDefenderMajor) {
-	//     a1[q++] = nthForce;
-	// }
-
-	//new code
-	PUSHARG 239
-	PUSHINV 2	; intvAttackerMajor
-	CMPZ
-	PUSHARG 239
-	PUSHINV 3 	; intvDefenderMajor
-	CMPZ
-	ORNZ
-	JZ t1521617341_195_else
-t1521617341_194_if:
-	PUSHARG 239
-	PUSHARG 238
+	PUSHARG 233	
 	SETNR 1
-	INCN 238
-t1521617341_195_else:
-t1521617341_196_if_end:
-	//new code ends
-
-	//PUSHARG 233	;original code deleted
-	//SETNR 1
 	INCN 233
 	JMP LOC_1B2E8
 LOC_1B36C:
-
-	PUSHARG 238  //new code: a232 (total affected force) = q (number of soldiers in a232 forces)
-	POPN 232     //new code
-
 	PUSH 0
 	POPN 233
 LOC_1B37C:
@@ -15698,6 +15662,13 @@ LOC_1B4A4:
 	PUSHINV 3 ; INTV_DEFENDER_MAJOR
 	CMPZ
 	ORNZ
+	; added code
+	PUSHARG 233
+	PUSHNR 1
+	PUSHINV 2 ; INTV_ATTACKER_MAJOR
+	CMPZ
+	ORNZ
+	; added code ends
 	JZ LOC_1B54C
 	PUSHSTR "KillMan"
 	PUSHARG 233

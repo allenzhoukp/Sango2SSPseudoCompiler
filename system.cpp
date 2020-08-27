@@ -1,25 +1,20 @@
 // --------------------
 // This is the adjusted original disassembled code from SYSTEM.SO.
 // Most codes remain their assembly form.
-// The arguments are assumed to be int, since I don't have time to check the types of all of them.
+// A new function, ChildGenTalkNew() callsign 10, is added, to incorporate bug fixing in 1.05+.
 // Notice: If you are compiling for SYSTEM.SO, theoretically these codes are needed to make it work.
 //         However, it is hard not to adjust the original code in practice.
-//         Copy and delete some contents in this file if you feel it is needed.
+//         It might be more practical to copy the content of this file to a new one,
+//		   and then modify the new file.
 // Notice: This file is encoded with Chinese-Traditional (Big5) charset.
-//         Editing (and saving) this file under other charsets may cause messy strings!
-//         IF YOU CAN'T SEE THE SENTENCE BELOW, change the charset of your editor to Big5 IMMEDIATELY!
+//         Editing (and saving) this file under other charsets may cause ENCODING PROBLEMS!
+//         ! IF YOU CAN'T SEE THE SENTENCE BELOW, change the charset of your editor to Big5 IMMEDIATELY !
 //    Charset example: 如果這行字能正常顯示，那麼您使用的字符集是正確的。
 // --------------------
 
 // Added 23 Jul, 2018: A new funtion for promting new general raised by blood.
 // ChildGeneralTalk (callsign 10)
 // Relative EXE function: SearchGeneralByBlood (0x423476)
-
-// WARNING DO NOT use old exe memory I/O: Game crashed occasionally when calling SearchGeneralByBlood().
-// 		Address of PUSHINVR may be modified incorrectly, due to potential mutual exclusion issue.
-//      Check config/CONFIG.txt for I/O settings.
-// (If you are using an old EXE, rest assured since this method won't be run
-//  unless you make a manual call from exe or other functions.)
 
 void naked function MoveCamera (int arg_0, int arg_1, int arg_2) __asm{
 LOC_40:
