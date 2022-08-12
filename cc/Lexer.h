@@ -32,6 +32,7 @@ private:
     // regex r_digit{ R"((\d*\.?\d+|\d+\.?\d*)([e][+-]?\d+)?)" };
     regex rHex { R"((?:0x([0-9A-Fa-f]+))|(([0-9A-Fa-f]+)h))" };
     regex rDigit { R"((\d+))" }; //Oct, Dec or Hex numbers.
+    regex rFloat { R"(((\d*\.\d+|\d+\.)([eE][+-]\d+)?[Ff]?))" }; //Float numbers. No sign to avoid messing up
     regex rAlpha { R"([a-zA-Z_]\w*)" }; //Starts with non-number.
     regex rSpace { R"(([ \t]+)|((?:\r\n)+)|(\n+))" }; //Multiple spaces, or new line.
     regex rComment { R"((//[^\n]*\n)|(/\*[\s\S]*?\*/))" };

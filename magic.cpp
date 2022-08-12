@@ -51,7 +51,7 @@
 #define OF_TARGET           0x00200000
 #define OF_BOMB             0x00400000
 
-void naked function DelayAmbientSound (int arg_0, int arg_1, int arg_2) __asm{
+void naked function DelayAmbientSound (string arg_0, int arg_1, int arg_2) __asm{
 LOC_40:
 	PUSH 1
 	SETARG 1

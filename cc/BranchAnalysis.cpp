@@ -399,6 +399,85 @@ bool Parser::tryMatchLocalDecl (int& tokenPos) {
     return true;
 }
 
+// Added: func pointers decl
+bool Parser::tryMatchExefuncDecl (int& tokenPos) {
+
+    string typeName;
+
+    int newTokenPos = tokenPos;
+    int returnType = getType(newTokenPos, true, typeName);
+    if(returnType == -1) //should not be -1, but could be void.
+        return false;
+
+    // void* (*p) (int params);
+    if (!tryMatch(newTokenPos, "("))
+        return false;
+    
+    // we keep all the stars here
+    tokenPos = newTokenPos;
+    
+    Exefunc* exefunc = new Exefunc;
+    exefunc->returnType = returnType;
+
+    match(tokenPos, "*");
+    
+    // it is a local, so we need to check local name conflicts
+    require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+            ErrMsg::localRequireIdentifier);
+    string name = tokens[tokenPos].content;
+    require(tokenPos, getLocalNoByName(name) == -1,
+            ErrMsg::localRedefined + name);
+    tokenPos++;
+
+    match(tokenPos, ")");
+    
+    // match params
+    match(tokenPos, "(");
+
+    exefunc->paramCount = 0;
+    if(!see(tokenPos, ")")) do {
+        
+        Var& var = exefunc->params[exefunc->paramCount];
+
+        //typeName
+        var.type = getType(tokenPos, true, typeName);
+        require(tokenPos - 1, var.type != -1,
+            ErrMsg::invalidTypeName + typeName);
+
+        //parameter name validity and conflicts
+        require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+            ErrMsg::localRequireIdentifier);
+
+        var.name = tokens[tokenPos].content;
+        for(int j = 0; j < exefunc->paramCount; j++){
+            if(exefunc->params[j].name == var.name){
+                require(tokenPos, false,
+                    ErrMsg::localRedefined + var.name);
+                break;
+            }
+        }
+
+        exefunc->paramCount++;
+        tokenPos++;
+
+    } while (tryMatch(tokenPos, ","));
+
+    match(tokenPos, ")");
+
+    // Add to local
+    newLocalExefunc(exefunc, name);
+
+    // Checking for value
+    if(tryMatch(tokenPos, "=")) {
+        matchExpr(tokenPos, true, DataTypes::typeExefuncPtr);
+        out << "\t" << "POPN " << getLocalNoByName(name) << " ; " << name << endl;
+    }
+
+    match(tokenPos, ";");
+    return true;
+}
+
+
 bool Parser::tryMatchAsynccall (int& tokenPos) {
     if(!tryMatch(tokenPos, "asynccall"))
         return false;
@@ -468,6 +547,7 @@ void Parser::line(int& tokenPos) {
          tryMatchFor(tokenPos) ||
          tryMatchSwitch(tokenPos) ||
          tryMatchJumps(tokenPos) ||
+         tryMatchExefuncDecl(tokenPos) ||
          tryMatchLocalDecl(tokenPos) ||
          tryMatchLabelDecl(tokenPos) ||
          tryMatchAsynccall(tokenPos))) {
@@ -497,7 +577,7 @@ void Parser::matchFunc(int& tokenPos) {
     //match return type
     currentFunc->returnType = getType(tokenPos, true, typeName);
     require(tokenPos, currentFunc->returnType != -1,
-        "invalid return type: " + typeName);
+        ErrMsg::invalidReturnType + typeName);
 
     //NOTE added a special sign "naked". If such sign seen, the function body must be an __asm token.
     bool naked = false;

@@ -17,6 +17,7 @@ namespace DataTypes{
     const int typeShort = 4; const int typeByte = 5;
     const int typeUInt = 6; const int typeUShort = 7; const int typeUByte = 8;
     const int typeStructBase = 10;
+    const int typeExefuncBase = 9;
 
     const int typeVoidPtr = 0 | (1 << 16);
 
@@ -27,15 +28,24 @@ namespace DataTypes{
     //But nothing for float * for now.
     const int typeStringPtr = typeString | (1 << 16); //const int typeFloatPtr = 12;
 
+    const int typeExefuncPtr = typeExefuncBase | (1 << 16);
     const int typeStructPtr = typeStructBase | (1 << 16);
     //All types of different structures are as follows: typeStructPtr + TYPE_ID
 };
 
+struct Exefunc;
 struct Var {
     int type;
     string name;
     int no;
     bool isArray;
+    Exefunc* exefunc = nullptr;
+};
+
+struct Exefunc {
+    int returnType;
+    int paramCount;
+    Var params[MAX_PARAM_NUM];
 };
 
 struct Syscall {
@@ -94,9 +104,9 @@ struct StructInfo {
 
 struct ExpressionNode {
     enum Type_{
-        intConst, strConst,
+        intConst, strConst, floatConst,
         local, intv,
-        inst, funcCall, syscall,
+        inst, funcCall, syscall, exefuncCall,
         unaryOp, binaryOp
     } type;
 
@@ -105,6 +115,7 @@ struct ExpressionNode {
 
     int intValue; //for intConst
     string strValue; //for strConst
+    float floatValue; //for floatConst
     Var localVar; //for local
     Intv intvVar; //for INTV
 

@@ -130,9 +130,15 @@ void Parser::loadStructTable () {
             }
 
             int pos = 0;
-            member.type = getType(pos, false);
+            member.type = getType(pos, true);
             if(member.type == -1)
                 printf("Invalid type name! Struct name = %s, member name = %s\n", structInfos[i].name.c_str(), member.name.c_str());
+            
+            // arrays - never implemented before v0.9.5
+            if(tokens[pos + 1].content == "dup") {
+                member.isArray = true;
+                // ignore the length - do not care about index out of bounds
+            }
 
             delete[] tokens;
             tokenCount = 0;

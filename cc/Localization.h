@@ -36,6 +36,7 @@ namespace ErrMsg {
     const string instRequireStringParam = "() requires a string parameter";
     const string paramTypeNotMatch = "parameter type not match";
     const string funcParamNotMatch1 = "function ";
+    const string exefuncParamNotMatch1 = "function pointer ";
     const string funcParamNotMatch2 = " requires ";
     const string funcParamNotMatch3 = " parameter(s), found ";
     const string invalidStructPtr = "Invalid struct * type";
@@ -67,6 +68,7 @@ namespace ErrMsg {
     const char stackSizeIncrease[] = "Warning %s, line %d: unexpected stack size increase for %d. \n";
 
     const string requireIntegerConstant = "expected an integer constant here";
+    const string invalidReturnType = "invalid return type: ";
     const string labelRedefined = "label redefined";
     const char labelNotFound[] = "Warning %s, %d:%d: label %s not found in all non-asm blocks. Proceed at your own risk! \n";
     const string localRequireIdentifier = "invalid local variable name: it should only contains letters, numbers and '_', and should not start with numbers";
@@ -113,6 +115,7 @@ namespace ErrMsg {
     const string instRequireStringParam = "() 需要字符串类型的参数";
     const string paramTypeNotMatch = "参数类型不符";
     const string funcParamNotMatch1 = "函数 ";
+    const string exefuncParamNotMatch1 = "函数指针 ";
     const string funcParamNotMatch2 = " 需要 ";
     const string funcParamNotMatch3 = " 个参数，但所给参数个数为 ";
     const string invalidStructPtr = "结构体指针类型非法";
@@ -144,6 +147,7 @@ namespace ErrMsg {
     const char stackSizeIncrease[] = "警告 %s, 行 %d ：预料之外的栈增长，栈顶多余 %d 个值。\n";
 
     const string requireIntegerConstant = "此处应有常整数";
+    const string invalidReturnType = "返回值不合法：";
     const string labelRedefined = "同名标签已被定义";
     const char labelNotFound[] = "";
     // const char labelNotFound[] = "Warning %s, %d:%d: 标签 %s 无法在所有非 __asm 块中找到。请谨慎。\n";

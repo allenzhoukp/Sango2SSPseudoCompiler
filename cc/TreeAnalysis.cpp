@@ -583,6 +583,13 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
         exit(1);
     }
 
+    // for float const
+    int* intp;
+    // for exefunc call (function pointers)
+    string syscallStr;
+    int syscallNum;
+    int exefuncCallReturnType = DataTypes::typeVoid;
+
     switch(x->type) {
 
     case ExpNodeType::intConst:
@@ -595,6 +602,13 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
         if(getStringNo(x->strValue) == -1)
             newString(x->strValue);
         out << "\t" << "PUSHSTR " << getStringNo(x->strValue) << " ; \"" << x->strValue << "\"" << endl;
+        stackDepth++;
+        break;
+
+    case ExpNodeType::floatConst:
+        //Trick the float into an integer
+        intp = (int *) &(x->floatValue);
+        out << "\t" << "PUSH " << *intp << endl;
         stackDepth++;
         break;
 
@@ -627,6 +641,33 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
         if(x->sys->returnType != DataTypes::typeVoid)
             stackDepth++;
 
+        break;
+    
+    case ExpNodeType::exefuncCall:
+    
+        syscallStr = configs["funcptr_syscall"];
+        sscanf(syscallStr.c_str(), "%x", &syscallNum);
+
+        // Set 0x220 Syscall to the target address
+        out << "\t" << "PUSH 0x" << std::hex << std::uppercase << (0x4A69B0 + 4 * syscallNum) << std::dec << endl;
+        out << "\t" << "PUSHARG " << x->localVar.no << endl;
+        outputSetValue(DataTypes::typeInt);
+
+        // Get Params
+        for(int i = 0; i < x->localVar.exefunc->paramCount; i++)
+            treeDFS(x->params[i], stackDepth);
+
+        // Check types
+        exefuncCallReturnType = x->localVar.exefunc->returnType;
+        if (isInteger(exefuncCallReturnType))
+            exefuncCallReturnType = DataTypes::typeInt;
+        
+        out << "\t" << "SYSCALL 0x" << std::hex << std::uppercase << syscallNum << std::dec << ", (" << x->localVar.exefunc->paramCount << " | (" << exefuncCallReturnType << " << 16))"
+                << " ; " << x->name << endl;
+        stackDepth -= x->localVar.exefunc->paramCount;
+        if(x->localVar.exefunc->returnType != DataTypes::typeVoid)
+            stackDepth++;
+        
         break;
 
     case ExpNodeType::unaryOp:

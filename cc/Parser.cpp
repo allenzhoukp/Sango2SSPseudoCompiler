@@ -232,6 +232,16 @@ void Parser::newLocalArray(int type, string name, int len) {
     }
 }
 
+void Parser::newLocalExefunc(Exefunc* type, string name) {
+    Var& var = currentFunc->locals[currentFunc->localCount];
+    var.type = DataTypes::typeExefuncPtr;
+    var.exefunc = type;
+    var.name = name;
+    var.no = currentFunc->localCount + 3; //local no starts from 3.
+    currentFunc->numberMapping.emplace(name, var.no);
+    currentFunc->localCount++;
+}
+
 void Parser::initParam(vector<Var> params) {
     for(int i = 0; i < params.size(); i++) {
         params[i].no = -(params.size() - i + 1);  //e.g. 7 params, first (idx=0) param has number -8. idx=1, no=-7, etc.

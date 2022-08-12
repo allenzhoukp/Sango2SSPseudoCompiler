@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    printf("Sango2 Smart Script Pseudo Compiler v0.9.5\n");
+    printf("Sango2 Smart Script Pseudo Compiler v0.9.6\n");
 
     char* infileName = new char[MAX_LOCAL_NUM];
     if (infileName[0] == '.' && (infileName[1] == '/' || infileName[1] == '\\'))

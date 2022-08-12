@@ -100,11 +100,19 @@ void Lexer::nextSpace () {
 //Henryshow asm compiler does not support float constants.
 bool Lexer::nextNumber () {
 
+    // read float number first.
+
+    if(std::regex_search(curfile->input, cm, rFloat, std::regex_constants::match_continuous)) {
+        
+        //Float
+        sscanf(cm[0].str().c_str(), "%f", &curtoken->_float);
+        curtoken->type = TokenType::tokenFloat;
+    
     // read unsigned int for Hex and Oct numbers.
     // usually the sign doesn't matter if such number exceeds 0x7FFFFFFF - for bit operations only.
     // so curtoken->_number keeps the signed type.
 
-    if(std::regex_search(curfile->input, cm, rHex, std::regex_constants::match_continuous)) {
+    } else if(std::regex_search(curfile->input, cm, rHex, std::regex_constants::match_continuous)) {
         //Hex: 0x
         if(strncmp(curfile->input, "0x", 2) == 0)
             sscanf(cm[1].str().c_str(), "%X", &curtoken->_number);
@@ -122,14 +130,20 @@ bool Lexer::nextNumber () {
             sscanf(cm[0].str().c_str(), "%d", &curtoken->_number);
 
     } else {
-        Panic::panic(ErrMsg::digitNotMatch, curfile->fileName, curfile->curln, curfile->curcol);
-        while(!isspace(*curfile->input))
-            move(1);
+        // Don't always panic - since a float could starts with '.', 
+        // a dot could be an operator.
+        // In this case we directly returns false and don't do anything.
+        if(*curfile->input != '.') {
+            Panic::panic(ErrMsg::digitNotMatch, curfile->fileName, curfile->curln, curfile->curcol);
+            while(!isspace(*curfile->input))
+                move(1);
+        }
         return false;
     }
 
     curtoken->content = cm[0].str();
-    curtoken->type = TokenType::tokenNum;
+    if (curtoken->type != TokenType::tokenFloat)
+        curtoken->type = TokenType::tokenNum;
     move(curtoken->content.length());
     return true;
 }
@@ -346,6 +360,9 @@ Token* Lexer::next() {
 
     else if(ch == '\'' || ch == '"')
         result = nextString();
+
+    else if (ch == '.' && nextNumber())
+        result = true;
 
     else
         result = nextOperatorOrComment();

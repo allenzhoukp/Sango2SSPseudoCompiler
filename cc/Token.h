@@ -6,7 +6,7 @@ using std::string;
 
 struct Token {
     enum TokenType_{
-        tokenErr, tokenOperator, tokenIdent, tokenNum, tokenStr, tokenAsm
+        tokenErr, tokenOperator, tokenIdent, tokenNum, tokenFloat, tokenStr, tokenAsm
     } type;
 
     string content;
@@ -15,6 +15,7 @@ struct Token {
     int columnNo;
 
     int _number;
+    float _float;
 };
 typedef Token::TokenType_ TokenType;
 

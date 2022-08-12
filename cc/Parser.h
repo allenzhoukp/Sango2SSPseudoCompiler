@@ -96,6 +96,7 @@ private:
 
     void newLocal (int type, string name);
     void newLocalArray (int type, string name, int len);
+    void newLocalExefunc (Exefunc* type, string name);
     void initParam (vector<Var> params);
     int getLocalNoByName (string name);
     Var getLocalByName (string name);
@@ -127,6 +128,7 @@ private:
     bool tryMatchSyscall(ExpressionNode* &x, int& tokenPos);
     bool tryMatchInst(ExpressionNode* &x, int& tokenPos);
     bool tryMatchFunccall(ExpressionNode* &x, int& tokenPos);
+    bool tryMatchExefuncCall(ExpressionNode* &x, int& tokenPos);
     StructMember matchMember (int& tokenPos, int structType);
     ExpressionNode* createMemberNode (StructMember member);
     int dotAndArrayInStruct (ExpressionNode* &nodePos, int& tokenPos, int structOrArrayType);
@@ -155,6 +157,7 @@ private:
     bool tryMatchLabelDecl (int& tokenPos) ;
     bool tryMatchJumps (int& tokenPos);
     bool tryMatchLocalDecl (int& tokenPos) ;
+    bool tryMatchExefuncDecl (int& tokenPos);
     bool tryMatchAsynccall (int& tokenPos);
     void line(int& tokenPos);
 

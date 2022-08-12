@@ -220,6 +220,56 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
     return false;
 };
 
+
+bool Parser::tryMatchExefuncCall(ExpressionNode* &x, int& tokenPos){
+    string content = tokens[tokenPos].content;
+    if(getLocalNoByName(content) != -1) {
+        Var var = getLocalByName(content);
+        if (var.type != DataTypes::typeExefuncPtr)
+            return false;
+
+        // has to be a function call, otherwise it is just local lvalue
+        if (!see(tokenPos + 1, "("))
+            return false;
+
+        if(x == NULL)
+            x = expNodePool.newNode();
+
+        x->type = ExpNodeType::exefuncCall;
+        x->name = content;
+        x->localVar = var;
+        x->isLvalue = false;
+        x->resultType = var.exefunc->returnType;
+
+        tokenPos++; //skip syscall name
+
+        initExpNodeParamArray(x, var.exefunc->paramCount);
+
+        match(tokenPos, "(");
+        int paramCount = 0;
+
+        if(!see(tokenPos, ")")) do {
+            expr(x->params[paramCount], tokenPos, 0);
+            require(tokenPos,
+                validateType(var.exefunc->params[paramCount].type, x->params[paramCount]->resultType),
+                ErrMsg::paramTypeNotMatch);
+            paramCount++;
+
+        } while (tryMatch(tokenPos, ","));
+
+        std::ostringstream err;
+        err << ErrMsg::exefuncParamNotMatch1 << content << ErrMsg::funcParamNotMatch2 << var.exefunc->paramCount <<
+            ErrMsg::funcParamNotMatch3 << paramCount;
+        require(tokenPos, paramCount == var.exefunc->paramCount,
+             err.str());
+
+        match(tokenPos, ")");
+        return true;
+    }
+    return false;
+};
+
+
 StructMember Parser::matchMember (int& tokenPos, int structType) {
     StructInfo* info = getStructInfoByid(getStructIdByType(structType));
     require(tokenPos, info->id != -1,
@@ -492,6 +542,14 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
         x->isLvalue = false;
         tokenPos++;
 
+    // v0.9.6 added: float constants
+    } else if (token.type == TokenType::tokenFloat) {
+        x->type = ExpNodeType::floatConst;
+        x->floatValue = token._float;
+        x->resultType = DataTypes::typeFloat;
+        x->isLvalue = false;
+        tokenPos++;
+    
     // identifiers: vars, INTVs, function calls, syscalls, instructions
     } else if (token.type == TokenType::tokenIdent) {
 
@@ -510,6 +568,10 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
             x->resultType = DataTypes::typeVoidPtr;
             x->isLvalue = false;
             tokenPos++;
+
+        //exefunc calls (local function pointers)
+        } else if (tryMatchExefuncCall(x, tokenPos)) {
+            x->isLvalue = false;
 
         //locals
         } else if(getLocalNoByName(token.content) != -1) {
