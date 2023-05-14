@@ -378,13 +378,68 @@ string Parser::toCamel (string name) {
     return name;
 }
 
+// Aux: unescape a sequence.
+std::string Parser::unescape(const string& s)
+{
+    string res, ss;
+    string::const_iterator it = s.begin();
+    while (it != s.end())
+    {
+        char c = *it++;
+        if (c == '\\' && it != s.end())
+        {
+            switch (*it++) {
+            case '\\': c = '\\'; break;
+            case 'n': c = '\n'; break;
+            case 't': c = '\t'; break;
+            case 'a': c = '\a'; break;
+            case 'b': c = '\b'; break;
+            case 'f': c = '\f'; break;
+            case 'r': c = '\r'; break;
+            case 'v': c = '\v'; break;
+            case '\'': c = '\''; break;
+            case '\"': c = '\"'; break;
+            case '\?': c = '?'; break;
+            case 'x':
+                ss = "  ";
+                ss[0] = *it++; ss[1] = *it++;
+                c = stoi(ss, 0, 16);
+            break;
+            default: 
+                // invalid escape sequence - skip it. alternatively you can copy it as is, throw an exception...
+                continue;
+            }
+        }
+        res += c;
+    }
+    return res;
+}
+
 void Parser::outputStringDefs () {
     vector<string> strings;
     strings.resize(stringCount);
     for(auto it = stringTable.begin(); it != stringTable.end(); ++it)
         strings[it->second] = it->first;
-    for(int i = 0; i < stringCount; i++)
-        out << "STRING_" << i << ": DB \"" << strings[i] << "\"" << endl;
+    // v0.9.7: try to change the string defs
+    for(int i = 0; i < stringCount; i++) {
+        out << "STRING_" << i << ": " << " ; \"" << strings[i] << "\""<< std::hex << endl;
+        string unescaped = unescape(strings[i]);
+        const char * s = unescaped.c_str();
+        // out << strings[i] << endl;
+        // out << s << endl;
+        int dwpos = 0;
+        int dw = 0;
+        for (; *s; s++) {
+            dw |= (*(unsigned char *)s) << dwpos;
+            dwpos += 8;
+            if (dwpos == 32) {
+                out << "         db 0x" << dw << endl;
+                dw = dwpos = 0;
+            }
+        }
+        // finalize
+        out << "         db 0x" << dw << std::dec << endl;
+    }
     out << endl;
 }
 

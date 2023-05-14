@@ -2086,7 +2086,7 @@ LOC_9220:
 	v5 = GetObjectDir(a0);
 	if (!(GetGlobal(7) > 0)) goto LOC_9318;
 	v6 = Rand(16012, 16018);
-	SetGlobal(7, GetGlobal(7) + 1);
+	SetGlobal(7, GetGlobal(7) - 1);
 	goto LOC_933C;
 LOC_9318:
 	v6 = Rand(16012, 16013);
@@ -5534,7 +5534,7 @@ void RunningBowCallback(int a0, int a1) callsign 19001 {
 	int v1;
 	SetObjectFadeOut(a0, 2, 1);
 	if (!(a1 == intvDefenderMajor)) goto LOC_1A698;
-	SetGlobal(23, GetGlobal(23) + 1);
+	SetGlobal(23, GetGlobal(23) - 1);
 	if (!(GetGlobal(23) == 0)) goto LOC_1A638;
 	v1 = (intvMagicAttackValue - (5 + ((GetGlobal(24) * 2) * 2)));
 	HitGeneral(a0, a1, 11002, 1, 48, 0);

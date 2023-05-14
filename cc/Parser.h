@@ -111,6 +111,8 @@ private:
     string getString (int no);
     void newString (string str);
 
+    std::string unescape(const string& s);
+
     //Expression node pool
     class ExpressionNodePool {
     private:

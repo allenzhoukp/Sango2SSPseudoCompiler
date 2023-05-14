@@ -88,11 +88,11 @@ void Parser::outputGetValue(int type) {
             break;
         case DataTypes::typeByte:
             out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
-            out << "\t" << "PUSH 0xFF" << endl;
-            out << "\t" << "AND" << endl;
             break;
         case DataTypes::typeUByte:
             out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
+            out << "\t" << "PUSH 0xFF" << endl;
+            out << "\t" << "AND" << endl;
             break;
         case DataTypes::typeString:
             out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;

@@ -465,8 +465,8 @@ void BattleEndTalk(int a0) callsign 56  {
     int v2;
     int v3;
     int v4;
-    int v6;
-    int v7;
+    string v6;
+    string v7;
     v4 = GetGeneralType(intvRightGeneral);
     v3 = GetGeneralType(intvLeftGeneral);
     switch (a0) {

@@ -866,8 +866,13 @@ void Parser::expr(ExpressionNode* &x, int& tokenPos, int level){
             x->resultType = DataTypes::typeInt;
 
         //x->op == "="
-        } else
+        } else {
+            require(operatorTokenPos,
+                !((left->resultType == DataTypes::typeString) ^ (right->resultType == DataTypes::typeString)),
+                ErrMsg::invalidStringOperand);
+
             x->resultType = left->resultType;
+        }
 
         //The-most-weirdo: assignments (requires lvalue)
         if(level == 0)

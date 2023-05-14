@@ -1912,7 +1912,7 @@ void TraceArrow(int a0, int a1)  {
                 v6 = Rand(16012, 16013);
             } else {
                 v6 = Rand(16012, 16018);
-                SetGlobal(7, GetGlobal(7) + 1);
+                SetGlobal(7, GetGlobal(7) - 1);
             }
             v4 = CreateObjectByReference(a0, v6, v5, 0);
             if ((a1 == 1) && ((Rand(1, 256) & 1) == 0)) {
@@ -5016,7 +5016,7 @@ void RunningBowCallback(int a0, int a1) callsign 19001  {
         asynccall FireMan(a1, 10015, 60);
         SmallFireBall2(a0, a1, 15, 35);
     } else {
-        SetGlobal(23, GetGlobal(23) + 1);
+        SetGlobal(23, GetGlobal(23) - 1);
         if (!(GetGlobal(23) == 0)) {
             v1 = 2;
             SmallFireBall2(a0, a1, 12, 48);
