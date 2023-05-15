@@ -153,22 +153,33 @@ bool Lexer::nextNumber () {
 bool Lexer::nextString () {
     move(1); //skip " or '
     curtoken->content = "";
+    curtoken->type = TokenType::tokenStr;
 
+    bool wChar = false;
     while(true) {
         //Only exception: notice \". Move one more time.
-        if(*curfile->input == '\\') {
-            curtoken->content += *curfile->input;
-            move(1);
-            //Jumps to end-if. Will move two times.
-            //If there is \", the second " will not be judged by the following else-if.
+        //The exception of the exception: with Big5 charset, the second byte within a 2-byte character can be '\', '"", '\''. DANG.
+        if (!wChar) {
 
-        } else if (*curfile->input == '"' || *curfile->input == '\''){
-            move(1);
-            return true;
+            if (*curfile->input < 0 && *curfile->input != -0x80) {
+                wChar = true;
+
+            } else if (*curfile->input == '\\') {
+                curtoken->content += *curfile->input;
+                move(1);
+                //Jumps to end-if. Will move two times.
+                //If there is \", the second " will not be judged by the following else-if.
+
+            } else if (*curfile->input == '"' || *curfile->input == '\''){
+                move(1);
+                return true;
+            }
+        
+        } else {
+            wChar = false;
         }
 
         curtoken->content += *curfile->input;
-        curtoken->type = TokenType::tokenStr;
         move(1);
 
     }

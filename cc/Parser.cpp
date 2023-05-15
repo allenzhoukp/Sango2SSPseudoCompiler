@@ -383,32 +383,43 @@ std::string Parser::unescape(const string& s)
 {
     string res, ss;
     string::const_iterator it = s.begin();
+    bool wChar = false;
     while (it != s.end())
     {
         char c = *it++;
-        if (c == '\\' && it != s.end())
-        {
-            switch (*it++) {
-            case '\\': c = '\\'; break;
-            case 'n': c = '\n'; break;
-            case 't': c = '\t'; break;
-            case 'a': c = '\a'; break;
-            case 'b': c = '\b'; break;
-            case 'f': c = '\f'; break;
-            case 'r': c = '\r'; break;
-            case 'v': c = '\v'; break;
-            case '\'': c = '\''; break;
-            case '\"': c = '\"'; break;
-            case '\?': c = '?'; break;
-            case 'x':
-                ss = "  ";
-                ss[0] = *it++; ss[1] = *it++;
-                c = stoi(ss, 0, 16);
-            break;
-            default: 
-                // invalid escape sequence - skip it. alternatively you can copy it as is, throw an exception...
-                continue;
+
+        if (!wChar) {
+
+            if (c < 0 && c != -0x80) {
+                wChar = true;
+
+            } else if (c == '\\' && it != s.end()) {
+
+                switch (*it++) {
+                case '\\': c = '\\'; break;
+                case 'n': c = '\n'; break;
+                case 't': c = '\t'; break;
+                case 'a': c = '\a'; break;
+                case 'b': c = '\b'; break;
+                case 'f': c = '\f'; break;
+                case 'r': c = '\r'; break;
+                case 'v': c = '\v'; break;
+                case '\'': c = '\''; break;
+                case '\"': c = '\"'; break;
+                case '\?': c = '?'; break;
+                case 'x':
+                    ss = "  ";
+                    ss[0] = *it++; ss[1] = *it++;
+                    c = stoi(ss, 0, 16);
+                break;
+                default: 
+                    // invalid escape sequence - skip it. alternatively you can copy it as is, throw an exception...
+                    continue;
+                }
             }
+            
+        } else {
+            wChar = false;
         }
         res += c;
     }
