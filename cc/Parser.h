@@ -3,6 +3,7 @@
 
 #include "Token.h"
 #include "ParserObjects.h"
+#include "Config.h"
 #include <set>
 #include <stack>
 #include <vector>
@@ -21,8 +22,8 @@ private:
     const static int MAX_LINE_LEN = 1024;
     const static int MAX_FUNC_LEN = 1024;
 
-    //Config properties
-    map<string, string> configs;
+    // Config properties - moved to Config.h
+    // map<string, string> configs;
 
     //Token list
     Token* tokens;
@@ -50,6 +51,10 @@ private:
     unordered_map<string, int> stringTable;
     int stringCount = 0;
 
+    Var globals[MAX_GLOBAL_NUM];
+    int globalCount = 0;
+    map<string, int> globalNameMapping;
+
     Function funcs[MAX_FUNC_LEN];
     int funcCount = 0;
     unordered_map<string, Function*> funcNameMapping;
@@ -71,7 +76,7 @@ private:
     std::ostringstream out;
 
     //FixIdentifierLoader.cpp: load config files
-    void loadConfig ();
+    // void loadConfig ();
     void loadSyscallTable ();
     void loadIntvTable ();
     void loadStructTable ();
@@ -98,10 +103,16 @@ private:
     void newLocalArray (int type, string name, int len);
     void newLocalExefunc (Exefunc* type, string name);
     void initParam (vector<Var> params);
+    void initParam (Function* func, vector<Var> params);
     int getLocalNoByName (string name);
     Var getLocalByName (string name);
     int getIntvNoByName (string name);
     Intv getIntvByName (string name);
+
+    void newGlobal (int type, string name);
+    void newGlobalArray (int type, string name, int len);
+    int getGlobalNoByName (string name);
+    Var getGlobalByName (string name);
 
     void newLabel (string name);
     string emitLabel (string name);
@@ -163,9 +174,11 @@ private:
     bool tryMatchAsynccall (int& tokenPos);
     void line(int& tokenPos);
 
-    void matchFunc(int& tokenPos);
+    void matchExternFunc(int& tokenPos);
+    void matchGlobalDeclOrFunc(int& tokenPos);
 
     //Parser.cpp: Output things out of a function.
+    string getHeader ();
     void outputStringDefs ();
     void outputMagicTable ();
     void outputStringTable ();

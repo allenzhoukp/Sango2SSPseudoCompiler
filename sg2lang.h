@@ -18,7 +18,7 @@
 // I paraphrase the Getter methods to improve efficiency from GetData_NotAligned().
 // GetInt() codes are mostly the same as
 // the original GetData_NotAligned() of Henryshow,
-// but I fixed the bug due to his misusing SAR as SHR.
+// but I fixed the bug due to his misusing SAR as SAR.
 // I think SetByte() and SetShort() are more rarely used,
 // and the efficiency of SetData_NotAligned() is good enough.
 // So I don't change them much.
@@ -40,7 +40,7 @@ int naked function GetByte_Old (int address)  __asm {
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSHINVR 0  // data0 = array_base[(address - array_base)]
     PUSHARG address
     PUSH INTV_ARRAY_BASE
@@ -49,10 +49,10 @@ int naked function GetByte_Old (int address)  __asm {
     AND
     PUSH 3
     SHL
-    SHR
+    SAR
     PUSH 0xFF
     AND         // result = (data0 >> ((address - array_base) % 4 * 8)) & 0xFF;
-    INST_01 1
+    RETVAL 1
 }
 
 // Get the 1-byte integer from the target address.
@@ -75,7 +75,7 @@ int naked function GetShort_Old (int address) __asm {
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSHINVR 0
     PUSHARG address
     PUSH INTV_ARRAY_BASE
@@ -84,10 +84,10 @@ int naked function GetShort_Old (int address) __asm {
     AND
     PUSH 3
     SHL
-    SHR
+    SAR
     PUSH 0xFFFF
     AND
-    INST_01 1
+    RETVAL 1
 
 LANG_GET_SHORT_1:
     // return ((GetINV(minus / 4 + 1) << 8) | (GetINV(minus / 4) >> 24 & 0xFF)) & 0xFFFF
@@ -95,7 +95,7 @@ LANG_GET_SHORT_1:
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSH 1
     ADD
     PUSHINVR 0      //得到下4个字节的值；欲求Short的高位在这一个Int的最低一位
@@ -105,16 +105,16 @@ LANG_GET_SHORT_1:
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSHINVR 0      //得到本4个字节的值；欲求Short的低位在这一个Int的最高位
     PUSH 24
-    SHR             //最高位移到最低位
+    SAR             //最高位移到最低位
     PUSH 0xFF
     AND             //去除较高的3位（去掉有符号右移产生的1）
     OR              //最低位和第2位合并
     PUSH 0xFFFF
     AND             //去除高2位
-    INST_01 1
+    RETVAL 1
 }
 
 // Get the 2-byte integer from the target address.
@@ -139,7 +139,7 @@ int naked function GetInt_Old(int address) __asm {
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSHINVR 0
     POPN 1
 
@@ -154,7 +154,7 @@ int naked function GetInt_Old(int address) __asm {
     PUSH INTV_ARRAY_BASE
     SUB
     PUSH 2
-    SHR
+    SAR
     PUSH 1
     ADD
     PUSHINVR 0
@@ -167,42 +167,42 @@ int naked function GetInt_Old(int address) __asm {
 GET_ADDR_TAIL_V2_1:
     PUSHARG 1
     PUSH 8
-    SHR			// stack1 = [address] >> 8;
+    SAR			// stack1 = [address] >> 8;
     PUSH 0xFFFFFF
     AND         // clr high bit
     PUSHARG 2
     PUSH 24
     SHL			// stack2 = [address+4] << 24 ;
     OR
-    INST_01 1
+    RETVAL 1
 
 GET_ADDR_TAIL_V2_2:
     PUSHARG 1
     PUSH 16
-    SHR			// stack1 = [address] >> 16
+    SAR			// stack1 = [address] >> 16
     PUSH 0xFFFF
     AND         // clr high bits
     PUSHARG 2
     PUSH 24
     SHL			// stack2 = [address+4] << 16 ;
     OR
-    INST_01 1
+    RETVAL 1
 
 GET_ADDR_TAIL_V2_3:
     PUSHARG 1
     PUSH 24
-    SHR			// stack1 = [address] >> 24
+    SAR			// stack1 = [address] >> 24
     PUSH 0xFF
     AND         // clr high bits
     PUSHARG 2
     PUSH 8
     SHL			// stack2 = [address+4] << 8 ;
     OR
-    INST_01 1
+    RETVAL 1
 
 GET_ADDR_TAIL_V2_0:
     PUSHARG 1
-    INST_01 1
+    RETVAL 1
 }
 
 // SetData_NotAligned() has been renamed (and slightly modified)
@@ -229,7 +229,7 @@ void naked function SetInt_Old(int address, int value) __asm {
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR
+	SAR
 	PUSHINVR 0
 	POPN 2
 
@@ -237,7 +237,7 @@ void naked function SetInt_Old(int address, int value) __asm {
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR
+	SAR
 	PUSH 1
 	ADD
 	PUSHINVR 0
@@ -256,8 +256,8 @@ SET_ADDR_TAIL_0:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR	// 压入要写的地址
-	INST_53 0 // 写入数据
+	SAR	// 压入要写的地址
+	SETINVR 0 // 写入数据
 
 	JMP SET_DATA_END
 
@@ -275,12 +275,12 @@ SET_ADDR_TAIL_1:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR	// 压入要写的地址
-	INST_53 0 // 写入数据
+	SAR	// 压入要写的地址
+	SETINVR 0 // 写入数据
 
 	PUSHARG value // 压入要写的数据
 	PUSH 24
-	SHR
+	SAR
 	PUSHARG 3
 	PUSH 0xFFFFFF00
 	AND
@@ -289,10 +289,10 @@ SET_ADDR_TAIL_1:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR
+	SAR
 	PUSH 1
 	ADD // 压入要写的地址
-	INST_53 0 // 写入数据
+	SETINVR 0 // 写入数据
 	JMP SET_DATA_END
 
 SET_ADDR_TAIL_2:
@@ -309,12 +309,12 @@ SET_ADDR_TAIL_2:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR	// 压入要写的地址
-	INST_53 0 // 写入数据
+	SAR	// 压入要写的地址
+	SETINVR 0 // 写入数据
 
 	PUSHARG value // 压入要写的数据
 	PUSH 16
-	SHR
+	SAR
 	PUSHARG 3
 	PUSH 0xFFFF0000
 	AND
@@ -323,10 +323,10 @@ SET_ADDR_TAIL_2:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR
+	SAR
 	PUSH 1
 	ADD // 压入要写的地址
-	INST_53 0 // 写入数据
+	SETINVR 0 // 写入数据
 	JMP SET_DATA_END
 
 SET_ADDR_TAIL_3:
@@ -343,12 +343,12 @@ SET_ADDR_TAIL_3:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR	// 压入要写的地址
-	INST_53 0 // 写入数据
+	SAR	// 压入要写的地址
+	SETINVR 0 // 写入数据
 
 	PUSHARG value // 压入要写的数据
 	PUSH 8
-	SHR
+	SAR
 	PUSHARG 3
 	PUSH 0xFF000000
 	AND
@@ -357,10 +357,10 @@ SET_ADDR_TAIL_3:
 	PUSH INTV_ARRAY_BASE
 	SUB
 	PUSH 2
-	SHR
+	SAR
 	PUSH 1
 	ADD // 压入要写的地址
-	INST_53 0 // 写入数据
+	SETINVR 0 // 写入数据
 	JMP SET_DATA_END
 
 SET_DATA_END:

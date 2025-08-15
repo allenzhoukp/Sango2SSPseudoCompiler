@@ -8,7 +8,9 @@
 #include <ctime>
 #include <regex>
 
-using std::endl;
+// using std::endl;
+// define endl as '\n' to avoid flushing the output stream
+const char endl = '\n';
 
 //=================Expression Tree Analysis==================
 
@@ -18,23 +20,27 @@ void Parser::outputInst(ExpressionNode* x, int& stackDepth) {
     //v0.9.4: fix SetGlobal outputing INST_53 bug. 
     if(x->name == "GetGlobal" || x->name == "GetIntv") {
         treeDFS(x->params[0], stackDepth);
-        out << "\t" << (x->name == "GetGlobal" ? "INST_4F 0" : "PUSHINVR 0") << endl;
+        // out << "\t" << (x->name == "GetGlobal" ? "INST_4F 0" : "PUSHINVR 0") << endl;
+        out << "\t" << (x->name == "GetGlobal" ? "PUSHGLBR 0" : "PUSHINVR 0") << endl;
 
     } else if(x->name == "SetGlobal" || x->name == "SetIntv") {
         //value is pushed first.
         treeDFS(x->params[1], stackDepth);
         treeDFS(x->params[0], stackDepth);
-        out << "\t" << (x->name == "SetGlobal" ? "INST_52 0" : "INST_53 0")  << endl;
+        // out << "\t" << (x->name == "SetGlobal" ? "INST_52 0" : "INST_53 0")  << endl;
+        out << "\t" << (x->name == "SetGlobal" ? "SETGLBR 0" : "SETINVR 0")  << endl;
         stackDepth -= 2;
 
     } else if(x->name == "Delay" || x->name == "Wait") {
         treeDFS(x->params[0], stackDepth);
-        out << "\t" << (x->name == "Delay" ? "DELAY" : "INST_45") << endl;
+        // out << "\t" << (x->name == "Delay" ? "DELAY" : "INST_45") << endl;
+        out << "\t" << (x->name == "Delay" ? "DELAY" : "WAIT") << endl;
         stackDepth--;
 
     } else if(x->name == "IsRunning") {
         treeDFS(x->params[0], stackDepth);
-        out << "\t" << "INST_46" << endl;
+        // out << "\t" << "INST_46" << endl;
+        out << "\t" << "ISRUNNING" << endl;
 
     } else {
         printf("!FATAL! invalid inst name");
@@ -75,30 +81,36 @@ void Parser::outputFuncCall(ExpressionNode* x, int& stackDepth) {
 //v0.91: Add exe memory io function. Signed is the default one now.
 //       Note: Unsigned int is no different with Signed int. (Since we have max 4-bit integer in stack.)
 void Parser::outputGetValue(int type) {
-    string useExeIO = configs["use_exe_memory_io"];
+    string useExeIO = Config::get("use_exe_memory_io");
     if(useExeIO == "1" || useExeIO == "true") {
         switch(type) {
         case DataTypes::typeShort:
-            out << "\t" << "SYSCALL 0x215, (1 | (1 << 16)) ; GetShort" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+                << ", (1 | (1 << 16)) ; GetShort" << endl;
             break;
         case DataTypes::typeUShort:
-            out << "\t" << "SYSCALL 0x215, (1 | (1 << 16)) ; GetShort" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+                << ", (1 | (1 << 16)) ; GetShort" << endl;
             out << "\t" << "PUSH 0xFFFF" << endl;
             out << "\t" << "AND" << endl;
             break;
         case DataTypes::typeByte:
-            out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+                << ", (1 | (1 << 16)) ; GetByte" << endl;
             break;
         case DataTypes::typeUByte:
-            out << "\t" << "SYSCALL 0x216, (1 | (1 << 16)) ; GetByte" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+                << ", (1 | (1 << 16)) ; GetByte" << endl;
             out << "\t" << "PUSH 0xFF" << endl;
             out << "\t" << "AND" << endl;
             break;
         case DataTypes::typeString:
-            out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_string") 
+                << ", (1 | (3 << 16)) ; GetString" << endl;
             break;
-        default:  //int, uint and all pointers
-            out << "\t" << "SYSCALL 0x214, (1 | (1 << 16)) ; GetInt" << endl;
+        default:  //int, uint and all pointers. Including float (read IEEE 754 as int, but use float instructions onto that)
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_int") 
+                << ", (1 | (1 << 16)) ; GetInt" << endl;
         }
 
     } else {
@@ -118,7 +130,7 @@ void Parser::outputGetValue(int type) {
         case DataTypes::typeString:
             out << "\t" << "SYSCALL 0x200, (1 | (3 << 16)) ; GetString" << endl;
             break;
-        default:  //int, uint and all pointers
+        default:  //int, uint and all pointers. Including float (read IEEE 754 as int, but use float instructions onto that)
             out << "\t" << "CALL GetInt_Old" << endl;
         }
     }
@@ -127,7 +139,7 @@ void Parser::outputGetValue(int type) {
 //v0.91: Delete all unnecessary unsigned setter.
 //v0.91: Add exe memory io into function.
 void Parser::outputSetValue(int type) {
-    string useExeIO = configs["use_exe_memory_io"];
+    string useExeIO = Config::get("use_exe_memory_io");
     if(useExeIO == "1" || useExeIO == "true") {
         switch(type) {
         case DataTypes::typeShort:
@@ -179,13 +191,14 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
 
         switch(x->left->resultType) {
         case DataTypes::typeString:
-            out << "\t" << "INST_4C" << endl; //pop, and push 0. (Wait, it is string to int?)
+            out << "\t" << "REPLZERO" << endl; //pop, and push 0. (Wait, it is string to int?)
             break;
 
         case DataTypes::typeFloat:
             out << "\t" << "FTOL" << endl;
         default:
-            out << "\t" << "ZERO" << endl;
+            // out << "\t" << "ZERO" << endl;
+            out << "\t" << "LNOT" << endl;
         }
 
     } else if(x->op == "-") {
@@ -236,6 +249,23 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
                 }
             }
 
+        //global - similar to locals
+        } else if (x->left->type == ExpNodeType::global) {
+            
+            if(x->left->globalVar.type == DataTypes::typeFloat) {
+                changeToAssignment(x->op, x, stackDepth, remainReturnStack);
+
+            } else {
+                out << "\t" << (x->op == "++" ? "INCARG " : "DECARG ") << x->left->globalVar.no
+                    << " ; " << x->left->globalVar.name << endl;
+
+                if(remainReturnStack) {
+                    out << "\t" << "PUSHGLB " << x->left->globalVar.no
+                        << " ; " << x->left->globalVar.name << endl;
+                    stackDepth++;
+                }
+            }
+
         //intv: must be int. Use INCINV.
         } else if (x->left->type == ExpNodeType::intv) {
             out << "\t" << (x->op == "++" ? "INCINV " : "DECINV ") << x->left->intvVar.intvNo
@@ -248,30 +278,44 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
             }
 
         //operator[]. Only locals currently. Use INST_54/57 (INCNR/DECNR).
+        //Added 2025-07-05: globals also. Use INST_55/58 (INCGLBR/DECGLBR).
         } else if (x->left->type == ExpNodeType::binaryOp && x->left->op == "[]") {
+
             //for float, still change to += 1.
-            if(x->left->left->localVar.type == DataTypes::typeFloat) {
+            if(x->left->left->localVar.type == DataTypes::typeFloat ||
+               x->left->left->globalVar.type == DataTypes::typeFloat) {
                 changeToAssignment(x->op, x, stackDepth, remainReturnStack);
 
             } else {
+                
                 treeDFS(x->left->right, stackDepth);
+                
+                bool isLocal = x->left->left->type == ExpNodeType::local;
+                int no = isLocal ? x->left->left->localVar.no : x->left->left->globalVar.no;
+                string name = isLocal ? x->left->left->localVar.name : x->left->left->globalVar.name;
+                string inst = isLocal ? 
+                    // (x->op == "++" ? "INST_54 " : "INST_57 ") :
+                    // (x->op == "++" ? "INST_55 " : "INST_58 ");
+                    (x->op == "++" ? "INCNR " : "DECNR ") :
+                    (x->op == "++" ? "INCGLBR " : "DECGLBR ");
 
                 //use local 1 to prevent re-calculation of the index.
+                //if remainReturnStack, somewhat looks like: b = (a[expr]++);
                 if(remainReturnStack) {
                     out << "\t" << "POPN 1" << endl;
                     out << "\t" << "PUSHARG 1" << endl;
                 }
-
-                out << "\t" << (x->op == "++" ? "INST_54 " : "INST_57 ")
-                    << x->left->left->localVar.no << " ; " << x->left->left->localVar.name << endl;
+                out << "\t" << inst << no << " ; " << name << endl;
                 stackDepth--;
 
+                // push the value back to stack via indirect indexing (getting a[expr])
                 if(remainReturnStack) {
                     out << "\t" << "PUSHARG 1" << endl;
-                    out << "\t" << "PUSHNR " << x->left->localVar.no
-                        << " ; " << x->left->localVar.name << endl;
-                    stackDepth++;
 
+                    string pushbackInst = isLocal ? "PUSHNR " : /*"INST_4F "*/ "PUSHGLBR ";
+                    out << "\t" << pushbackInst << no << " ; " << name << endl;
+
+                    stackDepth++;
                 }
             }
 
@@ -308,9 +352,11 @@ void Parser::outputUnaryOp(ExpressionNode* x, int& stackDepth, bool remainReturn
 
             if(typeTo == DataTypes::typeString) {
                 if(x->left->resultType == DataTypes::typeFloat)
-                    out << "\t" << "INST_4B" << endl;
+                    // out << "\t" << "INST_4B" << endl;
+                    out << "\t" << "GCVT" << endl;
                 else
-                    out << "\t" << "INST_49" << endl;
+                    // out << "\t" << "INST_49" << endl;
+                    out << "\t" << "LTOA" << endl;
 
             } else if (typeTo == DataTypes::typeFloat)
                 out << "\t" << "LTOF" << endl;
@@ -361,12 +407,13 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
        x->op == ">>=") {
 
         //an assignment. Complicated.
-        //lvalue possibly be: locals, intvs, local w/array (operator[]), ->, *.
+        //lvalue possibly be: locals, globals, intvs, local and global w/array (operator[]), ->, *.
 
         auto isImmediateValue = [](ExpressionNode* x) -> bool {
             return x->type == ExpNodeType::intConst ||
                    x->type == ExpNodeType::strConst ||
                    x->type == ExpNodeType::local ||
+                   x->type == ExpNodeType::global ||
                    x->type == ExpNodeType::intv;
         };
 
@@ -387,11 +434,41 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
             }
         };
 
-        //local and intv
-        if(x->left->type == ExpNodeType::local || x->left->type == ExpNodeType::intv) {
+        //local, global, and intv
+        if(x->left->type == ExpNodeType::local || 
+                x->left->type == ExpNodeType::global ||
+                x->left->type == ExpNodeType::intv) {
+            
+            string pushInst, setInst;
+            int no;
+            string name;
+
+            // 2025-07-05: it appears that there was a bug
+            // (idk why I use localVar for intvVar).
+
+            if(x->left->type == ExpNodeType::local) {
+                no = x->left->localVar.no;
+                name = x->left->localVar.name;
+                pushInst = "PUSHARG ";
+                setInst = "POPN ";
+
+            } else if(x->left->type == ExpNodeType::global) {
+                no = x->left->globalVar.no;
+                name = x->left->globalVar.name;
+                pushInst = "PUSHGLB ";
+                setInst = "SETARG ";
+
+            } else { // intv
+                no = x->left->intvVar.intvNo;
+                name = x->left->intvVar.name;
+                pushInst = "PUSHINV ";
+                setInst = "SETINV ";
+            }
+
             if(x->op != "=") {
-                out << "\t" << (x->left->type == ExpNodeType::local ? "PUSHARG " : "PUSHINV ")
-                    << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
+                out << "\t" << pushInst << no << " ; " << name << endl;
+                // out << "\t" << (x->left->type == ExpNodeType::local ? "PUSHARG " : "PUSHINV ")
+                //     << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
                 stackDepth++;
             }
 
@@ -399,20 +476,27 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
             getNewValue();
 
             //set value
-            out << "\t" << (x->left->type == ExpNodeType::local ? "POPN " : "SETINV ")
-                << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
+            out << "\t" << setInst << no << " ; " << name << endl;
+            // out << "\t" << (x->left->type == ExpNodeType::local ? "POPN " : "SETINV ")
+            //     << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
             stackDepth--;
 
             //remainStack: repush into stack hier
             if(remainReturnStack) {
-                out << "\t" << (x->left->type == ExpNodeType::local ? "PUSHARG " : "PUSHINV ")
-                    << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
+                out << "\t" << pushInst << no << " ; " << name << endl;
+                // out << "\t" << (x->left->type == ExpNodeType::local ? "PUSHARG " : "PUSHINV ")
+                //     << x->left->localVar.no << " ; " << x->left->localVar.name << endl;
                 stackDepth++;
             }
 
         //operator[]. Only locals currently.
+        //Added 2025-07-05: globals also.
         } else if(x->left->type == ExpNodeType::binaryOp && x->left->op == "[]") {
-            Var var = x->left->left->localVar;
+            bool isLocal = x->left->left->type == ExpNodeType::local;
+
+            Var& var = isLocal ? x->left->left->localVar : x->left->left->globalVar;
+            string pushInst = isLocal ? "PUSHNR " : "PUSHGLBR ";
+            string setInst = isLocal ? "SETNR " : "SETGLBR ";
 
             if(x->op != "=") {
                 //get origin value
@@ -421,7 +505,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                     out << "\t" << "POPN 1" << endl;
                     out << "\t" << "PUSHARG 1" << endl;
                 }
-                out << "\t" << "PUSHNR " << var.no << " ; " << var.name << endl;
+                out << "\t" << pushInst << var.no << " ; " << var.name << endl;
 
                 //get right operand and calc
                 treeDFS(x->right, stackDepth);
@@ -439,7 +523,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                 } else
                     treeDFS(x->left->right, stackDepth);
 
-                out << "\t" << "SETNR " << var.no << " ; " << var.name << endl;
+                out << "\t" << setInst << var.no << " ; " << var.name << endl;
                 stackDepth -= 2;
 
                 //result remains in stack
@@ -456,7 +540,7 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
                     out << "\t" << "PUSHARG 2" << endl;
                 }
                 treeDFS(x->left->right, stackDepth);
-                out << "\t" << "SETNR " << var.no << " ; " << var.name << endl;
+                out << "\t" << setInst << var.no << " ; " << var.name << endl;
                 stackDepth -= 2;
                 if(remainReturnStack) {
                     out << "\t" << "PUSHARG 2" << endl;
@@ -522,11 +606,19 @@ void Parser::outputBinaryOp(ExpressionNode* x, int& stackDepth, bool remainRetur
     // end assignment branch
 
     // rvalue version of []. Only locals currently.
+    // Added 2025-07-05: globals also.
     } else if (x->op == "[]") {
         if(!remainReturnStack) return;
         treeDFS(x->right, stackDepth);
-        out << "\t" << "PUSHNR " << x->left->localVar.no
-            << " ; " << x->left->localVar.name << endl;
+
+        if (x->left->type == ExpNodeType::local) {
+            out << "\t" << "PUSHNR " << x->left->localVar.no
+                << " ; " << x->left->localVar.name << endl;
+
+        } else {  // globals
+            out << "\t" << "PUSHGLBR " << x->left->globalVar.no
+                << " ; " << x->left->globalVar.name << endl;
+        }
 
     // rvalue version of ->. Things get xtremely easier...
     } else if (x->op == "->") {
@@ -608,12 +700,17 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     case ExpNodeType::floatConst:
         //Trick the float into an integer
         intp = (int *) &(x->floatValue);
-        out << "\t" << "PUSH " << *intp << endl;
+        out << "\t" << "PUSH " << *intp << " ; float literal " << x->floatValue << endl;
         stackDepth++;
         break;
 
     case ExpNodeType::local:
         out << "\t" << "PUSHARG " << x->localVar.no << " ; " << x->localVar.name << endl;
+        stackDepth++;
+        break;
+
+    case ExpNodeType::global:
+        out << "\t" << "PUSHGLB " << x->globalVar.no << " ; push global " << x->globalVar.name << endl;
         stackDepth++;
         break;
 
@@ -644,8 +741,8 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
         break;
     
     case ExpNodeType::exefuncCall:
-    
-        syscallStr = configs["funcptr_syscall"];
+
+        syscallStr = Config::get("funcptr_syscall");
         sscanf(syscallStr.c_str(), "%x", &syscallNum);
 
         // Set 0x220 Syscall to the target address

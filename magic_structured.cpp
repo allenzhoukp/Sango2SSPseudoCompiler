@@ -42,11 +42,69 @@
 #define OF_TARGET           0x00200000
 #define OF_BOMB             0x00400000
 
+int g_var1;
+int g_var2;
+int g_var3;
+int g_var4;
+int g_var5;
+int g_var6;
+int g_var7;
+int g_var8;
+int g_var9;
+int g_var10;
+int g_var11;
+int g_var12;
+int g_var13;
+int g_var14;
+int g_var15;
+int g_var16;
+int g_var17;
+int g_var18;
+int g_var19;
+int g_var20;
+int g_var21;
+int g_var22;
+int g_var23;
+int g_var24;
+int g_var25;
+int g_var26[2];
+int g_var28[2];
+int g_var30;
+int g_var31;
+int g_var32[2];
+int g_var34;
+int g_var35[2];
+int g_var37;
+int g_var38;
+int g_var39[2];
+int g_var41;
+int g_var42;
+int g_var43;
+int g_var44;
+int g_var45;
+int g_var46;
+int g_var47;
+int g_var48;
+int g_var49;
+int g_var50;
+int g_var51;
+int g_var52;
+int g_var53;
+int g_var54;
+int g_var55[60];
+int g_var115;
+int g_var116;
+int g_var117;
+int g_var118;
+int g_var119;
+int g_var120;
+int g_var121;
+
 void DelayAmbientSound(string a0, int a1, int a2)  {
-    SetGlobal(1, 1);
+    g_var1 = 1;
     PlaySound1(a0, a1);
     Delay(a2);
-    SetGlobal(1, 0);
+    g_var1 = 0;
     return;
 }
 int GetSoldierMaxX2(int a0)  {
@@ -581,13 +639,13 @@ void DownBrightness(int a0, int a1)  {
     }
     SetBackgroundBrightness(16);
     LockBrightness(a0);
-    SetGlobal(2, a0);
+    g_var2 = a0;
     return;
 }
 void RaiseBrightness(int a0, int a1)  {
     int v1;
     UnlockBrightness();
-    v1 = GetGlobal(2);
+    v1 = g_var2;
     SetBackgroundBrightness(v1);
     while ((v1 < a0)) {
         Delay(a1);
@@ -773,8 +831,8 @@ void HitGeneral(int a0, int a1, int a2, int a3, int a4, int a5)  {
     int v3;
     int v4;
     int v5;
-    if (!GetGlobal(3)) {
-        SetGlobal(3, 1);
+    if (!g_var3) {
+        g_var3 = 1;
         v2 = CreateObjectByReference(a1, 2501, 0, 0);
         v3 = GetObjectScreenX(a1);
         v4 = GetObjectScreenY(a1);
@@ -801,7 +859,7 @@ void HitGeneral(int a0, int a1, int a2, int a3, int a4, int a5)  {
         }
         FreeObject(v2);
         Delay(a5);
-        SetGlobal(3, 0);
+        g_var3 = 0;
         return;
     } else {
         return;
@@ -1632,11 +1690,11 @@ void ThunderAttach(int a0)  {
 }
 void ThunderCallback(int a0, int a1) callsign 5001  {
     ClearObjectFlags(a0, OF_ATTACKALL);
-    if (GetGlobal(4) == 1) {
+    if (g_var4 == 1) {
         asynccall ThunderAttach(a1);
     }
-    if (GetGlobal(5) == 0) {
-        SetGlobal(5, 1);
+    if (g_var5 == 0) {
+        g_var5 = 1;
         Hurt(a0, a1, intvMagicAttackValue);
     }
     if (!((a1 == intvAttackerMajor) || (a1 == intvDefenderMajor))) {
@@ -1702,7 +1760,7 @@ void LockThunder(int a0, int a1, int a2)  {
     if (Rand(1, 3) == 1) {
         asynccall CreateThunderSmoke(a0, a1);
     }
-    if (!GetGlobal(4)) {
+    if (!g_var4) {
         v2 = Rand(15001, 15003);
     } else {
         v2 = 15010;
@@ -1739,8 +1797,8 @@ void Thunder(int a0, int a1)  {
     int v21;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\005\\*");
-    SetGlobal(4, a1);
-    SetGlobal(5, 0);
+    g_var4 = a1;
+    g_var5 = 0;
     DisablePlayMagic();
     DownBrightness(8, 5);
     v1 = intvAttackerMajor;
@@ -1812,7 +1870,7 @@ void Thunder(int a0, int a1)  {
                 v20 = v9;
                 v21 = v10;
             }
-            if (!GetGlobal(4)) {
+            if (!g_var4) {
                 v11 = Rand(15001, 15003);
             } else {
                 v11 = 15010;
@@ -1908,11 +1966,11 @@ void TraceArrow(int a0, int a1)  {
             v1 = GetObjectScreenX(a0);
             v2 = GetObjectScreenY(a0);
             v5 = GetObjectDir(a0);
-            if (!(GetGlobal(7) > 0)) {
+            if (!(g_var7 > 0)) {
                 v6 = Rand(16012, 16013);
             } else {
                 v6 = Rand(16012, 16018);
-                SetGlobal(7, GetGlobal(7) - 1);
+                g_var7 = g_var7 - 1;
             }
             v4 = CreateObjectByReference(a0, v6, v5, 0);
             if ((a1 == 1) && ((Rand(1, 256) & 1) == 0)) {
@@ -1934,12 +1992,12 @@ void ArrowCallback1(int a0, int a1) callsign 6001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(8)) {
-            v1 = (intvMagicAttackValue / GetGlobal(8));
+        if (g_var8) {
+            v1 = (intvMagicAttackValue / g_var8);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(8, (GetGlobal(8) * 2));
+            g_var8 = (g_var8 * 2);
         }
     }
     return;
@@ -1950,12 +2008,12 @@ void ArrowCallback2(int a0, int a1) callsign 6002  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(8)) {
-            v3 = (intvMagicAttackValue / GetGlobal(8));
+        if (g_var8) {
+            v3 = (intvMagicAttackValue / g_var8);
         }
         Hurt(a0, a1, v3);
         if (v3 > 0) {
-            SetGlobal(8, (GetGlobal(8) * 2));
+            g_var8 = (g_var8 * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -1969,7 +2027,7 @@ void FlyArrowLU() callsign 6003  {
     SetCoordinateByReference_Cylind(v1, v2, 128, 64, 104);
     SetObjectSpeed_Sphere(v1, 128, 32, 32);
     PlaySound(v1, "arrow", 255);
-    if (GetGlobal(6) == 1) {
+    if (g_var6 == 1) {
         v1 = CreateObjectByReference(v2, 16009, 128, 0);
         SetCoordinateByReference_Cylind(v1, v2, 128, 64, 104);
         SetObjectSpeed_Sphere(v1, 128, 32, 32);
@@ -1984,7 +2042,7 @@ void FlyArrowRU() callsign 6004  {
     SetCoordinateByReference_Cylind(v1, v2, 0, 64, 104);
     SetObjectSpeed_Sphere(v1, 128, 96, 32);
     PlaySound(v1, "arrow", 255);
-    if (GetGlobal(6) == 1) {
+    if (g_var6 == 1) {
         v1 = CreateObjectByReference(v2, 16009, 0, 0);
         SetCoordinateByReference_Cylind(v1, v2, 0, 64, 104);
         SetObjectSpeed_Sphere(v1, 128, 96, 32);
@@ -2158,12 +2216,12 @@ void ArrowSupport(int a0, int a1)  {
     int v10;
     int v11;
     int v12;
-    SetGlobal(8, 1);
+    g_var8 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\006\\*");
     DisablePlayMagic();
     DownBrightness(12, 5);
-    SetGlobal(6, a1);
+    g_var6 = a1;
     v6 = ((GetBattleWidth() * 96) - 240);
     SetOverwhelming(intvAttackerMajor, 1);
     v4 = GetObjectScreenX(intvAttackerMajor);
@@ -2246,7 +2304,7 @@ void ArrowSupport(int a0, int a1)  {
     }
     v11 = GetObjectScreenX(v3);
     v1 = (((a0 / 10) * 5) + ((Rand(32, 50) - a0) / 8));
-    SetGlobal(7, (v1 / 4));
+    g_var7 = (v1 / 4);
     do {
         v4 = (v11 + Rand((-400), 400));
         v5 = Rand(200, 600);
@@ -2286,12 +2344,12 @@ void StoneEmitterCallback1(int a0, int a1) callsign 7001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(10)) {
-            v1 = (intvMagicAttackValue / GetGlobal(10));
+        if (g_var10) {
+            v1 = (intvMagicAttackValue / g_var10);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(10, (GetGlobal(10) * 2));
+            g_var10 = (g_var10 * 2);
         }
     }
     return;
@@ -2302,12 +2360,12 @@ void StoneEmitterCallback2(int a0, int a1) callsign 7002  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(10)) {
-            v1 = (intvMagicAttackValue / GetGlobal(10));
+        if (g_var10) {
+            v1 = (intvMagicAttackValue / g_var10);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(10, (GetGlobal(10) * 2));
+            g_var10 = (g_var10 * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -2350,7 +2408,7 @@ void StoneExplode(int a0)  {
     v2 = GetObjectDir(a0);
     v1 = CreateObjectByReference(a0, 2501, v2, 0);
     SetObjectFlags(v1, OF_ENEMYFORCE);
-    if (!(GetGlobal(9) == 0)) {
+    if (!(g_var9 == 0)) {
         SetCallbackProcedure(v1, 7002);
     } else {
         SetCallbackProcedure(v1, 7001);
@@ -2390,7 +2448,7 @@ void FallExplode1() callsign 7003  {
     v2 = 0;
     while ((v2 < 6)) {
         v1 = CreateObjectByReference(v3, Rand(17007, 17011), Rand(0, 255), 0);
-        if (!(GetGlobal(9) == 0)) {
+        if (!(g_var9 == 0)) {
             SetCallbackProcedure(v1, 7002);
         } else {
             SetCallbackProcedure(v1, 7001);
@@ -2404,16 +2462,16 @@ void FallExplode1() callsign 7003  {
 void FireStoneExplode(int a0)  {
     int v1;
     int v2;
-    if (GetGlobal(11) == 0) {
+    if (g_var11 == 0) {
         PlaySound1("m007snd02", 255);
-        SetGlobal(11, 1);
+        g_var11 = 1;
     }
     v2 = GetObjectDir(a0);
     v1 = CreateObjectByReference(a0, 17012, v2, 0);
     SetObjectScale(v1, 57344, 57344);
     SetObjectFlags(v1, OF_ENEMYFORCE);
     ClearObjectFlags(v1, (OF_ENEMYGENERAL + OF_MYGENERAL));
-    if (!(GetGlobal(9) == 0)) {
+    if (!(g_var9 == 0)) {
         SetCallbackProcedure(v1, 7002);
     } else {
         SetCallbackProcedure(v1, 7001);
@@ -2451,7 +2509,7 @@ void FallExplode2() callsign 7004  {
         if ((v2 % 3) == 0) {
             SetObjectFlags(v1, OF_ENEMYFORCE);
             ClearObjectFlags(v1, (OF_ENEMYGENERAL + OF_MYGENERAL));
-            if (!(GetGlobal(9) == 0)) {
+            if (!(g_var9 == 0)) {
                 SetCallbackProcedure(v1, 7002);
             } else {
                 SetCallbackProcedure(v1, 7001);
@@ -2654,9 +2712,9 @@ void StoneEmitter(int a0, int a1, int a2)  {
     int v11;
     int v12;
     int v13;
-    SetGlobal(9, a1);
-    SetGlobal(10, 1);
-    SetGlobal(11, 0);
+    g_var9 = a1;
+    g_var10 = 1;
+    g_var11 = 0;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\007\\*");
     DisablePlayMagic();
@@ -2783,12 +2841,12 @@ void ExplodeRoundCallback(int a0, int a1) callsign 8001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10016, 60);
     } else {
-        if (GetGlobal(12)) {
-            v1 = (intvMagicAttackValue / GetGlobal(12));
+        if (g_var12) {
+            v1 = (intvMagicAttackValue / g_var12);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(12, (GetGlobal(12) * 2));
+            g_var12 = (g_var12 * 2);
             asynccall LockTargetTime2(a1, 10016, 60);
         }
     }
@@ -2847,7 +2905,7 @@ void ExplodeRound(int a0, int a1, int a2)  {
     int v1;
     int v3;
     int v4;
-    SetGlobal(12, 1);
+    g_var12 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\008\\*");
     DisablePlayMagic();
@@ -2888,12 +2946,12 @@ void EightWayFireCallback(int a0, int a1) callsign 9001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(13)) {
-            v1 = (intvMagicAttackValue / GetGlobal(13));
+        if (g_var13) {
+            v1 = (intvMagicAttackValue / g_var13);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(13, (GetGlobal(13) * 2));
+            g_var13 = (g_var13 * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -2967,7 +3025,7 @@ void EightWayFire(int a0, int a1, int a2)  {
     Delay(20);
     SetObjectAnimate(intvAttackerMajor, OAF_SPELL1);
     SetOverwhelming(intvAttackerMajor, 0);
-    SetGlobal(13, 1);
+    g_var13 = 1;
     v3 = GetObjectScreenX(intvAttackerMajor);
     v4 = GetObjectScreenY(intvAttackerMajor);
     if (!(a0 == 0)) {
@@ -3564,8 +3622,8 @@ void Tornado(int a0)  {
         v1 = GetObjectScreenX(v12);
         v2 = GetObjectScreenY(v12);
         v16 = GetSpeed(v14, v15, v1, v2);
-        SetGlobal(14, (v16 * 2));
-        SetGlobal(15, GetDir(v14, v15, v1, v2));
+        g_var14 = (v16 * 2);
+        g_var15 = GetDir(v14, v15, v1, v2);
         ApproachObjectTowards(v9, v12, v16);
         asynccall WaitTarget(v9, v1, v2);
         Wait("WaitTarget");
@@ -3889,9 +3947,9 @@ void Frozen()  {
     return;
 }
 void DemonDancingCallback(int a0, int a1) callsign 14001  {
-    Hurt(a0, a1, GetGlobal(16));
-    if (GetGlobal(16) == 20) {
-        SetGlobal(16, 0);
+    Hurt(a0, a1, g_var16);
+    if (g_var16 == 20) {
+        g_var16 = 0;
     }
     return;
 }
@@ -3959,7 +4017,7 @@ void DemonDancing()  {
         SetCoordinateByReference_Cylind(v2, intvAttackerMajor, v7, 58, 30);
         Delay(20);
         SetObjectFadeOut(v2, 16, 1);
-        SetGlobal(16, 2);
+        g_var16 = 2;
         if (!(intvIsLeft == 1)) {
             asynccall LockTargetXY((v4 - 96), v5, 2501, v7, 2, 14001, 0, 0, (OF_ENEMYFORCE + OF_ENEMYGENERAL));
         } else {
@@ -3979,7 +4037,7 @@ void DemonDancing()  {
         SetObjectFadeOut(v2, 16, 1);
         v1 = 20;
         do {
-            SetGlobal(16, 2);
+            g_var16 = 2;
             if (!(intvIsLeft == 1)) {
                 asynccall LockTargetXY((v4 - 96), v5, 2501, v7, 2, 14001, 0, 0, (OF_ENEMYFORCE + OF_ENEMYGENERAL));
             } else {
@@ -3995,7 +4053,7 @@ void DemonDancing()  {
         Delay(10);
         PlaySound(intvAttackerMajor, "att07", 255);
         CreateLastAttack(intvAttackerMajor, v7);
-        SetGlobal(16, 20);
+        g_var16 = 20;
         if (!(intvIsLeft == 1)) {
             asynccall LockTargetXY((v4 - 96), v5, 2501, v7, 2, 14001, 0, 0, (OF_ENEMYFORCE + OF_ENEMYGENERAL));
         } else {
@@ -4012,12 +4070,12 @@ void FlyingSwordCallback(int a0, int a1) callsign 15001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(17)) {
-            v1 = (intvMagicAttackValue / GetGlobal(17));
+        if (g_var17) {
+            v1 = (intvMagicAttackValue / g_var17);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(17, (GetGlobal(17) * 2));
+            g_var17 = (g_var17 * 2);
         }
     }
     return;
@@ -4272,7 +4330,7 @@ void FlyingSword(int a0)  {
     int v7;
     int v8;
     int v9;
-    SetGlobal(17, 1);
+    g_var17 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\015\\*");
     DisablePlayMagic();
@@ -4477,8 +4535,8 @@ void FireDragonCallback(int a0, int a1) callsign 17001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        Hurt(a0, a1, GetGlobal(18));
-        SetGlobal(18, 2);
+        Hurt(a0, a1, g_var18);
+        g_var18 = 2;
         asynccall LockTargetTime2(a1, 10015, 60);
     }
     return;
@@ -4506,7 +4564,7 @@ void sc4502(int a0, int a1, int a2)  {
     int v3;
     int v4;
     int v5;
-    v1 = CreateObjectByReference(a0, (27005 + ((GetGlobal(19) / 4) & 1)), a1, 0);
+    v1 = CreateObjectByReference(a0, (27005 + ((g_var19 / 4) & 1)), a1, 0);
     v3 = 0;
     v4 = 0;
     do {
@@ -4639,14 +4697,14 @@ void sc4501(int a0, int a1)  {
         }
         asynccall sc4502(v2, v4, v5);
         Delay(1);
-        SetGlobal(19, GetGlobal(19) + 1);
+        g_var19 = g_var19 + 1;
         v4 = (v4 + 2);
         v5 = (v5 + 4);
         v1--;
     } while (v1 > 0);
     SetObjectFadeOut(v2, 16, 1);
     Delay(16);
-    SetGlobal(20, GetGlobal(20) + 1);
+    g_var20 = g_var20 + 1;
     return;
 }
 void FireDragon(int a0)  {
@@ -4659,7 +4717,7 @@ void FireDragon(int a0)  {
     int v9;
     int v10;
     int v11;
-    SetGlobal(18, intvMagicAttackValue);
+    g_var18 = intvMagicAttackValue;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\017\\*");
     DisablePlayMagic();
@@ -4673,8 +4731,8 @@ void FireDragon(int a0)  {
     SetObjectAnimate(intvAttackerMajor, OAF_SPELL2);
     Delay(20);
     SetOverwhelming(intvAttackerMajor, 0);
-    SetGlobal(19, 0);
-    SetGlobal(20, 0);
+    g_var19 = 0;
+    g_var20 = 0;
     if (!(intvIsLeft == 1)) {
         v11 = 128;
     } else {
@@ -4745,7 +4803,7 @@ void FireDragon(int a0)  {
     }
     do {
         Delay(1);
-    } while (GetGlobal(20) <= a0);
+    } while (g_var20 <= a0);
     FreeObject(v2);
     FreeObject(v6);
     FreeObject(v7);
@@ -4757,12 +4815,12 @@ void FireDragon(int a0)  {
     return;
 }
 void CallDragonCallback(int a0, int a1) callsign 18001  {
-    if (!((a1 == intvDefenderMajor) && (GetGlobal(22) == 0))) {
+    if (!((a1 == intvDefenderMajor) && (g_var22 == 0))) {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
         Hurt(a0, a1, intvMagicAttackValue);
-        SetGlobal(22, 1);
+        g_var22 = 1;
         asynccall LockTargetTime2(a1, 10015, 60);
     }
     return;
@@ -4868,10 +4926,10 @@ void sc3604() callsign 18002  {
     int v3;
     v3 = GetScriptLinkedObject();
     SetScriptLinkedObject(intvAttackerMajor);
-    asynccall MovingShadow(v3, GetGlobal(21), 28011, 0, 18001);
-    asynccall MovingShadow(v3, GetGlobal(21), 28011, 128, 18001);
-    asynccall MovingShadow(v3, GetGlobal(21), 28011, 64, 18001);
-    asynccall MovingShadow(v3, GetGlobal(21), 28011, 192, 18001);
+    asynccall MovingShadow(v3, g_var21, 28011, 0, 18001);
+    asynccall MovingShadow(v3, g_var21, 28011, 128, 18001);
+    asynccall MovingShadow(v3, g_var21, 28011, 64, 18001);
+    asynccall MovingShadow(v3, g_var21, 28011, 192, 18001);
     SetObjectSpeed_Cylind(v3, 0, 0);
     SetObjectHasGravity(v3, 0);
     v2 = 0;
@@ -4898,7 +4956,7 @@ void CallDragon(int a0)  {
     int v11;
     int v12;
     int v13;
-    SetGlobal(22, 0);
+    g_var22 = 0;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\018\\*");
     DisablePlayMagic();
@@ -4925,17 +4983,17 @@ void CallDragon(int a0)  {
     case 0:
         asynccall sc3602(a0, v1, v2, v3);
         v11 = 50;
-        SetGlobal(21, 110);
+        g_var21 = 110;
         break;
     case 1:
         asynccall sc3602(a0, v1, v2, v3);
         v11 = 100;
-        SetGlobal(21, 220);
+        g_var21 = 220;
         break;
     default:
         asynccall sc3601(a0, v10, v1, v2, v3);
         v11 = (100 + 95);
-        SetGlobal(21, 330);
+        g_var21 = 330;
         break;
     }
     v4 = 0;
@@ -5016,12 +5074,12 @@ void RunningBowCallback(int a0, int a1) callsign 19001  {
         asynccall FireMan(a1, 10015, 60);
         SmallFireBall2(a0, a1, 15, 35);
     } else {
-        SetGlobal(23, GetGlobal(23) - 1);
-        if (!(GetGlobal(23) == 0)) {
+        g_var23 = g_var23 - 1;
+        if (!(g_var23 == 0)) {
             v1 = 2;
             SmallFireBall2(a0, a1, 12, 48);
         } else {
-            v1 = (intvMagicAttackValue - (5 + ((GetGlobal(24) * 2) * 2)));
+            v1 = (intvMagicAttackValue - (5 + ((g_var24 * 2) * 2)));
             HitGeneral(a0, a1, 11002, 1, 48, 0);
         }
         Hurt(a0, a1, v1);
@@ -5073,8 +5131,8 @@ void RunningBow(int a0)  {
     int v6;
     int v7[9];
     int v16;
-    SetGlobal(23, 0);
-    SetGlobal(24, a0);
+    g_var23 = 0;
+    g_var24 = a0;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\019\\*");
     DisablePlayMagic();
@@ -5094,15 +5152,15 @@ void RunningBow(int a0)  {
     switch (a0) {
     case 0:
         v16 = 5;
-        SetGlobal(23, 5);
+        g_var23 = 5;
         break;
     case 1:
         v16 = 7;
-        SetGlobal(23, 7);
+        g_var23 = 7;
         break;
     default:
         v16 = 9;
-        SetGlobal(23, 9);
+        g_var23 = 9;
         break;
     }
     SetOverwhelming(intvAttackerMajor, 1);
@@ -5243,7 +5301,7 @@ void Engulf(int a0, int a1, int a2, int a3)  {
 }
 void CreateBlackHoleBall(int a0)  {
     int v1;
-    while (GetGlobal(25)) {
+    while (g_var25) {
         v1 = CreateObjectByReference(a0, 30013, 0, 0);
         SetCoordinateByReference_Cylind(v1, a0, Rand(152, 232), Rand(200, 300), Rand((-80), 80));
         ApproachObjectTowards(v1, a0, Rand(7, 12));
@@ -5262,7 +5320,7 @@ void CreateBlackHoleStar(int a0, int a1, int a2, int a3, int a4)  {
     while (IsObjectExist(v1)) {
         CreateShadowObject(v1, 4, 1);
         Delay(1);
-        if (GetGlobal(25) == 0) {
+        if (g_var25 == 0) {
             FreeObject(v1);
         }
     }
@@ -5270,7 +5328,7 @@ void CreateBlackHoleStar(int a0, int a1, int a2, int a3, int a4)  {
 }
 void CreateBlackHoleStars(int a0)  {
     asynccall CreateBlackHoleBall(a0);
-    while (GetGlobal(25)) {
+    while (g_var25) {
         asynccall CreateBlackHoleStar(a0, Rand(30003, 30011), Rand(30, 130), Rand(0, 127), Rand(3, 8));
         asynccall CreateBlackHoleStar(a0, Rand(30003, 30011), Rand(30, 130), Rand(128, 255), Rand(3, 8));
         Delay(Rand(0, 4));
@@ -5329,7 +5387,7 @@ void CreateBlackHole(int a0, int a1, int a2)  {
         }
         v6 = (v6 + 4096);
     }
-    SetGlobal(25, 1);
+    g_var25 = 1;
     if (a2 > 0) {
         v10 = CreateObjectRaw(v2, (v4 + 700), 100, 128, 30015);
         SetObjectScale(v10, 94208, 94208);
@@ -5341,7 +5399,7 @@ void CreateBlackHole(int a0, int a1, int a2)  {
     if (a2 > 0) {
         FreeObject(v10);
     }
-    SetGlobal(25, 0);
+    g_var25 = 0;
     v6 = 131072;
     while ((v6 >= 0)) {
         SetObjectScale(v1, v6, v6);
@@ -5388,12 +5446,12 @@ void FireRingCallback(int a0, int a1) callsign 20001  {
         asynccall FireMan(a1, 10015, 60);
     } else {
         v2 = GetObjectContext(a0, 0);
-        if (GetGlobal(26 + v2)) {
-            v1 = (GetGlobal(30) / GetGlobal(26 + v2));
+        if (g_var26[v2]) {
+            v1 = (g_var30 / g_var26[v2]);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(26 + v2, (GetGlobal(26 + v2) * 2));
+            g_var26[v2] = (g_var26[v2] * 2);
             asynccall HitGeneral(a0, a1, 11002, 1, 48, 60);
         }
     }
@@ -5502,9 +5560,9 @@ void CreateFireRing(int a0, int a1, int a2, int a3, int a4, int a5, int a6)  {
         }
         SetObjectFadeOut(v1, 8, 1);
         if (!(a6 == 1)) {
-            SetGlobal(28 + 1, 0);
+            g_var28[1] = 0;
         } else {
-            SetGlobal(28 + 0, 0);
+            g_var28[0] = 0;
         }
     } else {
         asynccall FireRingMotion(v1, a0, a1, a2, a3, a4);
@@ -5517,9 +5575,9 @@ void CreateFireRing(int a0, int a1, int a2, int a3, int a4, int a5, int a6)  {
         }
         SetObjectFadeOut(v1, 8, 1);
         if (!(a6 == 1)) {
-            SetGlobal(28 + 1, 0);
+            g_var28[1] = 0;
         } else {
-            SetGlobal(28 + 0, 0);
+            g_var28[0] = 0;
         }
     }
     return;
@@ -5534,22 +5592,22 @@ void FireRing(int a0, int a1)  {
     v6 = 0;
     if (!(intvIsLeft == 1)) {
         if (intvIsLeft == 0) {
-            if (!(GetGlobal(28 + 1) == 1)) {
-                SetGlobal(28 + 1, 1);
-                SetGlobal(26 + 1, 1);
+            if (!(g_var28[1] == 1)) {
+                g_var28[1] = 1;
+                g_var26[1] = 1;
             } else {
                 v6 = 1;
             }
         }
     } else {
-        if (!(GetGlobal(28 + 0) == 1)) {
-            SetGlobal(28 + 0, 1);
-            SetGlobal(26 + 0, 1);
+        if (!(g_var28[0] == 1)) {
+            g_var28[0] = 1;
+            g_var26[0] = 1;
         } else {
             v6 = 1;
         }
     }
-    SetGlobal(30, intvMagicAttackValue);
+    g_var30 = intvMagicAttackValue;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\021\\*");
     DisablePlayMagic();
@@ -5600,11 +5658,11 @@ void IceCallback(int a0, int a1) callsign 22001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (!(GetGlobal(31) < 4)) {
+        if (!(g_var31 < 4)) {
             ClearObjectFlags(a0, OF_ENEMYGENERAL);
         } else {
-            Hurt(a0, a1, (intvMagicAttackValue / GetGlobal(31)));
-            SetGlobal(31, (GetGlobal(31) * 2));
+            Hurt(a0, a1, (intvMagicAttackValue / g_var31));
+            g_var31 = (g_var31 * 2);
         }
     }
     return;
@@ -5687,7 +5745,7 @@ void Ice(int a0)  {
     int v7;
     int v8;
     int v9;
-    SetGlobal(31, 1);
+    g_var31 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\022\\*");
     DisablePlayMagic();
@@ -5780,12 +5838,12 @@ void OnFireCallback(int a0, int a1) callsign 23001  {
         Hurt(a0, a1, 0);
     } else {
         v2 = GetObjectContext(a0, 0);
-        if (GetGlobal(32 + v2)) {
-            v1 = (GetGlobal(34) / GetGlobal(32 + v2));
+        if (g_var32[v2]) {
+            v1 = (g_var34 / g_var32[v2]);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(32 + v2, (GetGlobal(32 + v2) * 2));
+            g_var32[v2] = (g_var32[v2] * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -5868,9 +5926,9 @@ void CreateOnFire(int a0, int a1)  {
 void TraceOnFire(int a0)  {
     Wait("CreateOnFire");
     if (!(a0 == 1)) {
-        SetGlobal(35 + 1, 0);
+        g_var35[1] = 0;
     } else {
-        SetGlobal(35 + 0, 0);
+        g_var35[0] = 0;
     }
     return;
 }
@@ -5890,22 +5948,22 @@ void OnFire(int a0)  {
     v9 = 0;
     if (!(intvIsLeft == 1)) {
         if (intvIsLeft == 0) {
-            if (!(GetGlobal(35 + 1) == 1)) {
-                SetGlobal(35 + 1, 1);
-                SetGlobal(32 + 1, 1);
+            if (!(g_var35[1] == 1)) {
+                g_var35[1] = 1;
+                g_var32[1] = 1;
             } else {
                 v9 = 1;
             }
         }
     } else {
-        if (!(GetGlobal(35 + 0) == 1)) {
-            SetGlobal(35 + 0, 1);
-            SetGlobal(32 + 0, 1);
+        if (!(g_var35[0] == 1)) {
+            g_var35[0] = 1;
+            g_var32[0] = 1;
         } else {
             v9 = 1;
         }
     }
-    SetGlobal(34, intvMagicAttackValue);
+    g_var34 = intvMagicAttackValue;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\023\\*");
     switch (a0) {
@@ -6095,11 +6153,11 @@ void TaiChiCallback(int a0, int a1) callsign 25001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (!(GetGlobal(37) < 4)) {
+        if (!(g_var37 < 4)) {
             ClearObjectFlags(a0, OF_ENEMYGENERAL);
         } else {
-            Hurt(a0, a1, (intvMagicAttackValue / GetGlobal(37)));
-            SetGlobal(37, (GetGlobal(37) * 2));
+            Hurt(a0, a1, (intvMagicAttackValue / g_var37));
+            g_var37 = (g_var37 * 2);
         }
     }
     return;
@@ -6185,7 +6243,7 @@ void TaiChi(int a0)  {
     int v13;
     int v14;
     int v15;
-    SetGlobal(37, 1);
+    g_var37 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\025\\*");
     DisablePlayMagic();
@@ -6307,9 +6365,9 @@ void SpoutCallback(int a0) callsign 26001  {
         FreeObject(a0);
         return;
     } else {
-        if (GetGlobal(38) < 4) {
-            Hurt(0, a0, (intvMagicAttackValue / GetGlobal(38)));
-            SetGlobal(38, (GetGlobal(38) * 2));
+        if (g_var38 < 4) {
+            Hurt(0, a0, (intvMagicAttackValue / g_var38));
+            g_var38 = (g_var38 * 2);
         }
         return;
     }
@@ -6475,7 +6533,7 @@ void Spout(int a0)  {
     int v2;
     int v3;
     int v4;
-    SetGlobal(38, 1);
+    g_var38 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\026\\*");
     DisablePlayMagic();
@@ -6523,12 +6581,12 @@ void FireCowCallback(int a0, int a1) callsign 27001  {
     } else {
         SetObjectFadeOut(a0, 2, 1);
         v3 = GetObjectContext(a0, 1);
-        if (GetGlobal(39 + v3)) {
-            v2 = (intvMagicAttackValue / GetGlobal(39 + v3));
+        if (g_var39[v3]) {
+            v2 = (intvMagicAttackValue / g_var39[v3]);
         }
         Hurt(a0, a1, v2);
         if (v2 > 0) {
-            SetGlobal(39 + v3, (GetGlobal(39 + v3) * 2));
+            g_var39[v3] = (g_var39[v3] * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -6610,9 +6668,9 @@ void FireCow(int a0)  {
     int v4;
     int v5;
     if (!(intvIsLeft == 1)) {
-        SetGlobal(39 + 1, 1);
+        g_var39[1] = 1;
     } else {
-        SetGlobal(39 + 0, 1);
+        g_var39[0] = 1;
     }
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\027\\*");
@@ -6740,7 +6798,7 @@ void RollDownCallback(int a0, int a1) callsign 28001  {
         if (!(v1 <= 0)) {
             SetObjectContext(a0, 0, v1);
         } else {
-            if (GetGlobal(1) == 0) {
+            if (g_var1 == 0) {
                 DelayAmbientSound("m028snd02", 255, 10);
             }
             v8 = 0;
@@ -6758,17 +6816,17 @@ void RollDownCallback(int a0, int a1) callsign 28001  {
         }
         return;
     } else {
-        if (GetGlobal(41)) {
-            v9 = (intvMagicAttackValue / GetGlobal(41));
+        if (g_var41) {
+            v9 = (intvMagicAttackValue / g_var41);
         }
         Hurt(a0, a1, v9);
         if (v9 > 0) {
-            SetGlobal(41, (GetGlobal(41) * 2));
+            g_var41 = (g_var41 * 2);
         }
         if (v2 == 0) {
             a0 = GetObjectContext(a0, 0);
         }
-        if (GetGlobal(1) == 0) {
+        if (g_var1 == 0) {
             DelayAmbientSound("m028snd02", 255, 10);
         }
         v8 = 0;
@@ -6860,8 +6918,8 @@ void RollDown(int a0)  {
     int v7;
     int v8;
     int v9;
-    SetGlobal(1, 0);
-    SetGlobal(41, 1);
+    g_var1 = 0;
+    g_var41 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\028\\*");
     DisablePlayMagic();
@@ -6929,12 +6987,12 @@ void PaCallback(int a0, int a1) callsign 29001  {
     if (!(a1 == intvDefenderMajor)) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(42)) {
-            v1 = (intvMagicAttackValue / GetGlobal(42));
+        if (g_var42) {
+            v1 = (intvMagicAttackValue / g_var42);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(42, (GetGlobal(42) * 2));
+            g_var42 = (g_var42 * 2);
         }
     }
     return;
@@ -7141,7 +7199,7 @@ void Pa(int a0)  {
     int v1;
     int v2;
     int v3;
-    SetGlobal(42, 1);
+    g_var42 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\029\\*");
     DisablePlayMagic();
@@ -7177,12 +7235,12 @@ void HalfMoonNewCallback(int a0, int a1) callsign 30001  {
         Hurt(a0, a1, 0);
     } else {
         FreeObject(a0);
-        if (GetGlobal(43)) {
-            v1 = (intvMagicAttackValue / GetGlobal(43));
+        if (g_var43) {
+            v1 = (intvMagicAttackValue / g_var43);
         }
         Hurt(a0, a1, v1);
         if (v1 > 0) {
-            SetGlobal(43, (GetGlobal(43) * 2));
+            g_var43 = (g_var43 * 2);
         }
         HitGeneral(a0, a1, 40003, 2, 48, 0);
     }
@@ -7317,7 +7375,7 @@ void HalfMoonNew(int a0)  {
     int v9;
     int v11;
     int v12;
-    SetGlobal(43, 2);
+    g_var43 = 2;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\030\\*");
     DisablePlayMagic();
@@ -7383,12 +7441,12 @@ void FirePillarCallback(int a0, int a1) callsign 31001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(44)) {
-            v1 = (intvMagicAttackValue / GetGlobal(44));
+        if (g_var44) {
+            v1 = (intvMagicAttackValue / g_var44);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(44, (GetGlobal(44) * 2));
+            g_var44 = (g_var44 * 2);
             HitGeneral(a0, a1, 11002, 1, 48, 0);
         }
     }
@@ -7513,7 +7571,7 @@ void FirePillar(int a0)  {
     int v1;
     int v2;
     int v3;
-    SetGlobal(44, 1);
+    g_var44 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\031\\*");
     DisablePlayMagic();
@@ -7665,12 +7723,12 @@ void FireWorkCallback(int a0, int a1) callsign 33001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(45)) {
-            v1 = (intvMagicAttackValue / GetGlobal(45));
+        if (g_var45) {
+            v1 = (intvMagicAttackValue / g_var45);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(45, (GetGlobal(45) * 2));
+            g_var45 = (g_var45 * 2);
             HitGeneral(a0, a1, 11002, 1, 48, 0);
         }
     }
@@ -7866,7 +7924,7 @@ void FireWork(int a0)  {
     int v13;
     int v14;
     int v15;
-    SetGlobal(45, 1);
+    g_var45 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\033\\*");
     DisablePlayMagic();
@@ -7996,12 +8054,12 @@ void PowderCallback(int a0, int a1) callsign 34001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(46)) {
-            v1 = (intvMagicAttackValue / GetGlobal(46));
+        if (g_var46) {
+            v1 = (intvMagicAttackValue / g_var46);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(46, (GetGlobal(46) * 2));
+            g_var46 = (g_var46 * 2);
             HitGeneral(a0, a1, 11002, 1, 48, 0);
         }
     }
@@ -8095,7 +8153,7 @@ void Powder(int a0)  {
     int v3;
     int v4;
     int v5;
-    SetGlobal(46, 1);
+    g_var46 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\034\\*");
     DisablePlayMagic();
@@ -8165,12 +8223,12 @@ void SpearCallback(int a0, int a1) callsign 35001  {
     if (!((a1 == intvDefenderMajor))) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(47)) {
-            v1 = (intvMagicAttackValue / GetGlobal(47));
+        if (g_var47) {
+            v1 = (intvMagicAttackValue / g_var47);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(47, (GetGlobal(47) * 2));
+            g_var47 = (g_var47 * 2);
         }
     }
     asynccall Blood(a1, 16);
@@ -8212,7 +8270,7 @@ void Spear(int a0)  {
     int v2;
     int v3;
     int v4;
-    SetGlobal(47, 1);
+    g_var47 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\035\\*");
     DisablePlayMagic();
@@ -8260,12 +8318,12 @@ void SlashCallback(int a0, int a1) callsign 36001  {
         Hurt(a0, a1, 0);
         asynccall SmallFireBall3(a0, a1, 8, 0);
     } else {
-        if (GetGlobal(48)) {
-            v1 = (intvMagicAttackValue / GetGlobal(48));
+        if (g_var48) {
+            v1 = (intvMagicAttackValue / g_var48);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(48, (GetGlobal(48) * 2));
+            g_var48 = (g_var48 * 2);
             HitGeneral(a0, a1, 13008, 2, 60, 0);
         }
     }
@@ -8352,7 +8410,7 @@ void Slash(int a0)  {
     SetObjectAnimate(intvAttackerMajor, OAF_SPELL1);
     Delay(20);
     SetOverwhelming(intvAttackerMajor, 0);
-    SetGlobal(48, 1);
+    g_var48 = 1;
     PlaySound1("m036snd01", 255);
     if (!((a0 == 0))) {
         v5 = 0;
@@ -8430,12 +8488,12 @@ void WallCallback(int a0, int a1) callsign 37001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(50)) {
-            v1 = (intvMagicAttackValue / GetGlobal(50));
+        if (g_var50) {
+            v1 = (intvMagicAttackValue / g_var50);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(50, (GetGlobal(50) * 2));
+            g_var50 = (g_var50 * 2);
         }
     }
     return;
@@ -8463,7 +8521,7 @@ void CreateFireWallAttack(int a0, int a1)  {
         SetCallbackProcedure(v3[v2], 37001);
         v2++;
         v1 = (v1 - (72 * 2));
-    } while (((GetGlobal(49) == 0))) {
+    } while (((g_var49 == 0))) {
         Delay(1);
     }
     v1 = 0;
@@ -8496,7 +8554,7 @@ void CreateFireWall(int a0, int a1, int a2)  {
         v2 = (v2 + 8192);
     }
     Delay(280);
-    SetGlobal(49, 1);
+    g_var49 = 1;
     SetObjectScaleShrink(v4, 4096);
     SetObjectFadeOut(v4, 16, 1);
     FreeObject(v1);
@@ -8507,7 +8565,7 @@ void Wall(int a0)  {
     int v2;
     int v3;
     int v4;
-    SetGlobal(50, 1);
+    g_var50 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\037\\*");
     DisablePlayMagic();
@@ -8522,7 +8580,7 @@ void Wall(int a0)  {
     Delay(20);
     SetOverwhelming(intvAttackerMajor, 0);
     v4 = GetSoldierMaxX2(intvIsLeft);
-    SetGlobal(49, 0);
+    g_var49 = 0;
     if (!((v4 == (-1)))) {
         if (!((a0 == 0))) {
             PlaySound1("m037snd01", 255);
@@ -8593,12 +8651,12 @@ void TwisterSwordCallback(int a0, int a1) callsign 38001  {
         Hurt(a0, a1, 0);
         asynccall SmallFireBall3(a0, a1, 8, 0);
     } else {
-        if (GetGlobal(51)) {
-            v1 = (intvMagicAttackValue / GetGlobal(51));
+        if (g_var51) {
+            v1 = (intvMagicAttackValue / g_var51);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(51, (GetGlobal(51) * 2));
+            g_var51 = (g_var51 * 2);
             HitGeneral(a0, a1, 13008, 2, 60, 0);
         }
     }
@@ -8721,7 +8779,7 @@ void TwisterSword()  {
     int v1;
     int v2;
     int v3;
-    SetGlobal(51, 1);
+    g_var51 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\038\\*");
     DisablePlayMagic();
@@ -8763,7 +8821,7 @@ void CreateRollTubBreak(int a0)  {
 }
 void RollTubCallback(int a0, int a1) callsign 39001  {
     int v1;
-    if ((GetGlobal(1) == 0)) {
+    if ((g_var1 == 0)) {
         DelayAmbientSound("m039snd02", 255, 20);
     }
     v1 = 0;
@@ -8774,10 +8832,10 @@ void RollTubCallback(int a0, int a1) callsign 39001  {
     SetObjectFlags(a0, 128);
     ClearObjectFlags(a0, OF_ATTACKALL);
     Delay(1);
-    if (!(((a1 == intvDefenderMajor) && (GetGlobal(52) == 0)))) {
+    if (!(((a1 == intvDefenderMajor) && (g_var52 == 0)))) {
         Hurt(a0, a1, 0);
     } else {
-        SetGlobal(52, 1);
+        g_var52 = 1;
         Hurt(a0, a1, intvMagicAttackValue);
     }
     FreeObject(a0);
@@ -8818,8 +8876,8 @@ void RollTub(int a0)  {
     int v5;
     int v6;
     int v7;
-    SetGlobal(1, 0);
-    SetGlobal(52, 0);
+    g_var1 = 0;
+    g_var52 = 0;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\039\\*");
     DisablePlayMagic();
@@ -8918,7 +8976,7 @@ void ShakeCamera(int a0, int a1, int a2)  {
             SetViewCamera((a0 + Rand((-15), 15)), (a1 + Rand((-15), 15)));
         }
         Delay(1);
-        if ((GetGlobal(53) == 1)) {
+        if ((g_var53 == 1)) {
             break;
         }
         v1++;
@@ -8929,7 +8987,7 @@ void QuakeSound()  {
     int v1;
     v1 = 0;
     PlaySound1("m040snd01", 255);
-    while (((GetGlobal(53) == 0))) {
+    while (((g_var53 == 0))) {
         Delay(1);
         v1++;
         if ((v1 > (99 - 20))) {
@@ -8965,7 +9023,7 @@ void Earthquake()  {
     v2 = GetObjectScreenY(v3);
     MoveCamera(v1, (v2 - 120), 20);
     Delay(10);
-    SetGlobal(53, 0);
+    g_var53 = 0;
     asynccall QuakeSound();
     asynccall ShakeCamera(v1, (v2 - 120), 9999);
     v4 = ((GetSoldierCount((intvIsLeft ^ 1)) / 2) + Rand(0, 10));
@@ -8988,7 +9046,7 @@ void Earthquake()  {
     } while ((v4 > 0));
     Wait("CreateQuakeStone");
     Delay(28);
-    SetGlobal(53, 1);
+    g_var53 = 1;
     Delay(60);
     RaiseBrightness(16, 5);
     EnablePlayMagic();
@@ -9002,12 +9060,12 @@ void InterceptorCallback(int a0, int a1) callsign 41001  {
     if (!((a1 == intvDefenderMajor))) {
         Hurt(a0, a1, 0);
     } else {
-        if (GetGlobal(54)) {
-            v3 = (intvMagicAttackValue / GetGlobal(54));
+        if (g_var54) {
+            v3 = (intvMagicAttackValue / g_var54);
         }
         Hurt(a0, a1, v3);
         if ((v3 > 0)) {
-            SetGlobal(54, (GetGlobal(54) * 2));
+            g_var54 = (g_var54 * 2);
         }
     }
     v1 = GetObjectContext(a0, 0);
@@ -9017,13 +9075,13 @@ void InterceptorCallback(int a0, int a1) callsign 41001  {
     } else {
         v2 = GetObjectContext(a0, 1);
         FreeObject(a0);
-        SetGlobal(55 + v2, 0);
+        g_var55[v2] = 0;
     }
     return;
 }
 void CreateInterceptor(int a0, int a1, int a2, int a3)  {
     int v1;
-    if (!((GetGlobal(55 + a3) != 0))) {
+    if (!((g_var55[a3] != 0))) {
         a0 = BattleXToScreenX(a0);
         a1 = BattleXToScreenX(a1);
         v1 = CreateObjectRaw(a0, a1, 0, a2, 51001);
@@ -9031,7 +9089,7 @@ void CreateInterceptor(int a0, int a1, int a2, int a3)  {
         SetCallbackProcedure(v1, 41001);
         SetObjectContext(v1, 0, 3);
         SetObjectContext(v1, 1, a3);
-        SetGlobal(55 + a3, v1);
+        g_var55[a3] = v1;
         return;
     } else {
         return;
@@ -9052,7 +9110,7 @@ void Interceptor(int a0)  {
     int v2;
     int v3;
     int v4;
-    SetGlobal(54, 1);
+    g_var54 = 1;
     BatchLoadShape("magic\\000\\*");
     BatchLoadShape("magic\\041\\*");
     DisablePlayMagic();
@@ -9153,12 +9211,12 @@ void Interceptor(int a0)  {
     return;
 }
 void XCallDragonCallback(int a0, int a1) callsign 42001  {
-    if (!(((a1 == intvDefenderMajor) && (GetGlobal(116) == 0)))) {
+    if (!(((a1 == intvDefenderMajor) && (g_var116 == 0)))) {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
         Hurt(a0, a1, 2);
-        SetGlobal(116, 1);
+        g_var116 = 1;
         asynccall LockTargetTime2(a1, 10015, 60);
     }
     return;
@@ -9264,10 +9322,10 @@ void Xsc3604() callsign 42002  {
     int v3;
     v3 = GetScriptLinkedObject();
     SetScriptLinkedObject(intvAttackerMajor);
-    asynccall MovingShadow(v3, GetGlobal(115), 28011, 0, 42001);
-    asynccall MovingShadow(v3, GetGlobal(115), 28011, 128, 42001);
-    asynccall MovingShadow(v3, GetGlobal(115), 28011, 64, 42001);
-    asynccall MovingShadow(v3, GetGlobal(115), 28011, 192, 42001);
+    asynccall MovingShadow(v3, g_var115, 28011, 0, 42001);
+    asynccall MovingShadow(v3, g_var115, 28011, 128, 42001);
+    asynccall MovingShadow(v3, g_var115, 28011, 64, 42001);
+    asynccall MovingShadow(v3, g_var115, 28011, 192, 42001);
     SetObjectSpeed_Cylind(v3, 0, 0);
     SetObjectHasGravity(v3, 0);
     v2 = 0;
@@ -9293,7 +9351,7 @@ void XCallDragon(int a0)  {
     int v11;
     int v12;
     int v13;
-    SetGlobal(116, 0);
+    g_var116 = 0;
     v1 = GetObjectScreenX(intvAttackerMajor);
     v2 = GetObjectScreenY(intvAttackerMajor);
     if (!((intvIsLeft == 1))) {
@@ -9309,17 +9367,17 @@ void XCallDragon(int a0)  {
     case 0:
         asynccall Xsc3602(a0, v1, v2, v3);
         v11 = 50;
-        SetGlobal(115, 110);
+        g_var115 = 110;
         break;
     case 1:
         asynccall Xsc3602(a0, v1, v2, v3);
         v11 = 100;
-        SetGlobal(115, 220);
+        g_var115 = 220;
         break;
     default:
         asynccall Xsc3601(a0, v10, v1, v2, v3);
         v11 = (100 + 95);
-        SetGlobal(115, 330);
+        g_var115 = 330;
         break;
     }
     v4 = 0;
@@ -9398,12 +9456,12 @@ void XFireCowCallback(int a0, int a1) callsign 42003  {
         asynccall Blood(a1, 16);
     } else {
         SetObjectFadeOut(a0, 2, 1);
-        if (GetGlobal(117)) {
-            v2 = (2 / GetGlobal(117));
+        if (g_var117) {
+            v2 = (2 / g_var117);
         }
         Hurt(a0, a1, v2);
         if ((v2 > 0)) {
-            SetGlobal(117, (GetGlobal(117) * 2));
+            g_var117 = (g_var117 * 2);
             asynccall LockTargetTime2(a1, 10015, 60);
         }
     }
@@ -9480,7 +9538,7 @@ void XFireCow(int a0)  {
     int v3;
     int v4;
     int v5;
-    SetGlobal(117, 1);
+    g_var117 = 1;
     v1 = GetObjectScreenX(intvAttackerMajor);
     v2 = GetObjectScreenY(intvAttackerMajor);
     if (!((intvIsLeft == 1))) {
@@ -9683,12 +9741,12 @@ void XFirePillarCallback(int a0, int a1) callsign 43001  {
         Hurt(a0, a1, 0);
         asynccall FireMan(a1, 10015, 60);
     } else {
-        if (GetGlobal(118)) {
-            v1 = (2 / GetGlobal(118));
+        if (g_var118) {
+            v1 = (2 / g_var118);
         }
         Hurt(a0, a1, v1);
         if ((v1 > 0)) {
-            SetGlobal(118, (GetGlobal(118) * 2));
+            g_var118 = (g_var118 * 2);
             HitGeneral(a0, a1, 11002, 1, 48, 0);
         }
     }
@@ -9813,7 +9871,7 @@ void XFirePillar(int a0)  {
     int v1;
     int v2;
     int v3;
-    SetGlobal(118, 1);
+    g_var118 = 1;
     v1 = GetObjectScreenX(intvAttackerMajor);
     v2 = GetObjectScreenY(intvAttackerMajor);
     v3 = GetMostImportantSoldier((intvIsLeft ^ 1));
@@ -9832,11 +9890,11 @@ void XTaiChiCallback(int a0, int a1) callsign 43002  {
     if (!((a1 == intvDefenderMajor))) {
         Hurt(a0, a1, 0);
     } else {
-        if (!((GetGlobal(119) < 4))) {
+        if (!((g_var119 < 4))) {
             ClearObjectFlags(a0, OF_ENEMYGENERAL);
         } else {
-            Hurt(a0, a1, (2 / GetGlobal(119)));
-            SetGlobal(119, (GetGlobal(119) * 2));
+            Hurt(a0, a1, (2 / g_var119));
+            g_var119 = (g_var119 * 2);
         }
     }
     return;
@@ -9922,7 +9980,7 @@ void XTaiChi(int a0)  {
     int v13;
     int v14;
     int v15;
-    SetGlobal(119, 1);
+    g_var119 = 1;
     v1 = GetObjectScreenX(intvAttackerMajor);
     v2 = GetObjectScreenY(intvAttackerMajor);
     v4 = 0;
@@ -10346,64 +10404,64 @@ void XMoreSoldier(int a0)  {
     return;
 }
 void F103() callsign 103  {
-    if ((GetGlobal(120) < 501)) {
-        SetGlobal(120, 501);
+    if ((g_var120 < 501)) {
+        g_var120 = 501;
     }
-    intvMagicAttackValue = GetGlobal(121);
-    DoScript(GetGlobal(120), 0, 0, 0);
+    intvMagicAttackValue = g_var121;
+    DoScript(g_var120, 0, 0, 0);
     return;
 }
 void F104() callsign 104  {
-    if (!((GetGlobal(120) < 501))) {
-        SetGlobal(120, GetGlobal(120) + 1);
+    if (!((g_var120 < 501))) {
+        g_var120 = g_var120 + 1;
     } else {
-        SetGlobal(120, 501);
+        g_var120 = 501;
     }
-    if ((GetGlobal(120) > 610)) {
-        SetGlobal(120, 501);
+    if ((g_var120 > 610)) {
+        g_var120 = 501;
     }
-    DoScript(GetGlobal(120), 0, 0, 0);
+    DoScript(g_var120, 0, 0, 0);
     return;
 }
 void F100() callsign 100  {
-    if ((GetGlobal(120) < 501)) {
-        SetGlobal(120, 501);
+    if ((g_var120 < 501)) {
+        g_var120 = 501;
     }
-    intvMagicAttackValue = GetGlobal(121);
-    DoScript(GetGlobal(120), 0, 0, 0);
+    intvMagicAttackValue = g_var121;
+    DoScript(g_var120, 0, 0, 0);
     return;
 }
 void F200() callsign 200  {
-    if (!((GetGlobal(120) < 501))) {
-        SetGlobal(120, GetGlobal(120) + 1);
+    if (!((g_var120 < 501))) {
+        g_var120 = g_var120 + 1;
     } else {
-        SetGlobal(120, 501);
+        g_var120 = 501;
     }
-    if ((GetGlobal(120) > 610)) {
-        SetGlobal(120, 501);
+    if ((g_var120 > 610)) {
+        g_var120 = 501;
     }
-    DoScript(GetGlobal(120), 0, 0, 0);
+    DoScript(g_var120, 0, 0, 0);
     return;
 }
 void F9999(int a0, int a1) callsign 9999  {
-    SetGlobal(121, a1);
-    SetGlobal(120, a0);
+    g_var121 = a1;
+    g_var120 = a0;
     return;
 }
 void InitializeBattle()  {
     int v1;
-    if ((GetGlobal(120) == 0)) {
-        SetGlobal(120, 501);
+    if ((g_var120 == 0)) {
+        g_var120 = 501;
     }
-    SetGlobal(3, 0);
-    SetGlobal(1, 0);
-    SetGlobal(28 + 0, 0);
-    SetGlobal(28 + 1, 0);
-    SetGlobal(35 + 0, 0);
-    SetGlobal(35 + 1, 0);
+    g_var3 = 0;
+    g_var1 = 0;
+    g_var28[0] = 0;
+    g_var28[1] = 0;
+    g_var35[0] = 0;
+    g_var35[1] = 0;
     v1 = 0;
     while (((v1 < 60))) {
-        SetGlobal(55 + v1, 0);
+        g_var55[v1] = 0;
         v1++;
     }
     return;

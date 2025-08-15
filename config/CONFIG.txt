@@ -1,4 +1,54 @@
-use_exe_memory_io = 1
+; 是否使用exe内置系统函数进行内存操作。
+; 若为0，则使用script_memory_io_file指定的文件中的函数（函数名请参考sg2lang.h）。
+; 若为1，则使用以下exe_memory_io_[get|set]_xxx指定的系统函数编号，需包含byte, short, int, string三类。
+; 如果您的代码中完全不涉及内存操作（指针），则建议设置为1，以避免在生成的文件中包括额外代码。
+
+use_exe_memory_io = 0
+
+; 生成的asm汇编文件中，是否加入当前时间戳作为标签的一部分。默认为0。
+; 此功能可用于将特定函数编译为汇编代码，并复制粘贴到别处使用；时间戳可避免汇编代码中标签名冲突。
+; 如果您不直接操作汇编，则该选项无实际影响。
+
 use_timed_label = 0
+
+; 生成的asm汇编文件中，是否消除同一位置处重复的标签。
+; 由于注册汇编器不支持连续3个以上标签，
+; 设为0可能导致复杂的嵌套代码块在汇编时出现问题，但可以提升asm文件可读性。
+; 如果您不直接操作汇编，则总是建议设置为1。
+
 reduce_redundant_labels = 1
+
+; 当 asynccall 的参数个数大于 callbs_max_params （群英2为 4 ）后，
+; asynccall_sys 指定所调用的系统函数的位置（群英2为 0x310 ）。
+; 此项需为以0x开头的十六进制数。
+; 在群英2中，5个参数的asynccall调用的并非CALLBS指令，而是系统调用0x310。
+; 每多一个参数，系统调用编号自增1，最高支持10个参数（0x315）。
+
+asynccall_sys = 0x310
+callbs_max_params = 4
+
+; 此处指定use_exe_memory_io = 0时，内存操作函数所在的文件。
+; 文件内的函数名必须严格和sg2lang.h中的相同。
+; 对群英2用户：此功能启用的是注册式内存操作，需要EXE文件支持。请参考1.05+修改器中的脚本支持一项。
+; 注册式内存操作可以在几乎任何环境下运行，只需极少的EXE修改，但运行效率较低，涉及复杂循环时可能相当缓慢。
+
+script_memory_io_file    = sg2lang.h
+
+; 此处指定use_exe_memory_io = 1时，内存操作的系统函数编号。
+; 对群英2用户：此功能需要1.05+脚本支持中，允许使用0x213-0x219进行内存操作一项。
+; 该内存操作效率较高，但可能在安卓模拟器上出现问题（原因尚不明确），且一些平台可能无法支持。
+
+exe_memory_io_get_byte   = 0x216
+exe_memory_io_set_byte   = 0x219
+exe_memory_io_get_short  = 0x215
+exe_memory_io_set_short  = 0x218
+exe_memory_io_get_int    = 0x214
+exe_memory_io_set_int    = 0x217
+exe_memory_io_get_string = 0x200
+exe_memory_io_set_string = 0x213
+
+; 函数指针功能使用的系统调用编号。
+; 通常而言，应当指定一个没有任何已有函数占据、但仍在系统调用表允许范围内的编号，以避免冲突。
+; 群英2 1.05+默认为0x220。
+
 funcptr_syscall = 0x220

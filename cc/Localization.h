@@ -34,6 +34,7 @@ namespace ErrMsg {
     const string setIntvIntParam = "SetIntv() requires integer parameters";
     const string delayIntParam = "Delay() requires an integer parameter";
     const string instRequireStringParam = "() requires a string parameter";
+    const string externFuncCall = "Cannot directly call an extern function. Use asynccall instead";
     const string paramTypeNotMatch = "parameter type not match";
     const string funcParamNotMatch1 = "function ";
     const string exefuncParamNotMatch1 = "function pointer ";
@@ -48,6 +49,7 @@ namespace ErrMsg {
     const string invalidArrowOp = "Operator -> can only be applied to struct *";
     const string ppmmLvalue = "Operator ++/-- requires an lvalue operand (local variables, global variables, INTVs, etc.)";
     const string localArrayDirectAccess = "local arrays can only be accessed by operator []";
+    const string globalArrayDirectAccess = "global arrays can only be accessed by operator []";
     const string unknownIdentifier = "Unknown identifier '";
     const string expectedExpr = "Expected an expression, found '";
     const string negativeString = "A negative sign cannot be placed in front of a string value.";
@@ -73,10 +75,13 @@ namespace ErrMsg {
     const char labelNotFound[] = "Warning %s, %d:%d: label %s not found in all non-asm blocks. Proceed at your own risk! \n";
     const string localRequireIdentifier = "invalid local variable name: it should only contains letters, numbers and '_', and should not start with numbers";
     const string voidLocal = "invalid local variable type: void";
+    const string voidGlobal = "invalid global variable type: void";
     const string localRedefined = "there has already been a local variable named ";
+    const string globalRedefined = "there has already been a global variable named ";
+    const string globalAssignment = "global variables cannot be assigned to outside of functions";
     const string functionNotFound1 = "function '";
     const string functionNotFound2 = "' not found!";
-    const string funcNameIdentifier = "invalid function name: it should only contains letters, numbers and '_', and should not start with numbers";
+    const string funcNameIdentifier = "invalid identifier: function names or global variable names should only contains letters, numbers and '_', and should not start with numbers";
     const string funcNameConflict = "there has already been a function named ";
     const string invalidTypeName = "invalid type name: ";
     const string nakedRequireAsm = "a naked method can only have one __asm{} block as the function body";
@@ -84,6 +89,7 @@ namespace ErrMsg {
 };
 
 const string mainMessage = "Usage: ss <input> <output>";
+const string dasmMainMessage = "Usage: sg2dasm2 <input>.so";
 
 #endif
 
@@ -113,6 +119,7 @@ namespace ErrMsg {
     const string setIntvIntParam = "SetIntv() 需要整数类型的参数";
     const string delayIntParam = "Delay() 需要整数类型的参数";
     const string instRequireStringParam = "() 需要字符串类型的参数";
+    const string externFuncCall = "无法直接调用以 extern 关键字引用的外部函数。请使用 asynccall 进行异步调用";
     const string paramTypeNotMatch = "参数类型不符";
     const string funcParamNotMatch1 = "函数 ";
     const string exefuncParamNotMatch1 = "函数指针 ";
@@ -127,6 +134,7 @@ namespace ErrMsg {
     const string invalidArrowOp = " -> 运算符只能跟在结构体指针之后";
     const string ppmmLvalue = " ++/-- 只能被应用于左值 （本地变量、intv、数组成员、结构体成员等）";
     const string localArrayDirectAccess = "局部变量数组必须通过 [] 运算符访问";
+    const string globalArrayDirectAccess = "全局变量数组必须通过 [] 运算符访问";
     const string unknownIdentifier = "未知标识符 '";
     const string expectedExpr = "此处需要表达式，实际为 '";
     const string negativeString = " - 运算符无法被放在字符串前";
@@ -153,10 +161,13 @@ namespace ErrMsg {
     // const char labelNotFound[] = "Warning %s, %d:%d: 标签 %s 无法在所有非 __asm 块中找到。请谨慎。\n";
     const string localRequireIdentifier = "无效变量名：变量名应仅包含字母、数字和下划线，并且不能以数字开头";
     const string voidLocal = "无效局部变量类型：void";
+    const string voidGlobal = "无效全局变量类型：void";
     const string localRedefined = "同名局部变量已被定义： ";
+    const string globalRedefined = "同名全局变量已被定义： ";
+    const string globalAssignment = "全局变量不能在函数外被赋初值";
     const string functionNotFound1 = "函数 '";
     const string functionNotFound2 = "' 未找到！";
-    const string funcNameIdentifier = "无效函数名：函数名应仅包含字母、数字和下划线，并且不能以数字开头";
+    const string funcNameIdentifier = "无效标识符：函数或全局变量名应仅包含字母、数字和下划线，并且不能以数字开头";
     const string funcNameConflict = "已有同名函数： ";
     const string invalidTypeName = "非法类型名称： ";
     const string nakedRequireAsm = "一个 naked 函数应只有一个 __asm{} 块作为函数体。__asm{} 与函数定义之间不应有大括号。可参考magic.cpp中的格式。";
@@ -164,6 +175,7 @@ namespace ErrMsg {
 };
 
 const string mainMessage = "使用方法: ss 输入文件名 输出文件名";
+const string dasmMainMessage = "使用方法: sg2dasm2 <输入文件名>.so";
 
 #endif
 

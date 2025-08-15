@@ -219,5 +219,6 @@ org 10h
 	db magic_table_count	;
 	db string_table_addr	;
 	db string_table_count	;
+	;; 远帆：根据B站@左谷公 2025.5.23 的研究，此处为全局变量个数
 	db 0x79					;not known yet. but this dword is used to allocate a buffer which is stored to MainScript.field_18
 	db file_end				; file length

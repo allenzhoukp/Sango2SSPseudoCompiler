@@ -1,4 +1,4 @@
-intvPeroid					0x00
+intvPeriod					0x00
 intvAttackerMajor		    0x02
 intvDefenderMajor		    0x03
 intvMagicAttackValue	    0x04

@@ -1,6 +1,7 @@
 #include "Lexer.h"
 #include "Panic.h"
 #include "Localization.h"
+#include "Config.h"
 
 void Lexer::preprocessDefineExisting () {
     //It starts from input pointer.
@@ -310,7 +311,9 @@ Lexer::Lexer (string rootFileName) {
     readFile(rootFileName);
 
     //sg2lang here!
-    readFile("sg2lang.h");
+    if (Config::get("use_exe_memory_io") == "0") {
+        readFile(Config::get("script_memory_io_file"));
+    }
 }
 
 Lexer::~Lexer () {

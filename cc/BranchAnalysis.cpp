@@ -6,7 +6,9 @@
 #include <cstdlib>
 #include <regex>
 
-using std::endl;
+// using std::endl;
+// define endl as '\n' to avoid flushing the output stream
+const char endl = '\n';
 
 //=================Line, Function, Branches==================
 
@@ -334,7 +336,8 @@ bool Parser::tryMatchJumps (int& tokenPos) {
             //int popToStack = (currentFunc->paramCount == 0 ? -2 : (-1 - currentFunc->paramCount));
             //out << "\t" << "POPN " << popToStack << endl;
             //out << "\t" << "RETN " << (-2 - popToStack) << endl;
-            out << "\t" << "INST_01 " << currentFunc->paramCount << endl;
+            // out << "\t" << "INST_01 " << currentFunc->paramCount << endl;
+            out << "\t" << "RETVAL " << currentFunc->paramCount << endl;
 
         } else {
             out << "\t" << "RETN " << currentFunc->paramCount << endl;
@@ -502,7 +505,7 @@ bool Parser::tryMatchAsynccall (int& tokenPos) {
     //get params
     int param = 0;
     if(!see(tokenPos, ")")) do {
-        matchExpr(tokenPos, true, func->params[0].type);
+        matchExpr(tokenPos, true, func->params[param].type);
         param++;
     } while (tryMatch(tokenPos, ","));
 
@@ -514,17 +517,30 @@ bool Parser::tryMatchAsynccall (int& tokenPos) {
     match(tokenPos, ")");
     match(tokenPos, ";");
 
+    // Load configs on CALLBS with > 4 parameters
+    string callbs_max_params_str = Config::get("callbs_max_params");
+    string asynccall_sys_str = Config::get("asynccall_sys");
+    int callbs_max_params = 4, asynccall_sys = 0x310;
+    if (callbs_max_params_str != "")
+        sscanf(callbs_max_params_str.c_str(), "%d", &callbs_max_params);
+    if (asynccall_sys_str != "")
+        sscanf(asynccall_sys_str.c_str(), "0x%X", &asynccall_sys);
+        
     //CALLBS! filled with 0
-    while(param < 4) {
+    while(param < callbs_max_params) {
         out << "\t" << "PUSH 0" << endl;
         param++;
     }
 
     //Choose the inst to use.
-    if(param == 4)
+    if(param == callbs_max_params)
         out << "\t" << "CALLBS" << endl;
-    else
-        out << "\t" << "SYSCALL 0x31" << (param - 5) << ", (" << (param + 1) << " | (0 << 16)) ; CALLBS" << endl;
+    else {
+        char buf[16];
+        sprintf(buf, "0x%X", asynccall_sys + param - callbs_max_params - 1);
+        out << "\t" << "SYSCALL " << buf << 
+            ", (" << (param + 1) << " | (0 << 16)) ; CALLBS" << endl;
+    }
 
     return true;
 }
@@ -567,16 +583,95 @@ void Parser::line(int& tokenPos) {
     }
 }
 
-//Functions.
-void Parser::matchFunc(int& tokenPos) {
+void Parser::matchExternFunc(int& tokenPos) {
+    match(tokenPos, "extern");
 
-    currentFunc = &funcs[funcCount++];
+    // Create a func, but not as currentFunc
+    Function* func = &funcs[funcCount++];
 
+    // Match return type
     string typeName;
+    int type = getType(tokenPos, true, typeName);
+    require(tokenPos, type != -1,
+        ErrMsg::invalidReturnType + typeName);
+    func->returnType = type;
 
-    //match return type
-    currentFunc->returnType = getType(tokenPos, true, typeName);
-    require(tokenPos, currentFunc->returnType != -1,
+    // Downward support: still accepts "function" token.
+    tryMatch(tokenPos, "function");
+
+    // Check function name validity and conflicts
+    require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+        ErrMsg::funcNameIdentifier);
+    func->name = tokens[tokenPos].content;
+    require(tokenPos, funcNameMapping.find(func->name) == funcNameMapping.end(),
+        ErrMsg::funcNameConflict + func->name);
+    funcNameMapping.emplace(std::pair<string, Function*>(func->name, func));
+    tokenPos++;
+
+    // Create a string for CALLBS
+    if(getStringNo(func->name) == -1)
+        newString(func->name);
+
+    match(tokenPos, "(");
+
+    // Match parameters
+    vector<Var> params;
+    if(!see(tokenPos, ")")) do {
+        Var var;
+
+        // Match parameter type
+        var.type = getType(tokenPos, true, typeName);
+        require(tokenPos - 1, var.type != -1,
+            ErrMsg::invalidTypeName + typeName);
+
+        // Match parameter name (not required, not checking name conflicts)
+        if (see(tokenPos, ",") || see(tokenPos, ")")) {
+            var.name = "a" + std::to_string(params.size());
+        } else {
+            var.name = tokens[tokenPos].content;
+            tokenPos++;
+        }
+
+        // Add to params
+        params.push_back(var);
+
+    } while (tryMatch(tokenPos, ","));
+
+    // Push params vector into params array of this function
+    initParam(func, params);
+
+    match(tokenPos, ")");
+
+    // Match callsign - in case someone forgets to delete it
+    if(tryMatch(tokenPos, "callsign")) {
+        require(tokenPos, tokens[tokenPos].type == TokenType::tokenNum,
+            ErrMsg::requireIntegerConstant);
+        func->callsign = tokens[tokenPos]._number;
+        tokenPos++;
+    }
+
+    // Mark as extern
+    func->isExtern = true;
+
+    // No body for extern function
+    match(tokenPos, ";");
+}
+
+void Parser::matchGlobalDeclOrFunc(int& tokenPos) {
+
+    if (see(tokenPos, "extern")) {
+        // match extern function
+        matchExternFunc(tokenPos);
+        return;
+    }
+
+    // match type
+    // NOTE: might match a sequence of stars here and will skip all of them.
+    // The number of stars will be recorded in the type.
+    string typeName;
+    int typeTokenPos = tokenPos;
+    int type = getType(tokenPos, true, typeName);
+    require(tokenPos, type != -1,
         ErrMsg::invalidReturnType + typeName);
 
     //NOTE added a special sign "naked". If such sign seen, the function body must be an __asm token.
@@ -585,97 +680,182 @@ void Parser::matchFunc(int& tokenPos) {
         naked = true;
 
     //Downward support: still accepts "function" token.
-    tryMatch(tokenPos, "function");
+    bool sawFunction = tryMatch(tokenPos, "function");
 
-    //Check name conflict and add to function name mapping
-    currentFunc->name = tokens[tokenPos].content;
+    //Check identifier validity here (both for function and global declaration)
     require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
         ErrMsg::funcNameIdentifier);
-    require(tokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
-        ErrMsg::funcNameConflict + currentFunc->name);
-    funcNameMapping.emplace(std::pair<string, Function*>(currentFunc->name, currentFunc));
 
-    if(getStringNo(currentFunc->name) == -1)
-        newString(currentFunc->name); //important: this is for CALLBS use.
-
-    newLabel(currentFunc->name); //Function name is a label as well, though highly not recommended to jump to it...
-    out << currentFunc->name << ":" << endl; //Output function name
+    //Get identifier name, and keep the position for later panicking
+    string identifierName = tokens[tokenPos].content;
+    int identifierTokenPos = tokenPos;
     tokenPos++;
 
-    match(tokenPos, "(");
+    //Check for bracket: if yes, it is a function declaration.
+    //If no, it is a global variable declaration.
+    if(tryMatch(tokenPos, "(")) {
 
-    //Match parameters
-    vector<Var> params;
-    if(!see(tokenPos, ")")) do {
-        Var var;
+        // function declaration. Setup a new function.
+        currentFunc = &funcs[funcCount++];
 
-        //typeName
-        var.type = getType(tokenPos, true, typeName);
-        require(tokenPos - 1, var.type != -1,
-            ErrMsg::invalidTypeName + typeName);
+        // set the return type
+        currentFunc->returnType = type;
 
-        //parameter name validity and conflicts
-        require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
-            ErrMsg::localRequireIdentifier);
+        //Check name conflict and add to function name mapping
+        currentFunc->name = identifierName;
+        require(identifierTokenPos, funcNameMapping.find(currentFunc->name) == funcNameMapping.end(),
+            ErrMsg::funcNameConflict + currentFunc->name);
+        funcNameMapping.emplace(std::pair<string, Function*>(currentFunc->name, currentFunc));
 
-        var.name = tokens[tokenPos].content;
-        for(auto it = params.begin(); it != params.end(); ++it){
-            if(it->name == var.name){
-                require(tokenPos, false,
-                    ErrMsg::localRedefined + var.name);
-                break;
+        if(getStringNo(currentFunc->name) == -1)
+            newString(currentFunc->name); //important: this is for CALLBS use.
+
+        newLabel(currentFunc->name); //Function name is a label as well, though highly not recommended to jump to it...
+        out << currentFunc->name << ":" << endl; //Output function name
+    
+
+        //Match parameters
+        vector<Var> params;
+        if(!see(tokenPos, ")")) do {
+            Var var;
+
+            //typeName
+            var.type = getType(tokenPos, true, typeName);
+            require(tokenPos - 1, var.type != -1,
+                ErrMsg::invalidTypeName + typeName);
+
+            //parameter name validity and conflicts
+            require(tokenPos, tokens[tokenPos].type == TokenType::tokenIdent,
+                ErrMsg::localRequireIdentifier);
+
+            var.name = tokens[tokenPos].content;
+            for(auto it = params.begin(); it != params.end(); ++it){
+                if(it->name == var.name){
+                    require(tokenPos, false,
+                        ErrMsg::localRedefined + var.name);
+                    break;
+                }
+            }
+
+            //add to params
+            params.push_back(var);
+            tokenPos++;
+
+        } while (tryMatch(tokenPos, ","));
+
+        //push params vector into params array of this function
+        initParam(params);
+        match(tokenPos, ")");
+
+        //match callsign
+        if(tryMatch(tokenPos, "callsign")) {
+            require(tokenPos, tokens[tokenPos].type == TokenType::tokenNum,
+                ErrMsg::requireIntegerConstant);
+            currentFunc->callsign = tokens[tokenPos]._number;
+            tokenPos++;
+        }
+
+        //Naked method: Everything is done by the user!
+        if(naked) {
+            bool asmMatched = tryMatchAsm(tokenPos);
+            require(tokenPos, asmMatched,
+                ErrMsg::nakedRequireAsm);
+
+        } else {
+            //Backup the output - remember the STACK instruction in the front?
+            std::ostringstream functionContent;
+            out.swap(functionContent);
+
+            //function body.
+            //Now it is possible to avoid bracks! Although really weird...
+            line(tokenPos);
+
+            //Restore the original output.
+            out.swap(functionContent);
+            //Adjust stack position
+            out << "\t" << "STACK " << currentFunc->localCount + 2 << endl;
+
+            //Output function body
+            out << functionContent.str();
+
+            //An extra RETN at the end of funtion when there's no return value
+            if(currentFunc->returnType != DataTypes::typeVoid) {
+                require(tokenPos, lineReturned,
+                    ErrMsg::noExplicitReturn);
+            } else {
+                out << "\t" << "RETN " << currentFunc->paramCount << endl;
             }
         }
 
-        //add to params
-        params.push_back(var);
-        tokenPos++;
+        out << endl;
+    
+        // end of function
 
-    } while (tryMatch(tokenPos, ","));
-
-    //push params vector into params array of this function
-    initParam(params);
-    match(tokenPos, ")");
-
-    //match callsign
-    if(tryMatch(tokenPos, "callsign")) {
-        require(tokenPos, tokens[tokenPos].type == TokenType::tokenNum,
-            ErrMsg::requireIntegerConstant);
-        currentFunc->callsign = tokens[tokenPos]._number;
-        tokenPos++;
-    }
-
-    //Naked method: Everything is done by the user!
-    if(naked) {
-        bool asmMatched = tryMatchAsm(tokenPos);
-        require(tokenPos, asmMatched,
-            ErrMsg::nakedRequireAsm);
-
+    // global variable declaration
     } else {
-        //Backup the output - remember the STACK instruction in the front?
-        std::ostringstream functionContent;
-        out.swap(functionContent);
 
-        //function body.
-        //Now it is possible to avoid bracks! Although really weird...
-        line(tokenPos);
-
-        //Restore the original output.
-        out.swap(functionContent);
-        //Adjust stack position
-        out << "\t" << "STACK " << currentFunc->localCount + 2 << endl;
-
-        //Output function body
-        out << functionContent.str();
-
-        //An extra RETN at the end of funtion when there's no return value
-        if(currentFunc->returnType != DataTypes::typeVoid) {
-            require(tokenPos, lineReturned,
-                ErrMsg::noExplicitReturn);
-        } else {
-            out << "\t" << "RETN " << currentFunc->paramCount << endl;
+        // first: panic if there is a 'function' token
+        // this can be done by forcing to match the '(' 
+        // even if we just tried to match it in the previous if.
+        if (sawFunction) {
+            match(tokenPos, "(");
         }
+
+        // check for void
+        require(typeTokenPos, type != 0,
+            ErrMsg::voidGlobal);
+        
+        // Now that we know it is a global variable declaration,
+        // we will need to associate the stars to the first identifier only.
+        int star = type >> 16; // get the number of stars (first identifier only)
+        type &= 0xFFFF; // get the type without stars
+
+        // reset tokenPos to the identifier position
+        tokenPos = identifierTokenPos; 
+
+        // begin to loop through all variables
+        do {
+                
+            //get count of stars
+            if (see(tokenPos, "*")) {
+                // Still remaining stars: not the first identifier
+                star = 0; // reset star count
+                while (tryMatch(tokenPos, "*")) 
+                    star++;
+            }
+            
+            int globalType = type | (star << 16);
+
+            //Check name conflict
+            identifierName = tokens[tokenPos].content;
+            require(tokenPos, getGlobalNoByName(identifierName) == -1,
+                ErrMsg::globalRedefined + identifierName);
+            tokenPos++;
+
+            // assignment not allowed in global declaration
+            require(tokenPos, !see(tokenPos, "="),
+                ErrMsg::globalAssignment);
+
+            //Create a new global variable
+            if(tryMatch(tokenPos, "[")) {
+                ExpressionNode* immediate = NULL;
+                object(immediate, tokenPos);
+                require(tokenPos, immediate->type == ExpNodeType::intConst,
+                    ErrMsg::requireIntegerConstant);
+
+                newGlobalArray(globalType, identifierName, immediate->intValue);
+                match(tokenPos, "]");
+
+            } else {
+                newGlobal(globalType, identifierName);
+            }
+
+        } while (tryMatch(tokenPos, ","));
+
+        match(tokenPos, ";");
+
+        // end of global variable declaration
     }
 
-    out << endl;
+    // end of function or global declaration
 }

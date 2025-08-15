@@ -8,6 +8,7 @@ using std::string;
 using std::map;
 
 const int MAX_LOCAL_NUM = 1024;
+const int MAX_GLOBAL_NUM = 1024;
 const int MAX_PARAM_NUM = 32;
 const int MAX_MEMBER_COUNT = 1024;
 
@@ -59,6 +60,7 @@ struct Function {
     int returnType = DataTypes::typeVoid;
     string name;
     int callsign = 0;
+    bool isExtern = false; //extern function, no body.
 
     Var locals[MAX_LOCAL_NUM];
     Var params[MAX_PARAM_NUM];
@@ -105,7 +107,7 @@ struct StructInfo {
 struct ExpressionNode {
     enum Type_{
         intConst, strConst, floatConst,
-        local, intv,
+        local, global, intv,
         inst, funcCall, syscall, exefuncCall,
         unaryOp, binaryOp
     } type;
@@ -117,6 +119,7 @@ struct ExpressionNode {
     string strValue; //for strConst
     float floatValue; //for floatConst
     Var localVar; //for local
+    Var globalVar; //for global
     Intv intvVar; //for INTV
 
     string name;    //for inst

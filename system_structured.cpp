@@ -6,6 +6,8 @@
 //    Charset example: 如果這行字能正常顯示，那麼您使用的字符集是正確的。
 // --------------------
 
+int g_var1;
+int g_var2;
 
 void MoveCamera(int a0, int a1, int a2)  {
     int v1;
@@ -571,11 +573,11 @@ void ReportResult(int a0) callsign 6  {
 }
 void SearchTalk(int a0) callsign 5  {
     while ( 1 ) {
-        if (!((GetGlobal(1) != 0)))
+        if (!((g_var1 != 0)))
             break;
         Delay(1);
     }
-    SetGlobal(1, 1);
+    g_var1 = 1;
     SetSXString(0, 1, GetString(intvRightGeneral));
     SetSXString(0, 3, GetString(intvAttackerKingGeneral));
     switch (a0) {
@@ -658,7 +660,7 @@ void SearchTalk(int a0) callsign 5  {
         default:
             break;
     }
-    SetGlobal(1, 0);
+    g_var1 = 0;
     return;
 }
 void KillGeneral() callsign 70  {
@@ -737,8 +739,8 @@ void EnterMapMoveCamera(int a0, int a1, int a2) callsign 58  {
     int v5;
     int v6;
     int v7;
-    if ((GetGlobal(2) == 0)) {
-        SetGlobal(2, 1);
+    if ((g_var2 == 0)) {
+        g_var2 = 1;
         v1 = GetBigmapStartX();
         v2 = GetBigmapStartY();
         do {
@@ -775,7 +777,7 @@ void EnterMapMoveCamera(int a0, int a1, int a2) callsign 58  {
             SetBigmapCamera(v1, v2);
             Delay(1);
         } while (((v3 != 0) || (v4 != 0)));
-        SetGlobal(2, 0);
+        g_var2 = 0;
     }
     return;
 }
@@ -806,24 +808,7 @@ void EnterWarprep() callsign 54 {
 	return;
 }
 
-void InitializeBattle() {
-	int v1;
-	if (GetGlobal(120) == 0){
-        SetGlobal(120, 501);
-    }
-	SetGlobal(3, 0);
-	SetGlobal(1, 0);
-	SetGlobal(28 + 0, 0);
-	SetGlobal(28 + 1, 0);
-	SetGlobal(35 + 0, 0);
-	SetGlobal(35 + 1, 0);
-	v1 = 0;
-    while(v1 < 60) {
-        SetGlobal(55 + v1, 0);
-        v1++;
-    }
-	return;
-}
+extern void InitializeBattle();
 
 void EnterBattle() callsign 55 {
 	asynccall InitializeBattle();
@@ -831,7 +816,7 @@ void EnterBattle() callsign 55 {
 }
 
 void EnterMapmode() callsign 53 {
-	SetGlobal(2, 0);
+	g_var2 = 0;
 	BatchLoadShape("MENU\\D3*");
 	BatchLoadShape("MENU\\D4*");
 	BatchLoadShape("MENU\\D28");
@@ -847,4 +832,3 @@ void EnterPolicy() callsign 52 {
 	BatchLoadShape("MENU\\D1*");
 	return;
 }
-

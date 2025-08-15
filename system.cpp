@@ -12,6 +12,9 @@
 //    Charset example: 如果這行字能正常顯示，那麼您使用的字符集是正確的。
 // --------------------
 
+int g_var1;
+int g_var2;
+
 // Added 23 Jul, 2018: A new funtion for promting new general raised by blood.
 // ChildGeneralTalk (callsign 10)
 // Relative EXE function: SearchGeneralByBlood (0x423476)
@@ -83,7 +86,7 @@ LOC_140:
 	PUSH 100
 	DIV
 	CMP
-	ORNZ
+	LAND
 	JZ LOC_220
 	PUSH 1
 	POPN 1
@@ -1204,7 +1207,7 @@ void naked function AllRush () callsign 59 __asm{
 	SYSCALL 0x131, (0 | (0 << 16)) ; DisablePlayMagic
 	SYSCALL 0x122, (0 | (0 << 16)) ; SetAttackCounterTo9999 or DisableAttack
 	PUSHSTR "MoveCamera"
-	INST_45
+	WAIT
 	PUSHINV 2 ; INTV_ATTACKER_MAJOR
 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
@@ -1286,7 +1289,7 @@ LOC_2504:
 	PUSHARG 4
 	PUSH 0
 	CMP
-	ORNZ
+	LAND
 	JZ LOC_25A0
 	PUSH 3
 	POPN 2
@@ -1309,7 +1312,7 @@ LOC_25A8:
 	PUSHARG 3
 	PUSH 0
 	CMP
-	ORNZ
+	LAND
 	JZ LOC_2644
 	PUSH 3
 	POPN 2
@@ -1498,7 +1501,7 @@ LOC_2BA8:
 
 void naked function SearchTalk (int arg_0) callsign 5 __asm{
 LOC_2BB0:
-	INST_09 1
+	PUSHGLB 1
 	PUSH 0
 	CMPZ
 	JZ LOC_2BE0
@@ -1507,7 +1510,7 @@ LOC_2BB0:
 	JMP LOC_2BB0
 LOC_2BE0:
 	PUSH 1
-	SETARG 1
+	SETGLB 1
 	PUSH 0
 	PUSH 1
 	PUSHINV 7 ; INTV_ATTACKER_GENERAL
@@ -1785,7 +1788,7 @@ LOC_34EC:
 	JMP LOC_34F4
 LOC_34F4:
 	PUSH 0
-	SETARG 1
+	SETGLB 1
 	RETN 1
 
 }
@@ -2007,12 +2010,12 @@ void naked function Test01 () callsign 98 __asm{
 
 void naked function EnterMapMoveCamera (int arg_0, int arg_1, int arg_2) callsign 58 __asm{
 	STACK 7
-	INST_09 2
+	PUSHGLB 2
 	PUSH 0
 	CMP
 	JZ LOC_3C6C
 	PUSH 1
-	SETARG 2
+	SETGLB 2
 	SYSCALL 0x203, (0 | (1 << 16)) ; 0x0203
 	POPN 1
 	SYSCALL 0x204, (0 | (1 << 16)) ; 0x0204
@@ -2113,10 +2116,10 @@ LOC_3BC8:
 	PUSHARG 4
 	PUSH 0
 	CMPZ
-	ORZ
+	LOR
 	JNZ LOC_39E8
 	PUSH 0
-	SETARG 2
+	SETGLB 2
 LOC_3C6C:
 	RETN 3
 
@@ -2133,7 +2136,7 @@ void naked function MajorDeath (int arg_0, int arg_1) callsign 57 __asm{
 	PUSH 255
 	SYSCALL 0x300, (3 | (0 << 16)) ; PlaySound
 	PUSHSTR "MoveCamera"
-	INST_45
+	WAIT
 	PUSHARG -3
 	SYSCALL 0x105, (1 | (1 << 16)) ; GetObjectScreenX
 	POPN 1
@@ -2188,7 +2191,7 @@ void naked function EnterBattle () callsign 55 __asm{
 
 void naked function EnterMapmode () callsign 53 __asm{
 	PUSH 0
-	SETARG 2
+	SETGLB 2
 	PUSHSTR "MENU\\D3*"
 	SYSCALL 0x7, (1 | (0 << 16)) ; BatchLoadShape
 	PUSHSTR "MENU\\D4*"

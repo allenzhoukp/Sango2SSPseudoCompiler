@@ -8,7 +8,9 @@
 #include <ctime>
 #include <regex>
 
-using std::endl;
+// using std::endl;
+// define endl as '\n' to avoid flushing the output stream
+const char endl = '\n';
 
 //============Create Expression Tree=============
 
@@ -188,6 +190,8 @@ bool Parser::tryMatchFunccall(ExpressionNode* &x, int& tokenPos){
             x = expNodePool.newNode();
 
         Function* func = funcNameMapping[name];
+        require(tokenPos, !func->isExtern,
+            ErrMsg::externFuncCall);    // extern functions can only be called with asynccall
         x->type = ExpNodeType::funcCall;
         x->func = func;
         x->resultType = func->returnType;
@@ -350,7 +354,7 @@ int Parser::dotAndArrayInStruct (ExpressionNode* &nodePos, int& tokenPos, int st
         y->right->isLvalue = false;
 
         if(structOrArrayType == DataTypes::typeInt || structOrArrayType == DataTypes::typeUInt ||
-           //structOrArrayType == DataTypes::typeFloat || // for now we cannot read float...
+           structOrArrayType == DataTypes::typeFloat || // attempt to read float - same 4-byte structure
            isPtr(structOrArrayType))
             y->right->intValue = 4;
         else if(structOrArrayType == DataTypes::typeShort || structOrArrayType == DataTypes::typeUShort)
@@ -387,7 +391,9 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
 
         //Currently, only direct locals supported
         //TODO direct intvs (not for instruction-call-intvs, i.e. GetINV())
-        if(left->type == ExpNodeType::local && left->localVar.isArray) {
+        //Added 2025-07-05: support direct globals
+        if( (left->type == ExpNodeType::local  && left->localVar.isArray) || 
+            (left->type == ExpNodeType::global && left->globalVar.isArray)) {
             //The right operand of [] is the index.
             expr(x->right, tokenPos, 0);
             match(tokenPos, "]");
@@ -407,7 +413,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
             int type = left->resultType - (1 << 16);
             int size;
             StructInfo* info = NULL;
-            if(type == DataTypes::typeInt || type == DataTypes::typeUInt)
+            if(type == DataTypes::typeInt || type == DataTypes::typeUInt || type == DataTypes::typeFloat)
                 size = 4;
             else if(type == DataTypes::typeShort || type == DataTypes::typeUShort)
                 size = 2;
@@ -519,7 +525,7 @@ void Parser::back (ExpressionNode* &nodePos, int& tokenPos) {
     back(nodePos, tokenPos);
 }
 
-//Object: integer constants, string constants, braces, locals, function calls, syscalls, instructions, etc.
+//Object: integer constants, string constants, braces, locals, globals, function calls, syscalls, instructions, etc.
 void Parser::object (ExpressionNode* &x, int& tokenPos) {
 
     if(x == NULL)
@@ -584,6 +590,18 @@ void Parser::object (ExpressionNode* &x, int& tokenPos) {
             if(x->localVar.isArray && !see(tokenPos, "["))
                 require(tokenPos, false,
                     ErrMsg::localArrayDirectAccess);
+
+        //globals
+        } else if(getGlobalNoByName(token.content) != -1) {
+            x->type = ExpNodeType::global;
+            x->globalVar = getGlobalByName(token.content);
+            x->resultType = getGlobalByName(token.content).type;
+            x->isLvalue = true; 
+            tokenPos++;
+
+            if(x->globalVar.isArray && !see(tokenPos, "["))
+                require(tokenPos, false,
+                    ErrMsg::globalArrayDirectAccess);
 
         //INTVs
         } else if(getIntvNoByName(token.content) != -1) {
