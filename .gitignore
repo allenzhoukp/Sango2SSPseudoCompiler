@@ -1,4 +1,3 @@
-*.exe
 *.cds
 *.lst
 *.asm
@@ -30,3 +29,4 @@ STUDY_MAGIC.cpp
 swordheartpuk_genskills.cpp
 system_dudu_using.cpp
 三个大喝函数求整合.cpp
+Tools/intToFloat.exe
