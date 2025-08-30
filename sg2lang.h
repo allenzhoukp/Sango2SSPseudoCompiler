@@ -183,7 +183,7 @@ GET_ADDR_TAIL_V2_2:
     PUSH 0xFFFF
     AND         // clr high bits
     PUSHARG 2
-    PUSH 24
+    PUSH 16
     SHL			// stack2 = [address+4] << 16 ;
     OR
     RETVAL 1
