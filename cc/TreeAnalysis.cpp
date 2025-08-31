@@ -85,11 +85,11 @@ void Parser::outputGetValue(int type) {
     if(useExeIO == "1" || useExeIO == "true") {
         switch(type) {
         case DataTypes::typeShort:
-            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_short") 
                 << ", (1 | (1 << 16)) ; GetShort" << endl;
             break;
         case DataTypes::typeUShort:
-            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_byte") 
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_get_short") 
                 << ", (1 | (1 << 16)) ; GetShort" << endl;
             out << "\t" << "PUSH 0xFFFF" << endl;
             out << "\t" << "AND" << endl;
