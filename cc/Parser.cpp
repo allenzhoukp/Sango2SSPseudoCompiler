@@ -45,7 +45,7 @@ void Parser::require (int tokenPos, bool condition, string errmsg) {
             tokens[tokenPos].lineNo, tokens[tokenPos].columnNo);
 }
 
-inline bool Parser::see (int tokenPos, string s) {
+bool Parser::see (int tokenPos, string s) {
     return tokens[tokenPos].content == s;
 }
 
