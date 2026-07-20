@@ -39,6 +39,7 @@ private:
 
     StructInfo structInfos[MAX_FUNC_LEN];
     int structInfoCount = 0;
+    unordered_map<string, StructInfo*> structNameMapping;
 
     //intvs can be ANYWHERE, so it's no good to use array mapping.
     Intv intvs[MAX_FUNC_LEN];

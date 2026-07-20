@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <regex>
+#include <cassert>
 
 // using std::endl;
 // define endl as '\n' to avoid flushing the output stream
@@ -15,21 +16,21 @@ const char endl = '\n';
 //============Create Expression Tree=============
 
 Parser::ExpressionNodePool::ExpressionNodePool() {
-    clear();
+    len = 0;
     for(int i = 0; i < MAX_LINE_LEN * 10; i++)
         pool[i].params = NULL;
 }
 
 ExpressionNode* Parser::ExpressionNodePool::newNode() {
-    return &pool[len++];
+    assert(len < MAX_LINE_LEN * 10);
+    ExpressionNode* node = &pool[len++];
+    node->left = node->right = NULL;
+    node->isLvalue = false;
+    return node;
 }
 
 void Parser::ExpressionNodePool::clear() {
     len = 0;
-    for(int i = 0; i < MAX_LINE_LEN * 10; i++) {
-        pool[i].left = pool[i].right = NULL;
-        pool[i].isLvalue = false;
-    }
 }
 
 void Parser::initExpNodeParamArray (ExpressionNode* x, int len) {

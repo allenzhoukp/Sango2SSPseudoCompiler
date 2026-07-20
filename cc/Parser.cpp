@@ -7,11 +7,84 @@
 #include <cstdlib>
 #include <ctime>
 #include <iomanip>
-#include <regex>
+#include <cctype>
 
 // using std::endl;
 // define endl as '\n' to avoid flushing the output stream
 const char endl = '\n';
+
+namespace {
+
+bool isLabelWordChar(char c) {
+    const unsigned char value = static_cast<unsigned char>(c);
+    return std::isalnum(value) || c == '_';
+}
+
+bool consumeDigits(const string& value, size_t& pos) {
+    const size_t start = pos;
+    while(pos < value.size() && std::isdigit(static_cast<unsigned char>(value[pos])))
+        pos++;
+    return pos != start;
+}
+
+bool matchGeneratedLabel(const string& line, bool timed, string& label) {
+    if(line.size() < 4 || line.back() != ':')
+        return false;
+
+    const string name = line.substr(0, line.size() - 1);
+    size_t pos = 0;
+    if(name[pos++] != (timed ? 't' : 'l') || !consumeDigits(name, pos))
+        return false;
+    if(pos >= name.size() || name[pos++] != '_')
+        return false;
+
+    if(timed) {
+        if(!consumeDigits(name, pos) || pos >= name.size() || name[pos++] != '_')
+            return false;
+    }
+
+    if(pos >= name.size())
+        return false;
+    while(pos < name.size() && isLabelWordChar(name[pos]))
+        pos++;
+    if(pos != name.size())
+        return false;
+
+    label = name;
+    return true;
+}
+
+bool isWhitespaceOnly(const string& line) {
+    for(char c : line)
+        if(!std::isspace(static_cast<unsigned char>(c)))
+            return false;
+    return true;
+}
+
+string rewriteLabelAliases(const string& line,
+                           const unordered_map<string, string>& aliases) {
+    string result;
+    result.reserve(line.size());
+
+    for(size_t pos = 0; pos < line.size();) {
+        if(!isLabelWordChar(line[pos])) {
+            result += line[pos++];
+            continue;
+        }
+
+        size_t end = pos + 1;
+        while(end < line.size() && isLabelWordChar(line[end]))
+            end++;
+
+        const string token = line.substr(pos, end - pos);
+        auto alias = aliases.find(token);
+        result += alias == aliases.end() ? token : alias->second;
+        pos = end;
+    }
+    return result;
+}
+
+}
 
 //==========Auxillary function============
 
@@ -385,17 +458,16 @@ void Parser::newString (string str) {
 }
 
 StructInfo* Parser::getStructInfoByid (int id) {
-    for(int i = 0; i < structInfoCount; i++)
-        if(structInfos[i].id == id)
-            return &(structInfos[i]);
+    if(id >= 0 && id < structInfoCount)
+        return &structInfos[id];
     structInfos[structInfoCount].id = -1;
     return &structInfos[structInfoCount];
 }
 
 StructInfo* Parser::getStructInfoByName (string name) {
-    for(int i = 0; i < structInfoCount; i++)
-        if(toCamel(structInfos[i].name) == toCamel(name))
-            return &structInfos[i];
+    auto info = structNameMapping.find(toCamel(name));
+    if(info != structNameMapping.end())
+        return info->second;
     structInfos[structInfoCount].id = -1;
     return &structInfos[structInfoCount];
 }
@@ -589,42 +661,55 @@ string Parser::reduceLabels (string output) {
     if (Config::get("reduce_redundant_labels") != "1")
         return output;
 
-    // construct regexs
-    string strRegexLabel;
-    if (Config::get("use_timed_label") == "1")
-        strRegexLabel = R"((t\d+_\d+_\w+):\s*)";
-    else 
-        strRegexLabel = R"((l\d+_\w+):\s*)";
-    std::regex rLabel { strRegexLabel };
-    std::regex rConsecutiveLabels { "(" + strRegexLabel + "\\n){2,}" };
-    std::smatch sm, sm2;
+    vector<string> lines;
+    std::istringstream input(output);
+    string line;
+    while(std::getline(input, line))
+        lines.push_back(line);
 
-    // find all consecutive labels
+    vector<bool> omit(lines.size(), false);
+    unordered_map<string, string> aliases;
+    const bool timed = Config::get("use_timed_label") == "1";
 
-    while(std::regex_search(output, sm, rConsecutiveLabels)) {
-        string consecutive = sm.str();
-        string firstLabel = "";
-        // get all labels in the consecutive sequence
-        while(std::regex_search(consecutive, sm2, rLabel)) {
-            // replace all non-first labels into first labels
-            // (will go through all jumps)
-            if (firstLabel == "") firstLabel = sm2[1];
-            else {
-                string currentLabel = sm2[1];
-                size_t start_pos = 0;
-                while((start_pos = output.find(currentLabel, start_pos)) != string::npos){
-                    output.replace(start_pos, currentLabel.length(), firstLabel);
-                    start_pos += firstLabel.length();
-                }
-            }
-            consecutive = sm2.suffix();
+    // First pass: retain the first generated label in each consecutive run and
+    // record every later label as an alias of it.
+    for(size_t i = 0; i < lines.size();) {
+        string canonical;
+        if(!matchGeneratedLabel(lines[i], timed, canonical)) {
+            i++;
+            continue;
         }
-        // replace the label into a single one
-        std::regex_search(output, sm, rConsecutiveLabels);
-        output.replace(sm.position(), sm.str().length(), firstLabel + ":\n");
 
+        size_t next = i + 1;
+        string alias;
+        while(next < lines.size() && matchGeneratedLabel(lines[next], timed, alias)) {
+            aliases.emplace(alias, canonical);
+            omit[next++] = true;
+        }
+
+        // Preserve the legacy reducer's formatting: when it collapsed a run,
+        // its whitespace regex also consumed blank lines immediately after it.
+        if(next > i + 1)
+            while(next < lines.size() && isWhitespaceOnly(lines[next]))
+                omit[next++] = true;
+
+        i = next;
     }
-    return output;
+
+    // Second pass: serialize once, rewriting exact generated-label tokens.
+    std::ostringstream reduced;
+    bool firstLine = true;
+    for(size_t i = 0; i < lines.size(); i++) {
+        if(omit[i])
+            continue;
+        if(!firstLine)
+            reduced << '\n';
+        firstLine = false;
+        reduced << rewriteLabelAliases(lines[i], aliases);
+    }
+    if(!output.empty() && output.back() == '\n')
+        reduced << '\n';
+    return reduced.str();
 }
 
 

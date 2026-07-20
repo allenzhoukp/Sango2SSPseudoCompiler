@@ -61,6 +61,9 @@ void Parser::loadStructTable () {
             read = sscanf(line, "%s%i", buf, &info.size);
         } while (read == 0 || read == -1);
         info.name = toCamel(string(buf));
+        // Preserve the old linear lookup's first-match behavior if a table
+        // accidentally contains duplicate normalized names.
+        structNameMapping.emplace(info.name, &info);
 
         while(true) {
             fgets(line, MAX_LINE_LEN, fin);

@@ -5,15 +5,16 @@ Date: 2026-07-20
 ## Objective
 
 Identify the causes of slow compilation for long Smart Script inputs and rank
-fixes by measured impact, semantic risk, and implementation cost. All prototype
-changes used for the measurements were made under `/tmp`; the repository
-compiler sources were not changed during this investigation.
+fixes by measured impact, semantic risk, and implementation cost. The initial
+prototype changes used for the measurements were made under `/tmp`; the first
+optimization batch was implemented after the measurements were reviewed.
 
 ## Benchmark method
 
-The current compiler was built from the v0.9.8 working sources with GCC 13.3.
-Outputs were written under `/tmp`. Correctness comparisons removed only the
-generated `Compilation Timestamp` line and then required byte-identical ASM.
+The baseline compiler was built from the v0.9.8 working sources with GCC 13.3.
+Initial prototypes and benchmark outputs were written under `/tmp`.
+Correctness comparisons removed only the generated `Compilation Timestamp`
+line and then required byte-identical ASM.
 
 Representative inputs:
 
@@ -56,6 +57,25 @@ Other checks:
 
 Peak RSS remains approximately 240-257 MB even for small inputs. The executable
 has about 148 MB of BSS before the lexer's fixed one-million-token allocation.
+
+## First optimization batch implemented
+
+The first five items in the implementation sequence are now implemented:
+
+- two-pass exact-token label reduction;
+- timed and untimed golden-output fixtures;
+- allocation-cursor-only expression-pool clearing;
+- normalized structure-name and direct structure-ID lookup;
+- a linkable `-O2 -DNDEBUG` release target, with a separate debug build.
+
+Post-implementation validation reproduced the baseline normalized ASM for
+`test.cpp`, `system_structured.cpp`, `magic_structured.cpp`, `1.cpp`, and
+`froslass_genskills.cpp`. The dedicated label-reduction fixture also reproduced
+the legacy reducer's complete normalized output in timed and untimed modes.
+Observed post-implementation times were 0.67 seconds at `-O0` and 0.43 seconds
+at `-O2` for `magic_structured.cpp`, and 0.75 seconds at `-O2` for
+`froslass_genskills.cpp`. Exact times vary between runs; the output checks are
+the acceptance criterion.
 
 ## Ranked bottlenecks and proposed fixes
 
