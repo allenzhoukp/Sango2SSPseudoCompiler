@@ -54,15 +54,19 @@ DAsmLabel* addLabel (int addr) {
     return label;
 }
 
-void readLine (char* input, int& addr, FixedIdentifierLoader& loader) {
+void readLine (char* input, int& addr, FixedIdentifierLoader& loader, bool stringDef = false) {
 
     // Get or create the line
     // (Line may already exist due to previous jumps)
     Line& line = lines.find(addr) != lines.end() ? lines[addr] : (lines[addr] = Line());
 
     int instcode = *((int *)(input + addr));
-    if (instcode >= 0x70 || instcode < 0) {
-        // Not an inst. 
+    if (!stringDef && (instcode < 0 || instcode >= 0x70)) {
+        printf("WARNING @ 0x%X: Invalid instruction code 0x%X. Treating as string definition.\n",
+            addr, instcode);
+    }
+    if (stringDef || instcode >= 0x70 || instcode < 0) {
+        // Not an inst. Assume it is a string def (may cause problems if misidentified)
         // Fortunately we do not have "outside-func" variables
         // so we can safely assume it a string def.
 
@@ -387,9 +391,17 @@ org %xh
             lines[stringAddr].label->name = buf; // fill the label name
 
         } else {
-            printf("ERROR @ 0x%X: could not find string located at 0x%x\n",
-                addr, stringAddr);
-            return 1;
+            // printf("ERROR @ 0x%X: could not find string located at 0x%x\n",
+            //     addr, stringAddr);
+            // return 1;
+
+            // force define a string (since we must have mistaken it for code)
+            int stringAddrUse = stringAddr;
+            readLine(input, stringAddrUse, loader, true);
+
+            char buf[20];
+            sprintf(buf, "STRING_%d", i);
+            lines[stringAddr].label->name = buf; // fill the label name
         }
         addr += 4;
     }

@@ -1,32 +1,34 @@
-*.cds
-*.lst
+# Compiler and linker output
 *.asm
 *.so
-Magic116_Prompt.cpp
-genlongatk.cpp
-lijing.cpp
-Tools/intToFloat.cpp
-froslass.zip
-froslass_genskills.cpp
-froslass_magic.cpp
-froslass_magic.ini
-froslass_magic_origin.cpp
-froslass_system.cpp
-froslass_things.INI
-magic_froslass.cpp
-1.cpp
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.exp
+*.ilk
+*.pdb
+*.cds
+*.lst
+
+# Executables are build output by default. These three are intentional
+# project deliverables and are already tracked.
+*.exe
+!ss.exe
+!sg2asm.exe
+!sg2dasm2.exe
+
+# Archives, backups, and temporary files
+*.zip
+*.bak
+*.old
+*.tmp
+*~
 _err.txt
-editorPatchReformat.py
-editorPatchReformat.txt
-froslass/FlyingDragon.cpp
-froslass_genskills.so.alt
-froslass_genskills.so.dengxian
-froslass_genskills.so.gaopei
-magic.so.old
-magic_sf.cpp
-sg2asm.exe.bak
-STUDY_MAGIC.cpp
-swordheartpuk_genskills.cpp
-system_dudu_using.cpp
-三个大喝函数求整合.cpp
-Tools/intToFloat.exe
+
+# OS and IDE-local state
+.DS_Store
+Thumbs.db
+desktop.ini
+.vs/
