@@ -20,6 +20,7 @@ normalize_output() {
     sed -E \
         -e 's/t[0-9]+_([0-9]+_[[:alnum:]_]+)/l\1/g' \
         -e 's/Compilation Timestamp: [^"]*/Compilation Timestamp: <normalized>/' \
+        -e 's/[[:space:]]+$//' \
         "$1"
 }
 

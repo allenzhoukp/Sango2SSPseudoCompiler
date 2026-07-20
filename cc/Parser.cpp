@@ -589,10 +589,10 @@ string Parser::reduceLabels (string output) {
     if (Config::get("reduce_redundant_labels") != "1")
         return output;
 
+    // Any consecutive labels name the same assembly address, whether they
+    // came from structured source, an __asm block, or compiler generation.
     const std::regex labelRegex(
-        Config::get("use_timed_label") == "1"
-            ? R"(^(t\d+_\d+_\w+):$)"
-            : R"(^(l\d+_\w+):$)");
+        R"(^[ \t]*([A-Za-z_]\w*):[ \t]*(;.*)?\r?$)");
 
     vector<string> lines;
     vector<bool> omit;
@@ -611,12 +611,23 @@ string Parser::reduceLabels (string output) {
         }
         const string canonical = match[1];
         size_t j = i + 1;
-        while (j < lines.size() && std::regex_match(lines[j], match, labelRegex)) {
+        bool foundAlias = false;
+        while (j < lines.size()) {
+            size_t next = j;
+            while (next < lines.size() &&
+                   lines[next].find_first_not_of(" \t\r") == string::npos)
+                next++;
+            if (next == lines.size() ||
+                !std::regex_match(lines[next], match, labelRegex))
+                break;
+            while (j < next)
+                omit[j++] = true;
             aliases.emplace(match[1], canonical);
             omit[j] = true;
             j++;
+            foundAlias = true;
         }
-        if (j > i + 1) {
+        if (foundAlias) {
             while (j < lines.size() && lines[j].find_first_not_of(" \t\r") == string::npos)
                 omit[j++] = true;
         }
@@ -629,7 +640,18 @@ string Parser::reduceLabels (string output) {
             continue;
         const string& current = lines[i];
         for (size_t p = 0; p < current.size();) {
-            if (std::isalnum(static_cast<unsigned char>(current[p])) || current[p] == '_') {
+            if (current[p] == ';') {
+                reduced << current.substr(p);
+                break;
+            } else if (current[p] == '"') {
+                size_t end = p + 1;
+                while (end < current.size()) {
+                    if (current[end++] == '"' && current[end - 2] != '\\')
+                        break;
+                }
+                reduced << current.substr(p, end - p);
+                p = end;
+            } else if (std::isalnum(static_cast<unsigned char>(current[p])) || current[p] == '_') {
                 size_t end = p + 1;
                 while (end < current.size() &&
                        (std::isalnum(static_cast<unsigned char>(current[end])) || current[end] == '_'))
@@ -697,5 +719,5 @@ void Parser::init(Token* tokenList, int tokenCnt_) {
 }
 
 string Parser::str () {
-    return getHeader() + reduceLabels(out.str());
+    return reduceLabels(getHeader() + out.str());
 }

@@ -62,7 +62,7 @@ has about 148 MB of BSS before the lexer's fixed one-million-token allocation.
 
 The first five items in the implementation sequence are now implemented:
 
-- two-pass exact-token label reduction;
+- two-pass exact-token reduction of all consecutive assembly labels;
 - timed and untimed golden-output fixtures;
 - allocation-cursor-only expression-pool clearing;
 - normalized structure-name and direct structure-ID lookup;
@@ -93,8 +93,8 @@ Therefore, simply disabling reduction is unsafe for the target assembler.
 
 Proposed replacement:
 
-1. Scan emitted ASM lines once and identify runs of consecutive generated-label
-   declarations.
+1. Scan emitted ASM lines once and identify runs of consecutive label-only
+   declarations, whether compiler-generated or user-defined.
 2. Keep the first label in each run and record every later label as an alias of
    the first.
 3. Scan output once more, rewriting exact jump/branch label operands through

@@ -23,7 +23,7 @@ SETUSERVALUE macro index
 endm
 
 magic_table_count	equ	(magic_table_end - magic_table_addr) / 0x10
-string_table_count	equ	(string_table_end - string_table_addr) / 0x04
+string_table_count	equ	(string_table_end - magic_table_end) / 0x04
 global_vars_count   equ 121
 
 org 00h
@@ -33,10 +33,10 @@ org 10h
     DD 0x00000040			; size
     DD magic_table_addr 	;
     DD magic_table_count	;
-    DD string_table_addr	;
+    DD magic_table_end	;
     DD string_table_count	;
     DD global_vars_count    ;
-    DD file_end				; file length
+    DD string_table_end				; file length
 
 org 40h
 
@@ -44,34 +44,41 @@ main:
 	STACK 3
 	PUSH 3
 	POPN 3 ; value
+
+        raw_entry: ; raw_alias must remain unchanged in this comment
+        DD "raw_alias"
+        JMP raw_entry
+
 	PUSHARG 3 ; value
 	PUSH 0
 	CMPG
 	JZ l2_else
 l1_if:
+	JMP l1_if
+l6_while:
 	PUSHARG 3 ; value
 	PUSH 0
 	CMPG
-	JZ l5_while_end
+	JZ l7_while_end
 	PUSHARG 3 ; value
 	PUSH 2
 	CMP
-	JZ l7_else
-l6_if:
+	JZ l9_else
+l8_if:
 	DECN 3 ; value
-	JMP l1_if
-	JMP l10_else
-l7_else:
+	JMP l6_while
+	JMP l12_else
+l9_else:
 	PUSHARG 3 ; value
 	PUSH 1
 	CMP
-	JZ l10_else
-l9_if:
-	JMP l5_while_end
-l10_else:
+	JZ l12_else
+l11_if:
+	JMP l7_while_end
+l12_else:
 	DECN 3 ; value
-	JMP l1_if
-l5_while_end:
+	JMP l6_while
+l7_while_end:
 	JMP l3_if_end
 l2_else:
 	PUSH 1
@@ -90,12 +97,9 @@ magic_table_addr:
 MAGIC_0: procedure main 0 STRING_0 0
 
 magic_table_end:
-
-string_table_addr:
 DD STRING_0
 
 string_table_end:
-file_end:
 DD "Script Assembler Author: Henryshow"
 DD "Script Compiler Author: Allen Zhou"
 DD "Compilation Timestamp: <normalized>"

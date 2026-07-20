@@ -1034,7 +1034,7 @@ Each non-extern function produces a magic-table procedure entry containing:
 
 Extern functions are omitted.
 
-### 12.4 Generated labels and reduction
+### 12.4 Labels and reduction
 
 Compiler-generated labels normally have this form:
 
@@ -1048,10 +1048,15 @@ With `use_timed_label = 1`, they have this form:
 t<minutes-since-epoch>_<sequence>_<description>
 ```
 
-When `reduce_redundant_labels = 1`, consecutive generated labels are coalesced
-and all references to removed labels are rewritten to the first label. This is
+When `reduce_redundant_labels = 1`, consecutive label-only declarations are
+coalesced and all references to removed labels are rewritten to the first
+label. This includes compiler-generated labels, source label statements, and
+labels inside `__asm`; their provenance does not affect their assembly address.
+Indented labels and labels followed only by an assembler comment are included,
+while a line such as `MAGIC_0: procedure ...` is not label-only. Reduction is
 required because the bundled assembler cannot accept sufficiently long runs of
-consecutive labels.
+consecutive labels. Alias references are rewritten only in assembly code;
+quoted strings and assembler comments are preserved verbatim.
 
 ### 12.5 File trailer
 
@@ -1070,7 +1075,7 @@ source files
     -> context-free parser
     -> symbol/type/configuration resolution
     -> existing or equivalent assembly lowering
-    -> generated-label reduction
+    -> assembly-label reduction
 ```
 
 An ANTLR grammar can cover the lexer/parser portion, with these qualifications:
