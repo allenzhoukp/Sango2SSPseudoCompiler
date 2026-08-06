@@ -1,166 +1,146 @@
 #ifndef SG2DASM2_H
 #define SG2DASM2_H
 
-#include <cstdlib>
-#include <cstring>
+#include <cstddef>
+#include <cstdint>
 #include <string>
-#include <vector>
-#include <map>
 #include <unordered_map>
 
 #include "ParserObjects.h"
 
-using std::vector;
-using std::string;
-using std::unordered_map;
-using std::map;
-
-const int MAX_LINE_LEN = 1024;
-char input[2 << 20];    // 1 MiB
+const char* const SYSCALL_TABLE_PATH = "config/SYSCALL_TABLE.txt";
+const char* const INTV_TABLE_PATH = "config/INTV_TABLE.txt";
 
 class FixedIdentifierLoader {
 public:
-    unordered_map<int, Syscall> syscalls;
-    unordered_map<int, Intv> intvs;
+    std::unordered_map<uint32_t, Syscall> syscalls;
+    std::unordered_map<int32_t, Intv> intvs;
 
-    void loadSyscallTable ();
-    void loadIntvTable ();
+    void loadSyscallTable();
+    void loadIntvTable();
+};
 
-} fixedIdentifierLoader;
-
-// a list of all labels (targets for jumps and functions)
-// stored in a continuum
-struct DAsmLabel {
-    int addr;
-    string name;
-} labels[2 << 18]; 
-int labelCount;
-
+// Store one decoded instruction and its optional label.
 struct Line {
-    int addr;
-    int instCode;
-    string content;
-    DAsmLabel* label;
-    Line() : addr(0), label(nullptr) {};
-} ;
-// Edit: it is not aligned to 0x4, so no
-// Line lines[2 << 18];    // storage for 1 MiB
-// instruction lines are aligned at addr / 4 as the .so file is alignd as such
-// if addr == 0 then no inst is exactly there
+    uint32_t instruction = 0;
+    int operandCount = 0;
+    int32_t operand = 0;
+    int32_t operand2 = 0;
+    std::string label;
+};
 
-// Use ordered map instead (address -> Line)
-std::map<int, Line> lines;
-
-vector<int> stringTable; // index -> addresses.
-map<int, string> stringDefs; // address -> content
-
+// Store one function-table record.
 struct FunctionDef {
-    int addr;
-    int initStack;
-    int description;
-    int sequence;
+    uint32_t addr;
+    int32_t initStack;
+    uint32_t description;
+    int32_t sequence;
 };
-vector<FunctionDef> functions;
 
-enum InstType {
-    OP_NO, OP_L, OP_LL
-};
+// Describe one opcode and the number of DWORD operands after it.
 struct Inst {
-    InstType type;
-    char symbol[10];
+    const char* symbol;
+    int operandCount;
 };
 
-Inst instList[0x5A] = {
-    {InstType::OP_NO,   "NOP"},       // 0
-    {InstType::OP_L,    "RETVAL"},    // 1
-    {InstType::OP_L,    "RETN"},      // 2
-    {InstType::OP_L,    "STACK"},     // 3
-    {InstType::OP_L,    "CALL"},      // 4
-    {InstType::OP_LL,   "SYSCALL"},   // 5
-    {InstType::OP_L,    "PUSH"},      // 6
-    {InstType::OP_L,    "PUSHSTR"},   // 7
-    {InstType::OP_L,    "PUSHARG"},   // 8
-    {InstType::OP_L,    "PUSHGLB"},     // 9
-    {InstType::OP_L,    "PUSHINV"},     // A
-    {InstType::OP_L,    "POPN"},        // B
-    {InstType::OP_L,    "SETGLB"},      // C
-    {InstType::OP_L,    "SETINV"},      // D
-    {InstType::OP_NO,   "POP"},         // E
-    {InstType::OP_NO,   "ADD"},         // F
-    {InstType::OP_NO,   "ADDF"},        // 10
-    {InstType::OP_NO,   "ADDS"},        // 11
-    {InstType::OP_NO,   "SUB"},         // 12
-    {InstType::OP_NO,   "SUBF"},        // 13
-    {InstType::OP_NO,   "MUL"},         // 14
-    {InstType::OP_NO,   "MULF"},        // 15
-    {InstType::OP_NO,   "DIV"},         // 16
-    {InstType::OP_NO,   "DIVF"},        // 17
-    {InstType::OP_NO,   "MOD"},         // 18
-    {InstType::OP_NO,   "NOP19"},       // 19
-    {InstType::OP_NO,   "NEG"},         // 1A
-    {InstType::OP_NO,   "NEGF"},        // 1B
-    {InstType::OP_NO,   "NOT"},         // 1C
-    {InstType::OP_L,    "INCN"},        // 1D
-    {InstType::OP_L,    "INCGLB"},      // 1E
-    {InstType::OP_L,    "INCINV"},      // 1F
-    {InstType::OP_L,    "DECN"},        // 20
-    {InstType::OP_L,    "DECGLB"},      // 21
-    {InstType::OP_L,    "DECINV"},      // 22
-    {InstType::OP_NO,   "AND"},         // 23
-    {InstType::OP_NO,   "OR"},          // 24
-    {InstType::OP_NO,   "XOR"},         // 25
-    {InstType::OP_NO,   "CMP"},         // 26
-    {InstType::OP_NO,   "CMPF"},        // 27
-    {InstType::OP_NO,   "CMPS"},        // 28
-    {InstType::OP_NO,   "CMPZ"},        // 29
-    {InstType::OP_NO,   "CMPZF"},       // 2A
-    {InstType::OP_NO,   "CMPZS"},       // 2B
-    {InstType::OP_NO,   "CMPG"},        // 2C
-    {InstType::OP_NO,   "CMPGF"},       // 2D
-    {InstType::OP_NO,   "CMPGS"},       // 2E
-    {InstType::OP_NO,   "CMPGE"},       // 2F
-    {InstType::OP_NO,   "CMPGEF"},      // 30
-    {InstType::OP_NO,   "CMPGES"},      // 31
-    {InstType::OP_NO,   "CMPL"},        // 32
-    {InstType::OP_NO,   "CMPLF"},       // 33
-    {InstType::OP_NO,   "CMPLS"},       // 34
-    {InstType::OP_NO,   "CMPLE"},       // 35
-    {InstType::OP_NO,   "CMPLEF"},      // 36
-    {InstType::OP_NO,   "CMPLES"},      // 37
-    {InstType::OP_NO,   "LNOT"},        // 38
-    {InstType::OP_NO,   "LAND"},        // 39
-    {InstType::OP_NO,   "LOR"},         // 3A
-    {InstType::OP_L,    "JMP"},         // 3B
-    {InstType::OP_L,    "JNZ"},         // 3C
-    {InstType::OP_L,    "JZ"},          // 3D
-    {InstType::OP_NO,   "SHL"},         // 3E
-    {InstType::OP_NO,   "SAR"},         // 3F
-    {InstType::OP_LL,   "JCOND"},       // 40
-    {InstType::OP_NO,   "NOP41"},       // 41
-    {InstType::OP_NO,   "DELAY"},       // 42
-    {InstType::OP_NO,   "NOP43"},       // 43
-    {InstType::OP_NO,   "NOP44"},       // 44
-    {InstType::OP_NO,   "WAIT"},        // 45
-    {InstType::OP_NO,   "ISRUNNING"},   // 46
-    {InstType::OP_NO,   "CALLBS"},      // 47
-    {InstType::OP_NO,   "LTOF"},        // 48
-    {InstType::OP_NO,   "LTOA"},        // 49
-    {InstType::OP_NO,   "FTOL"},        // 4A
-    {InstType::OP_NO,   "GCVT"},        // 4B
-    {InstType::OP_NO,   "REPZERO"},     // 4C
-    {InstType::OP_NO,   "NOP4D"},       // 4D
-    {InstType::OP_L,    "PUSHNR"},      // 4E
-    {InstType::OP_L,    "PUSHGLBR"},    // 4F
-    {InstType::OP_L,    "PUSHINVR"},    // 50
-    {InstType::OP_L,    "SETNR"},       // 51
-    {InstType::OP_L,    "SETGLBR"},     // 52
-    {InstType::OP_L,    "SETINVR"},     // 53
-    {InstType::OP_L,    "INCNR"},       // 54
-    {InstType::OP_L,    "INCGLBR"},     // 55
-    {InstType::OP_L,    "INCINVR"},     // 56
-    {InstType::OP_L,    "DECNR"},       // 57
-    {InstType::OP_L,    "DECGLBR"},     // 58
-    {InstType::OP_L,    "DECINVR"},     // 59
+// Smart Script instructions are DWORDs, followed by zero, one, or two DWORD
+// operands. 0x5A and 0x5B are compiler-supported VM extensions emitted through
+// assembler macros because sg2asm does not have built-in mnemonics for them.
+const Inst instList[] = {
+    {"NOP",        0}, // 00
+    {"RETVAL",     1}, // 01
+    {"RETN",       1}, // 02
+    {"STACK",      1}, // 03
+    {"CALL",       1}, // 04
+    {"SYSCALL",    2}, // 05
+    {"PUSH",       1}, // 06
+    {"PUSHSTR",    1}, // 07
+    {"PUSHARG",    1}, // 08
+    {"PUSHGLB",    1}, // 09
+    {"PUSHINV",    1}, // 0A
+    {"POPN",       1}, // 0B
+    {"SETGLB",     1}, // 0C
+    {"SETINV",     1}, // 0D
+    {"POP",        0}, // 0E
+    {"ADD",        0}, // 0F
+    {"ADDF",       0}, // 10
+    {"ADDS",       0}, // 11
+    {"SUB",        0}, // 12
+    {"SUBF",       0}, // 13
+    {"MUL",        0}, // 14
+    {"MULF",       0}, // 15
+    {"DIV",        0}, // 16
+    {"DIVF",       0}, // 17
+    {"MOD",        0}, // 18
+    {"NOP19",      0}, // 19
+    {"NEG",        0}, // 1A
+    {"NEGF",       0}, // 1B
+    {"NOT",        0}, // 1C
+    {"INCN",       1}, // 1D
+    {"INCGLB",     1}, // 1E
+    {"INCINV",     1}, // 1F
+    {"DECN",       1}, // 20
+    {"DECGLB",     1}, // 21
+    {"DECINV",     1}, // 22
+    {"AND",        0}, // 23
+    {"OR",         0}, // 24
+    {"XOR",        0}, // 25
+    {"CMP",        0}, // 26
+    {"CMPF",       0}, // 27
+    {"CMPS",       0}, // 28
+    {"CMPZ",       0}, // 29
+    {"CMPZF",      0}, // 2A
+    {"CMPZS",      0}, // 2B
+    {"CMPG",       0}, // 2C
+    {"CMPGF",      0}, // 2D
+    {"CMPGS",      0}, // 2E
+    {"CMPGE",      0}, // 2F
+    {"CMPGEF",     0}, // 30
+    {"CMPGEFS",    0}, // 31, historical assembler spelling for string >=
+    {"CMPL",       0}, // 32
+    {"CMPLF",      0}, // 33
+    {"CMPLS",      0}, // 34
+    {"CMPLE",      0}, // 35
+    {"CMPLEF",     0}, // 36
+    {"CMPLEFS",    0}, // 37, historical assembler spelling for string <=
+    {"LNOT",       0}, // 38
+    {"LAND",       0}, // 39
+    {"LOR",        0}, // 3A
+    {"JMP",        1}, // 3B
+    {"JNZ",        1}, // 3C
+    {"JZ",         1}, // 3D
+    {"SHL",        0}, // 3E
+    {"SAR",        0}, // 3F
+    {"JCOND",      2}, // 40
+    {"NOP41",      0}, // 41
+    {"DELAY",      0}, // 42
+    {"NOP43",      0}, // 43
+    {"NOP44",      0}, // 44
+    {"WAIT",       0}, // 45
+    {"ISRUNNING",  0}, // 46
+    {"CALLBS",     0}, // 47
+    {"LTOF",       0}, // 48
+    {"LTOA",       0}, // 49
+    {"FTOL",       0}, // 4A
+    {"GCVT",       0}, // 4B
+    {"REPLZERO",   0}, // 4C
+    {"INST_4D",    0}, // 4D
+    {"PUSHNR",     1}, // 4E
+    {"PUSHGLBR",   1}, // 4F
+    {"PUSHINVR",   1}, // 50
+    {"SETNR",      1}, // 51
+    {"SETGLBR",    1}, // 52
+    {"SETINVR",    1}, // 53
+    {"INCNR",      1}, // 54
+    {"INCGLBR",    1}, // 55
+    {"INCINVR",    1}, // 56
+    {"DECNR",      1}, // 57
+    {"DECGLBR",    1}, // 58
+    {"DECINVR",    1}, // 59
+    {"SETUSERVALUE", 1}, // 5A
+    {"GETUSERVALUE", 1}, // 5B
 };
+
+const std::size_t INST_COUNT = sizeof(instList) / sizeof(instList[0]);
 
 #endif

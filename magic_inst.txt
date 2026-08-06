@@ -1,5 +1,7 @@
 ﻿;远帆：这个文件是注册写的，原文未做改动，凡分号后面的内容都是我自己的注释，不能代表注册原意。
-;由于注册原始注释的年代过于久远，出现冲突时，请总是以我的注释为准。
+;2017.7.21加注：补充完所有的指令的用途，并测试了一部分。可见该虚拟机可完成的事情还是很多的，尤其是经常被忽略的字符串处理。
+;   现在完全可以用prompt + INST_49来调试了！只需要将需要测试的值推入栈中，然后INST_49转为字符串，即可prompt之。可以手动用ADDS加上一个"%k%%e%"来让它在屏幕上待久一点。
+;2017.7.24加注：补充完除SYSCALL 0x10E外的所有系统调用的用途，并测试了一部分。
 
 架构：
      无寄存器，只有stack的CPU.
@@ -18,11 +20,10 @@ Inst_01 :
 	1. 读下一个DWORD(参数)	arg_0
 	2. 弹出栈顶	var_0
 	3. ...
-	; 以栈顶为返回值的RETN。参数1的值为函数的参数总量。
+	; 猜想：似乎是以栈顶为返回值的RETN。参数1的值为函数的参数总量。
 	; 例如，某函数3参数1返回值，在返回前压入返回值，然后INST_01 3。
-	; 此功能也可以用RETN(即INST_02)实现。如果用RETN实现，在上面的例子中，应将返回值POPN -4, 然后RETN 2。
-	; v0.9.8更新：也支持 RETVAL 形式的助记符。
-    ; 请注意勿望文生义：RETVAL X 中的X并不指示返回值或返回值位置，而是函数的参数总量。RETVAL 返回的值为栈顶值。
+	; 目前一般用RETN(即INST_02)实现。如果用RETN实现，在上面的例子中，应将返回值POPN -4, 然后RETN 2。
+	; 此指令的具体作用待证实。
 
 Inst_02 ：RETN		1		n		--		函数返回，栈底n个为预置参数，无需释放。
 	; 弹掉n个之前压入的参数。可以留下若干个作为返回值。
@@ -41,10 +42,6 @@ Inst_05 : ICALL		1		Index	un1		调用内部函数，函数索引和含义参见s
 	; 助记符是SYSCALL
 
 Inst_06 : PUSH		1		para1	--		将para1压栈
-    ; 压入一个 4 字节长度的立即值，可能是整型或浮点型（取决于上下文）。
-    ; 若为浮点型，则汇编代码中显示的是浮点数值 IEEE 754 格式的字节序列。
-    ; 各运算符指令均不判断栈中数据的类型；因此您可能见到压入一个长整数后立即进行 ADDF 之类的情况，
-    ; 这就说明压入的并非“长整数”，而是一个浮点型立即值。
 
 Inst_07 : PUSHS		1		index	--		将script中的第index个字符串压栈
 	; 助记符是PUSHSTR
@@ -55,16 +52,12 @@ Inst_08 : PUSHARG	1		n		--		以当前运行上下文的基本堆栈值为中心�
         当n > 0时，为当前上下文的第n+1个变量
         当n < 0时，为当前上下文的第n个参数
 
-    ; 即压入对应位置的局部变量值，n 为局部变量编号。
-    ; v0.9.8更新：也支持 PUSHN 形式的助记符，与POPN/INCN/DECN/PUSHNR/SETNR/...一致。
-    ; 由于该指令出现过于频繁，且 PUSHN 可能被望文生义为“推入数字”，仍推荐使用 PUSHARG 的写法。
+    ; v0.9.8更新：也支持 PUSHN 形式的助记符
 
 Inst_09 : INST_09	1		n		--		压入第n个全局变量(?Top_Stack)
-    ; 对于全局变量编号，请注意，每个 so 文件有属于自己的全局变量列表，跨 so 无法互通。
     ; v0.9.8更新：也支持 PUSHGLB 形式的助记符。
 
 Inst_0A : IPUSH		1		n		--		将内部数组(地址0x4A6878)的第n个数值压栈
-    ; INV / INTV 即脚本教程中的“预设变量”。
 	; 助记符是PUSHINV
 
 Inst_0B : POP1		1		n		--		将栈顶的参数弹栈，并移动到第n个变量。 0值为当前栈顶，1为栈顶-1，依次类推。
@@ -75,10 +68,10 @@ Inst_0C : POP2		1		n		--		[可能] 将栈顶的参数弹栈，并放到第n个�
 	; 即，将栈顶值赋值给指定的全局变量。
 	; 例： PUSH 1 SETARG 9 表示令第9个全局变量的值为1.
 
-    ; v0.9.8更新：更新助记符为 SETGLB 。
+    ; v0.9.8更新：也支持 SETGLB 形式的助记符。
     ; 由于 PUSHARG (PUSHN) 和 SETARG (SETGLB) 命名互讹，同一个-ARG表达不同含义，
     ; 因此默认情况下改为用-GLB表示全局变量。
-    ; PUSHARG 助记符使用频繁，不再改动；SETARG 的写法仍保留支持（不推荐，仅为向下兼容）。
+    ; PUSHARG 助记符使用频繁，不再改动；SETARG 的写法仍保留支持。
     ; 简而言之，PUSHARG = PUSHN （读局部变量），与 POPN （写局部变量）对应；
     ;          SETARG = SETGLB （写全局变量），与 SETGLB （写全局变量）对应。
 
@@ -104,7 +97,7 @@ Inst_10 : ADDF		1		--		--		弹出栈顶2个参数(浮点数)相加并压栈
 	2. PopStack		--> f2 : float
 	3. Push (f1+f2)
     ; 警告：所有浮点运算，必需确保两操作数均为浮点数。如果有整数，需手动用LTOF指令转换成浮点数。
-    ; 否则，执行的时候EXE会直接把整数变量当浮点数变量处理（维持字节不变），产生意外后果。
+    ; 否则，执行的时候EXE会很开心地直接把整数变量当浮点数变量处理（维持字节不变），产生意外后果。
 
 Inst_11 :
 	; 助记符是ADDS。作用：字符串连接。
@@ -139,7 +132,7 @@ Inst_18 : MOD		1		--		--		栈顶2数相除并将余数压栈  (整数)
 	3. Push (a1%a2)
 
 Inst_19 : OP_19		1		--		--		栈顶2数出栈，并将0压栈 (整数)
-	; 助记符为NOP19. 空白指令，没有对应的函数，不保证可以正常执行。
+	; 助记符为NOP19. 我怀疑这条指令到底出现过没有。
 
 Inst_1A : NEG		1		--		--		栈顶参数改变符号 (整数)  (注意：取反+1)
 
@@ -151,8 +144,7 @@ Inst_1D : INC		1		n		--		当前函数堆栈的倒数第n个参数++。	n = 1时�
 	; 助记符为INCN.
 
 Inst_1E : INC		1		n		--		上层函数堆栈的第n个参数++。	(参照Inst_08) ?
-	; 助记符为INCARG. （指的是全局变量。）
-    ; v0.9.8更新：更新助记符为 INCGLB ；保留 INCARG 写法的支持以向下兼容（不推荐，易与 PUSHARG 含义混淆）。
+	; 助记符为INCARG. （大概指的是全局变量。上层函数是啥？）
 
 Inst_1F : IINC		1		n		--		内部数组的第n个值++
 	; 助记符为INCINV.
@@ -162,7 +154,6 @@ Inst_20 : DEC		1		n		--		当前函数堆栈的倒数第n个参数++。	n = 1时�
 
 Inst_21 : DEC		1		n		--		上层函数堆栈的第n个参数--。
 	; 助记符为DECARG. 类同INCARG.
-    ; v0.9.8更新：更新助记符为 DECGLB ；保留 DECARG 写法的支持以向下兼容（不推荐，易与 PUSHARG 含义混淆）。
 
 Inst_22 : IDEC		1		n		--		内部数组的第n个值--
 	; 助记符为DECINV. 类同INCINV.
@@ -179,9 +170,8 @@ Inst_27 : CMP		1		--		--		栈顶2数相等则将1压栈，否则将0压栈  -- e
 	; 助记符为CMPF
 
 Inst_28 :
-	; 助记符为CMPS。含义大致为 strcmp(str1, str2) == 0，但实际进行的操作是strncmp(str1, str2, strlen(str1)) == 0
-    ; 也就是字符串相等时将1压栈，否则将0压栈，但只比较到字符串1的长度为止。
-    ; 不清楚为什么使用strncmp，可能为bug。
+	; 助记符为CMPS。含义大致等于strcmp(str1, str2) == 0（或可能更接近于strncmp(str1, str2, strlen(str1)) == 0）
+    ; 也就是字符串相等时将1压栈，否则将0压栈。
 
 Inst_29 : CMPZ		1		--		--		栈顶2数相等则将0压栈，否则将1压栈
 
@@ -297,7 +287,7 @@ Inst_4A : FTOL		1		--		--		栈顶的浮点数变为整数
 
 Inst_4C : POP3		1		--		--		栈顶的值弹栈，并将0压栈
 	; 助记符无效，用INST_4C.
-    ; v0.9.8更新：也支持 REPLZERO 的写法（即"replace zero"，注意勿与 ZERO = LNOT 逻辑非 相混淆。）
+    ; v0.9.8更新：也支持 REPLZERO 的写法（注意勿与 ZERO = LNOT 逻辑非 相混淆。）
     ; 原版群2无使用例，从顺序上看，疑似为字符串转数字，但未实现。不确定其它代数该指令的实现情况。
 
     ; INST_4D从顺序上看，疑似为字符串转浮点数留空，实际函数不存在。不确定其它代数该指令的实现情况。
@@ -348,6 +338,7 @@ Inst_53 : ISETN		1		n		--		栈顶值写入 INTV[栈顶-1+n]
 
 ;Inst_59 :
     ; DECINV的间接寻址版。
+    ; （大失所望，我还以为注册都未顾及的指令，应该会有一些新的功能……想多了。）
     ; v0.9.8更新：也支持 DECINVR 的写法。
 
 Inst_20 = (var_last -= para1)
@@ -368,7 +359,9 @@ Inst_3A : pop var_last, pop var_last-1;
 
 calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
 
-;以下为原版三国2的系统调用列表。对于群英其它代数，系统调用可能存在差异（尽管指令集相同），不建议照搬。
+
+;压栈还是比较容易搞昏头。CALLBS和CALL时，先压入的在最底下，后压入的在上面。例如，3个参数的话，最先压的是-4，最后压的是-2.
+;而SYSCALL直接按照括号里面的顺序压栈。先压的就是第一个参数（ebp+8）。两个刚好反过来。
 
 ;请注意：以下系统调用，我的注释可能和注册的有冲突。但我强烈建议您主要参考我的注释：注册的注释许多已经年代久远，甚至有的解释已被他本人推翻。
 ;所有函数原型请以我的注释为准，通常在一段注释的最后。
@@ -387,7 +380,7 @@ calls 12F, 1   调用系统函数，设置Brightness。(使用1个参数)
   ; DoScript (callsign, arg0, argument1, argument2)
 
 2 : 显示对话框1 (nDir, pGeneral, szPrompt)
-        ; 很显然这个nDir不是角度。测试得其取值如下：
+        ; 很显然这个nDir不是角度啦。测试得其取值如下：
         ; 0 - 从下方弹出对话框，武将头像在左侧，对话框半透明
         ; 1 - 从上方弹出对话框（也就是招降/斩首时对方将领说的话弹出的位置），武将头像在左侧，对话框半透明
         ; 2 - 从下方弹出对话框，武将头像在左侧，强制为（战场上）左方武将的头像（pGeneral参数无效）。如果在大地图上使用，显示头像的左半边会显示空白。
@@ -511,7 +504,7 @@ B : GetScriptLinkedObjectHandle ;
 ;1F : 设置物件剩余生命。生命每帧减1，归零时销毁。但，如果它一开始就是0，则反而是无尽生命（不会自动销毁）。详见idb中的 DefaultObjectProcess().
    ; SetObjectLife (objectHandle, nLife)
 
-;20 : 设置物件受到的阻力（阻力对应的加速度大小，如果严格地说的话）。神奇的是它可以为负数，此时物件即使是停着的，也会动起来。
+;20 : 设置物件受到的阻力（的加速度大小，如果严格地说的话)。神奇的是它可以为负数，此时物件即使是停着的，也会动起来。
    ; 所谓加速度就是指每帧速度矢量（也就是 (nStep, nStepY, nStepZ) ）的改变量啦。这里指定的是加速度矢量的大小；加速度矢量的方向总反向于速度矢量。
    ; 如果物件（的某方向分量）停了下来，该加速度（的某方向分量）也就消失。
    ; 该属性 field_20 的作用是根据idb中 DefaultObjectProcess() 的逻辑大致判断的，具体代码在sub_4228B3函数中。注意 field_20 和 x/y/z 一样有只使用高2位的特性，SYSCALL会自动<<16.
@@ -559,15 +552,14 @@ B : GetScriptLinkedObjectHandle ;
    ; SetObjectScaleShrink (objectHandle, scaleChange)
 
 26 : SetObjectBrightness 移动物件shadow?
-            ; 正儿八经的“SetObjectBrightness”在下面27号。
+            ; 正儿八经的SetObjectBrightness在下面27号。
             ; 给物件增加淡出效果。类似于23自带的淡出效果，初始为100%透明度，然后每frames帧透明度下降100%的fraction分之一。透明度降为0后销毁。
             ; 当然，有一点不同：该函数调用后物件会带上OF_MIXER的Flag.
    ; SetObjectFadeOut (objectHandle, fraction, frames)
 
 27 : 设置物件亮度
-                        ; 真·设置物件“Brightness”。
-                        ; 注册使用“Brightness”表达不透明度的含义，实际上是不准确的。
-                        ; 因此默认更名为Opacity（不透明度），以免与magic.so中的DownBrightness/RaiseBrightness混淆。
+                        ; 真·设置物件Brightness。注册钦定的！
+                        ;（话说回来，我一直觉得注册在这里用的Brightness应该是透明度来着。不过对WHITELIGHT标记的物件应该差不多。）
    ; SetObjectBrightness (objectHandle, nBrightness)
    ; SetObjectOpacity (objectHandle, nOpacity)
 
@@ -575,14 +567,14 @@ B : GetScriptLinkedObjectHandle ;
                         ; 将物件移动(dx, dy, dz)的坐标，也即x += dx, y += dy, z += dz。
    ; MoveObject (objectHandle, dx, dy, dz)
 
-29 : 设置物件flag (set bit)  ; 即设置物件标记。不会破坏原有的标记. 也就是或上（|=）新flag的意思。
+29 : 设置物件flag (set bit)  ; 不会破坏原有的flags. 也就是或上（|=）新flag的意思。
    ; SetObjectFlags (objectHandle, flags)
 
 2A : 设置物件flag (直接set)
-                        ; 并不，实际上是个Getter，即获取物件标记。
+                        ; 并不，实际上是个Getter. 明晃晃的只有一个arg_0注册你瞅哪儿去了……
    ; GetObjectFlags (objectHandle) returns flags
 
-2B : 清除物件flag (clear bit)  ; 清除参数里带有的所有标记 (flag &= ~flagsToClear)
+2B : 清除物件flag (clear bit)  ; 清除参数里带有的所有flag (flag &= ~flagsToClear)
    ; ClearObjectFlags (objectHandle, flagsToClear)
 
 2C : 设置callback sequence.
@@ -620,7 +612,7 @@ B : GetScriptLinkedObjectHandle ;
 100 : 设置视角位置 X/Y
     ; SetViewCamera (x, y)
 
-;101 : 获取物件战场X坐标。投诉注册偷懒，直接把这个命名为GetObjectXY. 这名字简直糟糕透顶。实际上要101和102合起来才是X和Y。
+;101 : 获取物件战场X坐标。投诉注册偷懒，直接把这个命名为GetObjectXY. 这名字简直糟糕透顶。实际上要101和102加起来才是。
     ; GetObjectBattleX (objectHandle) returns battleX
 
 102 : 获得物件位置 X/Y (地址) ; 这个才是获取物件战场Y坐标。
@@ -632,13 +624,13 @@ B : GetScriptLinkedObjectHandle ;
 104 : BattleYToScreenY ; 同上。注意，用于X和Y的两个函数不可混用（换算标准有不同）。
     ; BattleYToScreenY (battleY) returns screenY
 
-105 : GetMajorScreenX ; 获得物件屏幕坐标。对所有物件都适用，注册自己有重新命名。
+105 : GetMajorScreenX ; 获得物件屏幕坐标。实际上对所有物件都适用，注册自己有重新命名。
     ; GetObjectScreenX (objectHandle) returns screenX
 
 106 : GetMajorScreenY ; 同上。
     ; GetObjectScreenY (objectHandle) returns screenY
 
-;107 : 很自然就是得到物件屏幕Z坐标了。（并没有战场z这种东西，无需以命名区分，但还是保持同样的形式吧。）
+;107 : 很自然就是得到物件屏幕Z坐标了。（并没有战场z这种东西，但为了强迫症还是保持同样的形式吧……）
     ; GetObjectScreenZ (objectHandle) returns z
 
 108 : 屏幕坐标X转换为战场坐标X
@@ -755,7 +747,7 @@ B : GetScriptLinkedObjectHandle ;
     ; DecreaseGatherTick(majorHandle, amount)
 
 128 ：设置BattleUserInfo->Field_54为参数2. (eg : Heal函数中，参数1为4A6878[0x02], 参数2为1)  -- 可能为设置无敌状态
-                ; 的确如此。（见ForceMajorObjectProcess(), loc_43F435一段代码，很明显在field_54为1时，豁免伤害结果）。这个字段被起名为dwMP...应该是注册出错了。
+                ; 别“可能”啦，就是（见ForceMajorObjectProcess(), loc_43F435一段代码，很明显在field_54为1时，豁免伤害结果）。这个字段被起名为dwMP...应该是注册出错了。
                 ; 只对主将有效。isOverwhelming只有为1时才是无敌，其它值都是非无敌。
                 ; 另：注册拼错这个词了(overehelming, 应为 overwhelming)。目前在SYSCALL_TABLE.txt中设置为正确的和错误的都有效。
     ; SetOverwhelming (majorHandle, isOverwhelming)
@@ -814,6 +806,7 @@ B : GetScriptLinkedObjectHandle ;
     ; KillSoldier(forceHandle)
 
 ;135 : （猜测）锁定背景亮度。亮度值以16为100%，0为0%。在magic.asm中唯一一次出现是在DownBrightness()（天空变黑）。
+                          ; 自注：娘的，虚函数太可怕了……非得Ollydbg上阵才看得见虚函数表，偏偏我汇编还苦手。最后还是直接测试效果得的结论。
     ; LockBrightness (nBrightness)
 
 ;136 : （猜测）解锁背景亮度。与上一条配合使用。在magic.asm中唯一一次出现是在RaiseBrightness() （天空变亮）。
@@ -869,9 +862,7 @@ B : GetScriptLinkedObjectHandle ;
     ; GetGeneralType (pGeneral) returns generalType
 
 ;207 : 得到Magic.ini中，武将技对应的TITLE值（字符串型）。参数是武将技sequence. 比如鬼哭对应"大将军"。
-    ; 原版未使用。
-    ; 理论上，可以用来存一些自己需要的东西（例如自设的额外武将技属性），在脚本中获取。
-    ; 不过鉴于脚本中 string 无法转 int ，实际使用起来并不很方便，需要自己用内存操作，借 exe 函数完成转换。
+    ; 并没什么卵用……也许可以用来在发武将技之前中二地喊出一段话？
     ; GetMagicTitle (sequence)
 
 ;208 : 似乎用来退出至主选单。但我试了好几次，不论是在大地图上还是在战场上，都无一例外弹框。所以还是别用了……
@@ -903,7 +894,7 @@ B : GetScriptLinkedObjectHandle ;
     ; PlaySound1 (strSoundFileName, volume)
 
 ;302 : 向Dbg打印字符串（调用系统DbgPrintf函数）。
-    ; 有人试过在WinDbg下调试群2么？未经测试。
+    ; 似乎没卵用。有人试过在WinDbg下调试群2么？
     ; DbgPrint (string)
 
 303 ：Arg1 + Rand(arg2-arg1+1); 返回一个在arg1-arg2之间的随机值。 ;两头闭区间，也就是都可以取到。
@@ -911,10 +902,10 @@ B : GetScriptLinkedObjectHandle ;
 
 ;310 - 315 : 取得ScriptLinkedObjectHandle，然后再CallSubscriptByString，区别在于参数数量不同（递增）。
     ; 也就是支持多于4个参数的CALLBS.
-    ; 不提供原型了。如果您正在用我的编译器，asynccall 会自动根据您调用的函数的参数数量，编译出合适的SYSCALL来。
+    ; 不提供原型了。如果您正在用我的伪代码编译器，asynccall 会自动根据您调用的函数的参数数量，编译出合适的SYSCALL来。
 
 ;380 : 向Dbg打印当前Script的SP.
-    ; 有人试过在WinDbg下调试群2么？未经测试。
+    ; 似乎没卵用。有人试过在WinDbg下调试群2么？
     ; DbgPrintCurrentScriptSP ()
 
 4A6A78:

@@ -14,10 +14,6 @@
 LICENSE text eol=crlf
 makefile text eol=crlf
 
-# Preserve legacy fixture formatting; whitespace is part of the corpus.
-1.cpp -whitespace
-STUDY_MAGIC.cpp -whitespace
-
 # Shipped and generated binaries must never undergo text conversion.
 *.exe binary
 *.so binary

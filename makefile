@@ -7,10 +7,10 @@ CC_SOURCES = cc/Main.cpp cc/Lexer.cpp cc/Parser.cpp cc/FixIdentifierLoader.cpp c
 all: cc test
 
 cc: $(CC_SOURCES)
-	$(CXX) -std=c++11 -O0 -g $(CC_SOURCES) -o ss.exe -static
+	$(CXX) -std=c++11 -O0 -g $(CC_SOURCES) -o ss-debug.exe -static
 
 cc-release: $(CC_SOURCES)
-	$(CXX) -std=c++11 -O2 -DNDEBUG $(CC_SOURCES) -o ss-release.exe -static
+	$(CXX) -std=c++11 -O2 -DNDEBUG $(CC_SOURCES) -o ss.exe -static
 
 test: Test.cpp
 	ss Test.cpp -a

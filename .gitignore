@@ -1,34 +1,70 @@
-# Compiler and linker output
-*.asm
-*.so
-*.o
-*.obj
-*.a
-*.lib
-*.dll
-*.exp
-*.ilk
-*.pdb
-*.cds
-*.lst
+# Repository keep list
+#
+# Ignore every working-tree path unless it is explicitly part of the source
+# delivery below. This makes `git add -A` safe in a checkout that also contains
+# reverse-engineering corpora, generated output, local fixtures, or editor and
+# agent state.
+*
 
-# Executables are build output by default. These three are intentional
-# project deliverables and are already tracked.
-*.exe
-!ss.exe
-!sg2asm.exe
-!sg2dasm2.exe
+# Repository metadata and project documentation
+!/.gitattributes
+!/.gitignore
+!/DECOMPILER_PLAN.md
+!/LICENSE
+!/Userguide_CN.txt
 
-# Archives, backups, and temporary files
-*.zip
-*.bak
-*.old
-*.tmp
-*~
-_err.txt
+# Compiler and disassembler sources
+!/cc/
+!/cc/BranchAnalysis.cpp
+!/cc/Config.cpp
+!/cc/Config.h
+!/cc/FixIdentifierLoader.cpp
+!/cc/Lexer.cpp
+!/cc/Lexer.h
+!/cc/Localization.h
+!/cc/Main.cpp
+!/cc/Panic.cpp
+!/cc/Panic.h
+!/cc/Parser.cpp
+!/cc/Parser.h
+!/cc/ParserObjects.h
+!/cc/Sg2dasm2.cpp
+!/cc/Sg2dasm2.h
+!/cc/Token.h
+!/cc/TreeAnalysis.cpp
+!/cc/TreeConstruction.cpp
 
-# OS and IDE-local state
-.DS_Store
-Thumbs.db
-desktop.ini
-.vs/
+# Runtime configuration
+!/config/
+!/config/CONFIG.txt
+!/config/INTV_TABLE.txt
+!/config/STRUCT_TABLE.txt
+!/config/SYSCALL_TABLE.txt
+
+# Maintained design and investigation notes
+!/fullauto-docs/
+!/fullauto-docs/grammar-guide.md
+!/fullauto-docs/performance-investigation.md
+!/fullauto-docs/release-inventory.md
+!/fullauto-docs/smoke-test-notes.md
+!/fullauto-docs/so-file-format.md
+
+# Build entry point
+!/makefile
+
+# Runtime headers, imports, and maintained examples
+!/SS-Tutorial.cpp
+!/magic.cpp
+!/magic_inst.txt
+!/magic_structured.cpp
+!/magic_utils.cpp
+!/magic_with_goto.cpp
+!/predefine.inc
+!/sg2lang.h
+!/system.cpp
+!/system_structured.cpp
+
+# Intentional executable deliverables
+!/sg2asm.exe
+!/sg2dasm2.exe
+!/ss.exe
