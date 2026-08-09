@@ -30,9 +30,13 @@
 !/cc/ParserObjects.h
 !/cc/Sg2dasm2.cpp
 !/cc/Sg2dasm2.h
+!/cc/Sg2decomp.cpp
 !/cc/Token.h
 !/cc/TreeAnalysis.cpp
 !/cc/TreeConstruction.cpp
+!/cc/decompiler/
+!/cc/decompiler/*.h
+!/cc/decompiler/*.cpp
 
 # Runtime configuration
 !/config/
@@ -44,6 +48,8 @@
 # Maintained design and investigation notes
 !/fullauto-docs/
 !/fullauto-docs/grammar-guide.md
+!/fullauto-docs/DECOMPILER_AUDIT.md
+!/fullauto-docs/DECOMPILER_PLAN.md
 !/fullauto-docs/performance-investigation.md
 !/fullauto-docs/release-inventory.md
 !/fullauto-docs/smoke-test-notes.md
@@ -51,6 +57,12 @@
 
 # Build entry point
 !/makefile
+
+# Decompiler regression scripts
+!/tests/
+!/tests/decompiler/
+!/tests/decompiler/*.sh
+!/tests/decompiler/*.py
 
 # Runtime headers, imports, and maintained examples
 !/SS-Tutorial.cpp
