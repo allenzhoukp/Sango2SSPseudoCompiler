@@ -5782,7 +5782,7 @@ LOC_1B494:
 	v233 = 0;
 LOC_1B4A4:
 	if (!(v233 < v232)) goto LOC_1B5A8;
-	if (!((GetObjectContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor))) goto LOC_1B54C;
+	if (!((GetObjectContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor) && (v1[v233] != intvAttackerMajor))) goto LOC_1B54C;
 	asynccall KillMan(v1[v233], a0);
 LOC_1B54C:
 	v245 = Rand(3, 4);
@@ -7975,9 +7975,12 @@ LOC_2771C:
 
 void CheckHalfMoonNew(int a0, int a1) {
 	int v1;
+	int v2;
+	v2 = 0;
 LOC_2772C:
 	if (!IsObjectExist(a0)) goto LOC_2781C;
 	Delay(1);
+	v2++;
 	v1 = GetObjectScreenX(a0);
 	if (!(intvIsLeft == 1)) goto LOC_277DC;
 	if (!(v1 > (GetBattleWidthInScreenX() - 100))) goto LOC_277D4;
@@ -7990,7 +7993,8 @@ LOC_277DC:
 	FreeObjectByHandle(a0);
 	goto LOC_2781C;
 LOC_27814:
-	goto LOC_2772C;
+	if (!(v2 > ((GetBattleWidthInScreenX() / 36) + 1))) goto LOC_2772C;
+	FreeObjectByHandle(a0);
 LOC_2781C:
 	FreeObjectByHandle(a1);
 	return;

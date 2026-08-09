@@ -5,12 +5,32 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
+#include <cerrno>
+#include <climits>
 #include <ctime>
 #include <regex>
 
 // using std::endl;
 // define endl as '\n' to avoid flushing the output stream
 const char endl = '\n';
+
+namespace {
+
+unsigned int requireHexConfig(const string& name) {
+    const string value = Config::get(name);
+    char* end = NULL;
+    errno = 0;
+    const unsigned long parsed = strtoul(value.c_str(), &end, 0);
+    if (value.empty() || end == value.c_str() || *end != '\0'
+            || errno == ERANGE || parsed > UINT_MAX) {
+        fprintf(stderr, "Invalid or missing hexadecimal configuration value: %s\n",
+                name.c_str());
+        exit(1);
+    }
+    return static_cast<unsigned int>(parsed);
+}
+
+}  // namespace
 
 //=================Expression Tree Analysis==================
 
@@ -144,20 +164,24 @@ void Parser::outputSetValue(int type) {
         switch(type) {
         case DataTypes::typeShort:
         case DataTypes::typeUShort:
-            out << "\t" << "SYSCALL 0x218, (2 | (0 << 16)) ; SetShort" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_set_short")
+                << ", (2 | (0 << 16)) ; SetShort" << endl;
             break;
 
         case DataTypes::typeByte:
         case DataTypes::typeUByte:
-            out << "\t" << "SYSCALL 0x219, (2 | (0 << 16)) ; SetByte" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_set_byte")
+                << ", (2 | (0 << 16)) ; SetByte" << endl;
             break;
 
         case DataTypes::typeString:
-            out << "\t" << "SYSCALL 0x213, (2 | (0 << 16)) ; SetString" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_set_string")
+                << ", (2 | (0 << 16)) ; SetString" << endl;
             break;
 
         default:
-            out << "\t" << "SYSCALL 0x217, (2 | (0 << 16)) ; SetInt" << endl;
+            out << "\t" << "SYSCALL " << Config::get("exe_memory_io_set_int")
+                << ", (2 | (0 << 16)) ; SetInt" << endl;
         }
 
     } else {
@@ -678,8 +702,8 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     // for float const
     int* intp;
     // for exefunc call (function pointers)
-    string syscallStr;
-    int syscallNum;
+    unsigned int syscallNum;
+    unsigned int funcptrTargetAddr;
     int exefuncCallReturnType = DataTypes::typeVoid;
 
     switch(x->type) {
@@ -742,11 +766,12 @@ void Parser::treeDFS(ExpressionNode* x, int& stackDepth, bool remainReturnStack)
     
     case ExpNodeType::exefuncCall:
 
-        syscallStr = Config::get("funcptr_syscall");
-        sscanf(syscallStr.c_str(), "%x", &syscallNum);
+        syscallNum = requireHexConfig("funcptr_syscall");
+        funcptrTargetAddr = requireHexConfig("funcptr_target_addr");
 
-        // Set 0x220 Syscall to the target address
-        out << "\t" << "PUSH 0x" << std::hex << std::uppercase << (0x4A69B0 + 4 * syscallNum) << std::dec << endl;
+        // Install the function address into the configured syscall slot.
+        out << "\t" << "PUSH 0x" << std::hex << std::uppercase
+            << funcptrTargetAddr << std::dec << endl;
         out << "\t" << "PUSHARG " << x->localVar.no << endl;
         outputSetValue(DataTypes::typeInt);
 

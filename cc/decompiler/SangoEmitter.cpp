@@ -39,22 +39,6 @@ std::string quoteReportString(const std::string& value) {
     return output.str();
 }
 
-/** Returns true for functions supplied automatically by sg2lang.h. */
-bool isAutomaticallyIncluded(const std::string& name) {
-    static const char* includedNames[] = {
-        "GetByte_Old", "GetByte_Signed_Old", "GetShort_Old",
-        "GetShort_Signed_Old", "GetInt_Old", "SetInt_Old",
-        "SetShort_Old", "SetByte_Old", "SetString_Old"
-    };
-    for (std::size_t index = 0;
-            index < sizeof(includedNames) / sizeof(includedNames[0]); ++index) {
-        if (name == includedNames[index]) {
-            return true;
-        }
-    }
-    return false;
-}
-
 /** Returns a stable label for one address inside a naked function. */
 std::string assemblyLabel(int functionIndex, std::uint32_t address) {
     std::ostringstream output;
@@ -303,8 +287,7 @@ std::set<int> functionDependencies(const Module& module,
         if (instruction.opcode == 0x04) {
             const int target = functionAtAddress(
                 module, static_cast<std::uint32_t>(instruction.operand));
-            if (target >= 0 && target != functionIndex
-                    && !isAutomaticallyIncluded(module.functions[target].name)) {
+            if (target >= 0 && target != functionIndex) {
                 dependencies.insert(target);
             }
         }
@@ -315,7 +298,6 @@ std::set<int> functionDependencies(const Module& module,
             const std::string& text = lifted.blocks[block].statements[line];
             for (std::size_t target = 0; target < module.functions.size(); ++target) {
                 if (static_cast<int>(target) != functionIndex
-                        && !isAutomaticallyIncluded(module.functions[target].name)
                         && text.find("asynccall " + sourceIdentifier(
                             module.functions[target].name,
                             static_cast<int>(target)) + "(") != std::string::npos) {
@@ -691,61 +673,55 @@ bool SangoEmitter::emit(const Module& module,
                 types.parameterType(static_cast<int>(index), parameter));
         }
 
-        if (isAutomaticallyIncluded(module.functions[index].name)) {
-            functionReport.outputLevel = "automatically included";
-            functionReport.reason = "The compiler supplies this function from sg2lang.h.";
-            ++report.omittedIncludeFunctionCount;
+        const bool forwardCall = functions[index].succeeded
+            && hasUnresolvedForwardCall(module, graphs[index],
+                functions[index], emissionPosition);
+        const bool useAssembly = mode == "lossless"
+            || !functions[index].succeeded || forwardCall;
+        if (useAssembly) {
+            writeAssemblyFunction(output, module, graphs[index], types);
+            functionReport.outputLevel = "naked assembly";
+            functionReport.reason = forwardCall
+                ? "A recursive dependency still calls a later-defined function."
+                : functions[index].failureReason.empty()
+                    ? "Lossless mode requested assembly."
+                    : functions[index].failureReason;
+            ++report.assemblyFunctionCount;
         } else {
-            const bool forwardCall = functions[index].succeeded
-                && hasUnresolvedForwardCall(module, graphs[index],
-                    functions[index], emissionPosition);
-            const bool useAssembly = mode == "lossless"
-                || !functions[index].succeeded || forwardCall;
-            if (useAssembly) {
-                writeAssemblyFunction(output, module, graphs[index], types);
-                functionReport.outputLevel = "naked assembly";
-                functionReport.reason = forwardCall
-                    ? "A recursive dependency still calls a later-defined function."
-                    : functions[index].failureReason.empty()
-                        ? "Lossless mode requested assembly."
-                        : functions[index].failureReason;
-                ++report.assemblyFunctionCount;
-            } else {
-                const bool structuredMode = mode != "goto"
-                    && functions[index].structured;
-                writeHighLevelFunction(output, module, graphs[index],
-                    functions[index], types, structuredMode);
-                functionReport.lifted = true;
-                functionReport.structured = structuredMode;
-                functionReport.gotoCount = structuredMode
-                    ? functions[index].residualGotoCount
-                    : std::max(0, static_cast<int>(graphs[index].blocks.size()) - 1);
-                functionReport.outputLevel = structuredMode
-                    ? functions[index].inlineAssemblyCount == 0
-                        ? "structured source"
-                        : "structured source with inline assembly"
-                    : "labeled-goto source";
-                functionReport.reason = structuredMode
-                    ? functions[index].inlineAssemblyCount != 0
-                        ? "Configuration-signature mismatches use isolated inline assembly."
-                    : functions[index].usesDispatcher
-                        ? "Irreducible residual flow uses a local-state dispatcher."
-                        : "Compiler control flow was converted into source regions."
-                    : "The requested mode retains explicit block control flow.";
-                ++report.highLevelFunctionCount;
-                if (functions[index].inlineAssemblyCount != 0) {
-                    ++report.inlineAssemblyFunctionCount;
-                    report.inlineAssemblyBlockCount
-                        += functions[index].inlineAssemblyCount;
-                }
-                if (structuredMode) {
-                    ++report.structuredFunctionCount;
-                    if (functions[index].usesDispatcher) {
-                        ++report.dispatcherFunctionCount;
-                    }
-                }
-                report.residualGotoCount += functionReport.gotoCount;
+            const bool structuredMode = mode != "goto"
+                && functions[index].structured;
+            writeHighLevelFunction(output, module, graphs[index],
+                functions[index], types, structuredMode);
+            functionReport.lifted = true;
+            functionReport.structured = structuredMode;
+            functionReport.gotoCount = structuredMode
+                ? functions[index].residualGotoCount
+                : std::max(0, static_cast<int>(graphs[index].blocks.size()) - 1);
+            functionReport.outputLevel = structuredMode
+                ? functions[index].inlineAssemblyCount == 0
+                    ? "structured source"
+                    : "structured source with inline assembly"
+                : "labeled-goto source";
+            functionReport.reason = structuredMode
+                ? functions[index].inlineAssemblyCount != 0
+                    ? "Configuration-signature mismatches use isolated inline assembly."
+                : functions[index].usesDispatcher
+                    ? "Irreducible residual flow uses a local-state dispatcher."
+                    : "Compiler control flow was converted into source regions."
+                : "The requested mode retains explicit block control flow.";
+            ++report.highLevelFunctionCount;
+            if (functions[index].inlineAssemblyCount != 0) {
+                ++report.inlineAssemblyFunctionCount;
+                report.inlineAssemblyBlockCount
+                    += functions[index].inlineAssemblyCount;
             }
+            if (structuredMode) {
+                ++report.structuredFunctionCount;
+                if (functions[index].usesDispatcher) {
+                    ++report.dispatcherFunctionCount;
+                }
+            }
+            report.residualGotoCount += functionReport.gotoCount;
         }
         report.functions.push_back(functionReport);
     }
@@ -755,8 +731,7 @@ bool SangoEmitter::emit(const Module& module,
         report.generatedSourceBytes = static_cast<std::uint64_t>(endPosition);
     }
     report.functionsAfterAutomaticInclude
-        = static_cast<int>(module.functions.size()) + 9
-        - report.omittedIncludeFunctionCount;
+        = static_cast<int>(module.functions.size());
     report.withinCompilerLimits = report.generatedSourceBytes <= 1048574U
         && report.functionsAfterAutomaticInclude <= 1024;
     return true;

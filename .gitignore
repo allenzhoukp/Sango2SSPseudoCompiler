@@ -9,7 +9,6 @@
 # Repository metadata and project documentation
 !/.gitattributes
 !/.gitignore
-!/DECOMPILER_PLAN.md
 !/LICENSE
 !/Userguide_CN.txt
 
@@ -45,29 +44,14 @@
 !/config/STRUCT_TABLE.txt
 !/config/SYSCALL_TABLE.txt
 
-# Maintained design and investigation notes
-!/fullauto-docs/
-!/fullauto-docs/grammar-guide.md
-!/fullauto-docs/DECOMPILER_AUDIT.md
-!/fullauto-docs/DECOMPILER_PLAN.md
-!/fullauto-docs/performance-investigation.md
-!/fullauto-docs/release-inventory.md
-!/fullauto-docs/smoke-test-notes.md
-!/fullauto-docs/so-file-format.md
-
 # Build entry point
 !/makefile
-
-# Decompiler regression scripts
-!/tests/
-!/tests/decompiler/
-!/tests/decompiler/*.sh
-!/tests/decompiler/*.py
 
 # Runtime headers, imports, and maintained examples
 !/SS-Tutorial.cpp
 !/magic.cpp
 !/magic_inst.txt
+!/magic_structured_odin.cpp
 !/magic_structured.cpp
 !/magic_utils.cpp
 !/magic_with_goto.cpp
@@ -75,8 +59,10 @@
 !/sg2lang.h
 !/system.cpp
 !/system_structured.cpp
+!/system_structured_odin.cpp
 
 # Intentional executable deliverables
 !/sg2asm.exe
 !/sg2dasm2.exe
+!/sg2decomp.exe
 !/ss.exe

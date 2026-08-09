@@ -663,7 +663,39 @@ void SearchTalk(int a0) callsign 5  {
     g_var1 = 0;
     return;
 }
-void KillGeneral() callsign 70  {
+void ChildGenTalkNew(int index) callsign 10 {
+    General* pChild;
+    General* pParent;
+    General* pKingGeneral;
+    do {
+        Delay(1);
+    } while (g_var1 != 0);
+    g_var1 = 1;
+    pChild = (General *) GetIntv((30 + (index * 2)));
+    pParent = (General *) GetIntv((31 + (index * 2)));
+    pKingGeneral = (General *) intvAttackerKingGeneral;
+    SetSXString(0, 3, GetGeneralName(pChild));
+    SetSXString(0, 1, GetGeneralName(pParent));
+    if (pParent == pKingGeneral) {
+        PromptWithMessageIndex1(0, pParent, 816);
+        PromptWithMessageIndex1(1, pChild, Rand(870, 874));
+        PlaySound1("SUCCESS", 255);
+        PromptWithMessageIndex1(0, pKingGeneral, Rand(875, 878));
+        PromptWithMessageIndex1(1, pChild, Rand(890, 893));
+        Prompt1(0, pKingGeneral, "%e");
+    } else {
+        PromptWithMessageIndex1(0, pParent, 817);
+        PromptWithMessageIndex1(1, pChild, 818);
+        PlaySound1("SUCCESS", 255);
+        PromptWithMessageIndex1(0, pKingGeneral, Rand(894, 899));
+        PromptWithMessageIndex1(1, pChild, Rand(900, 903));
+        PromptWithMessageIndex1(0, pKingGeneral, 812);
+        PromptWithMessageIndex1(0, pParent, Rand(904, 907));
+    }
+    Delay(1);
+    g_var1 = 0;
+    return;
+}void KillGeneral() callsign 70  {
     int v1;
     v1 = Rand(0, 10);
     PromptWithMessageIndex1(0, intvRightGeneral, (910 + (v1 * 2)));

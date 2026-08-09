@@ -5279,7 +5279,7 @@ void Engulf(int a0, int a1, int a2, int a3)  {
             }
             v233 = 0;
             while ((v233 < v232)) {
-                if ((GetObjectContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor)) {
+                if ((GetObjectContext(v1[v233], 0) != 123) && (v1[v233] != intvDefenderMajor) && (v1[v233] != intvAttackerMajor)) {
                     asynccall KillMan(v1[v233], a0);
                 }
                 v245 = Rand(3, 4);
@@ -7248,21 +7248,26 @@ void HalfMoonNewCallback(int a0, int a1) callsign 30001  {
 }
 void CheckHalfMoonNew(int a0, int a1)  {
     int v1;
+    int v2;
+    v2 = 0;
     while (IsObjectExist(a0)) {
         Delay(1);
+        v2++;
         v1 = GetObjectScreenX(a0);
         if (!(intvIsLeft == 1)) {
             if (v1 < 100) {
-                FreeObject(a0);
                 break;
             }
         } else {
             if (v1 > (GetBattleWidthInScreenX() - 100)) {
-                FreeObject(a0);
                 break;
             }
         }
+        if (v2 > ((GetBattleWidthInScreenX() / 36) + 1)) {
+            break;
+        }
     }
+    FreeObject(a0);
     FreeObject(a1);
     return;
 }

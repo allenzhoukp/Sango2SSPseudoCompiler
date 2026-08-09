@@ -1,7 +1,40 @@
 ﻿三国 Smart Script 编译器
-v0.9.8
+v0.9.9
 
 ====================================================================================
+v0.9.9修改内容：
+有效提升了编译器的编译速度。
+    修复了不恰当的 inline 关键字导致 g++ -O2 编译出错的问题。
+    使用了更有效的重复标签处理算法（不再是O(n^2)的）。
+    修复了表达式节点池对每个新表达式均进行重新初始化的问题。
+    使用了哈希表对STRUCT_TABLE.txt进行快速查找。
+    make cc 现生成带-O2优化的 ss.exe。
+        如需未优化调试版，可使用 make cc-raw 生成 ss-debug.exe 。
+修复了定义数组时，额外分配了一个多余变量编号的问题。
+    现在，长度为N的数组将恰好占用N个槽位，而不是N+1个。
+    重新编译后，数组之后声明的局部变量或全局变量编号可能与v0.9.8不同；
+    如有手写汇编依赖这些编号，请一并检查。
+修复了 unsigned int, unsigned short 和 unsigned byte （通常是在指针中）无法被正确识别的问题。
+允许 config/CONFIG.txt 中 script_memory_io_file 选项留空，此时不导入 sg2lang.h 或任何文件。
+    适用于源码本身已自行提供内存操作函数的情况。内存操作函数仍需和 sg2lang.h 范例中的函数同名。
+修复了 exe_memory_io_set_byte、set_short、set_int 和 set_string 配置未被实际使用的问题。
+函数指针现可通过 funcptr_target_addr 配置目标系统调用槽在EXE内存中的地址。
+    群英2 1.05+的默认配置为 funcptr_syscall = 0x220、funcptr_target_addr = 0x4A7230。
+确认默认 magic.cpp、magic_structured.cpp 和 magic_with_goto.cpp 包含 Engulf 和 HalfMoonNew 修正，system.cpp 和 system_structured.cpp 包含 ChildGenTalkNew 修正；另保留未修正的 Odin 反编译版供比对。
+大幅重构了反汇编器 sg2dasm2.exe 。
+    现在，它应当能更有效地处理复杂的 .so 文件结构。无法识别的数据将按原字节保留。具体技术细节不再赘述。
+在 GPT 5.6 Sol 的支持下，新增反编译器 sg2decomp.exe 。
+    使用方法为：
+        sg2decomp.exe <源文件名>.so [-o <输出文件名>.cpp]
+                       [--mode structured|goto|lossless]
+    默认情况下，输出 <源文件名>.decompiled.cpp 文件。
+    默认模式为 structured ，即，会尝试识别代码中的 if/while/switch 等结构。
+        这并非总是能成功。失败时，将尝试生成 while(1) { switch (...) {}} 式的控制流程，或生成 goto 。
+        goto 模式保留基本块跳转；lossless 模式保留汇编。
+        可使用 [--report <报告文件名>.json] 参数指定生成的诊断文件名。
+    当前反编译器仍属实验性工具；生成源码应谨慎进行验证。
+
+
 v0.9.8修改内容：
 修复了预设变量（intv）赋值可能出错的问题。
 修复了异步调用类型推断可能出错的问题。
@@ -43,9 +76,10 @@ v0.9.8修改内容：
 经B站 @ 左谷公 大神证实，群英系列的脚本字节码格式完全相同，故本编译器改名为 三国 Smart Script 编译器。
     理论上，本编译器（以及注册汇编器 sg2asm.exe）可以支持群英任意代数的脚本编译。
     实际使用时，请根据具体的代数，
-        相应更改 Config/SYSCALL_TABLE.txt, Config/INTV_TABLE.txt 这两个文件的内容。
-        如内存操作存在可能，也请更改 Config/Config.txt。
-            此外，也欢迎配置 Config/STRUCT_TABLE.txt 以最大化利用本编译器的指针支持。
+        相应更改 config/SYSCALL_TABLE.txt, config/INTV_TABLE.txt 这两个文件的内容。
+        如涉及内存操作，也请更改 config/CONFIG.txt 中的 exe_memory_io_get_* 和 exe_memory_io_set_* 系统调用编号。
+        如使用函数指针，还需配置相互对应的 funcptr_syscall 和 funcptr_target_addr。
+            此外，也欢迎配置 config/STRUCT_TABLE.txt 以最大化利用本编译器的指针支持。
     笔者没有修改群英其它代的经验。希望本编译器能为群英其它代的修改提供一些帮助。
 汇编器 sg2asm.exe 更新：
     下述指令使用新的助记符
@@ -104,8 +138,8 @@ v0.9.7修改内容：
 v0.9.6修改内容：
 修复了STRUCT_TABLE中，无法正确识别结构体内部数组的问题。
 新增浮点常量支持：您现在可以定义浮点数常量。
-    浮点数常量必须带小数点，如 1.0 ；也可以使用科学计数法，如 3.78e+12 . 
-    可以使用F/f结尾表示这是一个浮点数，但仍需带小数点，如 1.0f .
+    带小数点的常量被识别为浮点数常量，如 1.0 ；也可以使用科学计数法，如 3.78e+12 .
+    可以使用F/f结尾表示这是一个浮点数，此时无需带小数点，如 1.0f .
 新增对函数指针的支持。
     和本编译器中的其它“指针”一样，函数指针总是指向Sango2 EXE中的特定函数。
     定义函数指针的语法为：
@@ -124,7 +158,8 @@ v0.9.6修改内容：
     函数指针的本质是动态设置系统调用列表。
         每次使用函数指针时，特定编号的系统函数被设置为函数指针指向的目标EXE函数，
         然后调用SYSCALL指令完成对EXE目标函数的调用。
-        具体使用的编号，可以在 config/CONFIG.txt 中指定 funcptr_syscall 一项。默认为 0x220.
+        具体使用的编号及其在EXE内的目标槽地址，可在 config/CONFIG.txt 中以 funcptr_syscall 和 funcptr_target_addr 指定。
+        群英2 1.05+默认为 0x220 和 0x4A7230。
 
 
 v0.9.5修改内容：
@@ -174,19 +209,22 @@ v0.9.1修改内容：
 
 1. 说明
 此编译器用于将C风格代码编译成符合三国群英传系列脚本格式的asm文件。
+    在 -a 模式下，将自动调用 sg2asm.exe 生成so文件。
 源代码随编译器程序一同发布。
-编译器程序ss.exe是由cc文件夹下的代码，在MinGW32-G++ 14.2.0下，使用C++11标准编译的。
+本压缩包中的编译器程序ss.exe是由cc文件夹下的代码，在MSYS2 MinGW32 GCC 14.2.0下，使用C++11标准编译的。
 
 压缩包下的文件有：
 a) 核心文件
 ss.exe              编译器本体
 
 b) 样例文件
-Testcc.cpp 	        例子（源文件），可使用 make test 编译为 so 文件
+SS-Tutorial.cpp 	例子（源文件），可使用 make test 编译为 so 文件
+    该文件为《三国2脚本基础教程》第一至十章的源代码。
 
 c) 导入文件
-magic.cpp           可用于include的、群2原版magic.asm内容的源码
-system.cpp          可用于include的、群2原版system.asm内容的源码
+magic.cpp           可用于include的、群2原版magic.asm内容的源码；默认包含Engulf和HalfMoonNew修正
+magic_utils.cpp     原版magic.so中的工具函数合集，可按需include
+system.cpp          可用于include的、群2原版system.asm内容的源码；包含v1.05+的ChildGenTalkNew修正
 
 d) @还要注册真不爽（以下简称注册）出品内容
 sg2asm.exe          将asm文件编译为so文件的汇编器（必需，由我修改过）
@@ -194,7 +232,10 @@ predefine.inc       注册汇编器原有头文件（由我修改过，不再必
 sg2lang.h           群2注册式内存操作的函数文件
 magic_inst.txt      指令集和系统调用(SYSCALL)的说明文件（注册出品，由我修改过）
 
-e) 编译器源码 (cc目录)，可使用 make cc 编译为 ss.exe，可使用 make dasm 编译为 sg2dasm2.exe
+e) 源码 (cc目录)
+    可使用 make cc 编译为 ss.exe
+    可使用 make dasm 编译为 sg2dasm2.exe
+    可使用 make decomp 编译为 sg2decomp.exe
 
 f) 编译器配置文件 (config目录)
 config/CONFIG.txt           整体配置
@@ -203,14 +244,16 @@ config/STRUCT_TABLE.txt     结构体配置（默认配置为群英2）
 config/INTV_TABLE.txt       INTV配置（默认配置为群英2）
 
 g) 模板文件
-magic_fix.cpp                   群英2 v1.05+使用的，修复生死门吸将和华斩无法停止bug的magic.cpp文件
-system_fixRepeatBloodTalk.cpp   群英2 v1.05+使用的，修复多人同时成年时对话内容的bug
-magic_structured.cpp            对 magic.asm  手动反编译得到的源码（理论上可直接编译）
-system_structured.cpp           对 system.asm 手动反编译得到的源码（理论上可直接编译）
+magic_structured.cpp            对 magic.asm 手动反编译得到的结构化源码，包含 v1.05+ 武将技修正（理论上可直接编译）
+magic_structured_odin.cpp       反编译得到的原版结构化源码（供历史比对，理论上可直接编译）
+magic_with_goto.cpp             对 magic.asm 反编译得到的goto版源码，包含 v1.05+ 武将技修正（理论上可直接编译）
+system_structured.cpp           对 system.asm 手动反编译得到的结构化源码，包含 v1.05+ 子女成年新函数（理论上可直接编译，不干扰非 1.05+ EXE 逻辑）
+system_structured_odin.cpp      反编译得到的原版结构化源码（供历史比对，理论上可直接编译）
 
 h) 其它
 sg2dasm2.exe               将so文件反汇编为asm文件的反汇编器（群英全系列通用）
-LISENSE                    该源代码所遵守的MIT协议的内容
+sg2decomp.exe              将so文件反编译为cpp文件的反编译器（群英全系列通用）
+LICENSE                    该源代码所遵守的MIT协议的内容
 Userguide_CN.txt           本说明文件
 makefile                   编译源码用文件
 
@@ -226,27 +269,29 @@ makefile                   编译源码用文件
 3. 编译器使用说明
 以下内容将假定使用者具备编程基础，并且掌握至少一门C风格语言（包括但不限于：C, C++, C#, Java, Javascript, Python, 等等）。
 (1) 将代码文件和压缩包内文件放在同一目录下。
-(2) 使用 ./ss <源文件名> <目标文件名> [-auto / -a] 进行编译。
+(2) 使用 ./ss <源文件名> [<目标asm文件名>] [-auto / -a] 进行编译。
     i. 您可以在该目录下新建一个后缀名为.bat的文本文件，文件内输入ss <源文件名> <目标文件名>，（不带尖括号），保存后双击运行该bat文件。
     ii. 您也可以用命令行直接运行该文件。切换到代码文件所在目录，然后输入ss <源文件名> <目标文件名> （不带尖括号），回车运行即可。
-    iii. 您可以在编译时，在尾部添加添加 -auto 或 -a 选项来一步到位生成.so文件。此时，ss.exe 需要和 sg2asm.exe 在同一目录下。
+    iii. 您可以在编译时，在尾部添加 -auto 或 -a 选项来一步到位生成.so文件。此时，sg2asm.exe 需位于当前工作目录或 PATH 列表中。
     例如： ./ss Magic.cpp 将会生成 Magic.asm 文件； ./ss Magic.cpp -a 将会生成 Magic.asm 和 Magic.so 文件。
+    iv. 第二个文件名始终指定目标asm文件，而非so或cds文件。例如： ./ss Magic.cpp Custom.asm -a 将生成 Custom.asm 和 Custom.so。
 (3) 如果编译一切顺利，ss.exe将会在同一目录下生成正常的目标文件。
     如果您未指定目标文件名，则会生成和源文件名同名的、后缀名为.asm的文件。
-    生成的ss.asm原则上可直接被sg2asm.exe编译为.so文件。如果一切顺利，您现在可以直接用sg2asm.exe将您需要编译的.asm文件编译。
-        根据注册的说明，将会生成<文件名>.cds，将其改名为<文件名>.so即可。
-    如果您指定了 -auto 或 -a 选项，则ss.exe将会一步到位在同一目录下，生成和源文件名同名的、后缀名为.so的文件。
+    生成的asm原则上可直接被sg2asm.exe编译为.so文件。如果一切顺利，您现在可以直接用sg2asm.exe将您需要编译的.asm文件编译。
+        根据注册的说明，将会生成<文件名>.cds，将其改名为<文件名>.so即可。.so文件将与.asm文件同名（如果和源文件不同名的话）。
+    如果您指定了 -auto 或 -a 选项，则ss.exe将会一步到位生成与目标asm文件同名的、后缀名为.so的文件。
+        该功能需要 sg2asm.exe 文件存在于本目录下或 PATH 列表中。
 (4) .so文件复制到游戏目录下的Script文件夹。
     您可能还需要在相应配置文档中注册这一文件，如果它不代替原版so文件的话。
         对于群英2而言，so文件应在Sango.ini中配置。
 
 
-3.5 反汇编器使用说明
+3.1 反汇编器使用说明
 (1) 将 .so 文件和压缩包内文件放在同一目录下。
-(2) 使用前，请检查 Config/SYSCALL_TABLE.txt 和 Config/INTV_TABLE.txt 两个配置文件。
+(2) 使用前，请检查 config/SYSCALL_TABLE.txt 和 config/INTV_TABLE.txt 两个配置文件。
     SYSCALL_TABLE 配置游戏的【系统调用】列表。格式请参见 4. (9) 节。
     INTV_TABLE    配置游戏的【预设变量】列表。格式请参见 4. (10) 节中与【预设变量】有关的部分。
-    默认情况下，这两个文件（以及 Config/STRUCT_TABLE.txt）配置为群英2的系统调用和预设变量列表。
+    默认情况下，这两个文件（以及 config/STRUCT_TABLE.txt）配置为群英2的系统调用和预设变量列表。
         ！！警告！！
         反汇编器将会引用这两个文件的配置对系统调用和预设变量进行注释，因此如果它们的内容与您的代数不相符，可能会引起误导，敬请留意。
         笔者不熟悉2代以外的代数的修改，因此无法提供其它代数的配置文件。
@@ -254,6 +299,27 @@ makefile                   编译源码用文件
 (3) 使用 ./sg2dasm2 <源文件名>.so 进行反汇编。
 (4) 将会生成与原 so 文件同名的 asm 文件。关于指令集，请参考 magic_inst.txt；据我所知，指令集在群英各代间通用（但系统调用不通用）。
 
+
+3.2 反编译器使用说明
+(1) 将 .so 文件和压缩包内文件放在同一目录下。
+(2) 使用前，请检查 config/SYSCALL_TABLE.txt 和 config/INTV_TABLE.txt 两个配置文件。
+    SYSCALL_TABLE 配置游戏的【系统调用】列表。格式请参见 4. (9) 节。
+    INTV_TABLE    配置游戏的【预设变量】列表。格式请参见 4. (10) 节中与【预设变量】有关的部分。
+    默认情况下，这两个文件（以及 config/STRUCT_TABLE.txt）配置为群英2的系统调用和预设变量列表。
+        ！！警告！！
+        反编译器将会引用这两个文件的配置对系统调用和预设变量进行注释，因此如果它们的内容与您的代数不相符，可能会引起误导，敬请留意。
+        笔者不熟悉2代以外的代数的修改，因此无法提供其它代数的配置文件。
+        如果您想要反汇编的不是2代的so，建议预先删除或改名这两个文件； sg2decomp.exe 可以在缺少这两个文件的情况下运行（会抛出警告）。
+(3) 使用 ./sg2decomp <源文件名>.so 进行反汇编。
+(4) 将会生成 <源文件名>.decompiled.cpp 文件。您也可以用 -o 指令指定生成的目标文件名。
+(5) 可使用 [--mode structured|goto|lossless] 指定反编译模式。
+    默认模式为 structured ，即，会尝试识别代码中的 if/while/switch 等结构。
+        这并非总是能成功。失败时，将尝试生成 while(1) { switch (...) {}} 式的控制流程，或生成 goto 。
+    goto 模式保留基本块跳转；lossless 模式保留汇编。
+(6) 此工具默认会生成一个诊断文件，供参考。
+        可使用 [--report <报告文件名>.json] 参数指定生成的诊断文件名。
+(7) 此工具是在 GPT Sol 5.6 的辅助下编写的。
+    当前，反编译器仍属实验性工具；生成源码应谨慎进行验证。
 
 4. 语法结构
 基本语法结构绝大部分与C语言相同，但也存在差异。
@@ -282,11 +348,12 @@ makefile                   编译源码用文件
 (4) 所有局部、全局变量均有类型。
     程序运行时暗含三种类型：int, float, string (整型、浮点型、字符串型)。
     除此之外，您也可以声明其它类型，包括：
-        a. 除int外的其他整型。这些整型包括 byte (1位整数), short (2位整数), 以及无符号整数 unsigned / unsigned int, unsigned short, unsigned byte.
+        a. 除int外的其他整型。这些整型包括 byte (1字节整数), short (2字节整数), 以及无符号整数 unsigned / unsigned int, unsigned short, unsigned byte.
         b. 指针类型。包括: void *, 整型指针，字符串指针，结构体指针、函数指针，以及指针的指针。
            （本编译器使用的“指针”和一般意义的指针有一定差别。简单地说，它无法直接指向局部和全局变量，而是指向内存中的地址。）
         c. 数组类型。
-    编译器会判断运算符的操作数、函数的实参等是否类型匹配。
+    编译器会判断运算符的操作数、普通函数及函数指针的实参等是否类型匹配。
+        一些情况下，会进行隐式类型转换。请参阅 (6)(7) 。
     变量名和参数名必须由字母、数字和下划线构成，并且必须以（小写或大写）字母开头。区分大小写。
 
 (5) 变量声明格式同C/Java/C#。类型在前，变量名在后。支持声明时直接赋值。
@@ -296,13 +363,13 @@ makefile                   编译源码用文件
         数组长度必须是常整数。
         数组不支持立即赋值。
     从v0.9.6开始，您可以声明浮点型常数。
-    从v0.9.8开始，您可以声名全局变量。
+    从v0.9.8开始，您可以声明全局变量。
     例如，以下语法是支持的：
         int i, j, k[10];
 		SangoObject* array[10];
         string battleChant = "Ura!";
         float zeroPointOne = 1 / (float) 10;
-        float zeroPointOne = 0.1;
+        float oneTenth = 0.1;
 	以下语法是不支持的：
         int numbers[3] = {1,2,3};
         int[3] length_in_front;
@@ -348,9 +415,9 @@ makefile                   编译源码用文件
     注3: 自增、自减、赋值运算符本身有值。因而您可以放心地写出 int j = i++; 这样的语句。
          （Btw: 这个功能实现起来真是见了鬼一样的麻烦。）
         
-    注4：为与整型常量相区分，浮点数常量须带小数点，如 1.0。
+    注4：为与整型常量相区分，浮点数常量通常需带小数点，如 1.0。
         也可以使用科学计数法，如 3.78e+12 . 
-        可以使用F/f结尾表示这是一个浮点数，如 1.0f .
+        可以使用F/f结尾表示这是一个浮点数，此时可带或不带小数点，如 1f .
 
 (7) 允许指针类型。
     本编译器使用的“指针”和一般意义的指针有一定差别。
@@ -442,7 +509,8 @@ makefile                   编译源码用文件
         函数指针的本质是动态设置系统调用(SYSCALL)列表。
             每次使用函数指针时，特定编号的系统函数被设置为函数指针指向的目标EXE函数，
             然后调用SYSCALL指令完成对EXE目标函数的调用。
-            具体使用的编号，可以在 config/CONFIG.txt 中指定 funcptr_syscall 一项。默认为 0x220.
+            具体使用的编号及其在EXE内的目标槽地址，可在 config/CONFIG.txt 中以 funcptr_syscall 和 funcptr_target_addr 指定。
+            群英2 1.05+默认为 0x220 和 0x4A7230。
 
 (8) 支持的分支结构包括：
         if...else if...else
@@ -456,7 +524,7 @@ makefile                   编译源码用文件
     您的确可以强行goto到另一个函数当中，尽管由于这可能导致RETN指令导致的堆栈混乱，我们强烈不推荐您这么做。
 
 (9) 支持全部原有的系统调用。您可以在config/SYSCALL_TABLE.txt中查看它们的声明。
-    SYSCALL_TABLE.txt每行由4部分组成，从左到右分别是编号、参数个数、返回值类型(0-无，1-整型，3-字符串)、函数名。
+    SYSCALL_TABLE.txt每行由4部分组成，从左到右分别是编号、参数个数、返回值类型(0-无，1-整型，2-浮点，3-字符串)、函数名。
     例如：
         0x10 5 1 CreateObjectRaw
     声明了一个编号为0x10，有5个参数，有整型返回值，名字为CreateObjectRaw的函数。
@@ -480,7 +548,9 @@ makefile                   编译源码用文件
      例如：
          int attackerMajor = GetIntv(INTV_ATTACKER_MAJOR);
      和之前版本不同的是，所有系统指令目前完全支持运行时才能确定值的变量。您可以像正常的函数一样使用它。
-     目前，所有全局变量和intv只有整型。
+     默认情况下，GetGlobal和GetIntv指令的返回值为整型。
+        如您需要其它类型的全局变量，请以常规方式声明之并引用。
+        暂不支持非整型的预设变量（intv）。
 
      您还可以直接像局部变量一样使用部分已定义的预设变量 (intv)。这些预设变量的命名在config/INTV_TABLE.txt中。
      例如，当该文件部分内容如下时，为取得2号预设变量的值，您可以直接用intvAttackerMajor代替GetIntv(2)：
@@ -489,6 +559,7 @@ makefile                   编译源码用文件
          intvDefenderMajor		    0x03
          intvMagicAttackValue	    0x04
      您也可以对intv进行赋值。例如，intvCurrentYear = 200; 将把当前年份设为200年。
+     暂不支持数组形式的intv，请使用GetIntv/SetIntv进行存取。
 
 (11) 支持同时运行多个函数（即异步调用）。当您以asynccall方式调用函数时，它会和接下来的代码一起执行。
       （它的另一个比较熟悉的名字是CALLBS，但我觉得Call by String并不能揭示这种函数调用方法的本质。）
@@ -501,7 +572,7 @@ makefile                   编译源码用文件
       因此，您必须使它单独成一行，而不能包括在一个表达式里。
       例如，下面的写法是不受支持的：
           int return_value = asynccall GetValue();
-      用此法调用的函数至多有9个参数。
+      用此法调用的函数至多有10个参数。
 
       您不可以以异步调用方式调用系统调用(SYSCALL)或系统指令。这是脚本语言本身所不允许的。
 
@@ -519,8 +590,11 @@ makefile                   编译源码用文件
 (13) 您可以使用#include 宏定义来导入其它文件中的内容。格式如下（二者选其一，包括引号或尖括号）：
           #include "文件名"
           #include <文件名>
-     编译器不检测循环嵌套，请务必小心！
-        对于群英2，您不需要#include "sg2lang.h"以进行注册式内存操作。它会在编译时自动导入。
+     编译器仅检测朴素的循环嵌套（即同一文件名被 #include 两次的情况），对复杂情况无能为力。请务必小心！
+     对于群英2，当 use_exe_memory_io = 0 时，您不需要 #include "sg2lang.h"以进行注册式内存操作。
+        它会在编译时自动导入。
+        从0.9.8开始，您可在config/CONFIG.txt中，以 script_memory_io_file 指定此文件的路径（不一定是 sg2lang.h ）。
+        从0.9.9开始，当 script_memory_io_file 为空时，不会自动 #include 任何文件（适用于您的源文件中已包括同一套函数的情况）。
 
 (14) 您可以用 // 来定义单行注释，以 /* */ 定义多行注释。
 
@@ -558,23 +632,23 @@ makefile                   编译源码用文件
         }
     编译器不对底层代码进行任何检查。因此，您需要额外注意自己编写的代码。
 
-(16) 暂不支持对预设变量 (intv) 的间接寻址（数组）操作。您可能仍然需要用直接编写asm代码的形式完成这些功能。
-
 
 5. 编译
 您可能会发现您的代码出现编译错误。这可能是因为您的代码中存在问题，也可能是存在编译器不支持的语法结构，也可能是编译器出错(bug)。
-目前，编译错误信息由GB2312编码的中文输出。如果您的代码页被指定为UTF-8或其它编码，请在命令行中输入：
+目前，编译错误信息由GBK编码的中文输出。如果您的代码页被指定为UTF-8或其它编码，请在命令行中输入：
     chcp 936
 来指定系统命令行所使用的编码。
 如果您怀疑是bug所致，请及时与我联系。
-一个错误会导致后续的连环错误，因为第一个错误可能会使得编译器无法识别后面的正常代码。因此请先从第一个错误开始改起。
-如果您发现编译器不停地报出若干个相同的错误，请忽略那些相同的错误。
+编译器目前尚无异常恢复功能，一个错误会导致后续的连环错误，因此被设置为仅输出第一个错误，可能需要重复编译以清除所有错误。
 另外，您也可能发现编译器没有对您的代码错误作出反应。编译器不进行空指针等一些可能导致运行时出错的问题，这类问题不应由编译器负责。
 
 
 6. 运行
 显然，您需要将生成的asm文件通过任何方式编译为.so文件才能运行。
-    本编译器只能生成中间代码（即类汇编的asm格式），但您可以直接在此之后调用sg2asm.exe来生成.so文件。详见开头使用说明部分。
+    本编译器只能生成中间代码（即类汇编的asm格式）。
+        但，您可以直接在此之后调用sg2asm.exe来生成.so文件。
+        您也可以指定 -a 选项，让本编译器直接帮您调用sg2asm.exe来生成.so文件。
+        详见开头使用说明部分。
 如果您需要调试，使用调试器进行源代码上的调试是困难的。
     目前最常见的（群英2的）调试器是注册EXE（您可以在注册网盘上找到v0.522版本的），而它是基于asm格式的代码的。因而您可能仍然需要一些三国2脚本的知识。
     为应对调试需求，您可以使用（群英2的）系统调用中的Prompt函数，让屏幕上弹出对话框，以显示您需要的信息。
@@ -583,9 +657,10 @@ makefile                   编译源码用文件
 7. 鸣谢和声明
 编译器中表达式分析的部分受到了 Sam Nipps 编写的 mini-c 的启发。感谢 Sam Nipps 的工作。(github: https://github.com/Fedjmike/mini-c)
 编译器中Lexer的部分参考了 陈安 的 Parser教程。感谢 陈安 的工作。(https://zhuanlan.zhihu.com/p/26142441)
+本编译器、反编译器和反汇编器的成型，均有赖于 @还要注册真不爽 大神的奠基工作。向大神致以敬意。
 源代码在MIT License下开放，详见LICENSE.
 
 
 远帆
 初次更新：2018/1/25
-最后更新：2025/8/15
+最后更新：2026/8/9

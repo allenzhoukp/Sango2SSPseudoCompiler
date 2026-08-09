@@ -163,8 +163,6 @@ int Parser::getType(int& tokenPos, bool match, string& typeName) {
         type = DataTypes::typeShort;
     else if(content == "byte")
         type = DataTypes::typeByte;
-    else if(content == "unsigned")
-        type = DataTypes::typeUInt;
     else if(combinedContent == "unsigned int") {
         type = DataTypes::typeUInt;
         tokmove = 2;
@@ -174,6 +172,8 @@ int Parser::getType(int& tokenPos, bool match, string& typeName) {
     } else if(combinedContent == "unsigned byte") {
         type = DataTypes::typeUByte;
         tokmove = 2;
+    } else if(content == "unsigned") {
+        type = DataTypes::typeUInt;
     } else {
         type = getStructInfoByName(content)->id;
         if(type == -1)

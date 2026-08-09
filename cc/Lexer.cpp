@@ -62,11 +62,14 @@ void Lexer::readFile (string fileName) {
     file.fileName = fileName;
     FILE* fin = fopen(fileName.c_str(), "r");
 
-    // panic if file does not exist, and it is not sg2lang.h
+    // Every nonempty path is mandatory. The caller handles an intentionally
+    // empty optional path before reaching this function.
     if (!fin) {
-        if (fileName != "sg2lang.h")
-            Panic::panic(ErrMsg::fileNotExist + " " + fileName,
-                curfile->fileName, curfile->curln, curfile->curcol);
+        const bool hasIncludingFile = fileStackTop > 0;
+        Panic::panic(ErrMsg::fileNotExist + " " + fileName,
+            hasIncludingFile ? curfile->fileName : fileName,
+            hasIncludingFile ? curfile->curln : 1,
+            hasIncludingFile ? curfile->curcol : 1);
         return;
     }
 
@@ -310,9 +313,13 @@ Lexer::Lexer (string rootFileName) {
     fileStackTop = tokenCount = 0;
     readFile(rootFileName);
 
-    //sg2lang here!
+    // Load the fallback memory helpers unless the configuration deliberately
+    // leaves the filename empty because the source provides its own copies.
     if (Config::get("use_exe_memory_io") == "0") {
-        readFile(Config::get("script_memory_io_file"));
+        const string memoryIoFile = Config::get("script_memory_io_file");
+        if (!memoryIoFile.empty()) {
+            readFile(memoryIoFile);
+        }
     }
 }
 

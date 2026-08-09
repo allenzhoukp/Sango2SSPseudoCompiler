@@ -71,7 +71,7 @@ struct Function {
 };
 
 struct Intv {
-    int type;
+    int type = DataTypes::typeInt;
     string name;
     int intvNo;
 };
