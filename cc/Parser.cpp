@@ -230,7 +230,8 @@ void Parser::newLocalArray(int type, string name, int len) {
 
     var.isArray = true;
     char buf[MAX_LINE_LEN];
-    for(int i = 0; i < len; i++){
+    // The named array variable is element zero, so reserve only the rest.
+    for(int i = 1; i < len; i++){
         sprintf(buf, "%d", i);
         newLocal(type, "__" + name + "_" + string(buf));
     }
@@ -325,7 +326,8 @@ void Parser::newGlobalArray(int type, string name, int len) {
     globalCount++;
 
     var.isArray = true;
-    for(int i = 0; i < len; i++){
+    // The named array variable is element zero, so reserve only the rest.
+    for(int i = 1; i < len; i++){
         // I think std::to_string is supported. Not sure why I wrote complicated stuff before
         newGlobal(type, "__" + name + "_" + std::to_string(i));
     }
