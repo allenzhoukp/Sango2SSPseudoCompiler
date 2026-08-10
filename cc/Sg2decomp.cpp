@@ -1,5 +1,7 @@
 #include "decompiler/Decompiler.h"
 
+#include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -23,6 +25,9 @@ struct Options {
     std::string inputPath;
     std::string outputPath;
     std::string reportPath;
+    std::string configurationDirectory = "config";
+    std::string generatedSystemCallPath
+        = "config/DECOMPILED_SYSCALL_TABLE.txt";
     std::string mode = "structured";
 };
 
@@ -42,7 +47,9 @@ std::string replaceExtension(const std::string& path,
 void printUsage() {
     std::cout
         << "Usage: sg2decomp.exe input.so [-o output.cpp] [--report output.json]\n"
-        << "                         [--mode structured|goto|lossless]\n";
+        << "                         [--mode structured|goto|lossless]\n"
+        << "                         [--config-dir directory]\n"
+        << "                         [--syscall-output table.txt]\n";
 }
 
 /** Parses command-line arguments without silently accepting misspellings. */
@@ -55,7 +62,9 @@ bool parseOptions(int argumentCount, char** arguments,
     options.inputPath = arguments[1];
     for (int index = 2; index < argumentCount; ++index) {
         const std::string argument = arguments[index];
-        if ((argument == "-o" || argument == "--report" || argument == "--mode")
+        if ((argument == "-o" || argument == "--report" || argument == "--mode"
+                || argument == "--config-dir"
+                || argument == "--syscall-output")
                 && index + 1 >= argumentCount) {
             error = "Option " + argument + " requires a value.";
             return false;
@@ -66,6 +75,10 @@ bool parseOptions(int argumentCount, char** arguments,
             options.reportPath = arguments[++index];
         } else if (argument == "--mode") {
             options.mode = arguments[++index];
+        } else if (argument == "--config-dir") {
+            options.configurationDirectory = arguments[++index];
+        } else if (argument == "--syscall-output") {
+            options.generatedSystemCallPath = arguments[++index];
         } else if (argument.compare(0, 7, "--mode=") == 0) {
             options.mode = argument.substr(7);
         } else {
@@ -83,6 +96,29 @@ bool parseOptions(int argumentCount, char** arguments,
     }
     if (options.reportPath.empty()) {
         options.reportPath = replaceExtension(options.outputPath, ".report.json");
+    }
+    return true;
+}
+
+/** Writes only newly inferred signatures, leaving the selected table untouched. */
+bool writeGeneratedSystemCalls(const std::string& path,
+                               const std::vector<sango::decompiler::SystemCall>& calls,
+                               std::string& error) {
+    std::ofstream output(path.c_str());
+    if (!output) {
+        error = "Unable to write " + path + ".";
+        return false;
+    }
+    for (std::size_t index = 0; index < calls.size(); ++index) {
+        output << "0x" << std::hex << std::uppercase << calls[index].number
+               << std::dec << std::nouppercase << ' '
+               << calls[index].parameterCount << ' '
+               << calls[index].returnCode << ' '
+               << calls[index].name << '\n';
+    }
+    if (!output) {
+        error = "Unable to finish writing " + path + ".";
+        return false;
     }
     return true;
 }
@@ -113,9 +149,16 @@ int main(int argumentCount, char** arguments) {
     }
 
     ConfigurationNames names;
-    names.load("config");
+    names.load(options.configurationDirectory);
     module.warnings.insert(module.warnings.end(),
                            names.warnings.begin(), names.warnings.end());
+    const std::vector<sango::decompiler::SystemCall> generatedSystemCalls
+        = names.addMissingSystemCalls(module);
+    if (!writeGeneratedSystemCalls(options.generatedSystemCallPath,
+                                   generatedSystemCalls, error)) {
+        std::cerr << "Error: " << error << '\n';
+        return 1;
+    }
 
     ControlFlowGraphBuilder graphBuilder;
     std::vector<FunctionGraph> graphs;
@@ -155,6 +198,9 @@ int main(int argumentCount, char** arguments) {
               << options.reportPath << ".\n"
               << "Structured " << report.structuredFunctionCount << " of "
               << module.functions.size() << " functions; "
-              << report.residualGotoCount << " residual goto(s).\n";
+              << report.residualGotoCount << " residual goto(s).\n"
+              << "Created " << generatedSystemCalls.size()
+              << " new syscall signature(s) in "
+              << options.generatedSystemCallPath << ".\n";
     return 0;
 }

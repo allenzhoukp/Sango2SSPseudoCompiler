@@ -43,6 +43,10 @@
 !/config/INTV_TABLE.txt
 !/config/STRUCT_TABLE.txt
 !/config/SYSCALL_TABLE.txt
+!/config/empty/
+!/config/empty/CONFIG.txt
+!/config/empty/INTV_TABLE.txt
+!/config/empty/SYSCALL_TABLE.txt
 
 # Build entry point
 !/makefile

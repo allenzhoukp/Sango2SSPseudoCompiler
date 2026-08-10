@@ -121,6 +121,113 @@ void rememberExternalFunction(LiftedFunction& function,
     }
 }
 
+/** Formats one value-producing instruction for reuse in a local __asm block. */
+std::string expressionAssemblyInstruction(const Module& module,
+                                          int functionIndex,
+                                          int localSlotAdjustment,
+                                          const Instruction& instruction) {
+    const InstructionDescription* description
+        = instructionDescription(instruction.opcode);
+    if (description == NULL) {
+        return std::string();
+    }
+    std::ostringstream output;
+    output << ' ' << description->name;
+    if (instruction.operandCount >= 1) {
+        output << ' ';
+        if (instruction.opcode == 0x04) {
+            const int target = findFunction(
+                module, static_cast<std::uint32_t>(instruction.operand));
+            if (target < 0) {
+                return std::string();
+            }
+            output << sourceIdentifier(module.functions[target].name, target);
+        } else if (instruction.opcode == 0x07) {
+            if (instruction.operand < 0
+                    || static_cast<std::size_t>(instruction.operand)
+                        >= module.runtimeStringAddresses.size()) {
+                return std::string();
+            }
+            const std::uint32_t address
+                = module.runtimeStringAddresses[instruction.operand];
+            std::map<std::uint32_t, ObjectString>::const_iterator found
+                = module.strings.find(address);
+            if (found == module.strings.end()) {
+                return std::string();
+            }
+            output << quoteSourceString(found->second.bytes);
+        } else if (instruction.opcode == 0x05) {
+            output << "0x" << std::hex << std::uppercase
+                   << static_cast<std::uint32_t>(instruction.operand)
+                   << std::dec << std::nouppercase;
+        } else {
+            const bool directLocal = instruction.opcode == 0x08
+                || instruction.opcode == 0x0b
+                || instruction.opcode == 0x1d
+                || instruction.opcode == 0x20
+                || instruction.opcode == 0x4e
+                || instruction.opcode == 0x51
+                || instruction.opcode == 0x54
+                || instruction.opcode == 0x57;
+            output << (directLocal && instruction.operand > 0
+                ? instruction.operand + localSlotAdjustment
+                : instruction.operand);
+        }
+    }
+    if (instruction.operandCount == 2) {
+        output << ", ";
+        if (instruction.opcode == 0x05) {
+            const std::uint32_t packed
+                = static_cast<std::uint32_t>(instruction.secondOperand);
+            output << '(' << (packed & 0xffffU) << " | ("
+                   << (packed >> 16) << " << 16))";
+        } else {
+            output << instruction.secondOperand;
+        }
+    }
+    output << '\n';
+    return output.str();
+}
+
+/** Joins argument provenance and the instruction that consumes those values. */
+std::string expressionAssembly(const Module& module, int functionIndex,
+                               int localSlotAdjustment,
+                               const std::vector<Expression>& arguments,
+                               const Instruction& instruction) {
+    std::string result;
+    for (std::size_t index = 0; index < arguments.size(); ++index) {
+        if (arguments[index].assembly.empty()) {
+            return std::string();
+        }
+        result += arguments[index].assembly;
+    }
+    const std::string operation
+        = expressionAssemblyInstruction(
+            module, functionIndex, localSlotAdjustment, instruction);
+    return operation.empty() ? std::string() : result + operation;
+}
+
+/** Contains an arity-mismatched asynchronous call in one explained asm block. */
+bool inlineAssemblyCallbs(const Module& module, int functionIndex,
+                          int localSlotAdjustment,
+                          const Instruction& instruction,
+                          const std::vector<Expression>& values,
+                          int target, std::string& statement) {
+    const std::string assembly
+        = expressionAssembly(module, functionIndex, localSlotAdjustment,
+                             values, instruction);
+    if (assembly.empty()) {
+        return false;
+    }
+    std::ostringstream output;
+    output << "// Inline assembly: CALLBS encodes 4 arguments, but "
+           << sourceIdentifier(module.functions[target].name, target)
+           << " declares " << module.functions[target].parameterCount << ".\n"
+           << "__asm {\n" << assembly << '}';
+    statement = output.str();
+    return true;
+}
+
 /** Writes a simple source expression as one equivalent assembly push. */
 bool writeAssemblyPush(std::ostream& output, const Expression& expression,
                        const ConfigurationNames& names) {
@@ -322,6 +429,7 @@ LiftedFunction StackLifter::lift(const Module& module,
 
     const int functionIndex = graph.functionIndex;
     const int localBase = localSlotBase(graph);
+    const int inlineAssemblyLocalSlotAdjustment = 3 - localBase;
     result.returnType = types.functionReturnType(functionIndex);
     result.returnsValue = types.functionReturnsValue(functionIndex);
     for (int parameter = 0;
@@ -367,6 +475,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                 value.text = value.type == ValueType::floatingPoint
                     ? floatingPointText(instruction.operand)
                     : integerText(instruction.operand);
+                value.assembly = expressionAssemblyInstruction(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    instruction);
                 stack.push_back(value);
             } else if (opcode == 0x07) {
                 Expression value;
@@ -380,6 +491,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                 const std::uint32_t address
                     = module.runtimeStringAddresses[instruction.operand];
                 value.text = quoteSourceString(module.strings.find(address)->second.bytes);
+                value.assembly = expressionAssemblyInstruction(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    instruction);
                 stack.push_back(value);
             } else if (opcode == 0x08) {
                 Expression value;
@@ -393,16 +507,25 @@ LiftedFunction StackLifter::lift(const Module& module,
                     value.type = types.localType(functionIndex, instruction.operand);
                     result.localTypes[instruction.operand] = value.type;
                 }
+                value.assembly = expressionAssemblyInstruction(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    instruction);
                 stack.push_back(value);
             } else if (opcode == 0x09) {
                 Expression value;
                 value.text = "g_var" + std::to_string(instruction.operand);
                 value.type = types.globalType(instruction.operand);
+                value.assembly = expressionAssemblyInstruction(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    instruction);
                 stack.push_back(value);
             } else if (opcode == 0x0a) {
                 Expression value;
                 value.text = internalValueRead(names, instruction.operand);
                 value.type = ValueType::integer;
+                value.assembly = expressionAssemblyInstruction(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    instruction);
                 stack.push_back(value);
             } else if (opcode == 0x04) {
                 const int callee = findFunction(
@@ -418,6 +541,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                     + "(" + argumentText(arguments) + ")";
                 call.type = types.functionReturnType(callee);
                 call.hasSideEffect = true;
+                call.assembly = expressionAssembly(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    arguments, instruction);
                 if (types.functionReturnsValue(callee)) {
                     stack.push_back(call);
                 } else {
@@ -431,7 +557,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                     = popArguments(stack, count, underflow);
                 const std::uint32_t number
                     = static_cast<std::uint32_t>(instruction.operand);
-                if (number >= 0x310 && number <= 0x31f && !arguments.empty()) {
+                const int returnCode = static_cast<int>(packed >> 16);
+                if (names.isExtendedAsyncCall(number, count, returnCode)
+                        && !arguments.empty()) {
                     const int target = asynchronousTarget(module, arguments[0].text);
                     const int actualCount = target < 0
                         ? static_cast<int>(arguments.size()) - 1
@@ -458,13 +586,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                             : sourceIdentifier(module.functions[target].name, target))
                         + "(" + argumentText(actual) + ");");
                 } else {
-                    std::unordered_map<std::uint32_t, SystemCall>::const_iterator found
-                        = names.systemCalls.find(number);
-                    const int returnCode = static_cast<int>(packed >> 16);
-                    if (found == names.systemCalls.end()
-                            || found->second.parameterCount != count
-                            || (returnCode == 0
-                                && found->second.returnType != ValueType::unknown)) {
+                    const SystemCall* found
+                        = names.findSystemCall(number, count, returnCode);
+                    if (found == NULL) {
                         std::string inlineAssembly;
                         if (returnCode == 0
                                 && inlineAssemblySystemCall(instruction,
@@ -477,12 +601,15 @@ LiftedFunction StackLifter::lift(const Module& module,
                         break;
                     }
                     std::ostringstream callText;
-                    callText << found->second.name
+                    callText << found->name
                         << "(" << argumentText(arguments) << ")";
                     Expression call;
                     call.text = callText.str();
                     call.type = types.instructionType(instruction.address);
                     call.hasSideEffect = true;
+                    call.assembly = expressionAssembly(
+                        module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                        arguments, instruction);
                     if ((packed >> 16) != 0) {
                         stack.push_back(call);
                     } else {
@@ -517,24 +644,35 @@ LiftedFunction StackLifter::lift(const Module& module,
             } else if (binaryOperator(opcode) != NULL) {
                 const Expression right = popExpression(stack, underflow);
                 const Expression left = popExpression(stack, underflow);
-                stack.push_back(binaryExpression(left, binaryOperator(opcode), right,
+                Expression value = binaryExpression(left, binaryOperator(opcode), right,
                     isComparison(opcode) ? ValueType::integer
-                                         : types.instructionType(instruction.address)));
+                                         : types.instructionType(instruction.address));
+                value.assembly = left.assembly + right.assembly
+                    + expressionAssemblyInstruction(module, functionIndex,
+                        inlineAssemblyLocalSlotAdjustment, instruction);
+                stack.push_back(value);
             } else if (opcode == 0x19) {
-                popExpression(stack, underflow);
-                popExpression(stack, underflow);
+                const Expression right = popExpression(stack, underflow);
+                const Expression left = popExpression(stack, underflow);
                 Expression zero;
                 zero.text = "0";
                 zero.type = ValueType::integer;
+                zero.assembly = left.assembly + right.assembly
+                    + expressionAssemblyInstruction(module, functionIndex,
+                        inlineAssemblyLocalSlotAdjustment, instruction);
                 stack.push_back(zero);
             } else if (opcode == 0x1a || opcode == 0x1b
                     || opcode == 0x1c || opcode == 0x38) {
                 const Expression operand = popExpression(stack, underflow);
                 const std::string operation = opcode == 0x1a || opcode == 0x1b
                     ? "-" : opcode == 0x1c ? "~" : "!";
-                stack.push_back(unaryExpression(operation, operand,
+                Expression value = unaryExpression(operation, operand,
                     opcode == 0x1b ? ValueType::floatingPoint
-                                   : ValueType::integer));
+                                   : ValueType::integer);
+                value.assembly = operand.assembly
+                    + expressionAssemblyInstruction(module, functionIndex,
+                        inlineAssemblyLocalSlotAdjustment, instruction);
+                stack.push_back(value);
             } else if (opcode >= 0x1d && opcode <= 0x22) {
                 const bool increment = opcode <= 0x1f;
                 std::string target;
@@ -593,6 +731,10 @@ LiftedFunction StackLifter::lift(const Module& module,
                 call.text = "IsRunning(" + argument.text + ")";
                 call.type = ValueType::integer;
                 call.hasSideEffect = true;
+                std::vector<Expression> arguments(1, argument);
+                call.assembly = expressionAssembly(
+                    module, functionIndex, inlineAssemblyLocalSlotAdjustment,
+                    arguments, instruction);
                 stack.push_back(call);
             } else if (opcode == 0x47) {
                 std::vector<Expression> values = popArguments(stack, 5, underflow);
@@ -601,8 +743,17 @@ LiftedFunction StackLifter::lift(const Module& module,
                 }
                 const int target = asynchronousTarget(module, values[0].text);
                 if (target >= 0 && module.functions[target].parameterCount > 4) {
-                    unsupported = true;
-                    break;
+                    std::string inlineAssembly;
+                    if (!inlineAssemblyCallbs(module, functionIndex,
+                                              inlineAssemblyLocalSlotAdjustment,
+                                              instruction, values, target,
+                                              inlineAssembly)) {
+                        unsupported = true;
+                        break;
+                    }
+                    lifted.statements.push_back(inlineAssembly);
+                    ++result.inlineAssemblyCount;
+                    continue;
                 }
                 std::string externalName;
                 if (target < 0) {
@@ -648,6 +799,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                     converted.text = "0";
                     converted.type = ValueType::integer;
                 }
+                converted.assembly = operand.assembly
+                    + expressionAssemblyInstruction(module, functionIndex,
+                        inlineAssemblyLocalSlotAdjustment, instruction);
                 stack.push_back(converted);
             } else if (opcode >= 0x4e && opcode <= 0x50) {
                 const Expression index = popExpression(stack, underflow);
@@ -669,6 +823,9 @@ LiftedFunction StackLifter::lift(const Module& module,
                         + indexedInternalValue(instruction.operand, index) + ")";
                     value.type = ValueType::integer;
                 }
+                value.assembly = index.assembly
+                    + expressionAssemblyInstruction(module, functionIndex,
+                        inlineAssemblyLocalSlotAdjustment, instruction);
                 stack.push_back(value);
             } else if (opcode >= 0x51 && opcode <= 0x53) {
                 const Expression index = popExpression(stack, underflow);

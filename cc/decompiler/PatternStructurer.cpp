@@ -24,7 +24,15 @@ struct LoopRegion {
 /** Adds one indented source line to a structured function body. */
 void addLine(std::vector<std::string>& output, int indent,
              const std::string& line) {
-    output.push_back(std::string(static_cast<std::size_t>(indent), ' ') + line);
+    const std::string prefix(static_cast<std::size_t>(indent), ' ');
+    std::string indented = prefix;
+    for (std::size_t index = 0; index < line.size(); ++index) {
+        indented += line[index];
+        if (line[index] == '\n' && index + 1 < line.size()) {
+            indented += prefix;
+        }
+    }
+    output.push_back(indented);
 }
 
 /** Returns a parenthesized logical inverse without assuming C precedence. */
@@ -114,6 +122,59 @@ int nearestCommonBlock(const FunctionGraph& graph,
         }
     }
     return best;
+}
+
+/** Finds the nearest join shared by at least two non-terminating branches. */
+int nearestSharedBlock(const FunctionGraph& graph,
+                       const std::vector<int>& starts,
+                       const std::set<int>& forbidden) {
+    if (starts.size() < 2) {
+        return -1;
+    }
+    std::vector<std::map<int, int> > allDistances;
+    std::set<int> candidates;
+    std::set<int> branchStarts(starts.begin(), starts.end());
+    for (std::size_t index = 0; index < starts.size(); ++index) {
+        allDistances.push_back(distancesFrom(graph, starts[index], forbidden));
+        for (std::map<int, int>::const_iterator found
+                = allDistances.back().begin();
+                found != allDistances.back().end(); ++found) {
+            if (branchStarts.count(found->first) == 0) {
+                candidates.insert(found->first);
+            }
+        }
+    }
+
+    int best = -1;
+    int bestCoverage = 1;
+    int bestMaximum = std::numeric_limits<int>::max();
+    int bestTotal = std::numeric_limits<int>::max();
+    for (std::set<int>::const_iterator candidate = candidates.begin();
+            candidate != candidates.end(); ++candidate) {
+        int coverage = 0;
+        int maximum = 0;
+        int total = 0;
+        for (std::size_t path = 0; path < allDistances.size(); ++path) {
+            std::map<int, int>::const_iterator found
+                = allDistances[path].find(*candidate);
+            if (found == allDistances[path].end()) {
+                continue;
+            }
+            ++coverage;
+            maximum = std::max(maximum, found->second);
+            total += found->second;
+        }
+        if (coverage > bestCoverage
+                || (coverage == bestCoverage && maximum < bestMaximum)
+                || (coverage == bestCoverage && maximum == bestMaximum
+                    && total < bestTotal)) {
+            best = *candidate;
+            bestCoverage = coverage;
+            bestMaximum = maximum;
+            bestTotal = total;
+        }
+    }
+    return bestCoverage >= 2 ? best : -1;
 }
 
 /** Discovers natural loops from backward edges in compiler-ordered blocks. */
@@ -414,7 +475,10 @@ private:
         branchStarts.push_back(defaultTarget);
         std::set<int> forbidden = dispatchBlocks;
         forbidden.insert(dispatch);
-        const int join = nearestCommonBlock(graph_, branchStarts, forbidden);
+        int join = nearestCommonBlock(graph_, branchStarts, forbidden);
+        if (join < 0) {
+            join = nearestSharedBlock(graph_, branchStarts, forbidden);
+        }
         if (join < 0) {
             emitted_.insert(dispatchBlocks.begin(), dispatchBlocks.end());
             emitted_.insert(dispatch);

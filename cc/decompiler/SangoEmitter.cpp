@@ -12,6 +12,19 @@ namespace decompiler {
 
 namespace {
 
+/** Writes every physical line of one source statement at function-body depth. */
+void writeBodyLine(std::ostream& output, const std::string& text) {
+    const std::string prefix = "    ";
+    output << prefix;
+    for (std::size_t index = 0; index < text.size(); ++index) {
+        output << text[index];
+        if (text[index] == '\n' && index + 1 < text.size()) {
+            output << prefix;
+        }
+    }
+    output << '\n';
+}
+
 /** Escapes one string for a JavaScript Object Notation string value. */
 std::string quoteReportString(const std::string& value) {
     std::ostringstream output;
@@ -442,7 +455,7 @@ void writeHighLevelFunction(std::ostream& output, const Module& module,
             if (!text.empty() && text[text.size() - 1] == ':') {
                 output << text << '\n';
             } else {
-                output << "    " << text << '\n';
+                writeBodyLine(output, text);
             }
         }
     } else {
@@ -453,7 +466,7 @@ void writeHighLevelFunction(std::ostream& output, const Module& module,
                    << blockIndex << ":\n";
             for (std::size_t statement = 0;
                     statement < block.statements.size(); ++statement) {
-                output << "    " << block.statements[statement] << '\n';
+                writeBodyLine(output, block.statements[statement]);
             }
             if (block.exitKind == ExitKind::jump) {
                 output << "    goto function_" << functionIndex << "_block_"

@@ -1,0 +1,4 @@
+; Decompiler profile for games that do not use Sango 2's extended asynccall
+; syscall range. CALLBS still represents asynchronous calls with up to four
+; arguments; no asynccall_sys value is intentionally defined here.
+callbs_max_params = 4

@@ -87,18 +87,35 @@ struct Module {
 struct SystemCall {
     std::uint32_t number = 0;
     int parameterCount = 0;
+    int returnCode = 0;
     ValueType returnType = ValueType::unknown;
     std::string name;
 };
 
 /** Stores optional configuration names used by source emission. */
 struct ConfigurationNames {
-    std::unordered_map<std::uint32_t, SystemCall> systemCalls;
+    std::unordered_map<std::uint32_t, std::vector<SystemCall> > systemCalls;
     std::unordered_map<std::int32_t, std::string> internalValues;
     std::vector<std::string> warnings;
+    bool hasExtendedAsyncCalls = false;
+    std::uint32_t asyncSystemCallBase = 0;
+    int directAsyncParameterLimit = 4;
 
     /** Loads system-call and engine-value names from the repository configuration. */
     void load(const std::string& configurationDirectory);
+
+    /** Returns the configured call whose complete encoded signature matches. */
+    const SystemCall* findSystemCall(std::uint32_t number,
+                                     int parameterCount,
+                                     int returnCode) const;
+
+    /** Returns true when this signature is a configured extended asynchronous call. */
+    bool isExtendedAsyncCall(std::uint32_t number,
+                             int parameterCount,
+                             int returnCode) const;
+
+    /** Creates names for every object signature missing from the selected table. */
+    std::vector<SystemCall> addMissingSystemCalls(const Module& module);
 };
 
 /** Stores one maximal straight-line instruction sequence. */
@@ -125,6 +142,7 @@ struct FunctionGraph {
 /** Stores a source expression together with the facts needed for safe emission. */
 struct Expression {
     std::string text;
+    std::string assembly;
     ValueType type = ValueType::unknown;
     bool hasSideEffect = false;
 

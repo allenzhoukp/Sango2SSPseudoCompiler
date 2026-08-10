@@ -1,10 +1,13 @@
 #include "Decompiler.h"
 
 #include <algorithm>
+#include <cstdlib>
 #include <fstream>
 #include <iterator>
 #include <limits>
+#include <sstream>
 #include <set>
+#include <tuple>
 
 namespace sango {
 namespace decompiler {
@@ -53,6 +56,57 @@ void ConfigurationNames::load(const std::string& configurationDirectory) {
     systemCalls.clear();
     internalValues.clear();
     warnings.clear();
+    hasExtendedAsyncCalls = false;
+    asyncSystemCallBase = 0;
+    directAsyncParameterLimit = 4;
+
+    const std::string configurationPath
+        = configurationDirectory + "/CONFIG.txt";
+    std::ifstream configurationInput(configurationPath.c_str());
+    if (!configurationInput) {
+        warnings.push_back("Unable to read " + configurationPath + ".");
+    } else {
+        bool hasAsyncBase = false;
+        std::string line;
+        while (std::getline(configurationInput, line)) {
+            const std::string::size_type comment = line.find(';');
+            if (comment != std::string::npos) {
+                line.erase(comment);
+            }
+            const std::string::size_type equals = line.find('=');
+            if (equals == std::string::npos) {
+                continue;
+            }
+            std::string key = line.substr(0, equals);
+            std::string value = line.substr(equals + 1);
+            const std::string whitespace = " \t\r\n";
+            const std::string::size_type keyStart = key.find_first_not_of(whitespace);
+            const std::string::size_type keyEnd = key.find_last_not_of(whitespace);
+            const std::string::size_type valueStart
+                = value.find_first_not_of(whitespace);
+            const std::string::size_type valueEnd
+                = value.find_last_not_of(whitespace);
+            if (keyStart == std::string::npos || valueStart == std::string::npos) {
+                continue;
+            }
+            key = key.substr(keyStart, keyEnd - keyStart + 1);
+            value = value.substr(valueStart, valueEnd - valueStart + 1);
+            char* end = NULL;
+            if (key == "asynccall_sys") {
+                const unsigned long parsed = std::strtoul(value.c_str(), &end, 0);
+                if (end != value.c_str() && *end == '\0') {
+                    asyncSystemCallBase = static_cast<std::uint32_t>(parsed);
+                    hasAsyncBase = true;
+                }
+            } else if (key == "callbs_max_params") {
+                const long parsed = std::strtol(value.c_str(), &end, 10);
+                if (end != value.c_str() && *end == '\0' && parsed >= 0) {
+                    directAsyncParameterLimit = static_cast<int>(parsed);
+                }
+            }
+        }
+        hasExtendedAsyncCalls = hasAsyncBase;
+    }
 
     const std::string systemCallPath
         = configurationDirectory + "/SYSCALL_TABLE.txt";
@@ -69,12 +123,13 @@ void ConfigurationNames::load(const std::string& configurationDirectory) {
             SystemCall call;
             call.number = number;
             call.parameterCount = parameterCount;
+            call.returnCode = returnCode;
             call.name = name;
             call.returnType = returnCode == 0 ? ValueType::unknown
                 : returnCode == 2 ? ValueType::floatingPoint
                 : returnCode == 3 ? ValueType::string
                 : ValueType::integer;
-            systemCalls[number] = call;
+            systemCalls[number].push_back(call);
         }
     }
 
@@ -90,6 +145,94 @@ void ConfigurationNames::load(const std::string& configurationDirectory) {
             internalValues[static_cast<std::int32_t>(number)] = name;
         }
     }
+}
+
+const SystemCall* ConfigurationNames::findSystemCall(
+        std::uint32_t number, int parameterCount, int returnCode) const {
+    std::unordered_map<std::uint32_t, std::vector<SystemCall> >::const_iterator
+        found = systemCalls.find(number);
+    if (found == systemCalls.end()) {
+        return NULL;
+    }
+    for (std::size_t index = 0; index < found->second.size(); ++index) {
+        const SystemCall& call = found->second[index];
+        if (call.parameterCount == parameterCount
+                && call.returnCode == returnCode) {
+            return &call;
+        }
+    }
+    return NULL;
+}
+
+bool ConfigurationNames::isExtendedAsyncCall(
+        std::uint32_t number, int parameterCount, int returnCode) const {
+    if (!hasExtendedAsyncCalls || returnCode != 0
+            || number < asyncSystemCallBase) {
+        return false;
+    }
+    const std::uint64_t expectedParameterCount
+        = static_cast<std::uint64_t>(number - asyncSystemCallBase)
+        + static_cast<std::uint64_t>(directAsyncParameterLimit) + 2U;
+    return expectedParameterCount == static_cast<std::uint64_t>(parameterCount);
+}
+
+std::vector<SystemCall> ConfigurationNames::addMissingSystemCalls(
+        const Module& module) {
+    typedef std::tuple<std::uint32_t, int, int> Signature;
+    std::set<Signature> missing;
+    std::set<std::string> usedNames;
+    for (std::unordered_map<std::uint32_t, std::vector<SystemCall> >::const_iterator
+            group = systemCalls.begin(); group != systemCalls.end(); ++group) {
+        for (std::size_t index = 0; index < group->second.size(); ++index) {
+            usedNames.insert(group->second[index].name);
+        }
+    }
+    for (std::map<std::uint32_t, Instruction>::const_iterator
+            decoded = module.instructions.begin();
+            decoded != module.instructions.end(); ++decoded) {
+        const Instruction& instruction = decoded->second;
+        if (instruction.opcode != 0x05) {
+            continue;
+        }
+        const std::uint32_t number
+            = static_cast<std::uint32_t>(instruction.operand);
+        const std::uint32_t packed
+            = static_cast<std::uint32_t>(instruction.secondOperand);
+        const int parameterCount = static_cast<int>(packed & 0xffffU);
+        const int returnCode = static_cast<int>(packed >> 16);
+        if (!isExtendedAsyncCall(number, parameterCount, returnCode)
+                && findSystemCall(number, parameterCount, returnCode) == NULL) {
+            missing.insert(Signature(number, parameterCount, returnCode));
+        }
+    }
+
+    std::vector<SystemCall> generated;
+    for (std::set<Signature>::const_iterator signature = missing.begin();
+            signature != missing.end(); ++signature) {
+        SystemCall call;
+        call.number = std::get<0>(*signature);
+        call.parameterCount = std::get<1>(*signature);
+        call.returnCode = std::get<2>(*signature);
+        call.returnType = call.returnCode == 0 ? ValueType::unknown
+            : call.returnCode == 2 ? ValueType::floatingPoint
+            : call.returnCode == 3 ? ValueType::string
+            : ValueType::integer;
+        std::ostringstream name;
+        name << "DECOMP_SYSCALL_0x" << std::hex << std::uppercase
+             << call.number << std::dec << "_ARGS" << call.parameterCount
+             << "_RET" << call.returnCode;
+        call.name = name.str();
+        int suffix = 2;
+        while (usedNames.find(call.name) != usedNames.end()) {
+            std::ostringstream uniqueName;
+            uniqueName << name.str() << '_' << suffix++;
+            call.name = uniqueName.str();
+        }
+        usedNames.insert(call.name);
+        systemCalls[call.number].push_back(call);
+        generated.push_back(call);
+    }
+    return generated;
 }
 
 bool ObjectDecoder::decode(const std::string& path, Module& module,
